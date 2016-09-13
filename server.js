@@ -13,6 +13,8 @@ var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
 
+var mongofil="mongodb://SatabdiG:Shizimi1#@ds029496.mlab.com:29496/testimages";
+
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
@@ -78,63 +80,7 @@ _markerid = req.files[0].markerid;
 */
 
 //Multer Storage
-var storage =   multer.diskStorage({
-  guest: function (req, file, callback) {
-    callback(null, file._guest);
-  },
-  destination: function (req, file, callback) {
-    if (userid=="guest"){
-      callback(null, __dirname + '/uploads' + '/guest');
-  }else{
-      _userid = files[0].userid;
-      _mapid= files[0].mapid;
-      const dir = __dirname +'/uploads' + _userid+'/'+_mapid+'/version_1';
-      fs.exists(dir, function(exists) {
-        var uploadedFileName;
-        if (exists) {
-          callback(null, __dirname +'/uploads' + _userid+'/'+_mapid+'/version_1');
-        } else {
-          fs.mkdir(dir, err => cb(err, dir))
-          callback(null, __dirname +'/uploads' + _userid+'/'+_mapid+'/version_1');
-        }
-      });
-    }
-  },
-  filename: function (req, file, callback) {
-    var filename = file.originalname;
-    var fileExtension = filename.split(".")[1];
-    cb(null, filename+ "." + Date.now() + "." + fileExtension);
-    //callback(null, file.fieldname + '-' + Date.now()+ '.jpg'); //Appending .jpg
-    console.log(file.mimetype); //Will return something like: image/jpeg
-  },
-  userid: function (req, file, callback) {
-    callback(null, file._userid);
-  },
-  username: function (req, file, callback) {
-    callback(null, file._username);
-  },
-  userpassword: function (req, file, callback) {
-    callback(null, file._userpassword);
-  },
-  mapid: function (req, file, callback) {
-    callback(null, file._mapid);
-  },
-  mapdataversionid: function (req, file, callback) {
-    callback(null, file._mapdataversionid);
-  },
-  markerid: function (req, file, callback) {
-    callback(null, file._markerid);
-  }//,
-  /*
-   Latid: function (req, file, callback) {
-   callback(null, file._Latid);
-   },
-   Lngid: function (req, file, callback) {
-   callback(null, file._Lngid);
-   }
-  */
 
-});
 
 var gueststore =   multerguest.diskStorage({
   destination: function (req, file, callback) {
@@ -184,11 +130,11 @@ app.post('/api/photo',function(req,res){
         _mapdataversionid="guestid";
       }
       if(__userid != "guest") {
-        connect.addusers('mongodb://localhost:27017/testimages', 'usercollection', _userid, _username, _userpassword);
-        connect.addmaps('mongodb://localhost:27017/testimages', 'mapcollection', _mapid, _userid);
-        connect.addmapversion('mongodb://localhost:27017/testimages', 'mapdataversioncollection', _mapdataversionid, _mapid, _userid);
-        connect.addmarkers('mongodb://localhost:27017/testimages', 'markercollection', _mapdataversionid, _markerid, _userid, _mapid, _Latid, _Lngid);
-        connect.addvalues('mongodb://localhost:27017/testimages', 'storedimages', _mapdataversionid, _markerid, _imagename, _imagepath, _userid, _mapid);
+        connect.addusers(mongofil, 'usercollection', _userid, _username, _userpassword);
+        connect.addmaps(mongofil, 'mapcollection', _mapid, _userid);
+        connect.addmapversion(mongofil, 'mapdataversioncollection', _mapdataversionid, _mapid, _userid);
+        connect.addmarkers(mongofil, 'markercollection', _mapdataversionid, _markerid, _userid, _mapid, _Latid, _Lngid);
+        connect.addvalues(mongofil, 'storedimages', _mapdataversionid, _markerid, _imagename, _imagepath, _userid, _mapid);
       }
       else
       {
@@ -251,7 +197,7 @@ app.post('/registeruser', function(req,res){
   console.log("Email  "+ email);
 
   //Access Mongodb See is user is there
-  connect.userPresent('mongodb://localhost:27017/testimages', userid, function(msg){
+  connect.userPresent(mongofil, userid, function(msg){
     if(msg!=undefined){
       console.log("Returned data"+msg);
       if(msg =='present'){
@@ -259,7 +205,7 @@ app.post('/registeruser', function(req,res){
       }
       else
       {
-          connect.addusers('mongodb://localhost:27017/testimages', userid, username, password, function (mssg) {
+          connect.addusers(mongofil, userid, username, password, function (mssg) {
             if (mssg != undefined) {
               console.log("Returned data" + mssg);
               return res.end(mssg);
@@ -285,7 +231,7 @@ app.post('/guestdetailssave',function(req,res){
       var pathid='/uploads';
       var mapversionid="something";
     }
-    connect.storeImages('mongodb://localhost:27017/testimages',mapversionid,req.body.userid,mapid,"markerid",filename[i],pathid,function(message){
+    connect.storeImages(mongofil,mapversionid,req.body.userid,mapid,"markerid",filename[i],pathid,function(message){
       console.log("Message"+message);
       if(message == "yes")
         return res.end("yes");
@@ -307,7 +253,7 @@ app.post('/usermarkersave', function(req, res){
   var currenthours=date.getMinutes();
   var markerid=req.body.userid+currenthours;
 
-  connect.addmarkers("mongodb://localhost:27017/testimages","someversion",markerid,userid,mapid,lat,lon, currenthours,filename,function(mssg){
+  connect.addmarkers(mongofil,"someversion",markerid,userid,mapid,lat,lon, currenthours,filename,function(mssg){
     if(mssg!=undefined)
     {
       console.log("Retrived mssg"+mssg);
@@ -362,7 +308,7 @@ app.post('/traildescription', function (req,res) {
   des.lat=coorarr[count];
 
   console.log(src.lat+"  "+src.lon);
-  connect.updatetrail('mongodb://localhost:27017/testimages',username, mapid, src, des,descr,mode, function(msg){
+  connect.updatetrail(mongofil,username, mapid, src, des,descr,mode, function(msg){
     console.log("Returned "+msg);
     if(msg!=undefined)
     {
@@ -429,7 +375,7 @@ app.post('/usertrailmanual', function(req, res){
   }
 
 
-    connect.addtrails('mongodb://localhost:27017/testimages', username, mapid, src, dest,desc, mode, function (msg) {
+    connect.addtrails(mongofil, username, mapid, src, dest,desc, mode, function (msg) {
       console.log("The msg is" + msg);
       if (msg != undefined) {
         if (msg == "yes")
@@ -468,7 +414,7 @@ app.post('/usertrailsave', function(req, res){
         dest.lon = marker[i + 1].lon;
         dest.lat = marker[i + 1].lat;
       }
-      connect.addtrails('mongodb://localhost:27017/testimages', username, mapname, src, dest,descp,mode, function (msg) {
+      connect.addtrails(mongofil, username, mapname, src, dest,descp,mode, function (msg) {
         console.log("The msg is" + msg);
         if (msg != undefined) {
           if (msg == "yes")
@@ -503,7 +449,7 @@ app.post('/mapupload', function(req,res){
     {
       var markerid=req.body.id+i+currenthours;
       console.log(marker[i]);
-      connect.addmarkers("mongodb://localhost:27017/testimages","someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
+      connect.addmarkers(mongofil,"someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
       console.log(mssg);
         if(mssg!=undefined) {
           if (mssg == "yes")
@@ -536,7 +482,7 @@ app.post('/mapdescriptionedit', function(req, res){
   var newdes=req.body.text;
   console.log("In map description edit"+username+"  "+mapid);
   //Call MongoDb server
-  connect.updateDescription("mongodb://localhost:27017/testimages",username, mapid,newdes,function(msg){
+  connect.updateDescription(mongofil,username, mapid,newdes,function(msg){
     if(msg!=undefined)
     {
       console.log("Retrived Message"+msg);
@@ -556,7 +502,7 @@ app.post("/detelemap", function(req, res){
   var delmap=req.body.mapid;
 
   //Call mongodb delete all referneces to mongodb
-  connect.deleteallmap("mongodb://localhost:27017/testimages", username, delmap, function(msg){
+  connect.deleteallmap(mongofil, username, delmap, function(msg){
     if(msg!=undefined) {
       console.log("Retrived message" + msg);
       if(msg =="done")
@@ -616,7 +562,7 @@ app.post('/dragdrop', function(req,res){
         console.log("The value of object user"+JSON.parse(value));
         console.log("The value of user pictures are"+obj['id']);
         //call database and update the database
-          connect.storeImages("mongodb://localhost:27017/testimages",mapversion,userid,mapname,"markerid",filenames,uploadpath,0,0,"",function(msg){
+          connect.storeImages(mongofil,mapversion,userid,mapname,"markerid",filenames,uploadpath,0,0,"",function(msg){
             if(msg!=undefined)
             {
               if(msg == "yes"){
@@ -649,7 +595,7 @@ app.post('/login',function(req,res){
   var username=req.body.name;
   var password=req.body.password;
   //Access MongoDB - see if user is authorized
-  connect.verifyusers('mongodb://localhost:27017/testimages','usercollection',username, password,function(results, username){
+  connect.verifyusers(mongofil,'usercollection',username, password,function(results, username){
     if(results!=undefined){
       console.log("fetched results"+ results);
       if(results == 'success')
@@ -682,7 +628,7 @@ app.post('/mapsave', function(req, res){
   console.log("Name is  "+ mapname);
   var user=req.body.userid;
   //Call mongodb function and save the map
-  connect.addmaps('mongodb://localhost:27017/testimages',user, mapname, description,function(msg){
+  connect.addmaps(mongofil,user, mapname, description,function(msg){
     if(msg!=undefined){
       console.log("Map returned "+msg);
        if(msg == "add"){
@@ -698,7 +644,7 @@ app.post('/mapsave', function(req, res){
 app.post('/viewmap', function(req,res){
   var userid=req.body.name;
   //call database and return
-  connect.mapPresent('mongodb://localhost:27017/testimages',userid, function(msg){
+  connect.mapPresent(mongofil,userid, function(msg){
     if(msg!=undefined){
       if(msg=="nothing"){
         return res.end("no");
@@ -759,7 +705,7 @@ app.post('/userimageupload', function(req,res){
         for(var i=0;i<filenames.length;i++)
         {
           console.log("The filename is"+filenames[i]);
-          connect.storeImages("mongodb://localhost:27017/testimages",mapversion,userid,mapname,"markerid",filenames[i],uploadpath,0,0,"", function(msg){
+          connect.storeImages(mongofil,mapversion,userid,mapname,"markerid",filenames[i],uploadpath,0,0,"", function(msg){
             if(msg!=undefined)
             {
               if(msg == "yes"){
@@ -804,7 +750,7 @@ app.post('/updateimagedescription', function (req, res) {
   var username=req.body.username;
   var mapname=req.body.mapid;
   var desc=req.body.description;
-  connect.updatePictures('mongodb://localhost:27017/testimages',username,mapname,filename, desc, function (msg) {
+  connect.updatePictures(mongofil,username,mapname,filename, desc, function (msg) {
     if(msg!= undefined)
     {
       if(msg == "done")
@@ -852,7 +798,7 @@ socket.on('connection',function(socket){
   //Request from page to load images
   socket.on("LoadImage",function(msg){
     //Connect to data base and extract images
-    connect.establishConnection("mongodb://localhost:27017/testimages","storedimages",null,null,function(results){
+    connect.establishConnection(mongofil,"storedimages",null,null,function(results){
       if(results!=undefined) {
        if(msg.toUpperCase()=="YES"){
           socket.emit("ImageUploads", results+','+__dirname);
@@ -867,7 +813,7 @@ socket.on('connection',function(socket){
     var userid=msg.id;
     var maps=msg.mapid;
     //create the intitial trail database
-    connect.getMarkers("mongodb://localhost:27017/testimages",userid,maps,function(lat,lng,time,filename, mapid, id){
+    connect.getMarkers(mongofil,userid,maps,function(lat,lng,time,filename, mapid, id){
       if(lat != undefined && lng != undefined) {
         console.log("Retrived   " + lat + "  " + lng);
         socket.emit("drawmarkers", {lat: lat, lng: lng, time:time, filename:filename, map:mapid, id:id});
@@ -882,7 +828,7 @@ socket.on('connection',function(socket){
     var userid=msg.id;
     var maps=msg.mapid;
 
-    connect.getTrails("mongodb://localhost:27017/testimages",userid,maps,function(userid,mapid,src,des, description, mode){
+    connect.getTrails(mongofil,userid,maps,function(userid,mapid,src,des, description, mode){
       console.log("In get Trails");
       if(src != undefined || des != undefined ||mode != undefined ) {
         console.log("Retrived for trails   " + src.lat + "  " + des.lon+"  "+mode);
@@ -894,7 +840,7 @@ socket.on('connection',function(socket){
 
   socket.on('ImageGall', function(msg){
     console.log("Message received"+ msg.mapid);
-    connect.getPictures("mongodb://localhost:27017/testimages", msg.userid, msg.mapid,function(picname, picpath, mapid, description, facevar, smilevar){
+    connect.getPictures(mongofil, msg.userid, msg.mapid,function(picname, picpath, mapid, description, facevar, smilevar){
       if(picname!=undefined && picpath!= undefined && mapid!= undefined) {
         console.log(picname + "  " + facevar + "   " + mapid);
         socket.emit("imagereturn", {picname: picname, picpath: picpath, mapid: mapid, userid:msg.userid, description:description, facevar:facevar, smilevar:smilevar});
@@ -905,7 +851,7 @@ socket.on('connection',function(socket){
 
   socket.on('getmaps', function(msg){
      console.log('Message received'+msg.userid);
-    connect.getMaps('mongodb://localhost:27017/testimages', msg.userid, function(mapname, mapdescription){
+    connect.getMaps(mongofil, msg.userid, function(mapname, mapdescription){
       if(mapname!=undefined && mapdescription!=undefined){
         console.log("Map description"+mapdescription);
         socket.emit('viewmaps', {name:mapname, description:mapdescription});
