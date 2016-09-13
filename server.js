@@ -13,7 +13,7 @@ var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
 
-var mongofil="mongodb://SatabdiG:Shizimi1#@ds029496.mlab.com:29496/testimages";
+var mongofil="mongodb://satabdi:trip#@ds029496.mlab.com:29496/testimages";
 
 //Computer Vision Middlewares//
 
