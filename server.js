@@ -92,8 +92,6 @@ var gueststore =   multerguest.diskStorage({
 });
 
 
-var upload = multer({ storage : storage }).array('userPhoto',8);
-var uploaddragdrop=multerdragdrop({ storage : storage }).array('file',8);
 
 
 app.get('/',function(req,res){
