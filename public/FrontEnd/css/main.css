@@ -1,0 +1,156 @@
+body {
+  background-image:url("/FrontEnd/Pictures/striped_lens.png");
+  background-repeat: repeat;
+  padding-bottom: 20px;
+}
+
+nav {
+  margin-top: 15px;
+}
+
+h1 {
+  color: transparent;
+  background-image:url("/FrontEnd/Pictures/logo.png");
+  width: 259px;
+  height: 50px;
+}
+
+/*
+.navbar-inverse {
+  background-image:url("/FrontEnd/Pictures/subtle_carbon.png");
+  background-repeat: repeat;
+}
+*/
+
+.imageholder { /* clicking on map markers on the edit map page */
+  max-width: 100%;
+}
+
+#image-container
+{
+  max-width: 100%;
+}
+
+#googlemapcontainer{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#googleMap {
+  height: 400px;
+}
+#something{
+  height: 34px;
+  width: 21px;
+  z-index: 1000;
+  background-image: url("/FrontEnd/Pictures/marker.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+/* steps */
+.steps {
+  margin-bottom: 2em;
+}
+.step {
+  text-align: center;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  font-weight: bold;
+  font-family: 'Indie Flower', cursive;
+  font-size: 120%;
+}
+.step::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  background-image: url("/FrontEnd/Pictures/striped_lens.png");
+  float: left;
+  position: relative;
+  top: 34px;
+  left: 50%;
+  border-width: 4px;
+  border-style: solid;
+}
+
+.step-past {
+  border-bottom-color: #268;
+}
+.step-current {
+  border-bottom-color: #37c;
+}
+.step-future {
+  border-bottom-color: #ccc;
+}
+.step-past::after {
+  border-color: #268;
+}
+.step-current::after {
+  border-color: #37c;
+}
+.step-future::after {
+  border-color: #ccc;
+}
+
+.step a {
+  line-height: 40px;
+  color: #333;
+}
+.step-future a {
+  color: #ccc;
+}
+.step a:hover {
+  text-decoration: none;
+}
+
+/* login page */
+.body-user {
+  background: #F8F8F8;
+}
+.container-login {
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.row-logo {
+  padding-bottom: 15px;
+}
+
+.user-form {
+  margin-bottom: 15px;
+}
+
+.user-form > h2 {
+  font-size: 22px;
+}
+
+.user-form .input-top {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.user-form .input-middle {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.user-form .input-bottom {
+  margin-bottom: 15px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.user-form .input-single {
+  margin-bottom: 15px;
+}
+
+.user-form .form-control {
+  font-size: 16px;
+  position: relative;
+}
+
+.user-form .form-control:focus {
+  z-index: 2;
+}

@@ -1,0 +1,82 @@
+<!-- Image gallery view. Uses pluginmagnific. -->
+<h1>(TripAround logo)</h1>
+<h3>Welcome, {{userid}}</h3>
+<div class="row steps">
+  <div class="col-md-3 step step-past">
+    <a href="#dashboard">1. Select a map.</a>
+  </div>
+  <div class="col-md-3 step step-past">
+    <a href="#UploadImages">2. Upload pictures.</a>
+  </div>
+  <div class="col-md-3 step step-current">
+    <a>3. Manage your gallery.</a>
+  </div>
+  <div class="col-md-3 step step-future">
+    <a href="#ViewImages">4. Edit your map.</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form id="mapform">
+      <p id="maptext">You are viewing the images of: <em>{{map}}</em>.</p>
+    </form>
+  </div>
+</div>
+
+<div class="row" id="imagegall">
+</div>
+<!--
+<div class="row">
+  <div class="col-lg-12">
+    <button class="btn btn-primary btn-lg" id="filters">Apply filters</button>
+  </div>
+</div> -->
+
+<!-- old gallery implementations
+
+<div class="container fluid" id="gallerycontainer">
+  <div class="row">
+    <div class="col-lg-12">
+     <div id="slick">
+      <ul id="imagegall">
+      </ul>
+    </div>
+    </div>
+  </div>
+  <div class="blueberry">
+    <ul class="slides" id="slides"></ul>
+    <ul class="pager"></ul>
+  </div>
+</div>
+-->
+
+<!-- Filter Modal For Face Detection-->
+
+<div class="modal fade" id="filtermodal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Filter images</h4>
+      </div>
+      <div class="modal-body">
+        <form id="filterform">
+          <div class="checkbox">
+            <label><input type="checkbox" id="facecheck" value=""> Check for face</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" id="smilecheck" value="" disabled> Check for smiles</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" id="dispall" value="">Display all Images</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
