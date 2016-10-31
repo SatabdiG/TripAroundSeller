@@ -7,8 +7,6 @@
  * Dependencies : The database should exist. The collection should exist. The connection string should be allright
  */
 
-
-
 var mongodb = require('mongodb').MongoClient;
 
 
