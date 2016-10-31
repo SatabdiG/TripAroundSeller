@@ -469,7 +469,7 @@ module.exports= {
     });
   },
   //Add users to database
-  addusers: function (connectionstring,userid, username, userpassword, callback) {
+  addusers: function (connectionstring,userid, username, userpassword, type,callback) {
   if (callback) {
     callback();
   }
@@ -482,7 +482,9 @@ module.exports= {
       db.collection('usercollection').insert({
         "userid": userid,
         "username": username,
-        "userpassword": userpassword
+        "userpassword": userpassword,
+        "type":type
+
       }, {w: 1}, function (err, records) {
 
         if (records != null) {

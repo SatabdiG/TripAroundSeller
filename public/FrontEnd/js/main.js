@@ -120,6 +120,7 @@ function homeinit(){
         clientobj.password=$("#password").val();
         clientobj.email=$('#email').val();
         clientobj.name=$('#name').val();
+        clientobj.type=$('select[name=usertype]').val();
         $.ajax({
           url:'registeruser',
           type:'POST',

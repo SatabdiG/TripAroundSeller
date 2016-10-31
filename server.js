@@ -13,8 +13,9 @@ var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
 
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
+var mongofil="mongodb://localhost:27017/testimages";
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
@@ -192,6 +193,7 @@ app.post('/registeruser', function(req,res){
   var username=req.body.name;
   var password=req.body.password;
   var email=req.body.email;
+  var type=req.body.type;
   console.log("Email  "+ email);
 
   //Access Mongodb See is user is there
@@ -203,7 +205,7 @@ app.post('/registeruser', function(req,res){
       }
       else
       {
-          connect.addusers(mongofil, userid, username, password, function (mssg) {
+          connect.addusers(mongofil, userid, username, password,type, function (mssg) {
             if (mssg != undefined) {
               console.log("Returned data" + mssg);
               return res.end(mssg);
