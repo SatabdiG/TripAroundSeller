@@ -17,6 +17,8 @@ var userarray=[];
 var loc1=[];
 var nomap=0;
 var map;
+var stage;
+var overlay;
 
 var name;
 
@@ -32,6 +34,7 @@ var userpaths=[];
 var usermanualmarker=[];
 
 var deletemapid;
+var publishmapid;
 
 //Lines
 var dashedline={
@@ -253,7 +256,7 @@ function dashboardfunction(){
               mapname=dat.name;
               var obj=document.getElementById('maps'+mapname);
               if(obj == null)
-               $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + mapname +'"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+mapname+'" id="editbutton'+mapname+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+mapname+'" id="removebutton'+mapname+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + '</div></div></div>');
+               $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + mapname +'"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+mapname+'" id="editbutton'+mapname+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+mapname+'" id="removebutton'+mapname+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>'+' <button class="btn btn-danger btn-xs '+mapname+'" id="publish'+mapname+'">  <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Publish Maps</button>' + '</div></div></div>');
 
               //return false;
             }
@@ -272,6 +275,53 @@ function dashboardfunction(){
     }
 
   });
+
+
+   //Initilaize the publish dialog
+    $('#publishconformation').dialog({
+      resizeable:false,
+      height:"auto",
+      width:400,
+      modal:true,
+      autoOpen:false,
+      buttons:[
+        {
+          text: "I want to Publish this map for everybody to See!!",
+          "class":"btn btn-default",
+          click: function(){
+            console.log("clicked"+publishmapid);
+            var publishmaps={};
+            publishmaps.id=publishmapid;
+            publishmaps.publish="Y";
+            publishmaps.userid=userid;
+            $.ajax({
+              url:"/publishmap",
+              type:"POST",
+              data:JSON.stringify(publishmaps),
+              contentType:"application/JSON"
+
+            }).done(function(msg){
+              console.log("Returned"+msg);
+              if(msg == "yes")
+              {
+                //Update status message
+                if($('#publishconformation').dialog("isOpen"))
+                  $('#publishconformation').dialog("close");
+                $('#staus').text("Your Map is now public !");
+
+              }
+            });
+          }
+        },
+        {
+          text:"I do not want to publish this map",
+          "class":"btn btn-default",
+          click: function () {
+            $("#publishconformation").dialog("close");
+          }
+        }
+      ]
+    });
    //Intialize close dialog
     var deleteflag=0;
     $('#confirmdeletion').dialog({
@@ -320,8 +370,14 @@ function dashboardfunction(){
       ]
 
       });
+
+
+    if($('#publishconformation').dialog("isOpen"))
+      $('#publishconformation').dialog("close");
+
     if($('#confirmdeletion').dialog("isOpen"))
       $('#confirmdeletion').dialog("close");
+
   //View Button
 
     if(userid =="guest"){
@@ -352,7 +408,7 @@ function dashboardfunction(){
           //Clear view map region
             var obj=document.getElementById(msg.name);
             if(obj == null) {
-              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + '</div></div></div>');/*
+              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + '<button class="btn btn-danger btn-xs '+mapname+'" id="publish'+msg.name+'">  <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ '</div></div></div>');/*
               '<div id="maps'+msg.name+'"><a id="' + msg.name + '" class="button">' + msg.name + '</a> <div id="info'+msg.info+'"> Description : '+msg.description+'</div><button class="'+msg.name+'" id="editbutton'+msg.name+'"> Edit </button><button class="'+msg.name+'" id="removebutton'+msg.name+'"> Remove Map </button></div><br>');*/
               /*
               var editbutt=document.getElementById("editbutton"+msg.name);
@@ -399,6 +455,16 @@ function dashboardfunction(){
 
               });*/
 
+              //Publish button
+              var publishbutton=document.getElementById("publish"+msg.name);
+              publishbutton.addEventListener("click", function (evt) {
+                evt.preventDefault();
+                var tempid=this.id;
+                console.log("Clicked "+tempid);
+                publishmapid=tempid;
+                $('#publishconformation').dialog("open");
+
+              });
 
               var removebutt=document.getElementById("removebutton"+msg.name);
               removebutt.addEventListener("click", function(evt){
@@ -1520,6 +1586,55 @@ function imagegallerycontroller(){
   });
 }
 
+//Controller for the serach and display page
+
+function serachpage()
+{
+  console.log("Hello");
+  socket.emit("getpublishedmaps", {userid:userid});
+  socket.on('receivepublishedmaps', function(msg){
+    console.log("Activated")
+    console.log(msg.name);
+    console.log(msg.description);
+    //$('#viewmapregion').append(msg.name+msg.description);
+    var obj=document.getElementById(msg.name);
+    if(obj == null) {
+      $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><a href="#viewtour"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a></div></div>');
+    }
+  });
+
+}
+
+//Controller for the view Tour generator
+
+function viewtourcontroller()
+{
+  console.log("you are now viewing the tour page "+name);
+
+}
+
+//Controller for the iteniary page
+
+function iteniarygenerator()
+{
+  console.log("You are in the iteniary page"+name);
+  initialize();
+  var drawingmanager= new google.maps.drawing.DrawingManager({
+  drawingMode:google.maps.drawing.OverlayType.Marker,
+  drawingControl:true,
+  drawingControlOptions:{
+    position: google.maps.ControlPosition.TOP_CENTER,
+    drawingModes:['marker','circle','polygon','polyline', 'rectangle']
+  },
+  markerOptions:{},
+
+
+  });
+
+
+
+}
+
 
 function airplanehandler(){
     planeactive= 1;
@@ -1824,6 +1939,20 @@ tripapp.config(function($routeProvider) {
   .when('/dashboard',{
     templateUrl:'/FrontEnd/partials/dashboard.html',
     controller:'dashboardcontroller'
+  })
+
+      .when('/searchtours', {
+        templateUrl:'/FrontEnd/partials/SearchPage.html',
+        controller:'SearchPageController'
+      })
+
+  .when('/viewtour', {
+    templateUrl:'/FrontEnd/partials/viewtour.html',
+    controller:'viewtourcontroller'
+  })
+  .when('/iteniary', {
+    templateUrl:'/FrontEnd/partials/iteniary.html',
+    controller:'itecontroll'
   });
 
 });
@@ -1863,8 +1992,28 @@ tripapp.controller('imagegallerycontroller', function($scope){
 tripapp.controller('dashboardcontroller', function($scope){
   $scope.userid=name;
   $scope.init=dashboardfunction();
+  socket.emit('getpublishedmaps', {userid:userid});
+  socket.on('viewpublishedmaps', function(msg) {
+
+  });
+
 
 });
 
+tripapp.controller('SearchPageController', function($scope){
+  $scope.userid=name;
+  $scope.init = serachpage();
+  $scope.message="Hello";
 
+});
 
+tripapp.controller('viewtourcontroller', function($scope){
+  $scope.userid=name;
+  $scope.init=viewtourcontroller();
+});
+
+tripapp.controller('itecontroll', function($scope){
+  $scope,userid=name;
+  $scope.init=iteniarygenerator();
+
+});

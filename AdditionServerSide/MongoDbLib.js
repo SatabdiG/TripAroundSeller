@@ -156,6 +156,25 @@ module.exports= {
     });
   },
 
+  getpublishedmaps:function(connectionstring, callback){
+    if(callback)
+      callback();
+
+    mongodb.connect(connectionstring,function(err,db){
+      if(!err){
+        var cursor=db.collection('mapcollection').find({"publish":"Y"});
+        cursor.each(function(err,doc){
+          if(doc!=null)
+          {
+            console.log(doc);
+            callback(doc.mapname, doc.mapdescription);
+          }
+        });
+
+      }
+    });
+  },
+
   getMaps:function(connectionstring, userid, callback){
     if(callback)
       callback();
@@ -358,16 +377,34 @@ module.exports= {
         }
       });
   },
-
+   //Update the Maps so that they can be published
+    updateMaps:function (connectionstring, userid,mapid,publish, callback) {
+        if(callback){
+            callback();
+        }
+        mongodb.connect(connectionstring, function (err, db) {
+           if(!err){
+            var cursor=db.collection("mapcollection").find({"userid":userid, "mapid":mapid});
+               cursor.each(function (err,doc) {
+                  if(doc!=null)
+                  {
+                      var docid=doc.__id;
+                      db.collection("mapcollection").update({__id:docid},{$set:{"publish":publish}});
+                      return callback("done");
+                  }
+               });
+           }
+        });
+    },
   //update trail description
 
-  updatetrail: function (connectionstring, userid,mapid, src, des, desc,mode, callback) {
+    updatetrail: function (connectionstring, userid,mapid, src, des, desc,mode, callback) {
     if (callback) {
       callback();
     }
     var srclat=Math.round(src.lat*100)/100;
     var srclon=Math.round(src.lon*100)/100;
-    console.log("trail "+userid+"  "+mapid+"  "+src.lat+src.lon);
+
     mongodb.connect(connectionstring,function(err,db){
       if(!err){
         var cursor=db.collection("trailcollection").find({"userid":userid, "mapid":mapid});
@@ -445,7 +482,8 @@ module.exports= {
         db.collection('mapcollection').insert({
           "userid": userid,
           "mapname": mapname,
-          "mapdescription": mapdescription
+          "mapdescription": mapdescription,
+          "publish":"N"
         }, {w: 1}, function (err, records) {
 
           if (records != null) {

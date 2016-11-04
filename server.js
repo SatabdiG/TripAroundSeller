@@ -2,7 +2,6 @@
 var express	=	require("express");
 var bodyParser =	require("body-parser");
 var multer	=	require('multer');
-var multerdragdrop = require('multer');
 var multerguest=require('multer');
 var path=require('path');
 var app	=	express();
@@ -218,6 +217,30 @@ app.post('/registeruser', function(req,res){
   });
 
 });
+
+//Handler for Map publish
+
+app.post("/publishmap", function(req, res){
+  var userid=req.body.userid;
+  var mapid=req.body.mapid;
+  var publish=req.body.publish;
+
+  //Make the database connect and update the database
+  connect.updateMaps(mongofil,userid,mapid,publish, function(message)
+  {
+    if(message!=undefined) {
+      console.log("Returned message" + message);
+      if (message == "done") {
+        return res.end("yes");
+      } else {
+        return res.end("no");
+      }
+    }
+  });
+
+
+});
+
 
 app.post('/guestdetailssave',function(req,res){
   var filename=req.body.filename;
@@ -849,6 +872,16 @@ socket.on('connection',function(socket){
 
   });
 
+  socket.on('getpublishedmaps', function(msg){
+
+    connect.getpublishedmaps(mongofil,function(mapname, mapdescription){
+      if(mapname!=undefined && mapdescription!=undefined){
+        console.log("Map description"+mapdescription);
+        socket.emit('receivepublishedmaps', {name:mapname, description:mapdescription});
+      }
+    });
+  });
+
   socket.on('getmaps', function(msg){
      console.log('Message received'+msg.userid);
     connect.getMaps(mongofil, msg.userid, function(mapname, mapdescription){
@@ -858,8 +891,9 @@ socket.on('connection',function(socket){
       }
     });
   });
-
 });
+
+
 
 http.listen(process.env.PORT || 3030,function(){
   console.log("Working on port 3030");
