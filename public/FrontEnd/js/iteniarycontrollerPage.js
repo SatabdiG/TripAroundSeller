@@ -357,16 +357,17 @@ function iteniarygenerator()
             });
             //Create a new Tour stop and a form to it
         }
-
-    });
-    console.log("In Loop The size of array"+itemarkers.length);
-    if(itemarkers.length>1)
-    {
+        console.log("In Loop The size of array"+itemarkers.length);
+        if(itemarkers.length>1)
+        {
             src=itemarkers[(itemarkers.length)-2].getPosition();
             des=itemarkers[(itemarkers.length)-1].getPosition();
             getDirections(map,src,des);
 
-    }
+        }
+
+    });
+
     // getDirections(map);
 
     serachbOx.addListener('places_changed', function () {
