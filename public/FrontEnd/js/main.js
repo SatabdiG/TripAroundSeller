@@ -1613,27 +1613,6 @@ function viewtourcontroller()
 
 }
 
-//Controller for the iteniary page
-
-function iteniarygenerator()
-{
-  console.log("You are in the iteniary page"+name);
-  initialize();
-  var drawingmanager= new google.maps.drawing.DrawingManager({
-  drawingMode:google.maps.drawing.OverlayType.Marker,
-  drawingControl:true,
-  drawingControlOptions:{
-    position: google.maps.ControlPosition.TOP_CENTER,
-    drawingModes:['marker','circle','polygon','polyline', 'rectangle']
-  },
-  markerOptions:{},
-
-
-  });
-
-
-
-}
 
 
 function airplanehandler(){

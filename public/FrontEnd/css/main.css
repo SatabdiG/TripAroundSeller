@@ -32,13 +32,17 @@ h1 {
 }
 
 #googlemapcontainer{
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 75px;
+
 }
 
 #googleMap {
-  height: 400px;
+  height: 500px;
+
+
 }
+
 #something{
   height: 34px;
   width: 21px;
@@ -154,3 +158,85 @@ h1 {
 .user-form .form-control:focus {
   z-index: 2;
 }
+
+#IteniaryPage
+{
+  width: 100%;
+  padding-bottom: 75%;
+  background-color: #d2e1fc ;
+
+}
+
+#IteniaryPage button{
+  margin: 10px;
+}
+
+.itenary-panel
+{
+  position: relative;
+  width : 100%;
+  height:  auto;
+
+  font-family: 'Indie Flower', cursive;
+  font-size: large;
+
+}
+
+.itenary-panel button
+{
+  margin: 10px;
+  text-align: center;
+}
+
+.itenary-thumbnail
+{
+  position: static;
+  height: 150px;
+  width: 30%;
+  float: left;
+  background-color: #dddddd;
+}
+
+.itenary-header
+{
+  position: static;
+  height:30px;
+  background-color: #999999;
+  text-align: center;
+
+}
+
+.itenary-des
+{
+  position: static;
+  height:150px;
+  width: 70%;
+  float: right;
+}
+
+.itenary-des textarea
+{
+  position: static;
+  width: 491px;
+  height:147px;
+  border:none;
+  padding: 3px;
+
+}
+
+.itenary-footer
+{
+  position: static;
+  height: 30px;
+  text-align: center;
+
+}
+
+.itenary-footer button
+{
+  position: static;
+  margin: 10px;
+  font-size: medium;
+}
+
+

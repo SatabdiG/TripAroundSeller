@@ -343,6 +343,8 @@ app.post('/traildescription', function (req,res) {
   });
 });
 
+
+
 //Save trails for user's manual trails on the map page
 app.post('/usertrailmanual', function(req, res){
   console.log("User trail manual Save");
@@ -408,6 +410,34 @@ app.post('/usertrailmanual', function(req, res){
       }
     });
 
+
+});
+
+app.post('/itesave', function(req,res){
+  console.log("In Itesave");
+  res.end("yes");
+  var username=req.body.name;
+  var mapname=req.body.mapname;
+  var markers=req.body.objs;
+  markers.forEach(function(marr){
+    var markername=marr.name;
+    var lat=marr.lat;
+    var lon=marr.lng;
+    var des=marr.des;
+    var veh="driving";
+    //Make respective db entry
+    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des, function(message)
+    {
+      if(message!=undefined) {
+        if (message == "yes") {
+          res.end("yes");
+
+        } else {
+          res.end("no");
+        }
+      }
+    })
+  });
 
 });
 
@@ -882,6 +912,19 @@ socket.on('connection',function(socket){
     });
   });
 
+  socket.on('getTourStops', function(msg){
+    console.log("Message received"+msg.userid);
+    console.log("Mapname"+msg.mapname);
+    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,des)
+    {
+      if(tourstopnam!=undefined && vehicle!=undefined && lat!=lat && lon !=lon) {
+        console.log("Sending data" + des);
+        socket.emit("viewTourStops", {name: tourstopnam, description: des, vehicle: vehicle, lat: lat, lng: lon});
+      }
+    });
+
+  });
+
   socket.on('getmaps', function(msg){
      console.log('Message received'+msg.userid);
     connect.getMaps(mongofil, msg.userid, function(mapname, mapdescription){
@@ -892,6 +935,7 @@ socket.on('connection',function(socket){
     });
   });
 });
+
 
 
 

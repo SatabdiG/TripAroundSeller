@@ -175,6 +175,7 @@ module.exports= {
     });
   },
 
+
   getMaps:function(connectionstring, userid, callback){
     if(callback)
       callback();
@@ -193,6 +194,28 @@ module.exports= {
       }
     });
   },
+
+  getTourStops:function(connectionstring, userid,mapname, callback)
+  {
+
+    if(callback)
+      callback();
+    console.log("In get Tours"+userid);
+    mongodb.connect(connectionstring,function(err,db){
+      if(!err){
+        var cursor=db.collection('tourstop').find({"userid":userid, "mapid":mapname});
+        cursor.each(function(err,doc){
+          if(doc!=null)
+          {
+            console.log(doc);
+            callback(doc.tourstopname, doc.vehicle,doc.lat,doc.lon,doc.des);
+          }
+        });
+
+      }
+    });
+  }
+  ,
 
   verifyusers:function (connectionstring, databasename, queryby, queryval, callback) {
     mongodb.connect(connectionstring, function (err, db) {
@@ -314,6 +337,63 @@ module.exports= {
       }
     });
 
+  },
+
+  addTourStops:function(connectionstring, userid, mapname, vehicle, tourstopname,lat,lng, description, callback)
+  {
+    if(callback)
+      callback();
+
+    var cursor=db.collection("tourstop").find({"userid":userid, "mapid":mapname, "tourstopname":tourstopname});
+    if(cursor.count() == 0) {
+      //New Tour
+      mongodb.connect(connectionstring, function (err, db) {
+
+        var collec = db.collection('tourstop');
+        if (collec != null) {
+          db.collection('tourstop').insert({
+            "userid": userid,
+            "mapid": mapname,
+            "vehicle": vehicle,
+            "tourstopname": tourstopname,
+            "lat": lat,
+            "lon": lng,
+            "description": description
+          }, {w: 1}, function (err, records) {
+
+            if (records != null) {
+              console.log("Trail Added");
+              callback("yes");
+              db.close();
+            }
+            else {
+              callback("no");
+              console.log("Trail cannot add");
+            }
+          });
+
+        }
+
+      });
+    }
+    else
+    {
+      //Update exsisting
+      cursor.forEach(function(err,doc)
+      {
+        if(doc!=null)
+        {
+          console.log("Document IS"+doc._id+"  "+doc.des);
+          var docid=doc._id;
+          db.collection("tourstop").update({_id:docid},{$set:{"des":des}});
+          db.collection("tourstop").update({_id:docid},{$set:{"vehicle":vehicle}});
+          return res.end("yes");
+        }
+
+
+      });
+
+    }
   },
   //Add trailsby extracting two markers
   addtrails:function(connectionstring, userid, mapid, src,des,descp,mode, callback){
