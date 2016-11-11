@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="">
+    <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="Adding the">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/iteniary.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" afterPath="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" />
@@ -21,8 +21,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="TripAroundProduction.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -110,7 +108,7 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
+            <state relative-caret-position="210">
               <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
@@ -443,7 +441,7 @@
       <workItem from="1478685658411" duration="15666000" />
       <workItem from="1478711680220" duration="1604000" />
       <workItem from="1478855250328" duration="18249000" />
-      <workItem from="1478876990120" duration="47000" />
+      <workItem from="1478876990120" duration="408000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1477901720471</created>
@@ -480,17 +478,24 @@
       <option name="project" value="LOCAL" />
       <updated>1478870263743</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Adding the">
+      <created>1478877058211</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1478877058211</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95186000" />
+    <option name="totallyTimeSpent" value="95547000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="732" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1830161" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1830161" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -993,6 +998,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="41" column="104" selection-start-line="41" selection-start-column="104" selection-end-line="41" selection-end-column="104" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1069,7 +1075,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
+        <state relative-caret-position="210">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>

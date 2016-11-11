@@ -1,0 +1,55 @@
+<!-- Iteniary page -->
+<h1>(TripAround logo)</h1>
+<h3>Welcome, {{userid}}</h3>
+
+<div class="row steps">
+    <div class="col-md-3 step step-past">
+        <a href="#dashboard">1. Select a map.</a>
+    </div>
+    <div class="col-md-3 step step-past">
+        <a href="#UploadImages">2. Upload pictures.</a>
+    </div>
+    <div class="col-md-3 step step-past">
+        <a>3. Manage your gallery.</a>
+    </div>
+    <div class="col-md-3 step step-past">
+        <a href="#ViewImages">4. Edit your map.</a>
+    </div>
+    <div class="col-md-3 step step-current">
+        <a href="#iteniary">5.View Iteniary.</a>
+    </div>
+    <div class="col-md-3 step step-future">
+        <a href="#searchtours">6. Search for Tours.</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="statusText"></div>
+    </div>
+</div>
+
+<div id="googlemapcontainer">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="w3-container w3-blue" id="IteniaryPage">
+            <!--Iteniary pages go here -->
+
+               <!--Create Iteniary pages here -->
+                <input type="text" placeholder="Enter Tour Stop" id="place">
+                <button type="button" class="btn btn-primary" id="createTourStop"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add TourStop</button>
+                <button type="button" class="btn btn-primary" id="replayTourAnimation"><i class="fa fa-repeat" aria-hidden="true"></i> Replay </button>
+                <button type="button" class="btn btn-primary" id="saveIteniary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save </button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="googleMap" ></div>
+        </div>
+    </div>
+
+
+
+
+</div>
+</div>
+
