@@ -42,7 +42,7 @@ function iteniarygenerator()
         //Create the rest of the structure
 
         //Create a header for the string
-        tempstr = marker.title;
+        tempstr =name;
         //Main Container div
         var mother=document.createElement('div');
         mother.setAttribute('class','row');
@@ -64,12 +64,11 @@ function iteniarygenerator()
         des.setAttribute("id", "des" + name);
         des.setAttribute("class", "itenary-des");
 
-
         //Header
         var head = document.createElement("div");
         head.setAttribute("id", "head" + name);
         head.setAttribute("class", "itenary-header");
-        head.innerHTML=name;
+
 
         //Adding Header elements
         var tempstyling = document.createElement("H2");
@@ -154,7 +153,7 @@ function iteniarygenerator()
         });
 
         //SaveButton clicked save the details on the database
-        $('#buttonsubmit' + marker.title).on('click', function () {
+        $('#buttonsubmit' + name).on('click', function () {
             console.log("The save button is clicked");
             //Get the Text Area and make it an div elements
             var replacediv = document.createElement("div");
@@ -456,9 +455,10 @@ function iteniarygenerator()
 
     $('#saveIteniary').on('click', function(evt)
     {
+        console.log("Saving Iteniary"+itemarkers.length);
         var userobj={};
         var routeobjs=[];
-        if(itemarkers>0) {
+        if(itemarkers.length>0) {
             itemarkers.forEach(function (marker) {
                 var routeobj = {};
                 routeobj.name = marker.title;
@@ -480,10 +480,14 @@ function iteniarygenerator()
                 contentType: 'application/JSON'
             }).done(function (msg) {
                 console.log("returedn" + msg);
-                if (msg == yes) {
+                if (msg == "yes") {
                     $('#statusText').css("color","green");
                     $('#statusText').text("Your Tour stops are now saved");
 
+                }else
+                {
+                    $('#statusText').css("color","red");
+                    $('#statusText').text("Your Tour stops are not saved");
                 }
             });
 

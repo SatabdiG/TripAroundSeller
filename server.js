@@ -12,9 +12,9 @@ var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
 
-//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-var mongofil="mongodb://localhost:27017/testimages";
+//var mongofil="mongodb://localhost:27017/testimages";
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
@@ -915,11 +915,11 @@ socket.on('connection',function(socket){
   socket.on('getTourStops', function(msg){
     console.log("Message received"+msg.userid);
     console.log("Mapname"+msg.mapname);
-    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,des)
+    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
     {
-      if(tourstopnam!=undefined && vehicle!=undefined && lat!=lat && lon !=lon) {
-        console.log("Sending data" + des);
-        socket.emit("viewTourStops", {name: tourstopnam, description: des, vehicle: vehicle, lat: lat, lng: lon});
+      if(tourstopnam!=undefined ) {
+        console.log("Sending Data"+description);
+        socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
       }
     });
 
