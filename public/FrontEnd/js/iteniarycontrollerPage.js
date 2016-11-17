@@ -3,12 +3,22 @@
 //Controller for the iteniary page
 var itemarkers=[];
 
+function moveSlide(direction, tile)
+{
+    console.log("In Move slide function"+tile+direction);
+    $('#slideshowSaarbrücken').cycle({
+        fx:'curtainX',
+        sync:false,
+        delay:-2000
+    });
+}
+
+
 
 function iteniarygenerator()
 {
 
     $(document).ready(function(){
-
     //Contains user created markers
     var markers = [];
 
@@ -228,6 +238,13 @@ function iteniarygenerator()
                     var thumb = document.createElement('div');
                     thumb.setAttribute("id", "thumb" + marker.title);
                     thumb.setAttribute("class", "itenary-thumbnail");
+                    //Add input tp thumb
+                    var inp=document.createElement("input");
+                    inp.setAttribute("type","file");
+                    inp.setAttribute("multiple","multiple");
+                    inp.setAttribute("id","inp"+marker.title);
+                    inp.setAttribute("accept","image/*");
+                    thumb.appendChild(inp);
                     //Description div
                     var des = document.createElement("div");
                     des.setAttribute("id", "des" + marker.title);
@@ -279,23 +296,55 @@ function iteniarygenerator()
                     var textedit = document.createTextNode('Edit');
                     editbutton.appendChild(textedit);
                     //**Edit Transportation **//
+                    //Create Image Gallery
+                    //This becomes the gallerry
+                    var imgholder=document.createElement("div");
+                    imgholder.setAttribute("id","gall"+marker.title);
+                    imgholder.setAttribute("class","jcarousel-wrapper");
+                    var slideshow=document.createElement("div");
+                    slideshow.setAttribute("id","slide"+marker.title);
+                    slideshow.setAttribute("class","jcarousel");
+                    var ul=document.createElement("ul");
+                    ul.setAttribute("id","ul"+marker.title);
+                    slideshow.appendChild(ul);
+                    imgholder.appendChild(slideshow);
 
                     //footer.appendChild(editbutton);
-
                     //container.appendChild(footer);
+
                     container.appendChild(button);
                     container.appendChild(buttonsave);
                     container.appendChild(editbutton);
-
+                    container.appendChild(imgholder);
                     //newconent.setAttribute("type", "text");
                     //newconent.setAttribute("placeholder", "Enter Place Name");
                     momsec.appendChild(container);
                     mother.appendChild(momsec);
                     $('#IteniaryPage').append(mother);
+
+                    $('#slide'+marker.title).jcarousel();
+
+
+                    $('#slide'+marker.title).mousewheel(function(event, delta) {
+                        console.log("In mousewheel"+delta);
+                        if (delta < 0) {
+                            console.log("in here");
+                            $('#slide' + marker.title).jcarousel('scroll', -1);
+                        }
+                        else if (delta > 0) {
+                            console.log("NO in here");
+                            $('#slide' + marker.title).jcarousel('scroll', +1);
+                        }
+
+                    });
+
+
+
                     //$('#IteniaryPage').append(tempbox);
                     //$('#IteniaryPage').append(button);
                     //$('#IteniaryPage').append(buttonsave);
                     //$('#IteniaryPage').append(editbutton);
+
 
                     //Delete the marker stop
                     $('#del' + marker.title).on('click', function () {
@@ -353,9 +402,131 @@ function iteniarygenerator()
 
                         }
                     });
+
+
+
+                    //The gallery controller
+                    $('#inp'+marker.title).on("change", function(evt)
+                    {
+
+                       console.log("Images have been uploaded");
+                       //Create the gallery
+                       // The gallery controller is : gall+marker.title
+                        //get the individual pictures
+                        var appendto=document.getElementById('ul'+marker.title);
+                        var appendd=document.getElementById('gall'+marker.title);
+                        var input=$('#inp'+marker.title).get(0).files;
+                        var srcs=[];
+
+                        for(var i=0;i<input.length;i++)
+                        {
+                            console.log("Printing to console");
+                            //contains each pic file
+
+                            var eachfil=input[i];
+                            //Create an a element
+                            var reader=new FileReader();
+                            reader.readAsDataURL(eachfil);
+                            reader.onload=function(e){
+                                console.log("In Reader");
+                                var div=document.createElement("div");
+                                var li=document.createElement("li");
+                                var img=document.createElement("img");
+                                img.setAttribute("class","displayimg");
+                                //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
+                                img.setAttribute("src",e.target.result);
+                                li.appendChild(img);
+                                //div.appendChild(img);
+                                appendto.appendChild(li);
+                                /*
+                                $('#slide'+marker.title).cycle({
+                                    fx:'scrollHorz',
+                                    speed: 300,
+                                    delay:-2000,
+                                    timeout:0,
+                                    //next:'#slide'+marker.title,
+                                    next:'#slide'+marker.title,
+                                    pause:1
+                                });*/
+                                $('#slide'+marker.title).jcarousel('scroll','+=2');
+                                $('#slide'+marker.title).jcarousel('reload');
+                            };
+                            //sliderInit(marker.title);
+                        }
+
+
+                        //appendto.appendChild(div);
+                        //var name=marker.title;
+                       /// console.log("Name is"+name);
+                        //Create two button
+                        var prev=document.createElement("a");
+                       prev.setAttribute("href","#");
+                       prev.setAttribute("class","jcarousel-control-prev");
+                        prev.setAttribute("id","prev");
+                        var textnode=document.createTextNode("<<");
+                      prev.appendChild(textnode);
+
+                       var next=document.createElement("a");
+                        next.setAttribute("id","next");
+                        next.setAttribute("href","#");
+                        next.setAttribute("class","jcarousel-control-next");
+                       var textnode1=document.createTextNode(">>");
+                       next.appendChild(textnode1);
+
+                       appendd.appendChild(prev);
+                       appendd.appendChild(next);
+
+
+                        $('.jcarousel-control-prev')
+                            .on('jcarouselcontrol:active', function() {
+                                $(this).removeClass('inactive');
+                            })
+                            .on('jcarouselcontrol:inactive', function() {
+                                $(this).addClass('inactive');
+                            })
+                            .jcarouselControl({
+                                target: '-=1'
+                            });
+
+                        $('.jcarousel-control-next')
+                            .on('jcarouselcontrol:active', function() {
+                                $(this).removeClass('inactive');
+                            })
+                            .on('jcarouselcontrol:inactive', function() {
+                                $(this).addClass('inactive');
+                            })
+                            .jcarouselControl({
+                                target: '+=1'
+                            });
+
+                        $('#slide'+marker.title).jcarousel('reload');
+
+                    });
                 }
             });
+
+
+
+            function sliderInit(name)
+            {
+                $("#slideshow"+name).slick({
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    arrows: true
+                });
+            }
             //Create a new Tour stop and a form to it
+            function moveSlide(direction)
+            {
+                if(direction == "prev")
+                    $("#slideshow"+marker.title).jcarousel('scroll', '-=1');
+                else
+                    $("#slideshow"+marker.title).jcarousel('scroll', '+=1');
+
+                //$("#slideshow"+marker.title).cycle(direction);
+            }
         }
         console.log("In Loop The size of array"+itemarkers.length);
         if(itemarkers.length>1)

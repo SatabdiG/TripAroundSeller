@@ -240,3 +240,133 @@ h1 {
 }
 
 
+.jcarousel-wrapper {
+  margin: 20px auto;
+  position: relative;
+  border: 10px solid #fff;
+  /*
+  (4 * width: 150px) + (3 * margin-right: 1px) = 603px
+  */
+  width: 603px;
+  height: 125px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 2px #999;
+  -moz-box-shadow: 0 0 2px #999;
+  box-shadow: 0 0 2px #999;
+}
+
+/** Carousel **/
+
+.jcarousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.jcarousel ul {
+  width: 20000em;
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jcarousel li {
+  float: left;
+  width: 150px;
+  height: 100px;
+  margin-right: 1px;
+}
+
+.jcarousel img {
+  max-height: 100px;
+  position: absolute;
+
+}
+
+.jcarousel .loading {
+  text-align: center;
+  line-height: 90px; /* Fake vertical aligning */
+}
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
+  position: absolute;
+  top: 35px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  background: #4E443C;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 0 1px #000;
+  font: 24px/27px Arial, sans-serif;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 0 0 2px #999;
+  -moz-box-shadow: 0 0 2px #999;
+  box-shadow: 0 0 2px #999;
+}
+
+.jcarousel-control-prev {
+  left: -50px;
+  float:left;
+}
+
+.jcarousel-control-next {
+  right: -50px;
+  float: right;
+}
+
+.jcarousel-control-prev:hover span,
+.jcarousel-control-next:hover span {
+  display: block;
+}
+
+.jcarousel-control-prev.inactive,
+.jcarousel-control-next.inactive {
+  opacity: .5;
+  cursor: default;
+}
+.slideshow
+{
+  float:left;
+  height: 232px;
+  width: 232px;
+  padding: 0;
+  margin:50px;
+  position: relative;
+}
+
+.slideshow img{
+  padding: 0;
+  border: 6px solid #fff;
+  -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  background-color: #eee;
+  width:  200px;
+  height: 200px;
+
+
+}
+
+
+
+.gallery a{
+  float:right;
+  margin:50px;
+  cursor: pointer;
+}
+
+.picdes
+{
+  float: left;
+  height:109px;
+  width:595px;
+  margin:0;
+}
