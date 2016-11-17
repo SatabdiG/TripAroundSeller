@@ -326,6 +326,7 @@ function iteniarygenerator()
 
 
                     $('#slide'+marker.title).mousewheel(function(event, delta) {
+                        event.preventDefault();
                         console.log("In mousewheel"+delta);
                         if (delta < 0) {
                             console.log("in here");
