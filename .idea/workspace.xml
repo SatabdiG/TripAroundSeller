@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="Adding the">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" afterPath="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" />
@@ -23,8 +20,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/main.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="TripAroundProduction.iws" />
@@ -48,10 +43,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="iteniarycontrollerPage.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="iteniarycontrollerPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
+            <state relative-caret-position="9480">
               <caret line="632" column="47" lean-forward="false" selection-start-line="632" selection-start-column="41" selection-end-line="632" selection-end-column="47" />
               <folding />
             </state>
@@ -61,18 +56,18 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
+            <state relative-caret-position="220">
               <caret line="1998" column="2" lean-forward="false" selection-start-line="1998" selection-start-column="2" selection-end-line="1998" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="430" column="24" lean-forward="false" selection-start-line="430" selection-start-column="12" selection-end-line="430" selection-end-column="24" />
+            <state relative-caret-position="210">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,8 +164,8 @@
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/iteniary.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/main.js" />
         <option value="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -417,7 +412,7 @@
       <workItem from="1479375510722" duration="21185000" />
       <workItem from="1479404817560" duration="49000" />
       <workItem from="1479463971744" duration="66000" />
-      <workItem from="1479464073637" duration="17505000" />
+      <workItem from="1479464073637" duration="17727000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1477901720471</created>
@@ -496,11 +491,18 @@
       <option name="project" value="LOCAL" />
       <updated>1479404854670</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Adding the">
+      <created>1479486713101</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1479486713102</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151647000" />
+    <option name="totallyTimeSpent" value="151869000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -872,27 +874,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="430" column="24" lean-forward="false" selection-start-line="430" selection-start-column="12" selection-end-line="430" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1573">
           <caret line="396" column="31" lean-forward="true" selection-start-line="396" selection-start-column="31" selection-end-line="396" selection-end-column="31" />
           <caret line="395" column="31" lean-forward="true" selection-start-line="395" selection-start-column="31" selection-end-line="395" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="1998" column="2" lean-forward="false" selection-start-line="1998" selection-start-column="2" selection-end-line="1998" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -907,8 +893,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
+        <state relative-caret-position="9480">
           <caret line="632" column="47" lean-forward="false" selection-start-line="632" selection-start-column="41" selection-end-line="632" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="1998" column="2" lean-forward="false" selection-start-line="1998" selection-start-column="2" selection-end-line="1998" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
