@@ -94,7 +94,9 @@ function homeinit(){
         data: JSON.stringify(data),
         contentType: 'application/json'
       }).done(function (data) {
+        console.log("Browser Data"+data);
         var dat=JSON.parse(data);
+          // var dat=data;
         console.log("Browser Data"+dat.status);
         if(dat.status != "fail")
         {
@@ -1988,11 +1990,13 @@ tripapp.controller('SearchPageController', function($scope){
 
 tripapp.controller('viewtourcontroller', function($scope){
   $scope.userid=name;
+  $scope.map=mapname;
   $scope.init=viewtourcontroller();
 });
 
 tripapp.controller('itecontroll', function($scope){
-  $scope,userid=name;
+  $scope.userid=name;
+  $scope.map=mapname;
   $scope.init=iteniarygenerator();
 
 });

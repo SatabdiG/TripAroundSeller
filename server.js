@@ -12,9 +12,9 @@ var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
 
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
@@ -418,6 +418,7 @@ app.post('/itesave', function(req,res){
   res.end("yes");
   var username=req.body.name;
   var mapname=req.body.mapname;
+  console.log("Mapname"+mapname);
   var markers=req.body.objs;
   markers.forEach(function(marr){
     var markername=marr.name;
@@ -425,8 +426,9 @@ app.post('/itesave', function(req,res){
     var lon=marr.lng;
     var des=marr.des;
     var veh="driving";
+    var pos=marr.pos;
     //Make respective db entry
-    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des, function(message)
+    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
     {
       if(message!=undefined) {
         if (message == "yes") {
@@ -570,6 +572,33 @@ app.post("/detelemap", function(req, res){
 
 });
 
+app.post("/deleteTourStop", function(req, res)
+{
+  console.log("In delete tour Stop");
+  var username=req.body.username;
+  var mapname=req.body.mapname;
+  var tourstopname=req.body.tourstopname;
+  console.log("Got data"+username+" v"+mapname+" v"+tourstopname);
+  connect.deleteTourStop(mongofil,username,mapname,tourstopname, function(msg){
+    if(msg!=undefined)
+    {
+      console.log("Retrived message is"+msg);
+      if(msg === "done")
+      {
+        return res.end("yes");
+      }else
+      {
+        return res.end("no");
+      }
+    }
+
+
+  });
+
+
+
+});
+
 //Handler for drag and drop
 app.post('/dragdrop', function(req,res){
   console.log("In drag and drop"+userid);
@@ -663,12 +692,18 @@ app.post('/login',function(req,res){
       else
       {
         //Either username or password id incorrect disallow login
-        return res.end("fail");
+        var data={};
+        data.username="";
+        data.status="fail";
+        return res.end(JSON.stringify(data));
 
       }
     }
-    else
-      console.log("Fetched results were undefined");
+    else {
+        console.log("Fetched results were undefined");
+
+    }
+
   });
 
 });
@@ -711,6 +746,91 @@ app.post('/viewmap', function(req,res){
   });
 });
 
+//Save images wrt to each tourStop
+
+
+app.post('/usertourstop', function(req,res){
+    console.log("In registered user handler");
+    var form=new formidable.IncomingForm();
+    var mapname;
+    var dir;
+    var filenames;
+    var uploaddir;
+    form.multiple=true;
+    form.on('field',function(name,value){
+        console.log("Response  "+name+":"+value);
+        if(name == "details") {
+            var obj=JSON.parse(value);
+            console.log(obj['name']);
+            var dir = __dirname + '/uploads/'+obj['user'];
+            var actual=__dirname+'/uploads/'+obj['user']+'/'+obj['name'];
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+                if(!fs.existsSync(actual)){
+                    fs.mkdirSync(actual);
+                }
+            }
+            else
+            {
+                if(!fs.existsSync(actual)){
+                    fs.mkdirSync(actual);
+                }
+            }
+            //form.uploadDir=path.join(__dirname,'/uploads');
+            form.uploadDir = actual;
+        }else
+        {
+            if(name=="usetourstop"){
+                //call data base to update mappings
+                var obj=JSON.parse(value);
+                var filenames=obj['filename'];
+                var mapname=obj['mapname'];
+                var userid=obj['userid'];
+                var uploadpath='/uploads/'+userid+'/' + mapname;
+                var tourstopname=obj['tourstopname'];
+
+                //call database and update the database
+                for(var i=0;i<filenames.length;i++)
+                {
+                    console.log("The filename is"+filenames[i]);
+                    connect.storeImages(mongofil,tourstopname,userid,mapname,"markerid",filenames[i],uploadpath,0,0,"", function(msg){
+                        if(msg!=undefined)
+                        {
+                            if(msg == "yes"){
+                                console.log("Yay "+msg);
+                            }else
+                            {
+                                console.log("Could add to user database. Check");
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+    });
+
+    form.on('file',function(field,file){
+        console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
+        fs.rename(file.path,path.join(form.uploadDir,file.name));
+    });
+    form.on('error',function(err){
+        console.log("Error has ocurred");
+        return res.end("no");
+    });
+
+    form.on('end',function(){
+        res.send("yes");
+    });
+
+    form.parse(req);
+});
+//Save registered user details
+app.post('/userdetailssave', function(req, res){
+    console.log("Resgistered user details"+req.body);
+    return res.end("yes");
+
+});
 
 //Save Images of registered users
 
@@ -897,6 +1017,22 @@ socket.on('connection',function(socket){
       if(picname!=undefined && picpath!= undefined && mapid!= undefined) {
         console.log(picname + "  " + facevar + "   " + mapid);
         socket.emit("imagereturn", {picname: picname, picpath: picpath, mapid: mapid, userid:msg.userid, description:description, facevar:facevar, smilevar:smilevar});
+      }
+    });
+
+  });
+
+  socket.on("fetchImg", function(msg)
+  {
+    console.log("Message received in g=fetch Img"+msg.userid);
+    var userid=msg.userid;
+    var mapname=msg.mapname;
+    var tourstopname=msg.tourstopname;
+    connect.getPicturesTourStop(mongofil, userid,mapname,tourstopname, function(picname,picpath,description){
+      if(picname!=undefined && picpath!=undefined )
+      {
+        console.log("picname"+picname);
+        socket.emit("getImg", {"picname":picname,"picpath":picpath});
       }
     });
 

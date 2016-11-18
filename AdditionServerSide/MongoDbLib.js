@@ -67,6 +67,7 @@ module.exports= {
       }
     });
   },
+
   //Delete all references of the map
   deleteallmap:function(connectionstring, userid, mapid, callback)
   {
@@ -86,6 +87,23 @@ module.exports= {
 
 
   },
+
+    deleteTourStop:function(connectionstring, userid, mapid, tourstopname, callback)
+    {
+        if(callback)
+            callback();
+
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+
+                //Delete from Mapcollection
+                db.collection("tourstop").removeMany({"userid":userid, "mapid":mapid, "tourstopname":tourstopname});
+                return callback("done");
+            }
+        });
+
+
+    },
 
   updateDescription:function(connectionstring, userid, mapid,usertext, callback){
     if(callback)
@@ -156,6 +174,25 @@ module.exports= {
     });
   },
 
+    getPicturesTourStop:function(connectionstring, userid,mapid, tourstopname, callback){
+        if(callback)
+            callback();
+        console.log("UserID"+userid+"MapId"+tourstopname);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('picturescollection').find({"userid":userid, "mapid":mapid, "tourstopname":tourstopname});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document"+doc.face);
+                        callback(doc.picname,doc.picpath);
+                    }
+                });
+
+            }
+        });
+    },
+
   getpublishedmaps:function(connectionstring, callback){
     if(callback)
       callback();
@@ -200,10 +237,10 @@ module.exports= {
 
     if(callback)
       callback();
-    console.log("In get Tours"+userid);
+    console.log("In get Tours"+userid+mapname);
     mongodb.connect(connectionstring,function(err,db){
       if(!err){
-        var cursor=db.collection('tourstop').find({"userid":userid, "mapid":mapname});
+        var cursor=db.collection('tourstop').find({"userid":userid, "mapid":mapname}).sort({"position":+1});
         cursor.each(function(err,doc){
           if(doc!=null)
           {
@@ -341,7 +378,7 @@ module.exports= {
 
   },
 
-  addTourStops:function(connectionstring, userid, mapname, vehicle, tourstopname,lat,lng, description, callback)
+  addTourStops:function(connectionstring, userid, mapname, vehicle, tourstopname,lat,lng, description,pos, callback)
   {
     if(callback)
       callback();
@@ -362,7 +399,8 @@ module.exports= {
               "tourstopname": tourstopname,
               "lat": lat,
               "lon": lng,
-              "description": description
+              "description": description,
+              "position":pos
             }, {w: 1}, function (err, records) {
 
               if (records != null) {
@@ -639,7 +677,7 @@ module.exports= {
       if (collec != null) {
         console.log("In store Images");
         db.collection('picturescollection').insert({
-          "mapdataversionid": mapdataversionid,
+          "tourstopname": mapdataversionid,
           "mapid": mapid,
           "userid": userid,
           "markerid":markerid,
