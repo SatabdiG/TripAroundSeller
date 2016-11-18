@@ -17,6 +17,15 @@ function iteniarygenerator()
 
     initialize();
 
+    $("#logoutbutton").on('click', function()
+    {
+        console.log("Logout button is clicked");
+       //Logout and cancel the sesion
+        userid="";
+        name="";
+        mapname="";
+        window.location.href="#";
+    });
     //fetch Results and populate the page
     socket.emit("getTourStops",{"userid":name,"mapname":mapname});
     socket.on("viewTourStops",function(msg){
@@ -201,41 +210,45 @@ function iteniarygenerator()
             .jcarouselControl({
                 target: '+=1'
             });
+        var picarray=[];
         //Initialize the gallery if present
         socket.emit("fetchImg",{"userid":name,"tourstopname":nmt,"mapname":mapname});
-        socket.on("getImg", function(msg)
-        {
-           //Fetch and draw the gallery
+        socket.on("getImg", function(msg) {
+            //Fetch and draw the gallery
 
-            var picname=msg.picname;
-            var picpath=msg.picpath;
-            console.log("the Data returned is"+picname+"  "+picpath);
-            var totalpath=picpath+"/"+picname;
-            console.log("The picpath is"+totalpath);
-            var appendto=document.getElementById('ul'+nmt);
+            var picname = msg.picname;
+            var picpath = msg.picpath;
+            if (picarray.includes(picname) === false) {
+                picarray.push(picname);
+                console.log("the Data returned is" + picname + "  " + picpath);
+                var totalpath = picpath + "/" + picname;
+                console.log("The picpath is" + totalpath);
+                var appendto = document.getElementById('ul' + nmt);
 
-            var div=document.createElement("div");
-            var li=document.createElement("li");
-            var img=document.createElement("img");
-            img.setAttribute("class","displayimg");
-            //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
-            img.setAttribute("src",totalpath);
-            li.appendChild(img);
-            //div.appendChild(img);
-            appendto.appendChild(li);
+                var div = document.createElement("div");
+                var li = document.createElement("li");
+                var img = document.createElement("img");
+                img.setAttribute("class", "displayimg");
+                //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
+                img.setAttribute("src", totalpath);
+                li.appendChild(img);
+                //div.appendChild(img);
+                appendto.appendChild(li);
 
-            $('#slide'+nmt).jcarousel('scroll','+=2');
-            $('#slide'+nmt).jcarousel('reload');
+                $('#slide' + nmt).jcarousel('scroll', '+=2');
+                $('#slide' + nmt).jcarousel('reload');
 
-            //appendto.appendChild(div);
-            //var name=marker.title;
-            /// console.log("Name is"+name);
-            //Create two button
+                //appendto.appendChild(div);
+                //var name=marker.title;
+                /// console.log("Name is"+name);
+                //Create two button
 
 
-            $('#slide'+nmt).jcarousel('reload');
+                $('#slide' + nmt).jcarousel('reload');
 
+            }
         });
+
 
         //Delete the marker stop
         $('#del' + nmt).on('click', function () {
@@ -243,40 +256,37 @@ function iteniarygenerator()
             var tempobj = document.getElementById(nmt);
             tempobj.remove();
             var del = document.getElementById("del" + nmt);
-            if(del!=undefined)
+            if (del != undefined)
                 del.remove();
             var sav = document.getElementById("buttonsubmit" + nmt);
-            if(sav !=undefined)
+            if (sav != undefined)
                 sav.remove();
             var edit = document.getElementById("editbutton" + nmt);
-            if(edit !=undefined)
+            if (edit != undefined)
                 edit.remove();
             //Remove the Database entry
-            var sentdata={};
-            sentdata.username=name;
-            sentdata.mapname=mapname;
-            sentdata.tourstopname=nmt;
-            console.log("Sending data"+sentdata);
+            var sentdata = {};
+            sentdata.username = name;
+            sentdata.mapname = mapname;
+            sentdata.tourstopname = nmt;
+            console.log("Sending data" + sentdata);
             $.ajax({
-                url:('/deleteTourStop'),
-                method:"POST",
-                data:JSON.stringify(sentdata),
-                contentType:'application/JSON'
+                url: ('/deleteTourStop'),
+                method: "POST",
+                data: JSON.stringify(sentdata),
+                contentType: 'application/JSON'
 
-            }).done(function(msg)
-            {
-               console.log("Your Map has been deleted"+msg);
-               if(msg === "yes")
-               {
-                   //Set status message
-                   $("#statusText").css("color","green");
-                   $("#statusText").text("Your Map has been deleted");
+            }).done(function (msg) {
+                console.log("Your Map has been deleted" + msg);
+                if (msg === "yes") {
+                    //Set status message
+                    $("#statusText").css("color", "green");
+                    $("#statusText").text("Your Map has been deleted");
 
-               }else
-               {
-                   $("#statusText").css("color","red");
-                   $("#statusText").text("Your Map has not  been deleted");
-               }
+                } else {
+                    $("#statusText").css("color", "red");
+                    $("#statusText").text("Your Map has not  been deleted");
+                }
             });
             //$('#IteniaryPage').remove($('#del'+marker.title));
             //Set the Map marker to null
@@ -287,6 +297,7 @@ function iteniarygenerator()
             if (index > 1) {
                 itemarkers.splice(index, 1);
             }
+
         });
 
         //SaveButton clicked save the details on the database

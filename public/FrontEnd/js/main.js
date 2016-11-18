@@ -183,6 +183,17 @@ function dashboardfunction(){
   $(document).ready(function(){
   $('#viewmapregion').empty();
   console.log("User logged in as "+userid);
+
+
+      $("#logoutbutton").on('click', function()
+      {
+          console.log("Logout button is clicked");
+          //Logout and cancel the sesion
+          userid="";
+          name="";
+          mapname="";
+          window.location.href="#";
+      });
   //Initialize the custom dialogue boxes
   //1. The user is guest
   $("#dialog").dialog({
