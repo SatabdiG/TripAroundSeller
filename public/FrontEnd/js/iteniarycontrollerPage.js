@@ -6,7 +6,7 @@ var itemarkers=[];
 
 function iteniarygenerator()
 {
-
+    var count=1;
     $(document).ready(function(){
     //Contains user created markers
     var markers = [];
@@ -664,6 +664,38 @@ function iteniarygenerator()
                             else
                                 $("#uploadstatus").text("File has not been uploaded");
                         });
+                        var userobj={};
+
+                        userobj.markername = marker.title;
+                        userobj.lat = marker.getPosition().lat();
+                        userobj.lng = marker.getPosition().lng();
+                        userobj.des = $('#text' + marker.title).text();
+                        userobj.pos=count;
+                        count+=1;
+
+
+                    userobj.name = userid;
+                    userobj.mapname = mapname;
+
+                    console.log("Sending data"+userobj);
+                    //Code Stub -- All contents are saved to the iteniary page in the database
+                    $.ajax({
+                        url: ('/tourstopsave'),
+                        method: 'POST',
+                        data: JSON.stringify(userobj),
+                        contentType: 'application/JSON'
+                    }).done(function (msg) {
+                        console.log("returedn" + msg);
+                        if (msg == "yes") {
+                            $('#statusText').css("color","green");
+                            $('#statusText').text("Your Tour stops are now saved");
+
+                        }else
+                        {
+                            $('#statusText').css("color","red");
+                            $('#statusText').text("Your Tour stops are not saved");
+                        }
+                    });
                     });
                     //Editbutton is clicked make changes editable
                     $('#editbutton' + marker.title).on('click', function () {

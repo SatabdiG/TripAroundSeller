@@ -413,6 +413,36 @@ app.post('/usertrailmanual', function(req, res){
 
 });
 
+
+app.post('/tourstopsave', function(req,res){
+    console.log("In tourstopsave");
+    res.end("yes");
+    var username=req.body.name;
+    var mapname=req.body.mapname;
+    console.log("Mapname"+mapname);
+
+        var markername=req.body.markername;
+        var lat=req.body.lat;
+        var lon=req.body.lng;
+        var des=req.body.des;
+        var veh="driving";
+        var pos=req.body.pos;
+        //Make respective db entry
+        connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
+        {
+            if(message!=undefined) {
+                if (message == "yes") {
+                    res.end("yes");
+
+                } else {
+                    res.end("no");
+                }
+            }
+        });
+
+
+});
+
 app.post('/itesave', function(req,res){
   console.log("In Itesave");
   res.end("yes");
