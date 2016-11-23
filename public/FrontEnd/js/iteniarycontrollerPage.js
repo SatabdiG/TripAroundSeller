@@ -433,7 +433,8 @@ function iteniarygenerator()
                 $('#slide' + nmt).jcarousel('reload');
 
             });
-
+            //Replay tour button Click
+            $('#replayTourAnimation').trigger('click');
         }
     });
 
