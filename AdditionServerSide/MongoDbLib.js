@@ -245,7 +245,7 @@ module.exports= {
           if(doc!=null)
           {
 
-              console.log("Got Data" + doc.description);
+              console.log("Got Data" + doc.tourstopname);
               callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description);
 
           }

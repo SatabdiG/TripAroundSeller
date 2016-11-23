@@ -13,7 +13,7 @@ function iteniarygenerator()
 
     var createMarker=0;
 
-    console.log("You are in the iteniary page"+name);
+    console.log("You are in the iteniary page"+userid);
 
     initialize();
 
@@ -26,414 +26,415 @@ function iteniarygenerator()
         mapname="";
         window.location.href="#";
     });
+    locnames=[];
     //fetch Results and populate the page
-    socket.emit("getTourStops",{"userid":name,"mapname":mapname});
-    socket.on("viewTourStops",function(msg){
-       console.log("Got message"+msg.name);
+    socket.emit("getTourStops",{"userid":userid,"mapname":mapname});
+    socket.on("viewTourStops",function(msg){       console.log("Got message"+msg.name);
         //Create existing tourStops
-        var nmt=msg.name;
-        var description=msg.description;
-        var vehcile=msg.vehicle;
-        var lat=msg.lat;
-        var lon=msg.lng;
-        var pos=new google.maps.LatLng(lat,lon);
-        map.panTo(pos);
-        //Create Markers according to exsiting markers
-        console.log("Positions is"+pos);
-        var marker=new google.maps.Marker({
-            icon:"http://maps.google.com/mapfiles/ms/micons/blue.png",
-            position:pos,
-            map:map
-        });
-        itemarkers.push(marker);
-        //Create the rest of the structure
-
-        //Create a header for the string
-        tempstr =nmt;
-        //Main Container div
-        var mother=document.createElement('div');
-        mother.setAttribute('class','row');
-        var momsec=document.createElement('div');
-        momsec.setAttribute('class','col-lg-6');
-        var container = document.createElement('div');
-        container.setAttribute("id",nmt);
-        container.setAttribute("class", "itenary-panel");
-        //Footer div
-        var footer = document.createElement('div');
-        footer.setAttribute("id", "foot" + nmt);
-        footer.setAttribute("class", "itenary-footer");
-        //Thumbnail div
-        var thumb = document.createElement('div');
-        thumb.setAttribute("id", "thumb" + nmt);
-        thumb.setAttribute("class", "itenary-thumbnail");
-        //Add input tp thumb
-        var inp=document.createElement("input");
-        inp.setAttribute("type","file");
-        inp.setAttribute("multiple","multiple");
-        inp.setAttribute("id","inp"+nmt);
-        inp.setAttribute("accept","image/*");
-        inp.setAttribute("resize","none");
-        thumb.appendChild(inp);
-        //Description div
-        var des = document.createElement("div");
-        des.setAttribute("id", "des" + nmt);
-        des.setAttribute("class", "itenary-des");
-
-        //Header
-        var head = document.createElement("div");
-        head.setAttribute("id", "head" + nmt);
-        head.setAttribute("class", "itenary-header");
 
 
-        //Adding Header elements
-        var tempstyling = document.createElement("H2");
-        var newconent = document.createTextNode(tempstr);
-        tempstyling.appendChild(newconent);
-        //Add to head
-        head.appendChild(newconent);
-        container.appendChild(head);
-        //Adding Thumbnail
-        container.appendChild(thumb);
-        // ** Add Text Box - for adding descriptions **//
-        var tempbox = document.createElement("textarea");
-        tempbox.setAttribute("id", "text" + nmt);
-        tempbox.setAttribute("class", "textboxiteniarypage");
-        tempbox.innerHTML=description;
-        //Add to div des
-        des.appendChild(tempbox);
-        container.appendChild(des);
+        console.log("Name is"+locnames.indexOf(msg.name));
+        if(locnames.indexOf(msg.name) === -1) {
 
-        // *** Buttons ****//
-
-        //Delete button
-        var button = document.createElement('button');
-        var tmp = document.createTextNode('Delete');
-        button.setAttribute("id", "del" + nmt);
-        button.setAttribute("class", "btn btn-danger");
-        button.appendChild(tmp);
-        //footer.appendChild(button);
-        // **  Add Button for Finishing edits and saving to the server **//
-        var buttonsave = document.createElement("button");
-        buttonsave.setAttribute("id", "buttonsubmit" + nmt);
-        buttonsave.setAttribute("class", "btn btn-primary");
-        var textsave = document.createTextNode(' Save ');
-        buttonsave.appendChild(textsave);
-        //footer.appendChild(buttonsave);
-        //** Edit Button for Rediting the tour stop **//
-        var editbutton = document.createElement("button");
-        editbutton.setAttribute("id", "editbutton" + nmt);
-        editbutton.setAttribute("class", "btn btn-primary");
-        var textedit = document.createTextNode('Edit');
-        editbutton.appendChild(textedit);
-        //**Edit Transportation **//
-        //**Edit Transportation **//
-        //Create Image Gallery
-        //This becomes the gallerry
-        var imgholder=document.createElement("div");
-        imgholder.setAttribute("id","gall"+nmt);
-        imgholder.setAttribute("class","jcarousel-wrapper");
-        var slideshow=document.createElement("div");
-        slideshow.setAttribute("id","slide"+nmt);
-        slideshow.setAttribute("class","jcarousel");
-        var ul=document.createElement("ul");
-        ul.setAttribute("id","ul"+nmt);
-        slideshow.appendChild(ul);
-        imgholder.appendChild(slideshow);
-
-        //footer.appendChild(editbutton);
-
-        //container.appendChild(footer);
-        container.appendChild(button);
-        container.appendChild(buttonsave);
-        container.appendChild(editbutton);
-        container.appendChild(imgholder);
-        //newconent.setAttribute("type", "text");
-        //newconent.setAttribute("placeholder", "Enter Place Name");
-        momsec.appendChild(container);
-        mother.appendChild(momsec);
-        $('#IteniaryPage').append(mother);
-
-        $('#slide'+nmt).jcarousel();
-
-
-        $('#slide'+nmt).mousewheel(function(event, delta) {
-            event.preventDefault();
-            if (delta < 0) {
-                $('#slide' + nmt).jcarousel('scroll', -1);
-            }
-            else if (delta > 0) {
-                $('#slide' + nmt).jcarousel('scroll', +1);
-            }
-
-        });
-        //$('#IteniaryPage').append(tempbox);
-        //$('#IteniaryPage').append(button);
-        //$('#IteniaryPage').append(buttonsave);
-        //$('#IteniaryPage').append(editbutton);
-
-        var prev=document.createElement("a");
-        prev.setAttribute("href","#");
-        prev.setAttribute("class","jcarousel-control-prev");
-        prev.setAttribute("id","prev");
-        var textnode=document.createTextNode("<<");
-        prev.appendChild(textnode);
-
-        var next=document.createElement("a");
-        next.setAttribute("id","next");
-        next.setAttribute("href","#");
-        next.setAttribute("class","jcarousel-control-next");
-        var textnode1=document.createTextNode(">>");
-        next.appendChild(textnode1);
-        var appendd=document.getElementById("gall"+nmt);
-        appendd.appendChild(prev);
-        appendd.appendChild(next);
-
-
-        $('.jcarousel-control-prev')
-            .on('jcarouselcontrol:active', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('jcarouselcontrol:inactive', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '-=1'
+            var nmt=msg.name;
+            var description=msg.description;
+            var vehcile=msg.vehicle;
+            var lat=msg.lat;
+            var lon=msg.lng;
+            var pos=new google.maps.LatLng(lat,lon);
+            map.panTo(pos);
+            //Create Markers according to exsiting markers
+            console.log("Positions is"+pos);
+            var marker=new google.maps.Marker({
+                icon:"http://maps.google.com/mapfiles/ms/micons/blue.png",
+                position:pos,
+                map:map
             });
+            itemarkers.push(marker);
 
-        $('.jcarousel-control-next')
-            .on('jcarouselcontrol:active', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('jcarouselcontrol:inactive', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '+=1'
-            });
-        var picarray=[];
-        //Initialize the gallery if present
-        socket.emit("fetchImg",{"userid":name,"tourstopname":nmt,"mapname":mapname});
-        socket.on("getImg", function(msg) {
-            //Fetch and draw the gallery
+            locnames.push(msg.name);
+            //Create the rest of the structure
+            //Create a header for the string
+            tempstr = nmt;
+            //Main Container div
+            var mother = document.createElement('div');
+            mother.setAttribute('class', 'row');
+            var momsec = document.createElement('div');
+            momsec.setAttribute('class', 'col-lg-6');
+            var container = document.createElement('div');
+            container.setAttribute("id", nmt);
+            container.setAttribute("class", "itenary-panel");
+            //Footer div
+            var footer = document.createElement('div');
+            footer.setAttribute("id", "foot" + nmt);
+            footer.setAttribute("class", "itenary-footer");
+            //Thumbnail div
+            var thumb = document.createElement('div');
+            thumb.setAttribute("id", "thumb" + nmt);
+            thumb.setAttribute("class", "itenary-thumbnail");
+            //Add input tp thumb
+            var inp = document.createElement("input");
+            inp.setAttribute("type", "file");
+            inp.setAttribute("multiple", "multiple");
+            inp.setAttribute("id", "inp" + nmt);
+            inp.setAttribute("accept", "image/*");
+            inp.setAttribute("resize", "none");
+            thumb.appendChild(inp);
+            //Description div
+            var des = document.createElement("div");
+            des.setAttribute("id", "des" + nmt);
+            des.setAttribute("class", "itenary-des");
 
-            var picname = msg.picname;
-            var picpath = msg.picpath;
-            if (picarray.includes(picname) === false) {
-                picarray.push(picname);
-                console.log("the Data returned is" + picname + "  " + picpath);
-                var totalpath = picpath + "/" + picname;
-                console.log("The picpath is" + totalpath);
-                var appendto = document.getElementById('ul' + nmt);
-
-                var div = document.createElement("div");
-                var li = document.createElement("li");
-                var img = document.createElement("img");
-                img.setAttribute("class", "displayimg");
-                //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
-                img.setAttribute("src", totalpath);
-                li.appendChild(img);
-                //div.appendChild(img);
-                appendto.appendChild(li);
-
-                $('#slide' + nmt).jcarousel('scroll', '+=2');
-                $('#slide' + nmt).jcarousel('reload');
-
-                //appendto.appendChild(div);
-                //var name=marker.title;
-                /// console.log("Name is"+name);
-                //Create two button
+            //Header
+            var head = document.createElement("div");
+            head.setAttribute("id", "head" + nmt);
+            head.setAttribute("class", "itenary-header");
 
 
-                $('#slide' + nmt).jcarousel('reload');
+            //Adding Header elements
+            var tempstyling = document.createElement("H2");
+            var newconent = document.createTextNode(tempstr);
+            tempstyling.appendChild(newconent);
+            //Add to head
+            head.appendChild(newconent);
+            container.appendChild(head);
+            //Adding Thumbnail
+            container.appendChild(thumb);
+            // ** Add Text Box - for adding descriptions **//
+            var tempbox = document.createElement("textarea");
+            tempbox.setAttribute("id", "text" + nmt);
+            tempbox.setAttribute("class", "textboxiteniarypage");
+            tempbox.innerHTML = description;
+            //Add to div des
+            des.appendChild(tempbox);
+            container.appendChild(des);
 
-            }
-        });
+            // *** Buttons ****//
+
+            //Delete button
+            var button = document.createElement('button');
+            var tmp = document.createTextNode('Delete');
+            button.setAttribute("id", "del" + nmt);
+            button.setAttribute("class", "btn btn-danger");
+            button.appendChild(tmp);
+            //footer.appendChild(button);
+            // **  Add Button for Finishing edits and saving to the server **//
+            var buttonsave = document.createElement("button");
+            buttonsave.setAttribute("id", "buttonsubmit" + nmt);
+            buttonsave.setAttribute("class", "btn btn-primary");
+            var textsave = document.createTextNode(' Save ');
+            buttonsave.appendChild(textsave);
+            //footer.appendChild(buttonsave);
+            //** Edit Button for Rediting the tour stop **//
+            var editbutton = document.createElement("button");
+            editbutton.setAttribute("id", "editbutton" + nmt);
+            editbutton.setAttribute("class", "btn btn-primary");
+            var textedit = document.createTextNode('Edit');
+            editbutton.appendChild(textedit);
+            //**Edit Transportation **//
+            //**Edit Transportation **//
+            //Create Image Gallery
+            //This becomes the gallerry
+            var imgholder = document.createElement("div");
+            imgholder.setAttribute("id", "gall" + nmt);
+            imgholder.setAttribute("class", "jcarousel-wrapper");
+            var slideshow = document.createElement("div");
+            slideshow.setAttribute("id", "slide" + nmt);
+            slideshow.setAttribute("class", "jcarousel");
+            var ul = document.createElement("ul");
+            ul.setAttribute("id", "ul" + nmt);
+            slideshow.appendChild(ul);
+            imgholder.appendChild(slideshow);
+
+            //footer.appendChild(editbutton);
+
+            //container.appendChild(footer);
+            container.appendChild(button);
+            container.appendChild(buttonsave);
+            container.appendChild(editbutton);
+            container.appendChild(imgholder);
+            //newconent.setAttribute("type", "text");
+            //newconent.setAttribute("placeholder", "Enter Place Name");
+            momsec.appendChild(container);
+            mother.appendChild(momsec);
+            $('#IteniaryPage').append(mother);
+
+            $('#slide' + nmt).jcarousel();
 
 
-        //Delete the marker stop
-        $('#del' + nmt).on('click', function () {
-            console.log("Delete button is pressed");
-            var tempobj = document.getElementById(nmt);
-            tempobj.remove();
-            var del = document.getElementById("del" + nmt);
-            if (del != undefined)
-                del.remove();
-            var sav = document.getElementById("buttonsubmit" + nmt);
-            if (sav != undefined)
-                sav.remove();
-            var edit = document.getElementById("editbutton" + nmt);
-            if (edit != undefined)
-                edit.remove();
-            //Remove the Database entry
-            var sentdata = {};
-            sentdata.username = name;
-            sentdata.mapname = mapname;
-            sentdata.tourstopname = nmt;
-            console.log("Sending data" + sentdata);
-            $.ajax({
-                url: ('/deleteTourStop'),
-                method: "POST",
-                data: JSON.stringify(sentdata),
-                contentType: 'application/JSON'
-
-            }).done(function (msg) {
-                console.log("Your Map has been deleted" + msg);
-                if (msg === "yes") {
-                    //Set status message
-                    $("#statusText").css("color", "green");
-                    $("#statusText").text("Your Map has been deleted");
-
-                } else {
-                    $("#statusText").css("color", "red");
-                    $("#statusText").text("Your Map has not  been deleted");
+            $('#slide' + nmt).mousewheel(function (event, delta) {
+                event.preventDefault();
+                if (delta < 0) {
+                    $('#slide' + nmt).jcarousel('scroll', -1);
                 }
-            });
-            //$('#IteniaryPage').remove($('#del'+marker.title));
-            //Set the Map marker to null
-            //Remove to itemarkers
-            marker.setMap(null);
-            //Remove a marker from the array List
-            var index = itemarkers.indexOf(marker);
-            if (index > 1) {
-                itemarkers.splice(index, 1);
-            }
-
-        });
-
-        //SaveButton clicked save the details on the database
-        $('#buttonsubmit' + nmt).on('click', function () {
-            console.log("The save button is clicked");
-            //Get the Text Area and make it an div elements
-            var replacediv = document.createElement("div");
-            var data = $('#text' + nmt).val();
-            var tempnode = document.createTextNode(data);
-            replacediv.appendChild(tempnode);
-            replacediv.setAttribute("id", "text" + nmt);
-            $('#text' +nmt).replaceWith(replacediv);
-
-            var form=new FormData();
-            var senddata={};
-            senddata.user=name;
-            senddata.name=mapname;
-            form.append('details',JSON.stringify(senddata));
-            var fileele=document.getElementById("inp"+nmt).files;
-            if(fileele.length>0)
-            {
-                //There are enough pictures to save
-
-                for(var i=0;i<fileele.length;i++)
-                {
-                    var filetmp=fileele[i];
-                    console.log("File name"+filetmp.name);
-                    form.append('uploads[]',filetmp,filetmp.name);
-                    filename.push(filetmp.name);
-                    picobj=filetmp.name;
-
+                else if (delta > 0) {
+                    $('#slide' + nmt).jcarousel('scroll', +1);
                 }
-            }
-            usertourstopname.mapname=mapname;
-            usertourstopname.tourstopname=nmt;
-            usertourstopname.userid=name;
-            usertourstopname.filename=filename;
-            form.append("usetourstop",JSON.stringify(usertourstopname));
 
-            $.ajax({
-                url:"/usertourstop",
-                type:"POST",
-                data:form,
-                processData:false,
-                contentType:false
-            }).done(function(msg){
-                console.log(msg);
-                if(msg == "yes") {
-
-                    $("#statusText").text("File has been uploaded");
-                    $("#statusText").css({"color":"green"});
-
-                }
-                else
-                    $("#uploadstatus").text("File has not been uploaded");
             });
+            //$('#IteniaryPage').append(tempbox);
+            //$('#IteniaryPage').append(button);
+            //$('#IteniaryPage').append(buttonsave);
+            //$('#IteniaryPage').append(editbutton);
+
+            var prev = document.createElement("a");
+            prev.setAttribute("href", "#");
+            prev.setAttribute("class", "jcarousel-control-prev");
+            prev.setAttribute("id", "prev");
+            var textnode = document.createTextNode("<<");
+            prev.appendChild(textnode);
+
+            var next = document.createElement("a");
+            next.setAttribute("id", "next");
+            next.setAttribute("href", "#");
+            next.setAttribute("class", "jcarousel-control-next");
+            var textnode1 = document.createTextNode(">>");
+            next.appendChild(textnode1);
+            var appendd = document.getElementById("gall" + nmt);
+            appendd.appendChild(prev);
+            appendd.appendChild(next);
 
 
-        });
-        //Editbutton is clicked make changes editable
-        $('#editbutton' + nmt).on('click', function () {
-            console.log("Edit button is clicked");
-            //Write contents to make the text line editable
-            //Get the Text Box back again
-            $('#text'+nmt).focus();
-            $('#text'+nmt).focus().select;
-            if ($('#text' + name)[0].tagName == 'DIV') {
-                //Then Replace else do nothing
-                $('#text'+nmt).focus();
-                $('#text'+nmt).focus().select;
-                var inputbox = document.createElement("textarea");
-                var currdata = document.getElementById("text" + nmt);
-                var data = currdata.innerHTML;
-                inputbox.setAttribute("id", "text" + nmt);
-                inputbox.innerHTML = data;
-                $('#text' + nmt).replaceWith(inputbox);
+            $('.jcarousel-control-prev')
+                .on('jcarouselcontrol:active', function () {
+                    $(this).removeClass('inactive');
+                })
+                .on('jcarouselcontrol:inactive', function () {
+                    $(this).addClass('inactive');
+                })
+                .jcarouselControl({
+                    target: '-=1'
+                });
 
-            }
-        });
+            $('.jcarousel-control-next')
+                .on('jcarouselcontrol:active', function () {
+                    $(this).removeClass('inactive');
+                })
+                .on('jcarouselcontrol:inactive', function () {
+                    $(this).addClass('inactive');
+                })
+                .jcarouselControl({
+                    target: '+=1'
+                });
+            var picarray = [];
+            //Initialize the gallery if present
+            socket.emit("fetchImg", {"userid": userid, "tourstopname": nmt, "mapname": mapname});
+            socket.on("getImg", function (msg) {
+                //Fetch and draw the gallery
 
-        //The gallery controller
-        $('#inp'+nmt).on("change", function(evt)
-        {
+                var picname = msg.picname;
+                var picpath = msg.picpath;
+                if (picarray.includes(picname) === false) {
+                    picarray.push(picname);
+                    console.log("the Data returned is" + picname + "  " + picpath);
+                    var totalpath = picpath + "/" + picname;
+                    console.log("The picpath is" + totalpath);
+                    var appendto = document.getElementById('ul' + nmt);
 
-            console.log("Images have been uploaded");
-            //Create the gallery
-            // The gallery controller is : gall+marker.title
-            //get the individual pictures
-            var appendto=document.getElementById('ul'+nmt);
-            var appendd=document.getElementById('gall'+nmt);
-            var input=$('#inp'+nmt).get(0).files;
-            var srcs=[];
-
-            for(var i=0;i<input.length;i++)
-            {
-                console.log("Printing to console");
-                //contains each pic file
-
-                var eachfil=input[i];
-                //Create an a element
-                var reader=new FileReader();
-                reader.readAsDataURL(eachfil);
-                reader.onload=function(e){
-                    console.log("In Reader");
-                    var div=document.createElement("div");
-                    var li=document.createElement("li");
-                    var img=document.createElement("img");
-                    img.setAttribute("class","displayimg");
+                    var div = document.createElement("div");
+                    var li = document.createElement("li");
+                    var img = document.createElement("img");
+                    img.setAttribute("class", "displayimg");
                     //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
-                    img.setAttribute("src",e.target.result);
+                    img.setAttribute("src", totalpath);
                     li.appendChild(img);
                     //div.appendChild(img);
                     appendto.appendChild(li);
-                    /*
-                     $('#slide'+marker.title).cycle({
-                     fx:'scrollHorz',
-                     speed: 300,
-                     delay:-2000,
-                     timeout:0,
-                     //next:'#slide'+marker.title,
-                     next:'#slide'+marker.title,
-                     pause:1
-                     });*/
-                    $('#slide'+nmt).jcarousel('scroll','+=2');
-                    $('#slide'+nmt).jcarousel('reload');
-                };
-                //sliderInit(marker.title);
-            }
+
+                    $('#slide' + nmt).jcarousel('scroll', '+=2');
+                    $('#slide' + nmt).jcarousel('reload');
+
+                    //appendto.appendChild(div);
+                    //var name=marker.title;
+                    /// console.log("Name is"+name);
+                    //Create two button
 
 
+                    $('#slide' + nmt).jcarousel('reload');
 
-            $('#slide'+nmt).jcarousel('reload');
+                }
+            });
 
-        });
+
+            //Delete the marker stop
+            $('#del' + nmt).on('click', function () {
+                console.log("Delete button is pressed");
+                var tempobj = document.getElementById(nmt);
+                tempobj.remove();
+                var del = document.getElementById("del" + nmt);
+                if (del != undefined)
+                    del.remove();
+                var sav = document.getElementById("buttonsubmit" + nmt);
+                if (sav != undefined)
+                    sav.remove();
+                var edit = document.getElementById("editbutton" + nmt);
+                if (edit != undefined)
+                    edit.remove();
+                //Remove the Database entry
+                var sentdata = {};
+                sentdata.username = userid;
+                sentdata.mapname = mapname;
+                sentdata.tourstopname = nmt;
+                console.log("Sending data" + sentdata);
+                $.ajax({
+                    url: ('/deleteTourStop'),
+                    method: "POST",
+                    data: JSON.stringify(sentdata),
+                    contentType: 'application/JSON'
+
+                }).done(function (msg) {
+                    console.log("Your Map has been deleted" + msg);
+                    if (msg === "yes") {
+                        //Set status message
+                        $("#statusText").css("color", "green");
+                        $("#statusText").text("Your Map has been deleted");
+
+                    } else {
+                        $("#statusText").css("color", "red");
+                        $("#statusText").text("Your Map has not  been deleted");
+                    }
+                });
+                //$('#IteniaryPage').remove($('#del'+marker.title));
+                //Set the Map marker to null
+                //Remove to itemarkers
+                marker.setMap(null);
+                //Remove a marker from the array List
+                var index = itemarkers.indexOf(marker);
+                if (index > 1) {
+                    itemarkers.splice(index, 1);
+                }
+
+            });
+
+            //SaveButton clicked save the details on the database
+            $('#buttonsubmit' + nmt).on('click', function () {
+                console.log("The save button is clicked");
+                //Get the Text Area and make it an div elements
+                var replacediv = document.createElement("div");
+                var data = $('#text' + nmt).val();
+                var tempnode = document.createTextNode(data);
+                replacediv.appendChild(tempnode);
+                replacediv.setAttribute("id", "text" + nmt);
+                $('#text' + nmt).replaceWith(replacediv);
+
+                var form = new FormData();
+                var senddata = {};
+                senddata.user = userid;
+                senddata.name = mapname;
+                form.append('details', JSON.stringify(senddata));
+                var fileele = document.getElementById("inp" + nmt).files;
+                if (fileele.length > 0) {
+                    //There are enough pictures to save
+
+                    for (var i = 0; i < fileele.length; i++) {
+                        var filetmp = fileele[i];
+                        console.log("File name" + filetmp.name);
+                        form.append('uploads[]', filetmp, filetmp.name);
+                        filename.push(filetmp.name);
+                        picobj = filetmp.name;
+
+                    }
+                }
+                usertourstopname.mapname = mapname;
+                usertourstopname.tourstopname = nmt;
+                usertourstopname.userid = userid;
+                usertourstopname.filename = filename;
+                form.append("usetourstop", JSON.stringify(usertourstopname));
+
+                $.ajax({
+                    url: "/usertourstop",
+                    type: "POST",
+                    data: form,
+                    processData: false,
+                    contentType: false
+                }).done(function (msg) {
+                    console.log(msg);
+                    if (msg == "yes") {
+
+                        $("#statusText").text("File has been uploaded");
+                        $("#statusText").css({"color": "green"});
+
+                    }
+                    else
+                        $("#uploadstatus").text("File has not been uploaded");
+                });
 
 
+            });
+            //Editbutton is clicked make changes editable
+            $('#editbutton' + nmt).on('click', function () {
+                console.log("Edit button is clicked");
+                //Write contents to make the text line editable
+                //Get the Text Box back again
+                $('#text' + nmt).focus();
+                $('#text' + nmt).focus().select;
+                if ($('#text' + name)[0].tagName == 'DIV') {
+                    //Then Replace else do nothing
+                    $('#text' + nmt).focus();
+                    $('#text' + nmt).focus().select;
+                    var inputbox = document.createElement("textarea");
+                    var currdata = document.getElementById("text" + nmt);
+                    var data = currdata.innerHTML;
+                    inputbox.setAttribute("id", "text" + nmt);
+                    inputbox.innerHTML = data;
+                    $('#text' + nmt).replaceWith(inputbox);
+
+                }
+            });
+
+            //The gallery controller
+            $('#inp' + nmt).on("change", function (evt) {
+
+                console.log("Images have been uploaded");
+                //Create the gallery
+                // The gallery controller is : gall+marker.title
+                //get the individual pictures
+                var appendto = document.getElementById('ul' + nmt);
+                var appendd = document.getElementById('gall' + nmt);
+                var input = $('#inp' + nmt).get(0).files;
+                var srcs = [];
+
+                for (var i = 0; i < input.length; i++) {
+                    console.log("Printing to console");
+                    //contains each pic file
+
+                    var eachfil = input[i];
+                    //Create an a element
+                    var reader = new FileReader();
+                    reader.readAsDataURL(eachfil);
+                    reader.onload = function (e) {
+                        console.log("In Reader");
+                        var div = document.createElement("div");
+                        var li = document.createElement("li");
+                        var img = document.createElement("img");
+                        img.setAttribute("class", "displayimg");
+                        //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
+                        img.setAttribute("src", e.target.result);
+                        li.appendChild(img);
+                        //div.appendChild(img);
+                        appendto.appendChild(li);
+                        /*
+                         $('#slide'+marker.title).cycle({
+                         fx:'scrollHorz',
+                         speed: 300,
+                         delay:-2000,
+                         timeout:0,
+                         //next:'#slide'+marker.title,
+                         next:'#slide'+marker.title,
+                         pause:1
+                         });*/
+                        $('#slide' + nmt).jcarousel('scroll', '+=2');
+                        $('#slide' + nmt).jcarousel('reload');
+                    };
+                    //sliderInit(marker.title);
+                }
+
+
+                $('#slide' + nmt).jcarousel('reload');
+
+            });
+
+        }
     });
 
 
@@ -621,7 +622,7 @@ function iteniarygenerator()
                         //Save the images uploaded
                         var form=new FormData();
                         var senddata={};
-                        senddata.user=name;
+                        senddata.user=userid;
                         senddata.name=mapname;
                         form.append('details',JSON.stringify(senddata));
                         var fileele=document.getElementById("inp"+marker.title).files;
@@ -641,7 +642,7 @@ function iteniarygenerator()
                         }
                         usertourstopname.mapname=mapname;
                         usertourstopname.tourstopname=marker.title;
-                        usertourstopname.userid=name;
+                        usertourstopname.userid=userid;
                         usertourstopname.filename=filename;
                         form.append("usetourstop",JSON.stringify(usertourstopname));
 
@@ -897,7 +898,7 @@ function iteniarygenerator()
                 count+=1;
 
             });
-            userobj.name = name;
+            userobj.name = userid;
             userobj.mapname = mapname;
             userobj.objs = routeobjs;
 
