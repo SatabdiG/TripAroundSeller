@@ -1605,7 +1605,7 @@ function imagegallerycontroller(){
 }
 
 //Controller for the serach and display page
-
+/*
 function serachpage()
 {
   console.log("Hello");
@@ -1621,17 +1621,9 @@ function serachpage()
     }
   });
 
-}
+}*/
 
 //Controller for the view Tour generator
-
-function viewtourcontroller()
-{
-  console.log("you are now viewing the tour page "+name);
-
-}
-
-
 
 function airplanehandler(){
     planeactive= 1;

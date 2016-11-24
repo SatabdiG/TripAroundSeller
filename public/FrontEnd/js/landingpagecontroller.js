@@ -5,10 +5,26 @@
 
 function landingpagecontroller() {
     $(document).ready(function () {
+        userid="";
+        mapname="";
+        serachmap="";
+        name="";
         console.log("Welcome to the trip Around -- landing page");
         $('#login').on('click', function () {
             window.location.href = "#login";
 
+        });
+
+        $('#SearchTour').on('click', function(evt)
+        {
+           console.log("Search tour has been clicked");
+           window.location.href="#searchtours";
+
+        });
+
+        $('#SaveTour').on('click', function(evt){
+           console.log("The Save button has been clicked");
+           window.location.href="#login";
         });
 
         $('#pagepiling').pagepiling({

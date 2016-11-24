@@ -1090,6 +1090,16 @@ socket.on('connection',function(socket){
     });
 
   });
+  socket.on('searchimage', function(msg){
+    console.log("In search images"+msg.mapname);
+    connect.getOneImage(mongofil, msg.mapname, function(picname, picloction){
+      if(picname != undefined && picloction != undefined)
+      {
+        console.log("Sending data"+picname+"  "+picloction);
+        socket.emit("getimagesearch",{picname:picname,location:picloction})
+      }
+    });
+  });
 
   socket.on('getmaps', function(msg){
      console.log('Message received'+msg.userid);

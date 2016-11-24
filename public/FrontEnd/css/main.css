@@ -392,3 +392,57 @@ h1 {
   text-align:center;
 }
 
+.searchlink
+{
+  cursor: hand;
+}
+
+.thumbnail{
+  position:relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: block;
+  margin: auto;
+}
+
+.thumbnail img
+{
+  position: relative;
+  left: 50%;
+  top:50%;
+  height:100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+
+}
+
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+
+.thumbcontainer
+{
+  background-color: #d2e1fc;
+  width:35%;
+  padding-bottom: 30px;
+  text-align: center;
+
+}
+
+#logout{
+  float:right;
+}
+#serachheading
+{
+  font-family: 'Indie Flower', cursive;
+  font-weight: bold;
+}
+
+#Goback
+{
+  float:right;
+}

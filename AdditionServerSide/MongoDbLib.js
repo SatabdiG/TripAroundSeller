@@ -378,6 +378,8 @@ module.exports= {
 
   },
 
+
+
   addTourStops:function(connectionstring, userid, mapname, vehicle, tourstopname,lat,lng, description,pos, callback)
   {
     if(callback)
@@ -499,6 +501,38 @@ module.exports= {
         }
       });
   },
+
+    getOneImage: function (connectionstring, mapname, callback) {
+        if (callback) {
+            callback();
+        }
+        console.log("Imagename "+mapname);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var doc=db.collection("picturescollection").findOne({"mapid":mapname}, function(err, item){
+                  if(!err)
+                  {
+                      var name=item.picname;
+                      var location=item.picpath;
+                      console.log("Name location"+ name+"v "+ location);
+                      return callback(name, location);
+                  }
+                });
+
+
+                /*
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document ID "+doc._id+"  "+doc.picname+doc.picpath);
+                        return callback(doc.picname, doc.picpath);
+
+                    }
+                });*/
+
+            }
+        });
+    },
    //Update the Maps so that they can be published
     updateMaps:function (connectionstring, userid,mapid,publish, callback) {
         if(callback){
