@@ -74,6 +74,12 @@ function homeinit(){
   mapname="";
   password="";
   $(document).ready(function(){
+
+    $("#goback").on('click', function(event)
+    {
+      window.location.href="#";
+      window.location.reload()
+    });
     $('#guestlink').click(function(event){
       console.log("Guest link click");
       event.preventDefault();
@@ -1903,10 +1909,15 @@ var tripapp= angular.module('tripapp', ['ngRoute']);
 
 tripapp.config(function($routeProvider) {
   $routeProvider
-  .when('/', {
+  .when('/login', {
     templateUrl: '/FrontEnd/partials/home.html',
     controller: 'maincontroller'
   })
+      .when('/',{
+        templateUrl:'/FrontEnd/partials/landing.html',
+          controller:'landingpagecontroller'
+      })
+
     .when('/viewmaps',{
       templateUrl:'/FrontEnd/partials/map.html',
       controller:'mapcontroller'
@@ -1988,8 +1999,8 @@ tripapp.controller('dashboardcontroller', function($scope){
 
   });
 
-
 });
+
 
 tripapp.controller('SearchPageController', function($scope){
   $scope.userid=name;
@@ -2009,4 +2020,10 @@ tripapp.controller('itecontroll', function($scope){
   $scope.map=mapname;
   $scope.init=iteniarygenerator();
 
+});
+
+tripapp.controller('landingpagecontroller', function($scope)
+{
+  $scope.message="Hello World";
+  $scope.init=landingpagecontroller();
 });
