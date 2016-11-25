@@ -256,6 +256,29 @@ module.exports= {
   }
   ,
 
+    getSearchTours:function(connectionstring, mapname, callback)
+    {
+
+        if(callback)
+            callback();
+        console.log("In get Tours"+mapname);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('tourstop').find({"mapid":mapname}).sort({"position":+1});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+
+                        console.log("Got Data" + doc.tourstopname);
+                        callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description);
+
+                    }
+                });
+
+            }
+        });
+    },
+
   verifyusers:function (connectionstring, databasename, queryby, queryval, callback) {
     mongodb.connect(connectionstring, function (err, db) {
       if (callback) {

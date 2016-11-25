@@ -29,13 +29,11 @@ function iteniarygenerator()
     locnames=[];
     //fetch Results and populate the page
     socket.emit("getTourStops",{"userid":userid,"mapname":mapname});
-    socket.on("viewTourStops",function(msg){       console.log("Got message"+msg.name);
+    socket.on("viewTourStops",function(msg){
+        console.log("Got message"+msg.name);
         //Create existing tourStops
-
-
         console.log("Name is"+locnames.indexOf(msg.name));
         if(locnames.indexOf(msg.name) === -1) {
-
             var nmt=msg.name;
             var description=msg.description;
             var vehcile=msg.vehicle;

@@ -1088,7 +1088,16 @@ socket.on('connection',function(socket){
         socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
       }
     });
-
+  });
+  socket.on('getSearchTours', function(msg){
+    console.log("Message received is"+msg.mapname);
+      connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+      {
+          if(tourstopnam!=undefined ) {
+              console.log("Sending Data"+description);
+              socket.emit("viewserachtours", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
+          }
+      });
   });
   socket.on('searchimage', function(msg){
     console.log("In search images"+msg.mapname);
