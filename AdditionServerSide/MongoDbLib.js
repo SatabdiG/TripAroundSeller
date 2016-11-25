@@ -193,6 +193,25 @@ module.exports= {
         });
     },
 
+    getPicturesTourStopsrc:function(connectionstring, mapid, tourstopname, callback){
+        if(callback)
+            callback();
+        console.log("UserID"+"MapId"+tourstopname);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('picturescollection').find({"mapid":mapid, "tourstopname":tourstopname});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document"+doc.face);
+                        callback(doc.picname,doc.picpath);
+                    }
+                });
+
+            }
+        });
+    },
+
   getpublishedmaps:function(connectionstring, callback){
     if(callback)
       callback();

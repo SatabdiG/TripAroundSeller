@@ -33,7 +33,7 @@ function viewtourcontroller()
        {
           console.log("In View serach"+msg.name);
           //Make the iterniary Page
-           var name=msg.name;
+           var nmt=msg.name;
            var description=msg.description;
            var vehicle=msg.vehicle;
            var lat=msg.lat;
@@ -50,7 +50,7 @@ function viewtourcontroller()
            });
            itemarkers.push(marker);
            locations.push(msg.name);
-
+           tempstr = nmt;
            var mother = document.createElement('div');
            mother.setAttribute('class', 'row');
            var momsec = document.createElement('div');
@@ -94,6 +94,8 @@ function viewtourcontroller()
            des.appendChild(tempbox);
            container.appendChild(des);
 
+           var imfpar=document.createElement("div");
+           imfpar.setAttribute("class","row");
            var imgholder = document.createElement("div");
            imgholder.setAttribute("id", "gall" + nmt);
            imgholder.setAttribute("class", "jcarousel-wrapper");
@@ -104,7 +106,8 @@ function viewtourcontroller()
            ul.setAttribute("id", "ul" + nmt);
            slideshow.appendChild(ul);
            imgholder.appendChild(slideshow);
-           container.appendChild(imgholder);
+           imfpar.appendChild(imgholder);
+           container.appendChild(imfpar);
            momsec.appendChild(container);
            mother.appendChild(momsec);
            $('#IteniaryPage').append(mother);
@@ -162,6 +165,43 @@ function viewtourcontroller()
                    target: '+=1'
                });
            var picarray = [];
+
+           socket.emit("fetchImgsrc", {"tourstopname": nmt, "mapname": serachmap});
+           socket.on("getImgsrc", function (msg) {
+               var picname = msg.picname;
+               var picpath = msg.picpath;
+               if (picarray.includes(picname) === false) {
+                   picarray.push(picname);
+                   console.log("the Data returned is" + picname + "  " + picpath);
+                   var totalpath = picpath + "/" + picname;
+                   console.log("The picpath is Search Page" + totalpath);
+                   var appendto = document.getElementById('ul' + nmt);
+
+                   var div = document.createElement("div");
+                   var li = document.createElement("li");
+                   var img = document.createElement("img");
+                   img.setAttribute("class", "displayimg");
+                   //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
+                   img.setAttribute("src", totalpath);
+                   li.appendChild(img);
+                   //div.appendChild(img);
+                   appendto.appendChild(li);
+
+                   $('#slide' + nmt).jcarousel('scroll', '+=2');
+                   $('#slide' + nmt).jcarousel('reload');
+                   //appendto.appendChild(div);
+                   //var name=marker.title;
+                   /// console.log("Name is"+name);
+                   //Create two button
+                   $('#slide' + nmt).jcarousel('reload');
+
+
+               }
+
+
+           });
+
+
 
        });
 

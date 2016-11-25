@@ -1068,6 +1068,22 @@ socket.on('connection',function(socket){
 
   });
 
+    socket.on("fetchImgsrc", function(msg)
+    {
+        console.log("Message received in g=fetch Img"+msg.userid);
+        var userid=msg.userid;
+        var mapname=msg.mapname;
+        var tourstopname=msg.tourstopname;
+        connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,description){
+            if(picname!=undefined && picpath!=undefined )
+            {
+                console.log("picname"+picname);
+                socket.emit("getImgsrc", {"picname":picname,"picpath":picpath});
+            }
+        });
+
+    });
+
   socket.on('getpublishedmaps', function(msg){
 
     connect.getpublishedmaps(mongofil,function(mapname, mapdescription){
@@ -1091,7 +1107,7 @@ socket.on('connection',function(socket){
   });
   socket.on('getSearchTours', function(msg){
     console.log("Message received is"+msg.mapname);
-      connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+        connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
       {
           if(tourstopnam!=undefined ) {
               console.log("Sending Data"+description);

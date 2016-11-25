@@ -401,7 +401,6 @@ h1 {
   position:relative;
   width: 200px;
   height: 200px;
-  overflow: hidden;
   display: block;
   margin: auto;
 }

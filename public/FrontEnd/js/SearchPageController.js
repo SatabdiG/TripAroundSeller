@@ -6,6 +6,11 @@
 serachmap="";
 function serachpage()
 {
+    if(document.getElementById("pp-nav") != null)
+    {
+        document.getElementById("pp-nav").remove();
+
+    }
     console.log("In Search Page in controller");
     $(document).ready(function()
     {

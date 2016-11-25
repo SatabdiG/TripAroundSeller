@@ -80,6 +80,12 @@ function homeinit(){
       window.location.href="#";
       window.location.reload()
     });
+      if(document.getElementById("pp-nav") != null)
+      {
+          document.getElementById("pp-nav").remove();
+          window.location.reload();
+
+      }
     $('#guestlink').click(function(event){
       console.log("Guest link click");
       event.preventDefault();
