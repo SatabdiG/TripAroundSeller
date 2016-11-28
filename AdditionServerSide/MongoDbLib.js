@@ -515,9 +515,9 @@ module.exports= {
   },
 
 
-  //add smile to database
-  //add smile variable to the column of smile for each image
-  addsmile: function (connectionstring,mapdataversionid, imagename, imagepath,userid,mapid,smilvar, callback) {
+    //add smile to database
+    //add smile variable to the column of smile for each image
+    addsmile: function (connectionstring,mapdataversionid, imagename, imagepath,userid,mapid,smilvar, callback) {
     if (callback) {
       callback();
     }
@@ -551,8 +551,8 @@ module.exports= {
       }
     });
   },
-  //Save Maps to database
-  addmaps:function (connectionstring,userid, mapname, mapdescription, callback) {
+    //Save Maps to database
+    addmaps:function (connectionstring,userid, mapname, mapdescription, callback) {
 
     if (callback) {
       callback();
@@ -590,8 +590,8 @@ module.exports= {
 
     });
   },
-  //Add users to database
-  addusers: function (connectionstring,userid, username, userpassword, type,callback) {
+    //Add users to database
+    addusers: function (connectionstring,userid, username, userpassword, type,callback) {
   if (callback) {
     callback();
   }
@@ -628,8 +628,7 @@ module.exports= {
 
   });
 },
-
-  storeImages: function (connectionstring, mapdataversionid, userid,mapid, markerid,picname,picpath,facevar, smilevar, des,callback) {
+    storeImages: function (connectionstring, mapdataversionid, userid,mapid, markerid,picname,picpath,facevar, smilevar, des,callback) {
     if (callback) {
       callback();
     }
@@ -666,9 +665,7 @@ module.exports= {
       }
     });
   },
-
-
-addmapversion: function (connectionstring, databasename,_mapdataversionid, _userid,_mapid, callback) {
+    addmapversion: function (connectionstring, databasename,_mapdataversionid, _userid,_mapid, callback) {
 
 
   if (callback) {
@@ -699,7 +696,7 @@ addmapversion: function (connectionstring, databasename,_mapdataversionid, _user
   });
 },
 
-addmarkers: function (connectionstring,mapdataversionid,markerid,userid,mapid,Latid,Lngid,time,filename, callback) {
+    addmarkers: function (connectionstring,mapdataversionid,markerid,userid,mapid,Latid,Lngid,time,filename, callback) {
   if (callback) {
     callback();
   }
@@ -735,7 +732,7 @@ addmarkers: function (connectionstring,mapdataversionid,markerid,userid,mapid,La
     }
   });
 },
-addvalues: function (connectionstring,mapdataversionid, imagename, imagepath,userid,mapid,  callback) {
+    addvalues: function (connectionstring,mapdataversionid, imagename, imagepath,userid,mapid,  callback) {
 
 
     if (callback) {
@@ -770,7 +767,7 @@ addvalues: function (connectionstring,mapdataversionid, imagename, imagepath,use
       }
     });
   },
-retrievevalues: function ( connectionstring, databasename, mapdataversionid, markerid,_imagename, _imagepath,_userid,_mapid, callback) {
+    retrievevalues: function ( connectionstring, databasename, mapdataversionid, markerid,_imagename, _imagepath,_userid,_mapid, callback) {
       if (callback) {
         callback();
       }
@@ -799,10 +796,39 @@ retrievevalues: function ( connectionstring, databasename, mapdataversionid, mar
           console.log("Database not found! error");
         }
       });
+    },
+    saveDocs: function(connectionstring, json_data, callback){
+        if (callback) callback();
+
+        var coll_name = "docscollection";
+        mongodb.connect(connectionstring, function (err, db) {
+            db.collection(coll_name).save(json_data, function (err, result) {
+                if (err) return console.log(err);
+                console.log('saved to database');
+            });
+        });
+        return callback("done");
+    },
+    fetchData: function(connectionstring, callback){
+        if (callback) callback();
+        var temparr=[];
+
+        var coll_name = "docscollection";
+        mongodb.connect(connectionstring, function (err, db) {
+            if(!err){
+                // var allArray = db.collection(coll_name).find({}).toArray();
+                // callback(allArray);
+                var cursor = db.collection(coll_name).find({}).sort({"time":1});
+                cursor.each(function (err2, doc) {
+                    if(doc!=null){
+                        callback(doc);
+                    }
+                });
+
+                // cursor.nextObject(function (err2, doc) {
+
+                // });
+            }
+        });
     }
-
-
-
-}
-
-
+};

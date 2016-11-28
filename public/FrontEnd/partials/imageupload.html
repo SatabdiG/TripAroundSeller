@@ -1,5 +1,7 @@
 <!--Image Upload -->
-
+<!--<script type="text/javascript">-->
+  <!--window.alert(window.mapname);-->
+<!--</script>-->
 <h1>(TripAround logo)</h1>
 <h3>Welcome, {{userid}}</h3>
 <div class="row steps">
@@ -40,6 +42,19 @@
     </form>
   </div>
 </div>
+
+<!--File upload starts-->
+<h3>File Upload:</h3>
+Select a file to upload: <br />
+
+<form>
+  <input type="file" name="myFile" size="50" id="myFile" />
+  <!--<input type="hidden" name="sampleHidden" value="MuhammadMuaz"/>-->
+  <br />
+  <div id="file_status"></div>
+  <input id="submit_doc" type = "submit" value = "Upload File" />
+</form>
+<!--File upload ends-->
 
 <div class="imageupload">
   <div class="imageuploadform">

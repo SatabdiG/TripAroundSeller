@@ -1,0 +1,19 @@
+Title - Day 1: Los Angeles
+	Day # 1
+		Description - Simple content 1 
+
+Title - Day 2: Los Angeles
+	Day # 2
+		Description - Simple Content 2
+
+Title - Day 3: Los Angeles – PalmSprings
+	Day # 3
+		Description - Simple Content 3
+
+Title - Day 4: Palm Springs - Williams / Grand Canyon
+	Day # 4
+		Description - Simple Content 4
+
+Title - Day 5: Williams - Page (Classic) / Grand Canyon (Superior)
+	Day # 5
+		Description - Simple Content 5
