@@ -20,10 +20,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/css/main.css" afterPath="$PROJECT_DIR$/public/FrontEnd/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
     </list>
     <ignored path="TripAroundProduction.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -475,7 +471,7 @@
       <workItem from="1479979268676" duration="15275000" />
       <workItem from="1480068586827" duration="15711000" />
       <workItem from="1480415262043" duration="16738000" />
-      <workItem from="1480498985612" duration="35375000" />
+      <workItem from="1480498985612" duration="35404000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1477901720471</created>
@@ -659,11 +655,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480536115690</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Adding the">
+      <created>1480537462137</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1480537462137</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="249452000" />
+    <option name="totallyTimeSpent" value="249481000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -672,7 +675,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21742313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37078652" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
