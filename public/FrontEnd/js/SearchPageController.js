@@ -14,7 +14,7 @@ function serachpage()
     console.log("In Search Page in controller");
     $(document).ready(function()
     {
-        $('#logout').on('click', function(evt){
+            $('#logout').on('click', function(evt){
            window.location.href="#";
            window.location.reload();
         });
@@ -30,7 +30,7 @@ function serachpage()
             var obj = document.getElementById("maps"+msg.name);
             console.log("Objobj"+obj);
             if (obj == null) {
-                $('#viewmapregion').append('<div class="col-xs-4 col-sm-2 col-md-1"><div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
+                $('#viewmapregion').append('<div class="col-md-4"><div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
                 var doc = document.getElementById("imagecontainer" + msg.name);
                 var location=msg.name;
                 socket.emit("searchimage", {mapname:msg.name});
