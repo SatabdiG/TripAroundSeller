@@ -30,16 +30,18 @@ function serachpage()
             var obj = document.getElementById("maps"+msg.name);
             console.log("Objobj"+obj);
             if (obj == null) {
-                $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div></div>');
+                $('#viewmapregion').append('<div class="col-xs-4 col-sm-2 col-md-1"><div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
                 var doc = document.getElementById("imagecontainer" + msg.name);
+                var location=msg.name;
                 socket.emit("searchimage", {mapname:msg.name});
                 socket.on("getimagesearch", function(msg){
+                    console.log("Mapname"+location);
                     piclocation=msg.location+"/"+msg.picname;
                     console.log("in get Search Images"+piclocation);
-                    var temele=document.getElementById("img"+msg.name);
+                    var temele=document.getElementById("imgsrc"+location);
                     if(temele == null) {
                         var imgele = document.createElement("img");
-                        imgele.setAttribute("id", "img" + msg.name);
+                        imgele.setAttribute("id", "imgsrc"+location);
                         imgele.setAttribute("class","thumbnailimg");
                         imgele.setAttribute("src", piclocation);
                         doc.appendChild(imgele);

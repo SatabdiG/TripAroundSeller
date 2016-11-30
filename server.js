@@ -223,12 +223,13 @@ app.post('/registeruser', function(req,res){
 
 app.post("/publishmap", function(req, res){
   var userid=req.body.userid;
-  var mapid=req.body.mapid;
+  var mapid=req.body.id;
   var publish=req.body.publish;
-
+  console.log("Publish Map"+publish+mapid+userid);
   //Make the database connect and update the database
   connect.updateMaps(mongofil,userid,mapid,publish, function(message)
   {
+
     if(message!=undefined) {
       console.log("Returned message" + message);
       if (message == "done") {
@@ -238,7 +239,7 @@ app.post("/publishmap", function(req, res){
       }
     }
   });
-
+  return res.end("yes");
 
 });
 

@@ -485,15 +485,22 @@ module.exports= {
       callback();
     mongodb.connect(connectionstring, function (err, db) {
       var cursor = db.collection("tourstop").count({"userid": userid, "mapid": mapname, "tourstopname": tourstopname}, function(err, count){
-      var pos1=pos;
+      var pos1=0;
       console.log("Count"+count);
       if (count === 0) {
         //Get the Max value of present position
           var options = { "sort": [['position',-1]] };
           db.collection("tourstop").findOne({$query:{"userid":userid,"mapid":mapname},$orderby:{position:-1}} , function(err, doc) {
-              if(!err)
-                console.log("Returned # " + doc.position + " documents");
-              pos1=doc.position+1;
+              if(!err) {
+                  if(doc== null)
+                  {
+                      pos1=0;
+                  }else {
+                      console.log("Returned # " + doc.position + " documents");
+                      pos1=doc.position+1;
+                  }
+              }
+
 
               //New Tour
               mongodb.connect(connectionstring, function (err, db) {
@@ -650,15 +657,20 @@ module.exports= {
         if(callback){
             callback();
         }
+        console.log("In mongoDb"+mapid+publish);
         mongodb.connect(connectionstring, function (err, db) {
            if(!err){
-            var cursor=db.collection("mapcollection").find({"userid":userid, "mapid":mapid});
+            var cursor=db.collection("mapcollection").find({"userid":userid, "mapname":mapid});
                cursor.each(function (err,doc) {
                   if(doc!=null)
                   {
-                      var docid=doc.__id;
-                      db.collection("mapcollection").update({__id:docid},{$set:{"publish":publish}});
+                      var docid=doc._id;
+                      console.log("Doc"+docid);
+                      db.collection("mapcollection").update({_id:docid},{$set:{"publish":publish}});
                       return callback("done");
+                  }else
+                  {
+                      console.log("Doc is null");
                   }
                });
            }
