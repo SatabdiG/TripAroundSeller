@@ -218,6 +218,7 @@ app.post('/registeruser', function(req,res){
 
 });
 
+
 //Handler for Map publish
 
 app.post("/publishmap", function(req, res){
@@ -427,6 +428,7 @@ app.post('/tourstopsave', function(req,res){
         var des=req.body.des;
         var veh="driving";
         var pos=req.body.pos;
+        console.log("In Tour Stop Save"+markername);
         //Make respective db entry
         connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
         {
@@ -818,6 +820,7 @@ app.post('/usertourstop', function(req,res){
                 var userid=obj['userid'];
                 var uploadpath='/uploads/'+userid+'/' + mapname;
                 var tourstopname=obj['tourstopname'];
+                var description=obj['description'];
 
                 //call database and update the database
                 for(var i=0;i<filenames.length;i++)
@@ -1025,6 +1028,21 @@ socket.on('connection',function(socket){
 
   });
 
+  socket.on("getNumTourStops", function(msg){
+    console.log("Get Number of tour stops"+msg.mapname);
+    var mapname=msg.mapname;
+    connect.getTourStopCount(mongofil, mapname, function(number){
+      if(number!= null)
+      {
+        console.log("Sending data"+number);
+        socket.emit("viewNumTourStops", {count:number});
+      }
+
+
+    });
+
+  });
+
   socket.on("GetTrails", function(msg){
     console.log("In get trails");
     //Get the trails
@@ -1052,6 +1070,17 @@ socket.on('connection',function(socket){
 
   });
 
+    socket.on('ViewGall', function(msg){
+        console.log("Message received"+ msg.mapid);
+        connect.getPicturesViewPage(mongofil, msg.mapid,function(picname, picpath, mapid, description, facevar, smilevar){
+            if(picname!=undefined && picpath!= undefined && mapid!= undefined) {
+                console.log(picname + "  " + facevar + "   " + mapid);
+                socket.emit("ViewGallReturn", {picname: picname, picpath: picpath, mapid: mapid, userid:msg.userid, description:description, facevar:facevar, smilevar:smilevar});
+            }
+        });
+
+    });
+
   socket.on("fetchImg", function(msg)
   {
     console.log("Message received in g=fetch Img"+msg.userid);
@@ -1067,6 +1096,22 @@ socket.on('connection',function(socket){
     });
 
   });
+
+    socket.on("fetchImgsrc", function(msg)
+    {
+        console.log("Message received in g=fetch Img"+msg.userid);
+        var userid=msg.userid;
+        var mapname=msg.mapname;
+        var tourstopname=msg.tourstopname;
+        connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,description){
+            if(picname!=undefined && picpath!=undefined )
+            {
+                console.log("picname"+picname);
+                socket.emit("getImgsrc", {"picname":picname,"picpath":picpath});
+            }
+        });
+
+    });
 
   socket.on('getpublishedmaps', function(msg){
 
@@ -1088,7 +1133,16 @@ socket.on('connection',function(socket){
         socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
       }
     });
-
+  });
+  socket.on('getSearchTours', function(msg){
+    console.log("Message received is"+msg.mapname);
+        connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+      {
+          if(tourstopnam!=undefined ) {
+              console.log("Sending Data"+description);
+              socket.emit("viewserachtours", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
+          }
+      });
   });
   socket.on('searchimage', function(msg){
     console.log("In search images"+msg.mapname);
@@ -1099,6 +1153,21 @@ socket.on('connection',function(socket){
         socket.emit("getimagesearch",{picname:picname,location:picloction})
       }
     });
+  });
+
+  socket.on('getdes', function(msg){
+    console.log("In get Description"+msg.mapname);
+    connect.getDes(mongofil,msg.mapname, function(mapname, mapdes){
+
+      if(mapname!= null || mapdes != null)
+      {
+        console.log("Sending data"+ mapname+ mapdes);
+        socket.emit("recdes", {mapname:mapname,description:mapdes});
+      }
+
+    });
+
+
   });
 
   socket.on('getmaps', function(msg){

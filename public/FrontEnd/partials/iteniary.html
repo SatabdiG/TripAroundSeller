@@ -1,9 +1,9 @@
 <!-- Iteniary page -->
-<h1>(TripAround logo)</h1>
+<!--<h1>(TripAround logo)</h1>-->
 <h3>Welcome, {{userid}}</h3>
 
 <button class="btn btn-primary" id="logoutbutton">Log Out </button>
-
+<!--
 <div class="row steps">
     <div class="col-md-3 step step-past">
         <a href="#dashboard">1. Select a map.</a>
@@ -23,7 +23,39 @@
     <div class="col-md-3 step step-future">
         <a href="#searchtours">6. Search for Tours.</a>
     </div>
-</div>
+</div> -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TripAround</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#dashboard">Dashboard </a></li>
+                <li><a href="#UploadImages">Upload Pictures</a></li>
+                <li><a href="#imagegallery">Gallery</a></li>
+                <li><a href="#ViewImages">Edit Map</a></li>
+                <li class="active"><a href="#iteniary">View Iterniary<span class="sr-only">(current)</span> </a></li>
+                <li><a href="#searchtours">Search for Tours</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" class="btn btn-primary">Log Out</a></li>
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 <div class="row">
     <div class="col-md-12">
@@ -32,23 +64,24 @@
 </div>
 
 
-
-<div id="googlemapcontainer">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="w3-container w3-blue" id="IteniaryPage">
-                <!--Iteniary pages go here -->
-               <!--Create Iteniary pages here -->
-                <input type="text" placeholder="Enter Tour Stop" id="place">
-                <button type="button" class="btn btn-primary" id="createTourStop"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add TourStop</button>
-                <button type="button" class="btn btn-primary" id="replayTourAnimation"><i class="fa fa-repeat" aria-hidden="true"></i> Replay </button>
-                <!--<button type="button" class="btn btn-primary" id="saveIteniary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save </button>-->
+<div class="row">
+    <div id="googlemapcontainer">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="w3-container w3-blue" id="IteniaryPage">
+                        <!--Iteniary pages go here -->
+                       <!--Create Iteniary pages here -->
+                        <input type="text" placeholder="Enter Tour Stop" id="place">
+                        <button type="button" class="btn btn-primary" id="createTourStop"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add TourStop</button>
+                        <button type="button" class="btn btn-primary" id="replayTourAnimation"><i class="fa fa-repeat" aria-hidden="true"></i> Replay </button>
+                        <!--<button type="button" class="btn btn-primary" id="saveIteniary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save </button>-->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div id="googleMap" ></div>
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div id="googleMap" ></div>
-        </div>
-    </div>
 </div>
-</div>
+
 

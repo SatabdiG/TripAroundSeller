@@ -174,6 +174,25 @@ module.exports= {
     });
   },
 
+    getPicturesViewPage:function(connectionstring, mapid, callback){
+        if(callback)
+            callback();
+        console.log("MapId"+mapid);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('picturescollection').find({"mapid":mapid});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document"+doc.face);
+                        callback(doc.picname,doc.picpath,doc.mapid, doc.description, doc.face, doc.smile);
+                    }
+                });
+
+            }
+        });
+    },
+
     getPicturesTourStop:function(connectionstring, userid,mapid, tourstopname, callback){
         if(callback)
             callback();
@@ -181,6 +200,25 @@ module.exports= {
         mongodb.connect(connectionstring,function(err,db){
             if(!err){
                 var cursor=db.collection('picturescollection').find({"userid":userid, "mapid":mapid, "tourstopname":tourstopname});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document"+doc.face);
+                        callback(doc.picname,doc.picpath);
+                    }
+                });
+
+            }
+        });
+    },
+
+    getPicturesTourStopsrc:function(connectionstring, mapid, tourstopname, callback){
+        if(callback)
+            callback();
+        console.log("UserID"+"MapId"+tourstopname);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('picturescollection').find({"mapid":mapid, "tourstopname":tourstopname});
                 cursor.each(function(err,doc){
                     if(doc!=null)
                     {
@@ -211,6 +249,25 @@ module.exports= {
       }
     });
   },
+
+    getDes:function(connectionstring, mapname, callback){
+        if(callback)
+            callback();
+
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('mapcollection').find({"mapname":mapname});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log(doc);
+                        callback(doc.mapname, doc.mapdescription);
+                    }
+                });
+
+            }
+        });
+    },
 
 
   getMaps:function(connectionstring, userid, callback){
@@ -255,6 +312,29 @@ module.exports= {
     });
   }
   ,
+
+    getSearchTours:function(connectionstring, mapname, callback)
+    {
+
+        if(callback)
+            callback();
+        console.log("In get Tours"+mapname);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection('tourstop').find({"mapid":mapname}).sort({"position":+1});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+
+                        console.log("Got Data" + doc.tourstopname);
+                        callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description);
+
+                    }
+                });
+
+            }
+        });
+    },
 
   verifyusers:function (connectionstring, databasename, queryby, queryval, callback) {
     mongodb.connect(connectionstring, function (err, db) {
@@ -305,6 +385,25 @@ module.exports= {
       }
     });
   },
+    //Count the Number of Tour Stops
+    getTourStopCount:function(connectionstring,mapname, callback){
+        if (callback) {
+            callback();
+        }
+
+        mongodb.connect(connectionstring, function (err, db) {
+            var collec = db.collection('tourstop');
+            if (collec != null) {
+                var tempsur = db.collection('tourstop').count({mapid: mapname}, function(err, count){
+                    if(!err){
+                        console.log("User present "+ count);
+                        return callback(count);
+                    }
+                });
+
+            }
+        });
+    },
 
   mapPresent:function(connectionstring,userid, callback){
     if (callback) {
@@ -386,59 +485,72 @@ module.exports= {
       callback();
     mongodb.connect(connectionstring, function (err, db) {
       var cursor = db.collection("tourstop").count({"userid": userid, "mapid": mapname, "tourstopname": tourstopname}, function(err, count){
-
+      var pos1=pos;
       console.log("Count"+count);
-      if (count == 0) {
-        //New Tour
-        mongodb.connect(connectionstring, function (err, db) {
+      if (count === 0) {
+        //Get the Max value of present position
+          var options = { "sort": [['position',-1]] };
+          db.collection("tourstop").findOne({$query:{"userid":userid,"mapid":mapname},$orderby:{position:-1}} , function(err, doc) {
+              if(!err)
+                console.log("Returned # " + doc.position + " documents");
+              pos1=doc.position+1;
 
-          var collec = db.collection('tourstop');
-          if (collec != null) {
-            db.collection('tourstop').insert({
-              "userid": userid,
-              "mapid": mapname,
-              "vehicle": vehicle,
-              "tourstopname": tourstopname,
-              "lat": lat,
-              "lon": lng,
-              "description": description,
-              "position":pos
-            }, {w: 1}, function (err, records) {
+              //New Tour
+              mongodb.connect(connectionstring, function (err, db) {
+                  var collec = db.collection('tourstop');
+                  if (collec != null) {
+                      db.collection('tourstop').insert({
+                          "userid": userid,
+                          "mapid": mapname,
+                          "vehicle": vehicle,
+                          "tourstopname": tourstopname,
+                          "lat": lat,
+                          "lon": lng,
+                          "description": description,
+                          "position":pos1
+                      }, {w: 1}, function (err, records) {
 
-              if (records != null) {
-                console.log("Trail Added");
-                callback("yes");
-                db.close();
-              }
-              else {
-                callback("no");
-                console.log("Trail cannot add");
-              }
-            });
+                          if (records != null) {
+                              console.log("Trail Added");
+                              callback("yes");
+                              db.close();
+                          }
+                          else {
+                              callback("no");
+                              console.log("Trail cannot add");
+                          }
+                      });
 
-          }
+                  }
 
 
-        });
+              });
+
+          });
+
+
       }
       else {
         //Update exsisting
-        cursor.forEach(function (err, doc) {
-          if (doc != null) {
-            console.log("Document IS" + doc._id + "  " + doc.des);
-            var docid = doc._id;
-            db.collection("tourstop").update({_id: docid}, {$set: {"des": des}});
-            db.collection("tourstop").update({_id: docid}, {$set: {"vehicle": vehicle}});
-            return res.end("yes");
-          }
+          var cursortemp=db.collection("tourstop").find({"userid": userid, "mapid": mapname, "tourstopname": tourstopname});
+          cursortemp.each(function(err,doc){
+              if(doc!=null)
+              {
 
+                  var docid=doc._id;
+                  console.log("Update the tourstop"+doc.userid+"  "+docid);
+                  //db.collection("tourstop").update({_id: docid}, {$set: {"description": description}});
+                  db.collection("tourstop").update({_id: docid}, {$set: {"description": description, "vehicle":vehicle}});
+                  return callback("done");
 
-        });
+              }
+          });
 
       }
       });
     });
   },
+
   //Add trailsby extracting two markers
   addtrails:function(connectionstring, userid, mapid, src,des,descp,mode, callback){
     console.log("In add trails");

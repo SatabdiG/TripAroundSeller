@@ -6,11 +6,17 @@
 serachmap="";
 function serachpage()
 {
+    if(document.getElementById("fp-nav") != null)
+    {
+        document.getElementById("fp-nav").remove();
+
+    }
     console.log("In Search Page in controller");
     $(document).ready(function()
     {
         $('#logout').on('click', function(evt){
            window.location.href="#";
+           window.location.reload();
         });
 
        console.log("In Controller");
@@ -52,7 +58,7 @@ function serachpage()
             $('#a'+msg.name).on('click', function(evt){
                evt.preventDefault();
                 serachmap=msg.name;
-                window.location.href="#viewtour";
+                window.location.href="#overview";
             });
         });
     });

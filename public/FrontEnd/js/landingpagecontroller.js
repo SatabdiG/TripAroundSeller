@@ -12,19 +12,21 @@ function landingpagecontroller() {
         console.log("Welcome to the trip Around -- landing page");
         $('#login').on('click', function () {
             window.location.href = "#login";
+            window.location.reload();
 
         });
 
         $('#SearchTour').on('click', function(evt)
         {
-           console.log("Search tour has been clicked");
-           window.location.href="#searchtours";
+            console.log("Search tour has been clicked");
+            window.location.href="#searchtours";
+            //window.location.reload();
 
         });
 
         $('#SaveTour').on('click', function(evt){
-           console.log("The Save button has been clicked");
-           window.location.href="#login";
+            console.log("The Save button has been clicked");
+            window.location.href="#login";
         });
 
 
