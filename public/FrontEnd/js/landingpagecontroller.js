@@ -30,7 +30,7 @@ function landingpagecontroller() {
         });
 
 
-
+        /*
         $('#fullpage').fullpage({
             menu: null,
             direction: 'vertical',
@@ -60,7 +60,7 @@ function landingpagecontroller() {
             onLeave: function(index, nextIndex, direction){},
             afterLoad: function(anchorLink, index){},
             afterRender: function(){},
-        });
+        });*/
         setTimeout(function() {
             $("#page3").trigger('click');
         },10);
