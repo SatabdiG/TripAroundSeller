@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="Adding the">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/Intro.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/So funktionierts2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/downloads-bg.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/features.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/fresh-spring-background.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/head.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/intro-bg.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/magnifying-glass.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/page4.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/pic3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/pic4.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/poloroid.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/sunset-Landing.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/texture1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/texture2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/texture3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/vintage map.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/Pictures/vintage.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/js/jquery.slimscroll.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/js/scrolloverflow.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/overview.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/viewgallery.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" afterPath="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" />
@@ -44,20 +21,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/css/main.css" afterPath="$PROJECT_DIR$/public/FrontEnd/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/main.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/js/viewtour.js" afterPath="$PROJECT_DIR$/public/FrontEnd/js/viewtour.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/dashboard.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/imageupload.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/imageupload.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/iteniary.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/iteniary.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/map.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/map.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/viewtour.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/viewtour.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="TripAroundProduction.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,79 +44,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="iteniarycontrollerPage.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="851" column="25" lean-forward="false" selection-start-line="851" selection-start-column="12" selection-end-line="851" selection-end-column="25" />
-              <folding>
-                <element signature="e#26641#27743#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="191" column="10" lean-forward="false" selection-start-line="191" selection-start-column="9" selection-end-line="191" selection-end-column="10" />
-              <folding>
-                <element signature="e#47283#47900#0" expanded="false" />
-                <element signature="e#47958#49119#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MongoDbLib.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="492" column="43" lean-forward="false" selection-start-line="492" selection-start-column="36" selection-end-line="492" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="landing.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="355" column="27" lean-forward="false" selection-start-line="355" selection-start-column="27" selection-end-line="355" selection-end-column="27" />
+            <state relative-caret-position="279">
+              <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="31" />
               <folding>
-                <element signature="n#STYLE#0;n#IMG#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h3#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#image#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#IMG#0;n#div#1;n#div#0;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#IMG#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#IMG#0;n#div#1;n#div#2;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#IMG#0;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#IMG#0;n#div#1;n#div#4;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#1;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h3#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#STYLE#0;n#IMG#2;n#div#3;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#image#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#1;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#IMG#0;n#div#1;n#div#0;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#IMG#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#IMG#0;n#div#1;n#div#2;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#IMG#0;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#IMG#0;n#div#1;n#div#4;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#1;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#STYLE#0;n#IMG#2;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchPageController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -160,18 +79,18 @@
       <file leaf-file-name="landingpagecontroller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="21" column="46" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="46" />
+            <state relative-caret-position="690">
+              <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="734" column="2" lean-forward="false" selection-start-line="734" selection-start-column="2" selection-end-line="734" selection-end-column="2" />
+            <state relative-caret-position="103">
+              <caret line="632" column="8" lean-forward="false" selection-start-line="632" selection-start-column="8" selection-end-line="632" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -189,9 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>itenary-des</find>
-      <find>thumb</find>
-      <find>maincontainerpanel</find>
       <find>socket.emit</find>
       <find>socket.on</find>
       <find>user</find>
@@ -214,11 +130,14 @@
       <find>main</find>
       <find>header</find>
       <find>tourstopsave</find>
-      <find>findOne</find>
       <find>getdire</find>
       <find>getdirections</find>
-      <find>sear</find>
       <find>searcj</find>
+      <find>sear</find>
+      <find>findOne</find>
+      <find>page1</find>
+      <find>maintitle1</find>
+      <find>section</find>
     </findStrings>
     <replaceStrings>
       <replace>userid</replace>
@@ -244,17 +163,17 @@
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/dashboard.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/main.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/viewtour.html" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/viewgallery.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/overview.html" />
         <option value="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/viewtour.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/css/main.css" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js" />
       </list>
     </option>
   </component>
@@ -554,7 +473,7 @@
       <workItem from="1479979268676" duration="15275000" />
       <workItem from="1480068586827" duration="15711000" />
       <workItem from="1480415262043" duration="16738000" />
-      <workItem from="1480498985612" duration="33636000" />
+      <workItem from="1480498985612" duration="36512000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1477901720471</created>
@@ -724,11 +643,39 @@
       <option name="project" value="LOCAL" />
       <updated>1480088567527</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Merged!!">
+      <created>1480535741989</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1480535741989</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Adding the">
+      <created>1480536115690</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1480536115690</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Adding the">
+      <created>1480537462137</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1480537462137</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Adding the">
+      <created>1480537490222</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1480537490222</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="247713000" />
+    <option name="totallyTimeSpent" value="250589000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -737,8 +684,8 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21742313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37078652" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37078652" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -778,9 +725,10 @@
     <MESSAGE value="Added landing Page with login button" />
     <MESSAGE value="Added Search tour page." />
     <MESSAGE value="latest changes" />
-    <MESSAGE value="Adding the" />
     <MESSAGE value="Pushing the changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pushing the changes" />
+    <MESSAGE value="Merged!!" />
+    <MESSAGE value="Adding the" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding the" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1041,14 +989,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/SearchPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1097,14 +1037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="492" column="43" lean-forward="false" selection-start-line="492" selection-start-column="36" selection-end-line="492" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/viewtour.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1384">
@@ -1116,11 +1048,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="734" column="2" lean-forward="false" selection-start-line="734" selection-start-column="2" selection-end-line="734" selection-end-column="2" />
+        <state relative-caret-position="150">
+          <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="851" column="25" lean-forward="false" selection-start-line="851" selection-start-column="12" selection-end-line="851" selection-end-column="25" />
+          <folding>
+            <element signature="e#26641#27743#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1135,59 +1077,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
+    <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="355" column="27" lean-forward="false" selection-start-line="355" selection-start-column="27" selection-end-line="355" selection-end-column="27" />
-          <folding>
-            <element signature="n#STYLE#0;n#IMG#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#image#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#IMG#0;n#div#1;n#div#0;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#IMG#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#IMG#0;n#div#1;n#div#2;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#IMG#0;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#IMG#0;n#div#1;n#div#4;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#1;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h3#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#STYLE#0;n#IMG#2;n#div#3;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="109">
+          <caret line="492" column="43" lean-forward="false" selection-start-line="492" selection-start-column="36" selection-end-line="492" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js">
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+        <state relative-caret-position="-1470">
+          <caret line="1" column="33" lean-forward="false" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="21" column="46" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="46" />
+        <state relative-caret-position="690">
+          <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="851" column="25" lean-forward="false" selection-start-line="851" selection-start-column="12" selection-end-line="851" selection-end-column="25" />
+        <state relative-caret-position="279">
+          <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="31" />
           <folding>
-            <element signature="e#26641#27743#0" expanded="false" />
+            <element signature="n#STYLE#0;n#IMG#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#image#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#1;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#IMG#0;n#div#1;n#div#0;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#IMG#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#IMG#0;n#div#1;n#div#2;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#IMG#0;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#IMG#0;n#div#1;n#div#4;n#div#2;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#1;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#1;n#div#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#STYLE#0;n#IMG#2;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="632" column="8" lean-forward="false" selection-start-line="632" selection-start-column="8" selection-end-line="632" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>

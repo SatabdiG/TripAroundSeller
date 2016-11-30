@@ -30,7 +30,7 @@ function landingpagecontroller() {
         });
 
 
-
+        /*
         $('#fullpage').fullpage({
             menu: null,
             direction: 'vertical',
@@ -49,7 +49,7 @@ function landingpagecontroller() {
               'position': 'right',
               'tooltips': ['section1', 'section2', 'section3', 'section4']
             },
-            normalScrollElements: null,
+            normalScrollElements: true,
             normalScrollElementTouchThreshold: 5,
             touchSensitivity: 5,
             keyboardScrolling: true,
@@ -60,7 +60,7 @@ function landingpagecontroller() {
             onLeave: function(index, nextIndex, direction){},
             afterLoad: function(anchorLink, index){},
             afterRender: function(){},
-        });
+        });*/
         setTimeout(function() {
             $("#page3").trigger('click');
         },10);
