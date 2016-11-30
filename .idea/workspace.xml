@@ -20,6 +20,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/css/main.css" afterPath="$PROJECT_DIR$/public/FrontEnd/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" afterPath="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
     </list>
     <ignored path="TripAroundProduction.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +47,8 @@
       <file leaf-file-name="landing.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="412" column="17" lean-forward="true" selection-start-line="412" selection-start-column="17" selection-end-line="412" selection-end-column="17" />
+            <state relative-caret-position="279">
+              <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="31" />
               <folding>
                 <element signature="n#STYLE#0;n#IMG#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#STYLE#0;n#IMG#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -74,21 +76,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="landingpagecontroller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="landingpagecontroller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
+            <state relative-caret-position="690">
               <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="659" column="13" lean-forward="true" selection-start-line="659" selection-start-column="13" selection-end-line="659" selection-end-column="13" />
+            <state relative-caret-position="103">
+              <caret line="632" column="8" lean-forward="false" selection-start-line="632" selection-start-column="8" selection-end-line="632" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -106,7 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>maincontainerpanel</find>
       <find>socket.emit</find>
       <find>socket.on</find>
       <find>user</find>
@@ -134,8 +135,9 @@
       <find>searcj</find>
       <find>sear</find>
       <find>findOne</find>
-      <find>section</find>
       <find>page1</find>
+      <find>maintitle1</find>
+      <find>section</find>
     </findStrings>
     <replaceStrings>
       <replace>userid</replace>
@@ -471,7 +473,7 @@
       <workItem from="1479979268676" duration="15275000" />
       <workItem from="1480068586827" duration="15711000" />
       <workItem from="1480415262043" duration="16738000" />
-      <workItem from="1480498985612" duration="35404000" />
+      <workItem from="1480498985612" duration="36512000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1477901720471</created>
@@ -662,11 +664,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480537462137</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Adding the">
+      <created>1480537490222</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1480537490222</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="249481000" />
+    <option name="totallyTimeSpent" value="250589000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
@@ -1084,10 +1093,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="412" column="17" lean-forward="true" selection-start-line="412" selection-start-column="17" selection-end-line="412" selection-end-column="17" />
+        <state relative-caret-position="279">
+          <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="31" />
           <folding>
             <element signature="n#STYLE#0;n#IMG#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#STYLE#0;n#IMG#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1116,16 +1133,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="659" column="13" lean-forward="true" selection-start-line="659" selection-start-column="13" selection-end-line="659" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+        <state relative-caret-position="103">
+          <caret line="632" column="8" lean-forward="false" selection-start-line="632" selection-start-column="8" selection-end-line="632" selection-end-column="8" />
           <folding />
         </state>
       </provider>
