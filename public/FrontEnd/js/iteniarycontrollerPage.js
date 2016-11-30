@@ -241,13 +241,10 @@ function iteniarygenerator()
 
                     $('#slide' + nmt).jcarousel('scroll', '+=2');
                     $('#slide' + nmt).jcarousel('reload');
-
                     //appendto.appendChild(div);
                     //var name=marker.title;
                     /// console.log("Name is"+name);
                     //Create two button
-
-
                     $('#slide' + nmt).jcarousel('reload');
 
                 }
@@ -314,7 +311,7 @@ function iteniarygenerator()
                 replacediv.appendChild(tempnode);
                 replacediv.setAttribute("id", "text" + nmt);
                 $('#text' + nmt).replaceWith(replacediv);
-
+                var filename=[];
                 var form = new FormData();
                 var senddata = {};
                 senddata.user = userid;
@@ -333,6 +330,7 @@ function iteniarygenerator()
 
                     }
                 }
+                var usertourstopname={};
                 usertourstopname.mapname = mapname;
                 usertourstopname.tourstopname = nmt;
                 usertourstopname.userid = userid;
@@ -357,6 +355,38 @@ function iteniarygenerator()
                         $("#uploadstatus").text("File has not been uploaded");
                 });
 
+                var userobj={};
+
+                userobj.markername = nmt;
+                userobj.lat = marker.getPosition().lat();
+                userobj.lng = marker.getPosition().lng();
+                userobj.des = data;
+                userobj.pos=count;
+                count+=1;
+
+
+                userobj.name = userid;
+                userobj.mapname = mapname;
+
+                console.log("Sending data"+userobj);
+                //Code Stub -- All contents are saved to the iteniary page in the database
+                $.ajax({
+                    url: ('/tourstopsave'),
+                    method: 'POST',
+                    data: JSON.stringify(userobj),
+                    contentType: 'application/JSON'
+                }).done(function (msg) {
+                    console.log("returedn" + msg);
+                    if (msg == "yes") {
+                        $('#statusText').css("color", "green");
+                        $('#statusText').text("Your Tour stops are now saved");
+
+                    } else {
+                        $('#statusText').css("color", "red");
+                        $('#statusText').text("Your Tour stops are not saved");
+                    }
+                });
+
 
             });
             //Editbutton is clicked make changes editable
@@ -366,7 +396,7 @@ function iteniarygenerator()
                 //Get the Text Box back again
                 $('#text' + nmt).focus();
                 $('#text' + nmt).focus().select;
-                if ($('#text' + name)[0].tagName == 'DIV') {
+                if ($('#text' + nmt)[0].tagName == 'DIV') {
                     //Then Replace else do nothing
                     $('#text' + nmt).focus();
                     $('#text' + nmt).focus().select;
@@ -896,10 +926,14 @@ function iteniarygenerator()
                     $('#place').css('background-color', "#f9f6f8");
                     //Draw the route marker
                     console.log("Length of itemarker" + itemarkers.length);
-                    for (var i = 0; i < itemarkers.length; i += 2) {
-                        var src = itemarkers[i].getPosition();
-                        var des = itemarkers[i + 1].getPosition();
-                        getDirections(map, src, des);
+                    var tempcount=0;
+                    for (var i = 0; i < itemarkers.length; i ++) {
+                        if(tempcount<itemarkers.length) {
+                            //console.log("*******"+tempcount+"  "+i);
+                            src = itemarkers[i].getPosition();
+                            des = itemarkers[tempcount].getPosition();
+                            getDirections(map, src, des);
+                        }
 
                     }
                 }
@@ -972,7 +1006,7 @@ function moveMarker(map,marker,latlng)
 
 function autoRefresh(map,pathcoords)
 {
-    console.log("Returend path"+pathcoords);
+    //console.log("Returend path"+pathcoords);
     var i, marker, route;
 
     route= new google.maps.Polyline({
@@ -996,7 +1030,7 @@ function autoRefresh(map,pathcoords)
     {
         setTimeout(function(coords){
             route.getPath().push(coords);
-            moveMarker(map,marker,coords);
+           // moveMarker(map,marker,coords);
 
         }, 50 *i, pathcoords[i]);
     }
@@ -1006,7 +1040,7 @@ function getDirections(map,src,des)
 {
     //Shut off the Replay event Handler Until taskcomplete
     var directionservice= new google.maps.DirectionsService();
-    console.log("The direction"+src+"  "+des);
+    //console.log("The direction"+src+"  "+des);
 
     var request={
         //Modify this here

@@ -1911,7 +1911,7 @@ tripapp.config(function($routeProvider) {
     templateUrl: '/FrontEnd/partials/home.html',
     controller: 'maincontroller'
   })
-      .when('/',{
+  .when('/',{
         templateUrl:'/FrontEnd/partials/landing.html',
           controller:'landingpagecontroller'
       })
@@ -1953,6 +1953,16 @@ tripapp.config(function($routeProvider) {
   .when('/iteniary', {
     templateUrl:'/FrontEnd/partials/iteniary.html',
     controller:'itecontroll'
+  })
+
+    .when('/overview', {
+        templateUrl:'/FrontEnd/partials/overview.html',
+        controller:'overviewcontrol'
+    })
+
+  .when('/viewgallery',{
+      templateUrl:'/FrontEnd/partials/viewgallery.html',
+      controller:'viewgallerycontrol'
   });
 
 });
@@ -2024,4 +2034,21 @@ tripapp.controller('landingpagecontroller', function($scope)
 {
   $scope.message="Hello World";
   $scope.init=landingpagecontroller();
+});
+
+
+tripapp.controller('overviewcontrol', function($scope)
+{
+    $scope.message="Hello World";
+    $scope.userid=name;
+    $scope.map=mapname;
+    $scope.init=overviewpagecontroller();
+});
+
+tripapp.controller('viewgallerycontrol', function($scope)
+{
+    $scope.message="Hello World";
+    $scope.userid=name;
+    $scope.map=mapname;
+    $scope.init=viewgallerycontrol();
 });
