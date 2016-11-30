@@ -1949,6 +1949,8 @@ tripapp.config(function($routeProvider) {
     controller:'itecontroll'
   });
 
+
+
 });
 
 

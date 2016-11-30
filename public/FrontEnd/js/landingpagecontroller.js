@@ -27,7 +27,9 @@ function landingpagecontroller() {
            window.location.href="#login";
         });
 
-        $('#pagepiling').pagepiling({
+
+
+        $('#fullpage').fullpage({
             menu: null,
             direction: 'vertical',
             verticalCentered: true,
@@ -36,14 +38,14 @@ function landingpagecontroller() {
             scrollingSpeed: 700,
             easing: 'swing',
             loopBottom: false,
-            sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000'],
+            sectionsColor: ['#f2f2f2', '#4BBFC3', '#F8C471',  '#7BAABE', 'whitesmoke', '#000'],
             loopTop: false,
             css3: true,
             navigation: {
-                'textColor': '#000',
-                'bulletsColor': '#000',
-                'position': 'right',
-                'tooltips': ['section1', 'section2', 'section3', 'section4']
+              'textColor': '#000',
+              'bulletsColor': '#000',
+              'position': 'right',
+              'tooltips': ['section1', 'section2', 'section3', 'section4']
             },
             normalScrollElements: null,
             normalScrollElementTouchThreshold: 5,
@@ -51,12 +53,15 @@ function landingpagecontroller() {
             keyboardScrolling: true,
             sectionSelector: '.section',
             animateAnchor: false,
-
+            scrollOverflow: true,
             //events
             onLeave: function(index, nextIndex, direction){},
             afterLoad: function(anchorLink, index){},
             afterRender: function(){},
         });
+        setTimeout(function() {
+            $("#page3").trigger('click');
+        },10);
 
     });
 }
