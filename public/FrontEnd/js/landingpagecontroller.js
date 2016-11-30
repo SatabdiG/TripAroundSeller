@@ -49,7 +49,7 @@ function landingpagecontroller() {
                 'position': 'right',
                 'tooltips': ['section1', 'section2', 'section3', 'section4']
             },
-            normalScrollElements: null,
+            normalScrollElements: true,
             normalScrollElementTouchThreshold: 5,
             touchSensitivity: 5,
             keyboardScrolling: true,
