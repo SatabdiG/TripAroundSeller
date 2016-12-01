@@ -5,6 +5,10 @@
 
 function landingpagecontroller() {
     $(document).ready(function () {
+        $('#viewall').on('click', function()
+        {
+           window.location.href="#searchtours"
+        });
         userid="";
         mapname="";
         serachmap="";

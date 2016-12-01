@@ -204,6 +204,7 @@ navbar{
   width: 30%;
   float: left;
   background-color: #dddddd;
+  overflow-x: hidden;
 }
 
 .itenary-header
@@ -437,14 +438,18 @@ navbar{
 .thumbcontainer
 {
   background-color: #d2e1fc;
-  width:35%;
-  padding-bottom: 30px;
+  width:100%;
+  padding: 30px;
+  padding-left: 30px;
   text-align: center;
-
+  position: relative;
 }
 
 #logout{
   float:right;
+  position: fixed;
+  top:10%;
+  right:20%;
 }
 #serachheading
 {
@@ -561,8 +566,9 @@ h4 span.spacer{
 
 .btn-toolbar{
   right: 20px;
-  position: absolute;
+  position: fixed;
   top:20px;
+  z-index: 110;
 }
 
 .btn-red {
@@ -626,11 +632,11 @@ h4 span.spacer{
 
 .maintitle{
   position: absolute;
-  left:25%;
+  left:35%;
   color: #ff471a;
   font-size: 32px;
   line-height: 1.1;
-  top:190px;
+  top:300px;
   /*    padding-bottom: 10px;*/
   text-align: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
@@ -642,19 +648,25 @@ h4 span.spacer{
   text-align: center;
   position: absolute;
   font-family: "Indie flower", cursive;
-  font-size: 50px;
+  font-size: 60px;
   line-height: 1.1;
-  left:25%;
+  left:40%;
   padding-bottom: 10px;
-  top:100px;
+  top:220px;
 
 }
 #logo1{
   display: block;
   margin: auto;
 }
+
 .orangeheader{
+  position: static;
   filter: brightness(100%);
+  top: 0px;
+  left: 30px;
+
+
 
 }
 #page1 {
@@ -696,7 +708,7 @@ h4 span.spacer{
   position: absolute;
   background-image:url("/FrontEnd/Pictures/pic3.jpg");
   background-size: 1250px 1000px;
-  height: 300px;
+  height: 600px;
   left: 30px;
   right: 30px;
   top:2200px;
@@ -709,6 +721,7 @@ h4 span.spacer{
   position: fixed;
   right:0;
   bottom:0;
+  color:#0b0b0b;
 
 }
 
@@ -769,3 +782,45 @@ i {
   border-radius: 1.6em; }
 }*/
 .top-buffer { margin-top:30px; }
+
+.funck
+{
+  position: relative;
+  top:13%;
+  left:40%;
+  color: #ff471a;
+  font-size: 32px;
+  line-height: 1.1;
+
+}
+
+.feat
+{
+  position: relative;
+  top:5%;
+  left:40%;
+  color: #ff471a;
+  font-size: 32px;
+  line-height: 1.1;
+
+}
+.durch
+{
+  position: relative;
+  top:30%;
+  left:30%;
+  color: #ff471a;
+  font-size: 32px;
+  line-height: 1.1;
+
+}
+
+#viewall
+{
+  position: relative;
+  width: 150px;
+  height:30px;
+  top:50%;
+  left:30%;
+
+}

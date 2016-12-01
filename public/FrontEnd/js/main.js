@@ -281,8 +281,29 @@ function dashboardfunction(){
               var obj=document.getElementById('maps'+mapname);
               if(obj == null)
                $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + mapname +'"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+mapname+'" id="editbutton'+mapname+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+mapname+'" id="removebutton'+mapname+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>'+' <button class="btn btn-danger btn-xs '+mapname+'" id="publish'+mapname+'">  <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Publish Maps</button>' + '</div></div></div>');
+                var publishbutton=document.getElementById("publish"+mapname);
+                publishbutton.addEventListener("click", function (evt) {
+                    publishmapid=mapname;
+                    $('#publishconformation').dialog("open");
 
-              //return false;
+                    var removebutt=document.getElementById("removebutton"+mapname);
+                    removebutt.addEventListener("click", function(evt){
+                        evt.preventDefault();
+                        var tempid=this.id;
+                        var tempstr=tempid.substring(12, tempid.length);
+                        console.log("Remove clicked " + tempstr);
+                      /*
+                       if(mapname == undefined) {
+                       deletemapid = msg.name;
+                       }else
+                       deletemapid=mapname;*/
+                        deletemapid=tempstr;
+                        $('#confirmdeletion').dialog("open");
+                    });
+
+                });
+
+                //return false;
             }
             else
             {
@@ -484,8 +505,8 @@ function dashboardfunction(){
               publishbutton.addEventListener("click", function (evt) {
                 evt.preventDefault();
                 var tempid=this.id;
-                console.log("Clicked "+tempid);
-                publishmapid=tempid;
+                console.log("Clicked "+msg.name);
+                publishmapid=msg.name;
                 $('#publishconformation').dialog("open");
 
               });

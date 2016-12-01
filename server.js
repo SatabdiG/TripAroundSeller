@@ -12,9 +12,10 @@ var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
 
-/*var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";*/
+var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-var mongofil="mongodb://localhost:27017/testimages";
+
+//var mongofil="mongodb://localhost:27017/testimages";
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
@@ -223,12 +224,13 @@ app.post('/registeruser', function(req,res){
 
 app.post("/publishmap", function(req, res){
   var userid=req.body.userid;
-  var mapid=req.body.mapid;
+  var mapid=req.body.id;
   var publish=req.body.publish;
-
+  console.log("Publish Map"+publish+mapid+userid);
   //Make the database connect and update the database
   connect.updateMaps(mongofil,userid,mapid,publish, function(message)
   {
+
     if(message!=undefined) {
       console.log("Returned message" + message);
       if (message == "done") {
@@ -238,7 +240,7 @@ app.post("/publishmap", function(req, res){
       }
     }
   });
-
+  return res.end("yes");
 
 });
 

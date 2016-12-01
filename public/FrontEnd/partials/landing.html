@@ -10,9 +10,9 @@
                  </div>
              </div>
          </nav>-->
-        <IMG class = "orangeheader" STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
+       <IMG class = "orangeheader" STYLE="position:fixed; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px; z-index: 100" SRC="/FrontEnd/Pictures/head.jpg"/>
 
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+        <IMG STYLE="position:fixed; z-index: 109; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
 
         <!--
                                     <h1>Trip Around</h1>
@@ -35,7 +35,7 @@
         <!--<button id="toursearch" class="btn btn-success .btn-lg">Search tour </button>
         <button id="toursave" class="btn btn-success .btn-lg">Save Tour </button>-->
         <a href="#searchtours" class="btn btn-lg btn-red" id = "SearchTour">Tour suchen</a>
-        <a href="#SaveTour" class="btn btn-lg btn-red" id= "SaveTour">Tour speichern</a>
+        <a href="#login" class="btn btn-lg btn-red" id= "SaveTour">Tour speichern</a>
 
 
         <!--<div class = "row">-->
@@ -59,8 +59,8 @@
 
     <div  id = "page2">
 
-        <IMG class ="orangeheader" STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+     <!--   <IMG class ="orangeheader" STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>-->
+        <!--<IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/> -->
         <!--<p>Buttons Page</p>-->
         <!--<IMG STYLE="position:absolute; TOP:10px; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>-->
 
@@ -69,7 +69,7 @@
             <a href="#searchtours" class="btn btn-default btn-red">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
         </div>
 
-        <h3 class = "maintitle" style="text-decoration:underline;">So funktioniert's</h3>
+        <h3 class = "funck" style="text-decoration:underline;">So funktioniert's</h3>
 
         <image class="img-responsive" id = "feature" align = "center" style="WIDTH:700px; HEIGHT:400px" src="/FrontEnd/Pictures/So funktionierts2.png"></image>
         <!--<h2 text align="center" id="functionality">Functionality</h2>
@@ -302,8 +302,8 @@
 
 
     <div id = "page3">
-        <IMG STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+      <!--  <IMG STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
+        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/> -->
         <!--
                 <div class = intro style="height:50px">
                     <IMG STYLE="position:absolute; TOP:10px; LEFT:50px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
@@ -321,7 +321,7 @@
                                 <IMG STYLE="position:absolute; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
                             </div>
                         </div>-->
-            <h2 class="maintitle">Deine Features</h2>
+            <h2 class="feat">Deine Features</h2>
             <div class="row">
                 <div class="col-sm-10">
                     <p class="title">Entdecke die Möglichkeiten! (Overview Screenshot)</p>
@@ -411,19 +411,19 @@
 
 
     <div id = "page4">
-        <IMG STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+    <!--    <IMG STYLE="position:absolute; TOP:0; LEFT:0; right:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
+        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/> -->
 
         <div class="btn-toolbar">
             <a href="#login" class="btn btn-default btn-white">Login</a>
             <a href="#searchtours" class="btn btn-default btn-red">Tours   <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
         </div>
-        <h3 class = "maintitle" style="text-decoration:underline;">Browse durch Touren</h3>
+        <h3 class = "durch" style="text-decoration:underline;">Browse durch Touren</h3>
         <!--<p>Map pic Goes here</p> -->
         <!--<IMG STYLE="position:absolute; TOP:35px; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>-->
         <!--<img class = picture src="FrontEnd\Pictures\vintage map.jpg" height = "700" width ="1000"/>-->
-        <button type="button" class="btn btn-success">View all </button>
-        <IMG STYLE="position:absolute; bottom:0; LEFT:0; right:0; width:100%; HEIGHT:40px" SRC="/FrontEnd/Pictures/head.jpg"/>
+        <button type="button" class="btn btn-success" id="viewall">View all </button>
+        <IMG STYLE="position:fixed; bottom:0; LEFT:0; right:0; width:100%; HEIGHT:40px" SRC="/FrontEnd/Pictures/head.jpg"/>
         <div id = "footer">
             <ul class="list-inline">
                 <li><a href="#About" id="About">About us</a></li>
