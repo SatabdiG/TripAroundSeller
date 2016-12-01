@@ -30,7 +30,7 @@ function serachpage()
             var obj = document.getElementById("maps"+msg.name);
             console.log("Objobj"+obj);
             if (obj == null) {
-                $('#viewmapregion').append('<div class="col-md-4"><div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
+                $('#viewmapregionsearch').append('<div class="col-md-4"><div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
                 var doc = document.getElementById("imagecontainer" + msg.name);
                 var location=msg.name;
                 socket.emit("searchimage", {mapname:msg.name});
