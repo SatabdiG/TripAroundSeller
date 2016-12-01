@@ -7,7 +7,7 @@ var path=require('path');
 var app	=	express();
 var fs=require('fs');
 var http=require("http").Server(app);
-var socket=require("socket.io")(http);
+var socket=require("socket.io").listen(http);
 var formidable=require('formidable');
 var mv= require('mv');
 app.use(bodyParser.json());
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
 
-//var mongofil="mongodb://localhost:27017/testimages";
+//  var mongofil="mongodb://localhost:27017/testimages";
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
