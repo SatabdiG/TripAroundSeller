@@ -186,6 +186,10 @@ function homeinit(){
       });
     }, function(){});
 
+    $('#About').click(function(event){
+      console.log("About link click");
+      window.location.href="#About";
+    });
   });
 }
 
@@ -1986,6 +1990,10 @@ tripapp.config(function($routeProvider) {
       controller:'viewgallerycontrol'
   });
 
+/*   .when('/About',{'
+        templateUrl:'/FrontEnd/partials/About.html',
+        controller:''
+   })*/
 
 
 });

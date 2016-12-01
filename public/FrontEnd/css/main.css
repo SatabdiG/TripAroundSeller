@@ -204,7 +204,6 @@ navbar{
   width: 30%;
   float: left;
   background-color: #dddddd;
-  overflow-x: hidden;
 }
 
 .itenary-header
@@ -438,18 +437,14 @@ navbar{
 .thumbcontainer
 {
   background-color: #d2e1fc;
-  width:100%;
-  padding: 30px;
-  padding-left: 30px;
+  width:35%;
+  padding-bottom: 30px;
   text-align: center;
-  position: relative;
+
 }
 
 #logout{
   float:right;
-  position: fixed;
-  top:10%;
-  right:20%;
 }
 #serachheading
 {
@@ -566,9 +561,8 @@ h4 span.spacer{
 
 .btn-toolbar{
   right: 20px;
-  position: fixed;
+  position: absolute;
   top:20px;
-  z-index: 110;
 }
 
 .btn-red {
@@ -609,6 +603,15 @@ h4 span.spacer{
   /*   margin-right: 200px;
      margin-left: 100px;*/
 }
+
+.container-landing{
+    width: 960px;
+    margin:0 auto;
+}
+
+.row-a{
+    padding-top:100px;
+}
 .title{
   font-size: 20px;
   padding-top: 30px;
@@ -626,22 +629,22 @@ h4 span.spacer{
   /*padding-right:30px;*/
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
+  padding-top:250px
 
 }
 
 .maintitle{
   position: absolute;
-  left:35%;
+  left:40%;
   color: #ff471a;
   font-size: 32px;
   line-height: 1.1;
-  top:300px;
+/*  top:150px;*/
   /*    padding-bottom: 10px;*/
   text-align: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
   padding-bottom: 15px;
-
 
 }
 .maintitle1{
@@ -652,33 +655,31 @@ h4 span.spacer{
   line-height: 1.1;
   left:40%;
   padding-bottom: 10px;
-  top:220px;
+  top:250px;
 
 }
 #logo1{
   display: block;
   margin: auto;
 }
-
 .orangeheader{
-  position: static;
   filter: brightness(100%);
-  top: 0px;
-  left: 30px;
-
-
+  left:30px;
 
 }
 #page1 {
   position: absolute;
   /*background-image: url(http://main.triparound.de/WordPress46/wp-content/uploads/2016/08/Fotografieren-gr%C3%BCn_kl3.jpg);*/
-  background-image:url("/FrontEnd/Pictures/sunset-Landing.png");
+  background-image:url("/FrontEnd/Pictures/LandingPic.png");
   background-repeat: no-repeat;
-  background-size: 1500px 700px;
   left: 30px;
   right: 30px;
   top:0px;
-  height: 600px;
+  height: 800px;
+/*  background-size: contain;*/
+   background-size: 1500px 800px;
+/*  max-width: 100%;*/
+/*    background-position:center;*/
 
 }
 #page2 {
@@ -687,10 +688,11 @@ h4 span.spacer{
   background-image:url("/FrontEnd/Pictures/texture3.jpg");
   background-repeat: no-repeat;
   background-size: 1500px 800px;
+  top:800px;
   left: 30px;
   right: 30px;
-  height: 600px;
-  top:600px;
+  height: 1000px;
+
 }
 #page3 {
   position: absolute;
@@ -701,18 +703,18 @@ h4 span.spacer{
   left: 30px;
   right: 30px;
   height: 1000px;
-  top:1200px;
+  top:1500px;
 
 }
 #page4 {
   position: absolute;
   background-image:url("/FrontEnd/Pictures/pic3.jpg");
-  background-size: 1250px 1000px;
-  height: 600px;
+  background-size: 1500px 800px;
+  height: 300px;
   left: 30px;
   right: 30px;
-  top:2200px;
-  width: 100%;
+  top:2500px;
+  height: 1000px;
 
 }
 
@@ -721,7 +723,6 @@ h4 span.spacer{
   position: fixed;
   right:0;
   bottom:0;
-  color:#0b0b0b;
 
 }
 
@@ -741,7 +742,7 @@ h4 span.spacer{
   /*top:20px;*/
   left:300px;
   /*      right:300px;*/
-  bottom:70px;
+  bottom:220px;
   margin:auto;
 }
 #SaveTour
@@ -750,7 +751,7 @@ h4 span.spacer{
   /* float:right;*/
   position: absolute;
   right:300px;
-  bottom:70px;
+  bottom:220px;
   margin:auto;
 }
 container-intro{
@@ -783,44 +784,14 @@ i {
 }*/
 .top-buffer { margin-top:30px; }
 
-.funck
-{
-  position: relative;
-  top:13%;
+.FooterTitle{
+  text-align: center;
+  position: absolute;
+  font-family: "Indie flower", cursive;
+  font-size: 60px;
+  line-height: 1.1;
   left:40%;
-  color: #ff471a;
-  font-size: 32px;
-  line-height: 1.1;
-
-}
-
-.feat
-{
-  position: relative;
-  top:5%;
-  left:40%;
-  color: #ff471a;
-  font-size: 32px;
-  line-height: 1.1;
-
-}
-.durch
-{
-  position: relative;
-  top:30%;
-  left:30%;
-  color: #ff471a;
-  font-size: 32px;
-  line-height: 1.1;
-
-}
-
-#viewall
-{
-  position: relative;
-  width: 150px;
-  height:30px;
-  top:50%;
-  left:30%;
+  padding-bottom: 10px;
+  top:200px;
 
 }
