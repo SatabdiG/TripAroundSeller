@@ -595,32 +595,40 @@ h4 span.spacer{
   padding-right: 70px
 }
 
-.picture {
+/*.picture {
   padding-top: 70px;
   display: block;
-  /*   margin-top: 50px;*/
-  /*margin-bottom: 400px;*/
-  /*   margin-right: 200px;
-     margin-left: 100px;*/
-}
+  *//*   margin-top: 50px;*//*
+  *//*margin-bottom: 400px;*//*
+  *//*   margin-right: 200px;
+     margin-left: 100px;*//*
+}*/
 
+.feature_images{
+    border:3px solid #021a40;
+
+
+}
 .container-landing{
     width: 1000px;
     margin:0 auto;
 }
 
 .row-a{
-    padding-top:100px;
+    padding-top:120px;
+/*    padding-left:20px;
+    padding-right:20px;*/
 }
 .title{
   font-size: 20px;
   padding-top: 30px;
+
   font-family: "Comic Sans MS", cursive, sans-serif;
 }
 .content{
   font-size: 15px;
   padding-bottom:20px;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: "Comic Sans MS", cursive, sans-serif, bold;
 }
 #feature {
   /* padding-top:30px;
@@ -702,7 +710,7 @@ h4 span.spacer{
   background-size: 1500px 800px;
   left: 30px;
   right: 30px;
-  height: 1000px;
+  height: 1200px;
   top:1500px;
 
 }
@@ -713,7 +721,7 @@ h4 span.spacer{
   height: 300px;
   left: 30px;
   right: 30px;
-  top:2500px;
+  top:2700px;
   height: 1000px;
 
 }
