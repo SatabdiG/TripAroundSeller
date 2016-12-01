@@ -33,7 +33,7 @@ function landingpagecontroller() {
             window.location.href="#login";
         });
 
-/*        $('#About').on('click', function(evt){
+      /*  $('#About').on('click', function(evt){
             console.log("The about button has been clicked");
             window.location.href="#About";
         })*/

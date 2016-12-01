@@ -1990,10 +1990,11 @@ tripapp.config(function($routeProvider) {
       controller:'viewgallerycontrol'
   });
 
-/*   .when('/About',{'
+/*
+   .when('/About',{
         templateUrl:'/FrontEnd/partials/About.html',
-        controller:''
-   })*/
+   })
+*/
 
 
 });
