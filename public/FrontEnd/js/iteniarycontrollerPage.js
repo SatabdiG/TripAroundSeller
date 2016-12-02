@@ -17,7 +17,11 @@ function iteniarygenerator()
             data: JSON.stringify(dat),
             contentType: 'application/json'
         }).done(function(msg){
+            // console.log(typeof msg);
+            // console.log(msg);
             myobj = JSON.parse(msg);
+
+
             for(i = 1; i <= parseInt(myobj["tot_contents"]); i++){
                 heading = "heading_"
                 content = "content_"

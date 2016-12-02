@@ -2041,7 +2041,8 @@ tripapp.controller('viewtourcontroller', function($scope){
 });
 
 tripapp.controller('itecontroll', function($scope){
-  $scope,userid=name;
-  $scope.init=iteniarygenerator();
+    $scope.userid=name;
+    $scope.map=mapname;
+    $scope.init=iteniarygenerator();
 
 });

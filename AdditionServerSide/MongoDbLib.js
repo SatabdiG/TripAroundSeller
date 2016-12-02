@@ -809,25 +809,21 @@ module.exports= {
         });
         return callback("done");
     },
-    fetchData: function(connectionstring, callback){
-        if (callback) callback();
-        var temparr=[];
-
+    fetchData: function(connectionstring, userid, mapID, callback){
         var coll_name = "docscollection";
+        // console.log(q)
+        // console.log(typeof q)
         mongodb.connect(connectionstring, function (err, db) {
             if(!err){
-                // var allArray = db.collection(coll_name).find({}).toArray();
-                // callback(allArray);
-                var cursor = db.collection(coll_name).find({}).sort({"time":1});
+                var cursor = db.collection(coll_name).find({
+                    "userID": userid,
+                    "mapID": mapID,
+                });
                 cursor.each(function (err2, doc) {
                     if(doc!=null){
-                        callback(doc);
+                        callback(JSON.stringify(doc));
                     }
                 });
-
-                // cursor.nextObject(function (err2, doc) {
-
-                // });
             }
         });
     }
