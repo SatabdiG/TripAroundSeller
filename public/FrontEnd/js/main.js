@@ -5,8 +5,8 @@
  */
 var mapname;
 var myCenter=new google.maps.LatLng(51.508742,-0.120850);
-var socket=io();
-
+//var socket=io();
+var socket=io(window.location.hostname);
 
 var src;
 var userid;
