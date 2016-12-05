@@ -436,8 +436,9 @@ navbar{
 
 .thumbcontainer
 {
+
   background-color: #d2e1fc;
-  width:35%;
+  width:75%;
   padding-bottom: 30px;
   text-align: center;
   overflow-x: hidden;

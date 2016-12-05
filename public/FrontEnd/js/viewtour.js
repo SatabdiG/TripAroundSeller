@@ -66,76 +66,80 @@ function viewtourcontroller()
            itemarkers.push(marker);
            locations.push(msg.name);
            tempstr = nmt;
-           var momite=document.createElement('div');
-           momite.setAttribute("id","containsrc"+nmt);
-           momite.setAttribute('class','row');
-           var mother = document.createElement('div');
-           mother.setAttribute('class', 'row');
-           var momsec = document.createElement('div');
-           momsec.setAttribute('class', 'col-lg-6');
-           var container = document.createElement('div');
-           container.setAttribute("id", "src"+nmt);
-           container.setAttribute("class", "itenary-panel");
-           //Footer div
-           var footer = document.createElement('div');
-           footer.setAttribute("id", "footsrc" + nmt);
-           footer.setAttribute("class", "itenary-footer");
-           var thumb = document.createElement('div');
-           thumb.setAttribute("id", "thumb" + marker.title);
-           thumb.setAttribute("class", "itenary-thumbnail");
-           //Thumbnail div
+           var tempid=document.getElementById("headsrc"+nmt);
+           console.log("Tempid"+tempid);
+           if(tempid === null) {
+               var momite = document.createElement('div');
+               momite.setAttribute("id", "containsrc" + nmt);
+               momite.setAttribute('class', 'row');
+               var mother = document.createElement('div');
+               mother.setAttribute('class', 'row');
+               var momsec = document.createElement('div');
+               momsec.setAttribute('class', 'col-lg-6');
+               var container = document.createElement('div');
+               container.setAttribute("id", "src" + nmt);
+               container.setAttribute("class", "itenary-panel");
+               //Footer div
+               var footer = document.createElement('div');
+               footer.setAttribute("id", "footsrc" + nmt);
+               footer.setAttribute("class", "itenary-footer");
+               var thumb = document.createElement('div');
+               thumb.setAttribute("id", "thumb" + marker.title);
+               thumb.setAttribute("class", "itenary-thumbnail");
+               //Thumbnail div
 
-           var des = document.createElement("div");
-           des.setAttribute("id", "dessrc" + nmt);
-           des.setAttribute("class", "itenary-dessviewsrc");
+               var des = document.createElement("div");
+               des.setAttribute("id", "dessrc" + nmt);
+               des.setAttribute("class", "itenary-dessviewsrc");
 
-           var head = document.createElement("div");
-           head.setAttribute("id", "headsrc" + nmt);
-           head.setAttribute("class", "itenary-header");
+               var head = document.createElement("div");
+               head.setAttribute("id", "headsrc" + nmt);
+               head.setAttribute("class", "itenary-header");
 
 
-           //Adding Header elements
-           var tempstyling = document.createElement("H2");
-           var newconent = document.createTextNode(tempstr);
-           tempstyling.appendChild(newconent);
-           //Add to head
-           head.appendChild(newconent);
-           momite.appendChild(head);
-           //container.appendChild(head);
-           //Adding Thumbnail
-           //momite.appendChild(thumb);
-           //container.appendChild(thumb);
-           // ** Add Text Box - for adding descriptions **//
-           /*
-           var tempbox = document.createElement("div");
-           tempbox.setAttribute("id", "textsrc" + nmt);
-           tempbox.setAttribute("class", "textboxiteniarypage");
-           //tempbox.setAttribute("resize","none");
-           console.log("Description $$$$"+description);
-           tempbox.innerHTML=description;*/
-           //Add to div des
-           des.innerHTML=description;
-           //des.appendChild(tempbox);
-           momite.appendChild(des);
-           //container.appendChild(des);
-            container.appendChild(momite);
-           var imfpar=document.createElement("div");
-           imfpar.setAttribute("class","row");
-           var imgholder = document.createElement("div");
-           imgholder.setAttribute("id", "gallsrc" + nmt);
-           imgholder.setAttribute("class", "jcarousel-wrapper");
-           var slideshow = document.createElement("div");
-           slideshow.setAttribute("id", "slidesrc" + nmt);
-           slideshow.setAttribute("class", "jcarousel");
-           var ul = document.createElement("ul");
-           ul.setAttribute("id", "ulsrc" + nmt);
-           slideshow.appendChild(ul);
-           imgholder.appendChild(slideshow);
-           imfpar.appendChild(imgholder);
-           container.appendChild(imfpar);
-           momsec.appendChild(container);
-           mother.appendChild(momsec);
-           $('#IteniaryPageSrc').append(mother);
+               //Adding Header elements
+               var tempstyling = document.createElement("H2");
+               var newconent = document.createTextNode(tempstr);
+               tempstyling.appendChild(newconent);
+               //Add to head
+               head.appendChild(newconent);
+               momite.appendChild(head);
+               //container.appendChild(head);
+               //Adding Thumbnail
+               //momite.appendChild(thumb);
+               //container.appendChild(thumb);
+               // ** Add Text Box - for adding descriptions **//
+               /*
+                var tempbox = document.createElement("div");
+                tempbox.setAttribute("id", "textsrc" + nmt);
+                tempbox.setAttribute("class", "textboxiteniarypage");
+                //tempbox.setAttribute("resize","none");
+                console.log("Description $$$$"+description);
+                tempbox.innerHTML=description;*/
+               //Add to div des
+               des.innerHTML = description;
+               //des.appendChild(tempbox);
+               momite.appendChild(des);
+               //container.appendChild(des);
+               container.appendChild(momite);
+               var imfpar = document.createElement("div");
+               imfpar.setAttribute("class", "row");
+               var imgholder = document.createElement("div");
+               imgholder.setAttribute("id", "gallsrc" + nmt);
+               imgholder.setAttribute("class", "jcarousel-wrapper");
+               var slideshow = document.createElement("div");
+               slideshow.setAttribute("id", "slidesrc" + nmt);
+               slideshow.setAttribute("class", "jcarousel");
+               var ul = document.createElement("ul");
+               ul.setAttribute("id", "ulsrc" + nmt);
+               slideshow.appendChild(ul);
+               imgholder.appendChild(slideshow);
+               imfpar.appendChild(imgholder);
+               container.appendChild(imfpar);
+               momsec.appendChild(container);
+               mother.appendChild(momsec);
+               $('#IteniaryPageSrc').append(mother);
+           }
 
            $('#slidesrc' + nmt).jcarousel();
 
