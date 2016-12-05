@@ -5,7 +5,7 @@
  */
 var mapname;
 var myCenter=new google.maps.LatLng(51.508742,-0.120850);
-var socket=io(window.location.hostname);
+var socket=io();
 
 
 var src;
@@ -292,21 +292,22 @@ function dashboardfunction(){
                     publishmapid=mapname;
                     $('#publishconformation').dialog("open");
 
-                    var removebutt=document.getElementById("removebutton"+mapname);
-                    removebutt.addEventListener("click", function(evt){
-                        evt.preventDefault();
-                        var tempid=this.id;
-                        var tempstr=tempid.substring(12, tempid.length);
-                        console.log("Remove clicked " + tempstr);
-                      /*
-                       if(mapname == undefined) {
-                       deletemapid = msg.name;
-                       }else
-                       deletemapid=mapname;*/
-                        deletemapid=tempstr;
-                        $('#confirmdeletion').dialog("open");
-                    });
+                });
 
+                var removebutt=document.getElementById("removebutton"+mapname);
+                removebutt.addEventListener("click", function(evt){
+                    evt.preventDefault();
+                    console.log("In remove button");
+                    var tempid="removebutton"+mapname;
+                    var tempstr=tempid.substring(12, tempid.length);
+                    console.log("Remove clicked " + tempstr);
+                  /*
+                   if(mapname == undefined) {
+                   deletemapid = msg.name;
+                   }else
+                   deletemapid=mapname;*/
+                    deletemapid=tempstr;
+                    $('#confirmdeletion').dialog("open");
                 });
 
                 //return false;
@@ -516,7 +517,7 @@ function dashboardfunction(){
                 $('#publishconformation').dialog("open");
 
               });
-
+              //Remove button
               var removebutt=document.getElementById("removebutton"+msg.name);
               removebutt.addEventListener("click", function(evt){
                 evt.preventDefault();

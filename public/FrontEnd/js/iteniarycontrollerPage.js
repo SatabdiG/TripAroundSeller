@@ -55,107 +55,110 @@ function iteniarygenerator()
             //Create a header for the string
             tempstr = nmt;
             //Main Container div
-            var mother = document.createElement('div');
-            mother.setAttribute('class', 'row');
-            var momsec = document.createElement('div');
-            momsec.setAttribute('class', 'col-lg-6');
-            var container = document.createElement('div');
-            container.setAttribute("id", nmt);
-            container.setAttribute("class", "itenary-panel");
-            //Footer div
-            var footer = document.createElement('div');
-            footer.setAttribute("id", "foot" + nmt);
-            footer.setAttribute("class", "itenary-footer");
-            //Thumbnail div
-            var thumb = document.createElement('div');
-            thumb.setAttribute("id", "thumb" + nmt);
-            thumb.setAttribute("class", "itenary-thumbnail");
-            //Add input tp thumb
-            var inp = document.createElement("input");
-            inp.setAttribute("type", "file");
-            inp.setAttribute("multiple", "multiple");
-            inp.setAttribute("id", "inp" + nmt);
-            inp.setAttribute("accept", "image/*");
-            inp.setAttribute("resize", "none");
-            thumb.appendChild(inp);
-            //Description div
-            var des = document.createElement("div");
-            des.setAttribute("id", "des" + nmt);
-            des.setAttribute("class", "itenary-des");
+            var tempid=document.getElementById("head"+nmt);
+            if(tempid === null) {
+                var mother = document.createElement('div');
+                mother.setAttribute('class', 'row');
+                var momsec = document.createElement('div');
+                momsec.setAttribute('class', 'col-lg-6');
+                var container = document.createElement('div');
+                container.setAttribute("id", nmt);
+                container.setAttribute("class", "itenary-panel");
+                //Footer div
+                var footer = document.createElement('div');
+                footer.setAttribute("id", "foot" + nmt);
+                footer.setAttribute("class", "itenary-footer");
+                //Thumbnail div
+                var thumb = document.createElement('div');
+                thumb.setAttribute("id", "thumb" + nmt);
+                thumb.setAttribute("class", "itenary-thumbnail");
+                //Add input tp thumb
+                var inp = document.createElement("input");
+                inp.setAttribute("type", "file");
+                inp.setAttribute("multiple", "multiple");
+                inp.setAttribute("id", "inp" + nmt);
+                inp.setAttribute("accept", "image/*");
+                inp.setAttribute("resize", "none");
+                thumb.appendChild(inp);
+                //Description div
+                var des = document.createElement("div");
+                des.setAttribute("id", "des" + nmt);
+                des.setAttribute("class", "itenary-des");
 
-            //Header
-            var head = document.createElement("div");
-            head.setAttribute("id", "head" + nmt);
-            head.setAttribute("class", "itenary-header");
+                //Header
+                var head = document.createElement("div");
+                head.setAttribute("id", "head" + nmt);
+                head.setAttribute("class", "itenary-header");
 
 
-            //Adding Header elements
-            var tempstyling = document.createElement("H2");
-            var newconent = document.createTextNode(tempstr);
-            tempstyling.appendChild(newconent);
-            //Add to head
-            head.appendChild(newconent);
-            container.appendChild(head);
-            //Adding Thumbnail
-            container.appendChild(thumb);
-            // ** Add Text Box - for adding descriptions **//
-            var tempbox = document.createElement("textarea");
-            tempbox.setAttribute("id", "text" + nmt);
-            tempbox.setAttribute("class", "textboxiteniarypage");
-            tempbox.innerHTML = description;
-            //Add to div des
-            des.appendChild(tempbox);
-            container.appendChild(des);
+                //Adding Header elements
+                var tempstyling = document.createElement("H2");
+                var newconent = document.createTextNode(tempstr);
+                tempstyling.appendChild(newconent);
+                //Add to head
+                head.appendChild(newconent);
+                container.appendChild(head);
+                //Adding Thumbnail
+                container.appendChild(thumb);
+                // ** Add Text Box - for adding descriptions **//
+                var tempbox = document.createElement("textarea");
+                tempbox.setAttribute("id", "text" + nmt);
+                tempbox.setAttribute("class", "textboxiteniarypage");
+                tempbox.innerHTML = description;
+                //Add to div des
+                des.appendChild(tempbox);
+                container.appendChild(des);
 
-            // *** Buttons ****//
+                // *** Buttons ****//
 
-            //Delete button
-            var button = document.createElement('button');
-            var tmp = document.createTextNode('Delete');
-            button.setAttribute("id", "del" + nmt);
-            button.setAttribute("class", "btn btn-danger");
-            button.appendChild(tmp);
-            //footer.appendChild(button);
-            // **  Add Button for Finishing edits and saving to the server **//
-            var buttonsave = document.createElement("button");
-            buttonsave.setAttribute("id", "buttonsubmit" + nmt);
-            buttonsave.setAttribute("class", "btn btn-primary");
-            var textsave = document.createTextNode(' Save ');
-            buttonsave.appendChild(textsave);
-            //footer.appendChild(buttonsave);
-            //** Edit Button for Rediting the tour stop **//
-            var editbutton = document.createElement("button");
-            editbutton.setAttribute("id", "editbutton" + nmt);
-            editbutton.setAttribute("class", "btn btn-primary");
-            var textedit = document.createTextNode('Edit');
-            editbutton.appendChild(textedit);
-            //**Edit Transportation **//
-            //**Edit Transportation **//
-            //Create Image Gallery
-            //This becomes the gallerry
-            var imgholder = document.createElement("div");
-            imgholder.setAttribute("id", "gall" + nmt);
-            imgholder.setAttribute("class", "jcarousel-wrapper");
-            var slideshow = document.createElement("div");
-            slideshow.setAttribute("id", "slide" + nmt);
-            slideshow.setAttribute("class", "jcarousel");
-            var ul = document.createElement("ul");
-            ul.setAttribute("id", "ul" + nmt);
-            slideshow.appendChild(ul);
-            imgholder.appendChild(slideshow);
+                //Delete button
+                var button = document.createElement('button');
+                var tmp = document.createTextNode('Delete');
+                button.setAttribute("id", "del" + nmt);
+                button.setAttribute("class", "btn btn-danger");
+                button.appendChild(tmp);
+                //footer.appendChild(button);
+                // **  Add Button for Finishing edits and saving to the server **//
+                var buttonsave = document.createElement("button");
+                buttonsave.setAttribute("id", "buttonsubmit" + nmt);
+                buttonsave.setAttribute("class", "btn btn-primary");
+                var textsave = document.createTextNode(' Save ');
+                buttonsave.appendChild(textsave);
+                //footer.appendChild(buttonsave);
+                //** Edit Button for Rediting the tour stop **//
+                var editbutton = document.createElement("button");
+                editbutton.setAttribute("id", "editbutton" + nmt);
+                editbutton.setAttribute("class", "btn btn-primary");
+                var textedit = document.createTextNode('Edit');
+                editbutton.appendChild(textedit);
+                //**Edit Transportation **//
+                //**Edit Transportation **//
+                //Create Image Gallery
+                //This becomes the gallerry
+                var imgholder = document.createElement("div");
+                imgholder.setAttribute("id", "gall" + nmt);
+                imgholder.setAttribute("class", "jcarousel-wrapper");
+                var slideshow = document.createElement("div");
+                slideshow.setAttribute("id", "slide" + nmt);
+                slideshow.setAttribute("class", "jcarousel");
+                var ul = document.createElement("ul");
+                ul.setAttribute("id", "ul" + nmt);
+                slideshow.appendChild(ul);
+                imgholder.appendChild(slideshow);
 
-            //footer.appendChild(editbutton);
+                //footer.appendChild(editbutton);
 
-            //container.appendChild(footer);
-            container.appendChild(button);
-            container.appendChild(buttonsave);
-            container.appendChild(editbutton);
-            container.appendChild(imgholder);
-            //newconent.setAttribute("type", "text");
-            //newconent.setAttribute("placeholder", "Enter Place Name");
-            momsec.appendChild(container);
-            mother.appendChild(momsec);
-            $('#IteniaryPage').append(mother);
+                //container.appendChild(footer);
+                container.appendChild(button);
+                container.appendChild(buttonsave);
+                container.appendChild(editbutton);
+                container.appendChild(imgholder);
+                //newconent.setAttribute("type", "text");
+                //newconent.setAttribute("placeholder", "Enter Place Name");
+                momsec.appendChild(container);
+                mother.appendChild(momsec);
+                $('#IteniaryPage').append(mother);
+            }
 
             $('#slide' + nmt).jcarousel();
 
