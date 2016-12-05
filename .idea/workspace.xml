@@ -1,25 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="Heroku">
+    <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="Pushing">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-noend/part7.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-wrongboundary/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-wrongboundary/original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-wrongboundary/preamble" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many-wrongboundary/preamble" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many/original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many/part5" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many/part5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many/part6.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/many/part6.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/part1.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/part1.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/part2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/part2.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/preamble.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested-full/preamble.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/original" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part1.header" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" afterPath="$PROJECT_DIR$/node_modules/dicer/test/fixtures/nested/part2.header" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="TripAroundProduction.iws" />
@@ -477,7 +460,7 @@
       <workItem from="1480415262043" duration="16738000" />
       <workItem from="1480498985612" duration="44082000" />
       <workItem from="1480580858655" duration="10298000" />
-      <workItem from="1480932171496" duration="7834000" />
+      <workItem from="1480932171496" duration="8488000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1477901720471</created>
@@ -801,11 +784,25 @@
       <option name="project" value="LOCAL" />
       <updated>1480940464591</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Pushing">
+      <created>1480940760734</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1480940760734</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Heroku error">
+      <created>1480941190154</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1480941190154</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="276291000" />
+    <option name="totallyTimeSpent" value="276945000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -853,7 +850,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="First Commit" />
     <MESSAGE value="Updating main html page" />
     <MESSAGE value="Adding the Iteniary Page" />
     <MESSAGE value="Fixing" />
@@ -877,7 +873,9 @@
     <MESSAGE value="Adding the" />
     <MESSAGE value="Heroku" />
     <MESSAGE value="Heroku Master Image Replication" />
-    <option name="LAST_COMMIT_MESSAGE" value="Heroku Master Image Replication" />
+    <MESSAGE value="Pushing" />
+    <MESSAGE value="Heroku error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Heroku error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

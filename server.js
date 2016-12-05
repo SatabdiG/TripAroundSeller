@@ -15,8 +15,6 @@ app.use(bodyParser.json());
 
 var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-
-
 //var mongofil="mongodb://localhost:27017/testimages";
 //Computer Vision Middlewares//
 
