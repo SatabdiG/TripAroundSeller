@@ -938,7 +938,54 @@ function imagecontroller(){
         });
       }
     });
+      $('#submit_doc').click(function(evt){
+          console.log ( '#submit_doc was clicked' );
+          $("#myFile").prop('disabled', true);
+          $("#submit_doc").prop('disabled', true);
+          evt.preventDefault();
+          var fileSelect = document.getElementById('myFile');
 
+          var f_status = document.getElementById('file_status');
+
+          // Get the selected files from the input.
+          var files = fileSelect.files;
+          // Create a new FormData object.
+          var formData = new FormData();
+
+          f_status .innerHTML = 'Uploading...' + '';
+          // Loop through each of the selected files.
+          for (var i = 0; i < files.length; i++) {
+              var file = files[i];
+
+              // Add the file to the request.
+              formData.append('myDoc', file, file.name);
+          }
+          var sessioninfo={};
+          sessioninfo.userid=userid;
+          sessioninfo.mapname=mapname;
+          formData.append('sessioninfo', JSON.stringify(sessioninfo));
+          // Set up the request.
+          var xhr = new XMLHttpRequest();
+          // Open the connection.
+          xhr.open('POST', '/file_upload', true);
+
+          // Set up a handler for when the request finishes.
+          xhr.onload = function () {
+              if (xhr.status === 200) {
+                  // File(s) uploaded.
+                  $('#myFile').val('');
+                  f_status.innerHTML = '<h2>Uploaded Successfully</h2>';
+              } else {
+                  alert('An error occurred!');
+              }
+          };
+
+          // Send the Data.
+          xhr.send(formData);
+          // alert('abc');
+          // alert("myFile got clicked my name is "+files.length);
+          // formData
+      });
     /*
     $("#nextpagebutton").hover(function(){
       $("#nextpagebutton span").text("");

@@ -8,6 +8,106 @@ function iteniarygenerator()
 {
     var count=1;
     $(document).ready(function(){
+        var dat={};
+        dat.mapID=mapname;
+        dat.userid=userid;
+        $.ajax({
+            url: '/fetchiter',
+            method: 'POST',
+            data: JSON.stringify(dat),
+            contentType: 'application/json'
+        }).done(function(msg){
+            // console.log(typeof msg);
+            // console.log(msg);
+            myobj = JSON.parse(msg);
+
+
+            for(i = 1; i <= parseInt(myobj["tot_contents"]); i++){
+                heading = "heading_"
+                content = "content_"
+                heading_name = heading.concat(i.toString());
+                content_name = content.concat(i.toString());
+                //Main Container div
+                var mother=document.createElement('div');
+                mother.setAttribute('class','row');
+                var momsec=document.createElement('div');
+                momsec.setAttribute('class','col-lg-6');
+                var replaced_heading_name = myobj[heading_name].split(' ').join('-');
+                var container = document.createElement('div');
+                container.setAttribute("id", replaced_heading_name);
+                container.setAttribute("class", "itenary-panel");
+                //Thumbnail div
+                var thumb = document.createElement('div');
+                thumb.setAttribute("id", "thumb" + replaced_heading_name);
+                thumb.setAttribute("class", "itenary-thumbnail");
+                //Description div
+                var des = document.createElement("div");
+                des.setAttribute("id", "des" + replaced_heading_name);
+                des.setAttribute("class", "itenary-des");
+
+                //Header
+                var head = document.createElement("div");
+                head.setAttribute("id", "head" + replaced_heading_name);
+                head.setAttribute("class", "itenary-header");
+
+                //Adding Header elements
+                var tempstyling = document.createElement("H2");
+                var newconent = document.createTextNode(myobj[heading_name]);
+                tempstyling.appendChild(newconent);
+
+                //Add to head
+                head.appendChild(newconent);
+                container.appendChild(head);
+                //Adding Thumbnail
+                container.appendChild(thumb);
+                // ** Add Text Box - for adding descriptions **//
+                var tempbox = document.createElement("textarea");
+                tempbox.setAttribute("id", "text" + replaced_heading_name);
+                tempbox.setAttribute("class", "textboxiteniarypage");
+                tempbox.innerHTML = myobj[content_name]
+                // tempbox.setAttribute("placeholder", "Please enter Text Description for tour stop here");
+                //Add to div des
+                des.appendChild(tempbox);
+                container.appendChild(des);
+
+                // *** Buttons ****//
+
+                //Delete button
+                var button = document.createElement('button');
+                var tmp = document.createTextNode('Delete');
+                button.setAttribute("id", "del" + replaced_heading_name);
+                button.setAttribute("class", "btn btn-danger");
+                button.appendChild(tmp);
+
+                // **  Add Button for Finishing edits and saving to the server **//
+                var buttonsave = document.createElement("button");
+                buttonsave.setAttribute("id", "buttonsubmit" + replaced_heading_name);
+                buttonsave.setAttribute("class", "btn btn-primary");
+                var textsave = document.createTextNode(' Save ');
+                buttonsave.appendChild(textsave);
+
+                //** Edit Button for Rediting the tour stop **//
+                var editbutton = document.createElement("button");
+                editbutton.setAttribute("id", "editbutton" + replaced_heading_name);
+                editbutton.setAttribute("class", "btn btn-primary");
+                var textedit = document.createTextNode('Edit');
+                editbutton.appendChild(textedit);
+                //**Edit Transportation **//
+
+                //container.appendChild(footer);
+                container.appendChild(button);
+                container.appendChild(buttonsave);
+                container.appendChild(editbutton);
+
+                //newconent.setAttribute("type", "text");
+                //newconent.setAttribute("placeholder", "Enter Place Name");
+                momsec.appendChild(container);
+                mother.appendChild(momsec);
+                $('#IteniaryPage').append(mother);
+            }
+
+        });
+
     //Contains user created markers
     var markers = [];
 

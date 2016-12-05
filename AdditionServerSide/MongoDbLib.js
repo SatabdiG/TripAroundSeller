@@ -995,6 +995,36 @@ retrievevalues: function ( connectionstring, databasename, mapdataversionid, mar
           console.log("Database not found! error");
         }
       });
+    },
+    saveDocs: function(connectionstring, json_data, callback){
+        if (callback) callback();
+
+        var coll_name = "docscollection";
+        mongodb.connect(connectionstring, function (err, db) {
+            db.collection(coll_name).save(json_data, function (err, result) {
+                if (err) return console.log(err);
+                console.log('saved to database');
+            });
+        });
+        return callback("done");
+    },
+    fetchData: function(connectionstring, userid, mapID, callback){
+        var coll_name = "docscollection";
+        // console.log(q)
+        // console.log(typeof q)
+        mongodb.connect(connectionstring, function (err, db) {
+            if(!err){
+                var cursor = db.collection(coll_name).find({
+                    "userID": userid,
+                    "mapID": mapID,
+                });
+                cursor.each(function (err2, doc) {
+                    if(doc!=null){
+                        callback(JSON.stringify(doc));
+                    }
+                });
+            }
+        });
     }
 
 
