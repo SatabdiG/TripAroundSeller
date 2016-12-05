@@ -236,11 +236,16 @@ function iteniarygenerator()
                     var li = document.createElement("li");
                     var img = document.createElement("img");
                     img.setAttribute("class", "displayimg");
+                    img.setAttribute("id", "img"+picname);
+                    var temlpele=document.getElementById("img"+picname);
+
                     //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
                     img.setAttribute("src", totalpath);
-                    li.appendChild(img);
-                    //div.appendChild(img);
-                    appendto.appendChild(li);
+                    if(temlpele === null) {
+                        li.appendChild(img);
+                        //div.appendChild(img);
+                        appendto.appendChild(li);
+                    }
 
                     $('#slide' + nmt).jcarousel('scroll', '+=2');
                     $('#slide' + nmt).jcarousel('reload');

@@ -208,11 +208,15 @@ function viewtourcontroller()
                    var li = document.createElement("li");
                    var img = document.createElement("img");
                    img.setAttribute("class", "displayimg");
+                   img.setAttribute("id", "img"+picname);
                    //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
                    img.setAttribute("src", totalpath);
-                   li.appendChild(img);
-                   //div.appendChild(img);
-                   appendto.appendChild(li);
+                   var tempele=document.getElementById("img"+picname);
+                   if(tempele === null) {
+                       li.appendChild(img);
+                       //div.appendChild(img);
+                       appendto.appendChild(li);
+                   }
 
                    $('#slidesrc' + nmt).jcarousel('scroll', '+=2');
                    $('#slidesrc' + nmt).jcarousel('reload');
