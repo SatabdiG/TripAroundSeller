@@ -201,7 +201,6 @@ function dashboardfunction(){
   $('#viewmapregion').empty();
   console.log("User logged in as "+userid);
 
-
       $("#logoutbutton").on('click', function()
       {
           console.log("Logout button is clicked");
@@ -359,6 +358,7 @@ function dashboardfunction(){
                 //Update status message
                 if($('#publishconformation').dialog("isOpen"))
                   $('#publishconformation').dialog("close");
+                $('#staus').css('color','green');
                 $('#staus').text("Your Map is now public !");
 
               }
@@ -584,6 +584,8 @@ function imagecontroller(){
       nomap=1;
     }
     Dropzone.autoDiscover=false;
+
+
     //Dropzone Code
     var myDropZone=new Dropzone("#dropzonePreview",{
       url:"/dragdrop",
@@ -595,6 +597,9 @@ function imagecontroller(){
             EXIF.getData(file, function(){
               var lat=EXIF.getTag(this,"GPSLatitude");
               var lon=EXIF.getTag(this,"GPSLongitude");
+              var geocoder = new google.maps.Geocoder;
+              var infowindow = new google.maps.InfoWindow;
+              var address;
               var time=EXIF.getTag(this,"DateTime");
               var latRef = EXIF.GPSLatitudeRef || "N";
               var lonRef = EXIF.GPSLongitudeRef || "W";
@@ -607,34 +612,48 @@ function imagecontroller(){
                 var tim=time;
                 console.log("Latitide : " + lat);
                 console.log("Longitude : " + lon);
+                var temp=new google.maps.LatLng(lat,lon);
                 socket.emit('Latitude', lat);
                 socket.emit('Longitude', lon);
-                markerobj.lat=lat;
-                markerobj.lon=lon;
-                markerobj.time=tim;
-                markerobj.id=userid+tim;
-                console.log("File Name"+file.name);
-                markerobj.filename=file.name;
+                geocoder.geocode( { 'latLng': temp }, function(results, status) {
+                    if (status === 'OK') {
+                        address = results[1].formatted_address;
+                        console.log("Place name:" + results[1].formatted_address);
+                        console.log("Place name   " + results[1]);
+                        infowindow.setContent(results[1].formatted_address);
+                        markerobj.lat=lat;
+                        markerobj.lon=lon;
+                        markerobj.time=tim;
+                        markerobj.id=userid+tim;
+                        markerobj.tourstopname=address;
+                        console.log("File Name"+file.name);
+                        markerobj.filename=file.name;
 
-                //********* input name *****************
+                        //********* input name *****************
 
-                markercollec.push(markerobj);
-                myCenter = new google.maps.LatLng(lat, lon);
-                var marker = new google.maps.Marker({
-                  position: myCenter
+                        markercollec.push(markerobj);
+                        myCenter = new google.maps.LatLng(lat, lon);
+                        var marker = new google.maps.Marker({
+                            position: myCenter
+                        });
+                        map.setCenter(marker.getPosition());
+                        map.setZoom(4);
+                        marker.setMap(map);
+                        marker.addListener('click',function () {
+                            var reader=new FileReader();
+                            reader.onload=function (e) {
+                                $('#image-container').attr("src", e.traget.results);
+                            };
+                            reader.readAsDataURL(file);
+
+                        });
+                        markers.push(marker);
+
+                    }else
+                    {
+                      console.log("Geocoder failed"+status);
+                    }
                 });
-                map.setCenter(marker.getPosition());
-                map.setZoom(4);
-                marker.setMap(map);
-                marker.addListener('click',function () {
-                  var reader=new FileReader();
-                  reader.onload=function (e) {
-                    $('#image-container').attr("src", e.traget.results);
-                  };
-                  reader.readAsDataURL(file);
-
-                });
-                markers.push(marker);
               }
             });
 
@@ -673,6 +692,7 @@ function imagecontroller(){
             //Reset Drpzone
             this.removeAllFiles(true);
           }
+
         });
       }
     });
@@ -903,37 +923,60 @@ function imagecontroller(){
             var tim=date.getMilliseconds();
             console.log("Latitide : " + lat);
             console.log("Longitude : " + lon);
-            socket.emit('Latitude', lat);
-            socket.emit('Longitude', lon);
-            markerobj.lat=lat;
-            markerobj.lon=lon;
-            markerobj.time=tim;
-            markerobj.id=userid+tim;
-            var filename = $('#userphoto').val().split('\\').pop();
-            var fil=document.getElementById("userphoto");
-            console.log("Name is"+ this.name);
-            markerobj.filename=this.name;
-            var fil=$("#userphoto").get(0).files[i];
-            //********* input name *****************
-            //markercollec.push(markerobj);
-            markercollec[count++]=markerobj;
-            myCenter = new google.maps.LatLng(lat, lon);
-            var marker = new google.maps.Marker({
-              position: myCenter
-            });
-            map.setCenter(marker.getPosition());
-            map.setZoom(4);
-            marker.setMap(map);
-            marker.addListener('click',function () {
-              var reader=new FileReader();
-              console.log(fil);
-              reader.readAsDataURL(fil);
-              reader.onload=function (e) {
-                $('#image-container').attr("src", e.target.result);
-              };
+             var temp=new google.maps.LatLng(lat,lon);
+              var geocoder = new google.maps.Geocoder;
+              var infowindow = new google.maps.InfoWindow;
+              var address;
+              geocoder.geocode( { 'latLng': temp }, function(results, status){
+                if(status === 'OK')
+                {
+                   address=results[1].formatted_address;
+                   console.log("Place name:"+results[1].formatted_address);
+                   console.log("Place name   "+results[1]);
+                   infowindow.setContent(results[1].formatted_address);
+                    socket.emit('Latitude', lat);
+                    socket.emit('Longitude', lon);
+                    markerobj.lat=lat;
+                    markerobj.lon=lon;
+                    markerobj.time=tim;
+                    markerobj.tourstopname=address;
+                    markerobj.id=userid+tim;
+                    var filename = $('#userphoto').val().split('\\').pop();
+                    //var fil=document.getElementById("userphoto");
+                    console.log("Name is"+ this.name+"  "+filename);
+                    socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
+                    markerobj.filename=this.name;
+                    var fil=$("#userphoto").get(0).files;
+                    //********* input name *****************
+                    //markercollec.push(markerobj);
+                    markercollec[count++]=markerobj;
+                    myCenter = new google.maps.LatLng(lat, lon);
+                    var marker = new google.maps.Marker({
+                        position: myCenter
+                    });
+                    map.setCenter(marker.getPosition());
+                    map.setZoom(4);
+                    marker.setMap(map);
+                    marker.addListener('click',function () {
+                        infowindow.open(map, marker);
+                        var reader=new FileReader();
+                        console.log(fil[0]);
+                        reader.readAsDataURL(fil[0]);
+                        reader.onload=function (e) {
+                            $('#image-container').attr("src", e.target.result);
+                        };
 
-            });
-            markers.push(marker);
+                    });
+
+                    markers.push(marker);
+
+                }else
+                {
+                  console.log("Geocoder failed due to"+status);
+                }
+              });
+
+
           }
         });
       }
@@ -1183,8 +1226,6 @@ function imageupload() {
 
     $('#something').hide();
     //Fetch images from Server using socketio
-
-
     socket.emit("ImageGall",{userid: userid, mapid:mapname});
     socket.on("imagereturn", function(mssg) {
       console.log("Thumbanils "+mssg.picname);
@@ -1289,8 +1330,6 @@ function imageupload() {
     {
       //registered users
       //airplane line
-
-
       socket.emit("GetTrails", {id:userid, mapid:mapname});
       socket.on("drawtrails", function(msg){
         console.log("Draw Trails gives"+msg.src+"  "+msg.des);

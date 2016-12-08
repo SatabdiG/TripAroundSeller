@@ -134,7 +134,7 @@ function iteniarygenerator()
         //Create existing tourStops
         console.log("Name is"+locnames.indexOf(msg.name));
         if(locnames.indexOf(msg.name) === -1) {
-            var nmt=msg.name;
+            var nmt=msg.name.replace(/ /g,'');
             var description=msg.description;
             var vehcile=msg.vehicle;
             var lat=msg.lat;

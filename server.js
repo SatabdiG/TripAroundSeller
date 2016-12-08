@@ -15,9 +15,10 @@ var busboy = require('connect-busboy');
 app.use(bodyParser.json());
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
+
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
@@ -535,12 +536,14 @@ app.post('/mapupload', function(req,res){
   });
 
   if(marker.length>0) {
+    console.log("Marker length"+marker.length);
+
 
     for(i=0;i<marker.length;i++)
     {
       var markerid=req.body.id+i+currenthours;
-      console.log(marker[i]);
-      connect.addmarkers(mongofil,"someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
+      console.log("Got Marker"+marker[i].tourstopname);
+      connect.addmarkers(mongofil, marker[i].tourstopname,"someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
       console.log(mssg);
         if(mssg!=undefined) {
           if (mssg == "yes")
@@ -549,7 +552,17 @@ app.post('/mapupload', function(req,res){
             flag = false;
         }
       });
+      connect.addTourStops(mongofil,req.body.id, req.body.name, "car",marker[i].tourstopname,marker[i].lat,marker[i].lon,"",0, function (message) {
+         if(message!=undefined)
+         {
+             if (message == "yes")
+                 flag = true;
+             else
+                 flag = false;
+         }
+      });
     }
+
     console.log("flag    "+flag);
     if(flag == true)
     {
@@ -1078,7 +1091,23 @@ socket.on('connection',function(socket){
    console.log("Longittude"+msg);
   });
 
+ socket.on('picdetailsimageupload', function(msg){
 
+   var filename=msg.filename;
+   var tourstop=msg.tourstopname;
+     console.log("Pic details update" + filename+ tourstop);
+   //Update the imagedetails in picturescollection
+
+     connect.updateImageDescription(mongofil,filename,tourstop, function(mssg){
+       if(mssg == "done")
+       {
+         console.log("Picture has been updated");
+       }
+
+     });
+
+
+ });
 
   socket.on('UserData',function(msg){
     console.log("In user data function");

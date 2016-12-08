@@ -15,7 +15,7 @@ function landingpagecontroller() {
         name="";
         console.log("Welcome to the trip Around -- landing page");
         $('#login').on('click', function () {
-            window.location.href = "#login";3
+            window.location.href = "#login";
 
         });
 
