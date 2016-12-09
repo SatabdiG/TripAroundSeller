@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="1.Link between upload Images and Iterniary&#10;2. EXIF issue fix&#10;3. Markers get removed - Save Map - Image Upload Page Fix">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/sata/Paris/head_of_canoe_on_river_towards_mountains_596126.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/sata/Paris/monument-352051_1280.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/sata/Paris/mountains_behind_lake_with_reflection_596244.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/sata/Paris/travelgirl.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="a25bf2bf-8abd-4a29-86b1-25d320e578fe" name="Default" comment="Pushing" />
     <ignored path="TripAroundProduction.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -29,66 +23,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="1225" column="105" lean-forward="false" selection-start-line="1225" selection-start-column="105" selection-end-line="1225" selection-end-column="105" />
+            <state relative-caret-position="235">
+              <caret line="961" column="0" lean-forward="true" selection-start-line="961" selection-start-column="0" selection-end-line="961" selection-end-column="0" />
               <folding>
-                <element signature="e#1253#2709#0" expanded="false" />
-                <element signature="e#3128#4932#0" expanded="false" />
-                <element signature="e#5000#5169#0" expanded="false" />
-                <element signature="e#5287#5913#0" expanded="false" />
-                <element signature="e#5982#6674#0" expanded="false" />
-                <element signature="e#6748#7249#0" expanded="false" />
-                <element signature="e#7300#7892#0" expanded="false" />
-                <element signature="e#7971#8517#0" expanded="false" />
-                <element signature="e#8570#9714#0" expanded="false" />
-                <element signature="e#9822#11260#0" expanded="false" />
-                <element signature="e#11308#12084#0" expanded="false" />
-                <element signature="e#12126#12778#0" expanded="false" />
-                <element signature="e#12827#13854#0" expanded="false" />
-                <element signature="e#15332#15790#0" expanded="false" />
-                <element signature="e#15848#16225#0" expanded="false" />
-                <element signature="e#18897#19722#0" expanded="false" />
-                <element signature="e#19767#20201#0" expanded="false" />
-                <element signature="e#20013#20197#0" expanded="false" />
-                <element signature="e#20243#20516#0" expanded="false" />
-                <element signature="e#20600#23198#0" expanded="false" />
-                <element signature="e#23279#23364#0" expanded="false" />
-                <element signature="e#25603#25684#0" expanded="false" />
-                <element signature="e#25744#26210#0" expanded="false" />
-                <element signature="e#26258#28514#0" expanded="false" />
-                <element signature="e#26683#26886#0" expanded="false" />
-                <element signature="e#36542#36936#0" expanded="false" />
-                <element signature="e#44443#44485#0" expanded="false" />
-                <element signature="e#44551#44606#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MongoDbLib.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="248" column="74" lean-forward="false" selection-start-line="248" selection-start-column="74" selection-end-line="248" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-777">
-              <caret line="885" column="15" lean-forward="false" selection-start-line="885" selection-start-column="15" selection-end-line="885" selection-end-column="15" />
-              <folding>
-                <element signature="e#9297#10612#0" expanded="false" />
-                <element signature="e#10698#12030#0" expanded="false" />
-                <element signature="e#23549#25305#0" expanded="false" />
-                <element signature="e#27378#28402#0" expanded="false" />
-                <element signature="e#33572#35280#0" expanded="false" />
+                <element signature="e#1420#2876#0" expanded="false" />
+                <element signature="e#2940#3142#0" expanded="false" />
+                <element signature="e#3295#5099#0" expanded="false" />
+                <element signature="e#5167#5336#0" expanded="false" />
+                <element signature="e#5454#6080#0" expanded="false" />
+                <element signature="e#6149#6841#0" expanded="false" />
+                <element signature="e#6915#7416#0" expanded="false" />
+                <element signature="e#7467#8059#0" expanded="false" />
+                <element signature="e#8138#8684#0" expanded="false" />
+                <element signature="e#8737#9881#0" expanded="false" />
+                <element signature="e#9989#11427#0" expanded="false" />
+                <element signature="e#11475#12251#0" expanded="false" />
+                <element signature="e#12293#12945#0" expanded="false" />
+                <element signature="e#12994#14021#0" expanded="false" />
+                <element signature="e#14103#15410#0" expanded="false" />
+                <element signature="e#15499#15957#0" expanded="false" />
+                <element signature="e#16015#16392#0" expanded="false" />
+                <element signature="e#16443#16953#0" expanded="false" />
+                <element signature="e#17908#18439#0" expanded="false" />
+                <element signature="e#18475#19326#0" expanded="false" />
+                <element signature="e#19561#20386#0" expanded="false" />
+                <element signature="e#20431#20865#0" expanded="false" />
+                <element signature="e#20907#21180#0" expanded="false" />
+                <element signature="e#21264#23862#0" expanded="false" />
+                <element signature="e#23943#24028#0" expanded="false" />
+                <element signature="e#24396#24926#0" expanded="false" />
+                <element signature="e#24935#25809#0" expanded="false" />
+                <element signature="e#27377#29633#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -97,8 +65,18 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
+            <state relative-caret-position="918">
               <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="process_doc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/process_doc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1479">
+              <caret line="87" column="5" lean-forward="false" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -107,21 +85,30 @@
       <file leaf-file-name="iteniarycontrollerPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="1164" column="49" lean-forward="false" selection-start-line="1164" selection-start-column="49" selection-end-line="1164" selection-end-column="49" />
+            <state relative-caret-position="85">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#501#4840#0" expanded="false" />
-                <element signature="e#32318#33420#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="viewtour.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/viewtour.js">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="252" column="57" lean-forward="false" selection-start-line="252" selection-start-column="57" selection-end-line="252" selection-end-column="57" />
+            <state relative-caret-position="34000">
+              <caret line="2000" column="34" lean-forward="false" selection-start-line="2000" selection-start-column="19" selection-end-line="2000" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../TripAroundSeller/public/FrontEnd/js/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="890">
+              <caret line="1928" column="0" lean-forward="true" selection-start-line="1928" selection-start-column="0" selection-end-line="1928" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,36 +126,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>view</find>
+      <find>tour spec</find>
+      <find>maintitle</find>
+      <find>orangeheader</find>
+      <find>updateMaps</find>
+      <find>publishconformation</find>
+      <find>itenary-thumbnail</find>
+      <find>find</find>
       <find>update</find>
-      <find>socket.on</find>
-      <find>in</find>
-      <find>userimageupload</find>
-      <find>picdetailsimageupload</find>
-      <find>updateImageDescription</find>
-      <find>dragdrop</find>
-      <find>socket.emit</find>
-      <find>Pict</find>
+      <find>publishmapid</find>
+      <find>publishmap</find>
+      <find>doc</find>
+      <find>thumbnail</find>
+      <find>head.jpg</find>
+      <find>imagegall</find>
+      <find>viewmapregion</find>
+      <find>dashboard</find>
+      <find>getElementById</find>
+      <find>thumbcontainer</find>
+      <find>logout</find>
+      <find>savebutt</find>
       <find>socket</find>
-      <find>address</find>
-      <find>geocoder</find>
-      <find>LatLng</find>
-      <find>tempstr</find>
-      <find>itenary-des</find>
-      <find>itenary-thumbail</find>
-      <find>In registered user handler</find>
-      <find>MapId</find>
-      <find>getPicturesTourStop</find>
-      <find>getImg</find>
-      <find>locnames</find>
-      <find>nmt</find>
-      <find>getPicturesTourStopsrc</find>
-      <find>getImgsrc</find>
-      <find>str1</find>
-      <find>itemarkers</find>
-      <find>getdirections</find>
-      <find>getDirections</find>
-      <find>dropzone</find>
-      <find>latRef</find>
+      <find>socket.on</find>
+      <find>py</find>
+      <find>child_process</find>
+      <find>form</find>
+      <find>app.use(express.bodyParser());</find>
+      <find>iter_headings</find>
+      <find>itecontroll</find>
+      <find>UploadImages</find>
     </findStrings>
     <replaceStrings>
       <replace>userid</replace>
@@ -176,6 +163,7 @@
     </replaceStrings>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -193,19 +181,19 @@
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/viewtour.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/viewgallery.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/overview.html" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/partials/SearchPage.html" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/SearchPageController.js" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/partials/imageupload.html" />
-        <option value="$PROJECT_DIR$/process_doc.py" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/partials/landing.html" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/css/main.css" />
-        <option value="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
-        <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/viewtour.js" />
+        <option value="$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/partials/imageupload.html" />
+        <option value="$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js" />
         <option value="$PROJECT_DIR$/public/FrontEnd/js/main.js" />
+        <option value="$PROJECT_DIR$/process_doc.py" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -225,9 +213,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="27" />
-    <option name="width" value="1366" />
-    <option name="height" value="741" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -298,8 +287,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -312,103 +301,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FrontEnd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FrontEnd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FrontEnd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TripAroundSeller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AdditionServerSide" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
@@ -482,32 +381,7 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/bin/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$">
-      <profiling v8-profiler-path="" />
-      <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
-        <option name="envVars">
-          <list />
-        </option>
-        <option name="extraHosts">
-          <list />
-        </option>
-        <option name="links">
-          <list />
-        </option>
-        <option name="networkDisabled" value="false" />
-        <option name="networkMode" value="bridge" />
-        <option name="portBindings">
-          <list />
-        </option>
-        <option name="publishAllPorts" value="false" />
-        <option name="version" value="1" />
-        <option name="volumeBindings">
-          <list />
-        </option>
-      </EXTENSION>
-      <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
-        <profiling v8-profiler-path="" />
-      </EXTENSION>
+    <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="server.js" working-dir="$PROJECT_DIR$">
       <method />
     </configuration>
     <list size="1">
@@ -565,9 +439,28 @@
       <workItem from="1480957998061" duration="1445000" />
       <workItem from="1480959473798" duration="357000" />
       <workItem from="1480959996368" duration="937000" />
-      <workItem from="1480970703795" duration="877000" />
-      <workItem from="1481189770284" duration="17767000" />
-      <workItem from="1481273682946" duration="15965000" />
+      <workItem from="1481286104182" duration="911000" />
+    </task>
+    <task id="LOCAL-00001" summary="First Commit">
+      <created>1477901720471</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1477901720471</updated>
+    </task>
+    <task id="LOCAL-00002" summary="First Commit">
+      <created>1477901897609</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1477901897609</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Updating main html page">
+      <created>1477928664541</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1477928664541</updated>
     </task>
     <task id="LOCAL-00004" summary="Adding the">
       <created>1478274857151</created>
@@ -884,39 +777,11 @@
       <option name="project" value="LOCAL" />
       <updated>1480941190154</updated>
     </task>
-    <task id="LOCAL-00049" summary="Save tour button leads nowhere error fix">
-      <created>1481190176350</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1481190176350</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Database link update for heroku">
-      <created>1481191828581</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1481191828582</updated>
-    </task>
-    <task id="LOCAL-00051" summary="Green button fix. Partial iteniary creation from upload images">
-      <created>1481211719873</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1481211719873</updated>
-    </task>
-    <task id="LOCAL-00052" summary="1.Link between upload Images and Iterniary&#10;2. EXIF issue fix&#10;3. Markers get removed - Save Map - Image Upload Page Fix">
-      <created>1481291984636</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1481291984636</updated>
-    </task>
-    <option name="localTasksCounter" value="53" />
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="320443000" />
+    <option name="totallyTimeSpent" value="286745000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -928,25 +793,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1366" height="741" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23919523" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19940476" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3305509" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3472454" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5408497" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24836601" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50980395" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -964,6 +829,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updating main html page" />
+    <MESSAGE value="Adding the Iteniary Page" />
+    <MESSAGE value="Fixing" />
+    <MESSAGE value="Logout button" />
     <MESSAGE value="Multiple node creation issue fix" />
     <MESSAGE value="Automatic Button replay Click" />
     <MESSAGE value="Changes for heroku" />
@@ -985,15 +854,18 @@
     <MESSAGE value="Heroku Master Image Replication" />
     <MESSAGE value="Pushing" />
     <MESSAGE value="Heroku error" />
-    <MESSAGE value="Save tour button leads nowhere error fix" />
-    <MESSAGE value="Database link update for heroku" />
-    <MESSAGE value="Green button fix. Partial iteniary creation from upload images" />
-    <MESSAGE value="1.Link between upload Images and Iterniary&#10;2. EXIF issue fix&#10;3. Markers get removed - Save Map - Image Upload Page Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.Link between upload Images and Iterniary&#10;2. EXIF issue fix&#10;3. Markers get removed - Save Map - Image Upload Page Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Heroku error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js</url>
+          <line>108</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1162,6 +1034,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="24" column="33" lean-forward="false" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/viewtour.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -1190,10 +1069,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="144" column="22" lean-forward="false" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/imagegallery.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="67" column="4" lean-forward="false" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="440" column="10" lean-forward="false" selection-start-line="440" selection-start-column="10" selection-end-line="440" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1204,6 +1097,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="427" column="25" lean-forward="false" selection-start-line="427" selection-start-column="25" selection-end-line="427" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="45" lean-forward="false" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/SearchPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1211,11 +1118,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../TripAroundSeller/server.js" />
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/viewtour.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5185">
+          <caret line="307" column="17" lean-forward="false" selection-start-line="307" selection-start-column="8" selection-end-line="307" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="596" column="0" lean-forward="true" selection-start-line="596" selection-start-column="0" selection-end-line="596" selection-end-column="0" />
+          <folding>
+            <element signature="e#497#969#0" expanded="false" />
+            <element signature="e#1034#1465#0" expanded="false" />
+            <element signature="e#1529#2027#0" expanded="false" />
+            <element signature="e#2136#2601#0" expanded="false" />
+            <element signature="e#2693#3058#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TripAroundSeller/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="910" column="3" lean-forward="true" selection-start-line="824" selection-start-column="0" selection-end-line="910" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/imageupload.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="76" column="6" lean-forward="true" selection-start-line="76" selection-start-column="6" selection-end-line="76" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/iteniary.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="34" column="17" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#501#4840#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1227,10 +1178,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/process_doc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
+        <state relative-caret-position="1479">
           <caret line="87" column="5" lean-forward="false" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1241,136 +1201,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../TripAroundSeller/public/FrontEnd/js/main.js" />
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/imageupload.html">
+    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="6" lean-forward="false" selection-start-line="76" selection-start-column="6" selection-end-line="76" selection-end-column="6" />
+        <state relative-caret-position="34000">
+          <caret line="2000" column="34" lean-forward="false" selection-start-line="2000" selection-start-column="19" selection-end-line="2000" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/landing.html">
+    <entry file="file://$PROJECT_DIR$/../../TripAroundSeller/public/FrontEnd/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="27" lean-forward="false" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/landingpagecontroller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="44" lean-forward="false" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2160">
-          <caret line="144" column="22" lean-forward="false" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/partials/map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="24" column="33" lean-forward="false" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="206" column="21" lean-forward="false" selection-start-line="206" selection-start-column="21" selection-end-line="206" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AdditionServerSide/MongoDbLib.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="248" column="74" lean-forward="false" selection-start-line="248" selection-start-column="74" selection-end-line="248" selection-end-column="74" />
+        <state relative-caret-position="890">
+          <caret line="1928" column="0" lean-forward="true" selection-start-line="1928" selection-start-column="0" selection-end-line="1928" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="1225" column="105" lean-forward="false" selection-start-line="1225" selection-start-column="105" selection-end-line="1225" selection-end-column="105" />
+        <state relative-caret-position="235">
+          <caret line="961" column="0" lean-forward="true" selection-start-line="961" selection-start-column="0" selection-end-line="961" selection-end-column="0" />
           <folding>
-            <element signature="e#1253#2709#0" expanded="false" />
-            <element signature="e#3128#4932#0" expanded="false" />
-            <element signature="e#5000#5169#0" expanded="false" />
-            <element signature="e#5287#5913#0" expanded="false" />
-            <element signature="e#5982#6674#0" expanded="false" />
-            <element signature="e#6748#7249#0" expanded="false" />
-            <element signature="e#7300#7892#0" expanded="false" />
-            <element signature="e#7971#8517#0" expanded="false" />
-            <element signature="e#8570#9714#0" expanded="false" />
-            <element signature="e#9822#11260#0" expanded="false" />
-            <element signature="e#11308#12084#0" expanded="false" />
-            <element signature="e#12126#12778#0" expanded="false" />
-            <element signature="e#12827#13854#0" expanded="false" />
-            <element signature="e#15332#15790#0" expanded="false" />
-            <element signature="e#15848#16225#0" expanded="false" />
-            <element signature="e#18897#19722#0" expanded="false" />
-            <element signature="e#19767#20201#0" expanded="false" />
-            <element signature="e#20013#20197#0" expanded="false" />
-            <element signature="e#20243#20516#0" expanded="false" />
-            <element signature="e#20600#23198#0" expanded="false" />
-            <element signature="e#23279#23364#0" expanded="false" />
-            <element signature="e#25603#25684#0" expanded="false" />
-            <element signature="e#25744#26210#0" expanded="false" />
-            <element signature="e#26258#28514#0" expanded="false" />
-            <element signature="e#26683#26886#0" expanded="false" />
-            <element signature="e#36542#36936#0" expanded="false" />
-            <element signature="e#44443#44485#0" expanded="false" />
-            <element signature="e#44551#44606#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/iteniarycontrollerPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="1164" column="49" lean-forward="false" selection-start-line="1164" selection-start-column="49" selection-end-line="1164" selection-end-column="49" />
-          <folding>
-            <element signature="e#501#4840#0" expanded="false" />
-            <element signature="e#32318#33420#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/viewtour.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="252" column="57" lean-forward="false" selection-start-line="252" selection-start-column="57" selection-end-line="252" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/FrontEnd/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-777">
-          <caret line="885" column="15" lean-forward="false" selection-start-line="885" selection-start-column="15" selection-end-line="885" selection-end-column="15" />
-          <folding>
-            <element signature="e#9297#10612#0" expanded="false" />
-            <element signature="e#10698#12030#0" expanded="false" />
-            <element signature="e#23549#25305#0" expanded="false" />
-            <element signature="e#27378#28402#0" expanded="false" />
-            <element signature="e#33572#35280#0" expanded="false" />
+            <element signature="e#1420#2876#0" expanded="false" />
+            <element signature="e#2940#3142#0" expanded="false" />
+            <element signature="e#3295#5099#0" expanded="false" />
+            <element signature="e#5167#5336#0" expanded="false" />
+            <element signature="e#5454#6080#0" expanded="false" />
+            <element signature="e#6149#6841#0" expanded="false" />
+            <element signature="e#6915#7416#0" expanded="false" />
+            <element signature="e#7467#8059#0" expanded="false" />
+            <element signature="e#8138#8684#0" expanded="false" />
+            <element signature="e#8737#9881#0" expanded="false" />
+            <element signature="e#9989#11427#0" expanded="false" />
+            <element signature="e#11475#12251#0" expanded="false" />
+            <element signature="e#12293#12945#0" expanded="false" />
+            <element signature="e#12994#14021#0" expanded="false" />
+            <element signature="e#14103#15410#0" expanded="false" />
+            <element signature="e#15499#15957#0" expanded="false" />
+            <element signature="e#16015#16392#0" expanded="false" />
+            <element signature="e#16443#16953#0" expanded="false" />
+            <element signature="e#17908#18439#0" expanded="false" />
+            <element signature="e#18475#19326#0" expanded="false" />
+            <element signature="e#19561#20386#0" expanded="false" />
+            <element signature="e#20431#20865#0" expanded="false" />
+            <element signature="e#20907#21180#0" expanded="false" />
+            <element signature="e#21264#23862#0" expanded="false" />
+            <element signature="e#23943#24028#0" expanded="false" />
+            <element signature="e#24396#24926#0" expanded="false" />
+            <element signature="e#24935#25809#0" expanded="false" />
+            <element signature="e#27377#29633#0" expanded="false" />
           </folding>
         </state>
       </provider>

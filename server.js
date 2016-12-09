@@ -23,6 +23,10 @@ var mongofil="mongodb://localhost:27017/testimages";
 
 //Blurred Detection middlewares.
 
+// Image Compression
+const imagemin = require('imagemin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminPngquant = require('imagemin-pngquant');
 
 var userid;
 var filename;
@@ -655,7 +659,18 @@ app.post('/dragdrop', function(req,res){
   form.uploadDir=path.join(__dirname,'/uploads');
   form.on('file',function(field,file){
     console.log("File Name"+file.name);
-    fs.rename(file.path,path.join(form.uploadDir,file.name));
+    fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
+        imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
+            plugins: [
+                imageminMozjpeg({quality: 40}),
+                imageminPngquant({quality: '40-45'})
+            ]
+        }).then(function(files) {
+            console.log('File compressed successfully.');
+        });
+
+        console.log('\t In drag drop my upload dir is '+form.uploadDir+' and my filename is '+file.name);
+    });
   });
   form.on('field', function(name,value){
     console.log("In Drag and Drop"+ name +"  "+ value);
@@ -946,7 +961,18 @@ app.post('/userimageupload', function(req,res){
 
   form.on('file',function(field,file){
     console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
-    fs.rename(file.path,path.join(form.uploadDir,file.name));
+    fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
+        imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
+            plugins: [
+                imageminMozjpeg({quality: 40}),
+                imageminPngquant({quality: '40-45'})
+            ]
+        }).then(function(files) {
+            console.log('File compressed successfully.');
+        });
+
+        console.log('\t In drag drop my upload dir is '+form.uploadDir+' and my filename is '+file.name);
+    });
   });
   form.on('error',function(err){
     console.log("Error has ocurred");
