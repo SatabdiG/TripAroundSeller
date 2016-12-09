@@ -50,7 +50,8 @@ function viewtourcontroller()
            //var nmt=msg.name;
            var str1=msg.name.toString().replace(/. /g,'');
            var str2=str1.replace(/,/g,'');
-           var nmt=str2;
+           var str3=str2.replace("/",'');
+           var nmt=str3;
            var description=msg.description;
            var vehicle=msg.vehicle;
            var lat=msg.lat;
@@ -68,7 +69,7 @@ function viewtourcontroller()
            });
            itemarkers.push(marker);
            locations.push(msg.name);
-           tempstr = nmt;
+           tempstr = msg.name;
            var tempid=document.getElementById("headsrc"+nmt);
            console.log("Tempid"+tempid);
            if(tempid === null) {
@@ -242,14 +243,13 @@ function viewtourcontroller()
            var route=[];
            var routeobj={};
             var tempcount=0;
-            console.log("Itemarkers length   "+itemarkers[2].getPosition());
             for(var i=0;i<itemarkers.length;i++)
             {
                 tempcount+=1;
                 if(tempcount<itemarkers.length) {
                     console.log("*******"+tempcount+"  "+i);
                     var src = itemarkers[i].getPosition();
-                    des = itemarkers[tempcount].getPosition();
+                    var des = itemarkers[tempcount].getPosition();
                     console.log("Src Des"+ src+"  "+des);
                     getDirections(map, src, des);
                 }

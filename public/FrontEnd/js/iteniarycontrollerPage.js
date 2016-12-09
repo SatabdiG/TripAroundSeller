@@ -139,8 +139,9 @@ function iteniarygenerator()
             //var nmt=msg.name.replace(/ /g,'');
             var str1=msg.name.toString().replace(/. /g,'');
             var str2=str1.replace(/,/g,'');
-            var nmt=str2;
-            console.log("Iterniary page nmt "+str2);
+            var str3=str2.replace("/",'');
+            var nmt=str3;
+            console.log("Iterniary page nmt "+str3);
             var description=msg.description;
             var vehcile=msg.vehicle;
             var lat=msg.lat;

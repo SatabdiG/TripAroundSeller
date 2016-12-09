@@ -841,23 +841,24 @@ function imagecontroller(){
           contentType:'application/json'
         }).done(function(response){
           console.log(response);
-          if(response =="yes") {
+          if(response === "yes") {
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
             //Reset Map
+              /*
             if($.isEmptyObject(markers) == false) {
               for (i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
               }
-            }
-            map.setCenter(new google.maps.LatLng(51.508742,-0.120850));
-            map.setZoom(3);
-          }
+            }*/
+            //map.setCenter(new google.maps.LatLng(51.508742,-0.120850));
+            //map.setZoom(3);
+          }/*
           else
           {
             $("#uploadstatus").text("The map has not been saved.");
             $("#uploadstatus").css({"color":"red"});
-          }
+          }*/
         });
       }
       else {
