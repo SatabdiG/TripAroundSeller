@@ -204,6 +204,7 @@ navbar{
   width: 30%;
   float: left;
   background-color: #dddddd;
+  overflow-x: hidden;
 }
 
 .itenary-header
@@ -222,6 +223,7 @@ navbar{
   height:150px;
   width: 70%;
   float: right;
+  z-index: 5;
 }
 
 .itenary-des textarea

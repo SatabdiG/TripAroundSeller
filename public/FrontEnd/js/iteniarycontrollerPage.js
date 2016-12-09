@@ -134,7 +134,13 @@ function iteniarygenerator()
         //Create existing tourStops
         console.log("Name is"+locnames.indexOf(msg.name));
         if(locnames.indexOf(msg.name) === -1) {
-            var nmt=msg.name.replace(/ /g,'');
+            locnames.push(msg.name);
+            console.log("locnames"+locnames);
+            //var nmt=msg.name.replace(/ /g,'');
+            var str1=msg.name.toString().replace(/. /g,'');
+            var str2=str1.replace(/,/g,'');
+            var nmt=str2;
+            console.log("Iterniary page nmt "+str2);
             var description=msg.description;
             var vehcile=msg.vehicle;
             var lat=msg.lat;
@@ -149,11 +155,9 @@ function iteniarygenerator()
                 map:map
             });
             itemarkers.push(marker);
-
-            locnames.push(msg.name);
             //Create the rest of the structure
             //Create a header for the string
-            tempstr = nmt;
+            tempstr = msg.name;
             //Main Container div
             var tempid=document.getElementById("head"+nmt);
             if(tempid === null) {
@@ -318,33 +322,35 @@ function iteniarygenerator()
                     target: '+=1'
                 });
             var picarray = [];
+            var tempmapname=msg.name;
             //Initialize the gallery if present
-            socket.emit("fetchImg", {"userid": userid, "tourstopname": nmt, "mapname": mapname});
+            console.log("tourstopname is"+userid);
+            socket.emit("fetchImg", {"userid": userid, "tourstopname": msg.name, "mapname": mapname});
             socket.on("getImg", function (msg) {
                 //Fetch and draw the gallery
-
+                console.log("Nmt is"+nmt);
                 var picname = msg.picname;
                 var picpath = msg.picpath;
-                if (picarray.includes(picname) === false) {
-                    picarray.push(picname);
+
                     console.log("the Data returned is" + picname + "  " + picpath);
                     var totalpath = picpath + "/" + picname;
                     console.log("The picpath is" + totalpath);
                     var appendto = document.getElementById('ul' + nmt);
-
                     var div = document.createElement("div");
                     var li = document.createElement("li");
                     var img = document.createElement("img");
                     img.setAttribute("class", "displayimg");
-                    img.setAttribute("id", "img"+picname);
-                    var temlpele=document.getElementById("img"+picname);
+                    img.setAttribute("id", "img"+nmt+picname);
+                    var temlpele=document.getElementById("img"+nmt+picname);
 
                     //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
                     img.setAttribute("src", totalpath);
                     if(temlpele === null) {
-                        li.appendChild(img);
-                        //div.appendChild(img);
-                        appendto.appendChild(li);
+                        if(msg.tourstopname === tempmapname ) {
+                            li.appendChild(img);
+                            //div.appendChild(img);
+                            appendto.appendChild(li);
+                        }
                     }
 
                     $('#slide' + nmt).jcarousel('scroll', '+=2');
@@ -355,7 +361,7 @@ function iteniarygenerator()
                     //Create two button
                     $('#slide' + nmt).jcarousel('reload');
 
-                }
+
             });
 
 

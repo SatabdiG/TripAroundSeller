@@ -650,7 +650,6 @@ app.post("/deleteTourStop", function(req, res)
 
 //Handler for drag and drop
 app.post('/dragdrop', function(req,res){
-  console.log("In drag and drop"+userid);
   var form=new formidable.IncomingForm();
   form.multiple=true;
   form.uploadDir=path.join(__dirname,'/uploads');
@@ -1200,15 +1199,15 @@ socket.on('connection',function(socket){
 
   socket.on("fetchImg", function(msg)
   {
-    console.log("Message received in g=fetch Img"+msg.userid);
+    console.log("Message received in g=fetch Img"+msg.tourstopname);
     var userid=msg.userid;
     var mapname=msg.mapname;
     var tourstopname=msg.tourstopname;
-    connect.getPicturesTourStop(mongofil, userid,mapname,tourstopname, function(picname,picpath,description){
+    connect.getPicturesTourStop(mongofil, userid,mapname,tourstopname, function(picname,picpath,tourstopname){
       if(picname!=undefined && picpath!=undefined )
       {
         console.log("picname"+picname);
-        socket.emit("getImg", {"picname":picname,"picpath":picpath});
+        socket.emit("getImg", {"picname":picname,"picpath":picpath, "tourstopname":tourstopname});
       }
     });
 
@@ -1220,11 +1219,11 @@ socket.on('connection',function(socket){
         var userid=msg.userid;
         var mapname=msg.mapname;
         var tourstopname=msg.tourstopname;
-        connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,description){
+        connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,tourstopname){
             if(picname!=undefined && picpath!=undefined )
             {
                 console.log("picname"+picname);
-                socket.emit("getImgsrc", {"picname":picname,"picpath":picpath});
+                socket.emit("getImgsrc", {"picname":picname,"picpath":picpath,"tourstopname":tourstopname});
             }
         });
 

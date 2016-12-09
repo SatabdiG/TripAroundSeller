@@ -431,7 +431,6 @@ function dashboardfunction(){
       $('#confirmdeletion').dialog("close");
 
   //View Button
-
     if(userid =="guest"){
       $('#dialog').dialog("open");
 
@@ -601,8 +600,12 @@ function imagecontroller(){
               var infowindow = new google.maps.InfoWindow;
               var address;
               var time=EXIF.getTag(this,"DateTime");
-              var latRef = EXIF.GPSLatitudeRef || "N";
-              var lonRef = EXIF.GPSLongitudeRef || "W";
+              //var latRef = EXIF.GPSLatitudeRef || "N";
+              //var lonRef = EXIF.GPSLongitudeRef || "W";
+                var latRef = EXIF.getTag(this,"GPSLatitudeRef");
+                var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
+
+              console.log("Lat refef"+latRef +"  "+lonRef);
               if(lat == undefined || lon== undefined)
                 alert("Sorry No Geo Tags present in images");
               else {
@@ -628,9 +631,7 @@ function imagecontroller(){
                         markerobj.tourstopname=address;
                         console.log("File Name"+file.name);
                         markerobj.filename=file.name;
-
                         //********* input name *****************
-
                         markercollec.push(markerobj);
                         myCenter = new google.maps.LatLng(lat, lon);
                         var marker = new google.maps.Marker({
@@ -645,10 +646,8 @@ function imagecontroller(){
                                 $('#image-container').attr("src", e.traget.results);
                             };
                             reader.readAsDataURL(file);
-
                         });
                         markers.push(marker);
-
                     }else
                     {
                       console.log("Geocoder failed"+status);
@@ -656,7 +655,6 @@ function imagecontroller(){
                 });
               }
             });
-
             //Add Remove button
             var removebutton=Dropzone.createElement("<button>Remove File</button>");
             var _this=this;
@@ -692,6 +690,19 @@ function imagecontroller(){
             //Reset Drpzone
             this.removeAllFiles(true);
           }
+          console.log("On complete dropzone"+file.name);
+            var address;
+            var geocoder = new google.maps.Geocoder;
+            var lattemp=markerobj.lat;
+            var latlon=markerobj.lon;
+            console.log("Lat lon dropzone"+latlon+"  "+lattemp);
+            var temp=new google.maps.LatLng(lattemp,latlon);
+            geocoder.geocode( { 'latLng': temp }, function(results, status) {
+                if (status === 'OK') {
+                    address = results[1].formatted_address;
+                    socket.emit("picdetailsimageupload", {filename: file.name, tourstopname: address});
+                }
+            });
 
         });
       }
@@ -730,7 +741,7 @@ function imagecontroller(){
             $("#uploadForm2")[0].reset();
             $('#dropzonePreview').on('complete',function(file){
               console.log("Finally!!");
-              $('#dropzonePreview').removeAllFiles(true);
+            $('#dropzonePreview').removeAllFiles(true);
             });
           }
           else
@@ -867,11 +878,12 @@ function imagecontroller(){
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
             //Reset Map
+              /*
             if($.isEmptyObject(markers) == false) {
               for (i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
               }
-            }
+            }*/
             map.setCenter(new google.maps.LatLng(51.508742,-0.120850));
             map.setZoom(3);
           }
@@ -912,8 +924,8 @@ function imagecontroller(){
           var lat=EXIF.getTag(this,"GPSLatitude");
           var lon=EXIF.getTag(this,"GPSLongitude");
           var tim=EXIF.getTag(this,"DateTime");
-          var latRef = EXIF.GPSLatitudeRef || "N";
-          var lonRef = EXIF.GPSLongitudeRef || "W";
+            var latRef = EXIF.getTag(this,"GPSLatitudeRef");
+            var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
           if(lat == undefined || lon== undefined)
             alert("Sorry No Geo Tags present in images");
           else {

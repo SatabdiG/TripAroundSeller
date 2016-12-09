@@ -227,7 +227,7 @@ module.exports= {
                     if(doc!=null)
                     {
                         console.log("Document"+doc.face);
-                        callback(doc.picname,doc.picpath);
+                        callback(doc.picname,doc.picpath,doc.tourstopname);
                     }
                 });
 
@@ -246,7 +246,7 @@ module.exports= {
                     if(doc!=null)
                     {
                         console.log("Document"+doc.face);
-                        callback(doc.picname,doc.picpath);
+                        callback(doc.picname,doc.picpath, doc.tourstopname);
                     }
                 });
 
