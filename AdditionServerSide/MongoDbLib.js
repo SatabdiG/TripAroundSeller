@@ -128,6 +128,32 @@ module.exports= {
     });
 
   },
+
+    updateTour:function(connectionstring, lat,lon, tourstop, callback){
+        if(callback)
+            callback();
+        //find the description
+        console.log("In Tour contents"+tourstop);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection("tourstop").find({"Lat":lat, "Lng":lon});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document ID"+doc._id);
+                        var docid=doc._id;
+                        db.collection("tourstop").update({_id:docid},{$set:{"tourstopname":tourstop}});
+                        return callback("done");
+
+                    }
+                });
+
+            }
+        });
+
+    },
+
+
     updateDescription:function(connectionstring, userid, mapid,usertext, callback){
         if(callback)
             callback();
@@ -541,13 +567,13 @@ module.exports= {
                       }, {w: 1}, function (err, records) {
 
                           if (records != null) {
-                              console.log("Trail Added");
+                              console.log("Tour Stop Added");
                               callback("yes");
                               db.close();
                           }
                           else {
                               callback("no");
-                              console.log("Trail cannot add");
+                              console.log("Tour Stop  cannot add");
                           }
                       });
 

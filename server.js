@@ -15,9 +15,9 @@ var busboy = require('connect-busboy');
 app.use(bodyParser.json());
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
@@ -718,7 +718,33 @@ app.post('/dragdrop', function(req,res){
               }
             }
           });
+        }else
+      {
+        if(name === "tourstop")
+        {
+          console.log("In Tourstop");
+          var obj=JSON.parse(value);
+          var lat=obj["lat"];
+          var lon=obj["lon"];
+          var mapname=obj["mapname"];
+          var tourst=obj["userid"];
+          var tourstopname=obj["address"];
+          connect.addTourStops(mongofil,tourst,mapname,"bus", tourstopname,lat,lon, "",0, function (mssg) {
+            if(mssg!=undefined)
+            {
+              if(mssg ===  "yes")
+              {
+                console.log("Done");
+              }else
+              {
+                console.log("Not Done");
+              }
+            }
+
+
+          });
         }
+      }
 
     }
 
@@ -936,7 +962,7 @@ app.post('/userimageupload', function(req,res){
         var mapname=obj['mapname'];
         var userid=obj['id'];
         var uploadpath='/uploads/'+userid+'/' + mapname;
-        var mapversion="something";
+        var mapversion=obj['tourstopname'];
 
         //call database and update the database
         for(var i=0;i<filenames.length;i++)
@@ -954,6 +980,16 @@ app.post('/userimageupload', function(req,res){
             }
           });
         }
+      }
+      else
+      {
+          if(name === "tourstop")
+          {
+            console.log("Got tourstop!!");
+            var obj=JSON.parse(value);
+              var filenames=obj['filename'];
+
+          }
       }
     }
 
@@ -1133,6 +1169,25 @@ socket.on('connection',function(socket){
 
 
  });
+
+    socket.on('tourstopdetailsupdate', function(msg){
+
+        var lat=msg.lat;
+        var lon=msg.lon;
+        var tourstopname=msg.tourstopname;
+        console.log("Tour details update" + lat+ tourstopname);
+        //Update the imagedetails in picturescollection
+
+        connect.updateTour(mongofil,lat,lon,tourstopname, function(mssg){
+            if(mssg == "done")
+            {
+                console.log("Picture has been updated");
+            }
+
+        });
+
+
+    });
 
   socket.on('UserData',function(msg){
     console.log("In user data function");
