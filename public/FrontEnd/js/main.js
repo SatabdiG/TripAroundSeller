@@ -809,8 +809,10 @@ function imagecontroller(){
             console.log("Date Time"+time);
             //Get the address of the fileement
               EXIF.getData(filetmp, function(){
-                  var latRef=EXIF.getTag(this,"GPSLatitude");
-                  var lonRef=EXIF.getTag(this,"GPSLongitude");
+                  var lat=EXIF.getTag(this,"GPSLatitude");
+                  var lon=EXIF.getTag(this,"GPSLongitude");
+                  var latRef = EXIF.getTag(this,"GPSLatitudeRef");
+                  var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
                   var geocoder = new google.maps.Geocoder;
                   var latt = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
                   var lonn = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
