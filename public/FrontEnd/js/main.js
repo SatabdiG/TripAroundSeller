@@ -506,6 +506,7 @@ function dashboardfunction(){
 
               });*/
 
+
               //Publish button
               var publishbutton=document.getElementById("publish"+msg.name);
               publishbutton.addEventListener("click", function (evt) {
