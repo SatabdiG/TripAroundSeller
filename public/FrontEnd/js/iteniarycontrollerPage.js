@@ -21,10 +21,9 @@ function iteniarygenerator()
             // console.log(msg);
             myobj = JSON.parse(msg);
 
-
             for(i = 1; i <= parseInt(myobj["tot_contents"]); i++){
-                heading = "heading_"
-                content = "content_"
+                heading = "heading_";
+                content = "content_";
                 heading_name = heading.concat(i.toString());
                 content_name = content.concat(i.toString());
                 //Main Container div
@@ -112,7 +111,7 @@ function iteniarygenerator()
     var markers = [];
 
     var createMarker=0;
-
+    var seennames=[];
     console.log("You are in the iteniary page"+userid);
 
     initialize();
@@ -137,7 +136,8 @@ function iteniarygenerator()
             locnames.push(msg.name);
             console.log("locnames"+locnames);
             //var nmt=msg.name.replace(/ /g,'');
-            var str1=msg.name.toString().replace(/. /g,'');
+            var strtmp=msg.name;
+            var str1=strtmp.replace(/. /g,'');
             var str2=str1.replace(/,/g,'');
             var str3=str2.replace("/",'');
             var nmt=str3;
@@ -418,89 +418,97 @@ function iteniarygenerator()
 
             //SaveButton clicked save the details on the database
             $('#buttonsubmit' + nmt).on('click', function () {
-                console.log("The save button is clicked");
-                //Get the Text Area and make it an div elements
-                var replacediv = document.createElement("div");
-                var data = $('#text' + nmt).val();
-                var tempnode = document.createTextNode(data);
-                replacediv.appendChild(tempnode);
-                replacediv.setAttribute("id", "text" + nmt);
-                $('#text' + nmt).replaceWith(replacediv);
-                var filename=[];
-                var form = new FormData();
-                var senddata = {};
-                senddata.user = userid;
-                senddata.name = mapname;
-                form.append('details', JSON.stringify(senddata));
-                var fileele = document.getElementById("inp" + nmt).files;
-                if (fileele.length > 0) {
-                    //There are enough pictures to save
+                this.seennames=[];
 
-                    for (var i = 0; i < fileele.length; i++) {
-                        var filetmp = fileele[i];
-                        console.log("File name" + filetmp.name);
-                        form.append('uploads[]', filetmp, filetmp.name);
-                        filename.push(filetmp.name);
-                        picobj = filetmp.name;
+                    console.log("The save button is clicked!" + msg.name + "  " + this.seennames);
+                    this.seennames.push(strtmp);
+                    seennames.push(strtmp);
 
+                    //Get the Text Area and make it an div elements
+                    var replacediv = document.createElement("div");
+                    var data = $('#text' + nmt).val();
+                    var tempnode = document.createTextNode($('#text' + nmt).val());
+                    console.log("Data is" + $('#text' + nmt).val());
+                    replacediv.appendChild(tempnode);
+                    replacediv.setAttribute("id", "text" + nmt);
+                    $('#text' + nmt).replaceWith(replacediv);
+                    var filename = [];
+                    var form = new FormData();
+                    var senddata = {};
+                    senddata.user = userid;
+                    senddata.name = mapname;
+                    form.append('details', JSON.stringify(senddata));
+                    var fileele = document.getElementById("inp" + nmt).files;
+                    if (fileele.length > 0) {
+                        //There are enough pictures to save
+
+                        for (var i = 0; i < fileele.length; i++) {
+                            var filetmp = fileele[i];
+                            console.log("File name" + filetmp.name);
+                            form.append('uploads[]', filetmp, filetmp.name);
+                            filename.push(filetmp.name);
+                            picobj = filetmp.name;
+
+                        }
                     }
-                }
-                var usertourstopname={};
-                usertourstopname.mapname = mapname;
-                usertourstopname.tourstopname = nmt;
-                usertourstopname.userid = userid;
-                usertourstopname.filename = filename;
-                form.append("usetourstop", JSON.stringify(usertourstopname));
+                    var usertourstopname = {};
+                    usertourstopname.mapname = mapname;
+                    usertourstopname.tourstopname = strtmp;
+                    console.log("Sending data !!!"+strtmp);
+                    usertourstopname.userid = userid;
+                    usertourstopname.filename = filename;
+                    form.append("usetourstop", JSON.stringify(usertourstopname));
 
-                $.ajax({
-                    url: "/usertourstop",
-                    type: "POST",
-                    data: form,
-                    processData: false,
-                    contentType: false
-                }).done(function (msg) {
-                    console.log(msg);
-                    if (msg == "yes") {
+                    $.ajax({
+                        url: "/usertourstop",
+                        type: "POST",
+                        data: form,
+                        processData: false,
+                        contentType: false
+                    }).done(function (msg) {
+                        console.log(msg);
+                        if (msg == "yes") {
 
-                        $("#statusText").text("File has been uploaded");
-                        $("#statusText").css({"color": "green"});
+                            $("#statusText").text("File has been uploaded");
+                            $("#statusText").css({"color": "green"});
 
-                    }
-                    else
-                        $("#uploadstatus").text("File has not been uploaded");
-                });
+                        }
+                        else
+                            $("#uploadstatus").text("File has not been uploaded");
+                    });
 
-                var userobj={};
+                    var userobj = {};
 
-                userobj.markername = nmt;
-                userobj.lat = marker.getPosition().lat();
-                userobj.lng = marker.getPosition().lng();
-                userobj.des = data;
-                userobj.pos=count;
-                count+=1;
+                    userobj.markername = msg.name;
+                    userobj.lat = marker.getPosition().lat();
+                    userobj.lng = marker.getPosition().lng();
+                    userobj.des = data;
+                    userobj.pos = count;
+                    count += 1;
 
 
-                userobj.name = userid;
-                userobj.mapname = mapname;
+                    userobj.name = userid;
+                    userobj.mapname = mapname;
 
-                console.log("Sending data"+userobj);
-                //Code Stub -- All contents are saved to the iteniary page in the database
-                $.ajax({
-                    url: ('/tourstopsave'),
-                    method: 'POST',
-                    data: JSON.stringify(userobj),
-                    contentType: 'application/JSON'
-                }).done(function (msg) {
-                    console.log("returedn" + msg);
-                    if (msg == "yes") {
-                        $('#statusText').css("color", "green");
-                        $('#statusText').text("Your Tour stops are now saved");
+                    console.log("Sending data" + userobj);
+                    //Code Stub -- All contents are saved to the iteniary page in the database
+                    $.ajax({
+                        url: ('/tourstopsave'),
+                        method: 'POST',
+                        data: JSON.stringify(userobj),
+                        contentType: 'application/JSON'
+                    }).done(function (msg) {
+                        console.log("returedn" + msg);
+                        if (msg == "yes") {
+                            $('#statusText').css("color", "green");
+                            $('#statusText').text("Your Tour stops are now saved");
 
-                    } else {
-                        $('#statusText').css("color", "red");
-                        $('#statusText').text("Your Tour stops are not saved");
-                    }
-                });
+                        } else {
+                            $('#statusText').css("color", "red");
+                            $('#statusText').text("Your Tour stops are not saved");
+                        }
+                    });
+
 
 
             });
@@ -571,8 +579,6 @@ function iteniarygenerator()
                     };
                     //sliderInit(marker.title);
                 }
-
-
                 $('#slide' + nmt).jcarousel('reload');
 
             });

@@ -7,7 +7,7 @@ var mapname;
 var myCenter=new google.maps.LatLng(51.508742,-0.120850);
 //var socket=io();
 var socket=io();
-
+var filenameglobal;
 var src;
 var userid;
 var password;
@@ -590,10 +590,12 @@ function imagecontroller(){
     var myDropZone=new Dropzone("#dropzonePreview",{
       url:"/dragdrop",
       autoProcessQueue:false,
+      parallelUploads: 10,
 
       init:function(){
         this.on('addedfile', function(file){
             console.log("Added File");
+            $('#userphoto').css('color', "transparent");
             EXIF.getData(file, function(){
               var lat=EXIF.getTag(this,"GPSLatitude");
               var lon=EXIF.getTag(this,"GPSLongitude");
@@ -785,7 +787,7 @@ function imagecontroller(){
         //For registered users
         var form=new FormData();
         var dragdropfrm=new FormData();
-        var filename=[];
+
         var formelement=document.getElementById('userphoto');
         var fileemenet=formelement.files;
 
@@ -796,13 +798,15 @@ function imagecontroller(){
         mapnameobj.user=userid;
         mapnameobj.name=mapname;
         userpic.filename=filename;
+        var filename=[];
         form.append('mapname',JSON.stringify(mapnameobj));
         if(fileemenet.length>0)
         {
           for(var i=0;i<fileemenet.length;i++)
           {
             var filetmp=fileemenet[i];
-            console.log("File name"+filetmp.name);
+            filenameglobal=filetmp.name;
+            console.log("File name########"+filetmp.name);
             form.append('uploads[]',filetmp,filetmp.name);
             filename.push(filetmp.name);
             picobj=filetmp.name;
@@ -810,51 +814,103 @@ function imagecontroller(){
             console.log("Date Time"+time);
             //Get the address of the fileement
               EXIF.getData(filetmp, function(){
+                  var name=this.name;
                   var lat=EXIF.getTag(this,"GPSLatitude");
                   var lon=EXIF.getTag(this,"GPSLongitude");
                   var latRef = EXIF.getTag(this,"GPSLatitudeRef");
                   var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
                   var geocoder = new google.maps.Geocoder;
-                  var latt = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
-                  var lonn = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
-                  var temp=new google.maps.LatLng(latt,lonn);
-                  geocoder.geocode( { 'latLng': temp }, function(results, status){
-                      if(status === 'OK') {
-                        var address=results[1].formatted_address;
-                        userpic.tourstopname=address;
-                          console.log("Filename"+JSON.stringify(mapnameobj));
-                          console.log("Filename"+JSON.stringify(userpic));
-                          userpic.filename=filename;
-                          form.append('userobj',JSON.stringify(userpic));
-                          $.ajax({
-                              url:"/userimageupload",
-                              type:"POST",
-                              data:form,
-                              processData:false,
-                              contentType:false
-                          }).done(function(msg){
-                              if(msg == "yes") {
-                                  //check if image is reflected here
-                                  // socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
-                                  console.log("After Save"+filename);
-                                  $("#uploadstatus").text("File has been uploaded");
-                                  $("#uploadstatus").css({"color":"green"});
-                                  $("#uploadForm2")[0].reset();
-                                  $('#dropzonePreview').on('complete',function(file){
-                                      console.log("Finally!!");
-                                      $('#dropzonePreview').removeAllFiles(true);
-                                  });
-                              }
-                              else
-                                  $("#uploadstatus").text("File has not been uploaded");
-                          });
+                  if(lat === undefined ||lon === undefined)
+                  {
+                      var filename=[];
+                      var seennames=[];
 
-                          console.log("Names  "+filename);
-                          var filename=$("#userphoto").val().split('\\').pop();
-                          console.log("Filename   "+filename);
+                      var filenamev = $("#userphoto").val().split('\\').pop();
+                      filename.push(name);
+                      userpic.filename=filename;
+                      //var address=results[1].formatted_address;
+                      userpic.tourstopname="";
+                      console.log("Filename"+JSON.stringify(mapnameobj));
+                      console.log("Filename"+JSON.stringify(userpic));
+                      console.log("Problem in name   "+filenamev);
 
-                      }
+                      form.append('userobj',JSON.stringify(userpic));
+                      $.ajax({
+                          url:"/userimageupload",
+                          type:"POST",
+                          data:form,
+                          processData:false,
+                          contentType:false
+                      }).done(function(msg){
+                          if(msg == "yes") {
+                              //check if image is reflected here
+                              //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
+                              console.log("After Save"+filename);
+                              $("#uploadstatus").text("File has been uploaded");
+                              $("#uploadstatus").css({"color":"green"});
+                              $("#uploadForm2")[0].reset();
+                              $('#dropzonePreview').on('complete',function(file){
+                                  console.log("Finally!!");
+                                  $('#dropzonePreview').removeAllFiles(true);
+                              });
+                          }
+                          else
+                                $("#uploadstatus").text("File has not been uploaded");
                       });
+
+                  }else {
+                      var seennames=[];
+                      var latt = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
+                      var lonn = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
+                      var temp = new google.maps.LatLng(latt, lonn);
+                      geocoder.geocode({'latLng': temp}, function (results, status) {
+                          var filename=[];
+                          if(seennames.indexOf(name) === -1) {
+                              seennames.push(name);
+                              if (status === 'OK') {
+                                  var filenamev = $("#userphoto").val().split('\\').pop();
+                                  console.log("Pictures array" + filenameglobal);
+                                  var address = results[1].formatted_address;
+                                  userpic.tourstopname = address;
+                                  filename.push(name);
+                                  userpic.filename = filename;
+                                  console.log("Filename" + JSON.stringify(mapnameobj));
+                                  console.log("Filename" + JSON.stringify(userpic));
+                                  console.log("Problem in name   " + filenamev);
+
+                                  form.append('userobj', JSON.stringify(userpic));
+                                  $.ajax({
+                                      url: "/userimageupload",
+                                      type: "POST",
+                                      data: form,
+                                      processData: false,
+                                      contentType: false
+                                  }).done(function (msg) {
+                                      if (msg == "yes") {
+                                          //check if image is reflected here
+                                          //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
+                                          console.log("After Save" + filename);
+                                          $("#uploadstatus").text("File has been uploaded");
+                                          $("#uploadstatus").css({"color": "green"});
+                                          $("#uploadForm2")[0].reset();
+                                          $('#dropzonePreview').on('complete', function (file) {
+                                              console.log("Finally!!");
+                                              $('#dropzonePreview').removeAllFiles(true);
+                                          });
+                                      }
+                                      else
+                                          $("#uploadstatus").text("File has not been uploaded");
+                                  });
+
+                                  console.log("Names  " + filename);
+                                  var filename = $("#userphoto").val().split('\\').pop();
+                                  console.log("Filename   " + filename);
+
+
+                              }
+                          }
+                      });
+                  }
               });
           }
         }
@@ -919,6 +975,7 @@ function imagecontroller(){
           if(response =="yes") {
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
+            $('#userphoto').css('color', "black");
             //Reset Map
               /*
             if($.isEmptyObject(markers) == false) {
@@ -1931,7 +1988,7 @@ function SaveData(){
       sendobj.filename=obj.filename;
       sendobj.lat=obj.lat;
       sendobj.lon=obj.lng;
-      console.log("Built send obg"+sendobj.filename);
+      console.log("Built send obj"+sendobj.filename);
 
       $.ajax({
         url:('/usermarkersave'),
@@ -2052,6 +2109,7 @@ function bushandler()
     }
 
 }
+
 //end of the code for product html
 
 function ResetAll()
@@ -2066,9 +2124,8 @@ function ResetAll()
     marker.setMap(null);
   });
 
-
-
 }
+
 //Angular js and Routing
 
 var tripapp= angular.module('tripapp', ['ngRoute']);

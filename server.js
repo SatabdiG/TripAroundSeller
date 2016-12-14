@@ -15,9 +15,9 @@ var busboy = require('connect-busboy');
 app.use(bodyParser.json());
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
@@ -963,7 +963,7 @@ app.post('/userimageupload', function(req,res){
         var userid=obj['id'];
         var uploadpath='/uploads/'+userid+'/' + mapname;
         var mapversion=obj['tourstopname'];
-
+        console.log("User store images"+filenames);
         //call database and update the database
         for(var i=0;i<filenames.length;i++)
         {
