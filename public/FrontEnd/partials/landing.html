@@ -2,380 +2,243 @@
 <!--<h1>Welcome to Trip Around </h1> -->
 <!--<div id="fullpage">-->
 <div class = "container-landing">
-    <div class="row">
-        <div id = "page1">
-        <!-- <nav class="navbar navbar-default">
-             <div class="container-fluid">
-                 <div class="navbar-header">
-                     <img SRC="/FrontEnd/Pictures/logo.png"/>
-                 </div>
-             </div>
-         </nav>-->
-            <IMG class = "orangeheader" STYLE="position:absolute; TOP:0; left:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
 
-            <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+<nav class="navbar navbar-light navbar-fixed-top" style="background-color: #DB3E00;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <IMG STYLE=" WIDTH:259px; HEIGHT:50px; position: absolute;" class="img-responsive" SRC="/FrontEnd/Pictures/logo.png"/>
+        </div>
 
-        <!--
-                                    <h1>Trip Around</h1>
-        -->
-            <div class="btn-toolbar">
-                <a href="#login" class="btn btn-default btn-white" id="login">Login</a>
-                <a href="#searchtours" class="btn btn-default btn-red" id="tour">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="padding-top:7px">
+                 <li><a href="#login" class="btn btn-default btn-white" id="login"></a></li>
+                 <li><a href="#searchtours" class="btn btn-default btn-red" id="tour">  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a></li>
+                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id ="lang"><span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="langdropdown">
+                        <li><a href="#" id = "eng"></a></li>
+                        <li><a href="#" id = "ger"></a></li>
+                    </ul>
+                 </li>
+            </ul>
+                <!--<a href="#login" class="btn btn-default btn-white" id="login"></a>
+                <a href="#searchtours" class="btn btn-default btn-red" id="tour">  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>-->
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+<!--<div style = "position:fixed; left:0px; top:0px;">
+    <IMG class = "img-responsive" STYLE=" width:100%; HEIGHT:71px; position: relative" SRC="/FrontEnd/Pictures/head.jpg"/>
+    <div class ="row">
+        <div class = "col-md-9 col-sm-7">
+            <IMG STYLE=" WIDTH:259px; HEIGHT:50px; position: absolute;" class="img-responsive" SRC="/FrontEnd/Pictures/logo.png"/>
+        </div>
+        <div class = "col-md-1 col-sm-2">
+            <select id="langdropdown" style="position:absolute";>
+                <option value="en">English</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+        <div class = "col-md-2 col-sm-3">
+            <div class="btn-toolbar" style="position:absolute">
+                <a href="#login" class="btn btn-default btn-white" id="login"></a>
+                <a href="#searchtours" class="btn btn-default btn-red" id="tour">  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
             </div>
+        </div>
+    </div>
+
+</div>-->
 
 
 
+                <!--<div class ="row"  >
+                    <div class = "col-md-9 col-sm-7">
+                        &lt;!&ndash;<IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" class="img-responsive" SRC="/FrontEnd/Pictures/logo.png"/>&ndash;&gt;
+                    </div>
+                    <div>
+                        <select class = "col-md-1 col-sm-2" style="margin-top:18px;" id="langdropdown">
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <div class = "col-md-2 col-sm-3">
+                        <div class="btn-toolbar">
+                            <a href="#login" class="btn btn-default btn-white" id="login">Login</a>
+                            <a href="#searchtours" class="btn btn-default btn-red" id="tour">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
+                        </div>
+                    </div>
+                </div>-->
 
-            <h3 class = "maintitle1">Trip Around</h3>
+            <div id = "page1">
+
+<!--                <div class ="row">
+                    <div class = "col-md-12 col-sm-12">-->
+                        <h3 class = "maintitle1">Trip Around</h3>
+<!--                    </div>
+                </div>-->
+
+<!--                <div class = "row">
+                    <div class = "col-md-12 col-sm-12">-->
+                        <h2 class="maintitle" id="page1_tagline"> </h2>
+<!--                    </div>
+                </div>-->
 
         <!--<button id="login" class="btn btn-success ">Login </button>
         <button type="button" id="tour" class="btn btn-success">Tours </button>-->
 
-            <h2 class="maintitle" style="top:400px;">Dein Ort für deine Rundreise...</h2>
-
         <!--<button id="toursearch" class="btn btn-success .btn-lg">Search tour </button>
         <button id="toursave" class="btn btn-success .btn-lg">Save Tour </button>-->
-            <a href="#searchtours" class="btn btn-lg btn-red" id = "SearchTour">Tour suchen</a>
-            <a href="#SaveTour" class="btn btn-lg btn-red" id= "SaveTour">Tour speichern</a>
+                <div class = "row row-centered" style="">
+                    <div class = "col-md-6 text-center">
+                        <a href="#searchtours" class="btn btn-lg btn-red" id = "SearchTour"></a>
+                    </div>
+                    <div class = "col-md-6 text-center">
+                        <a href="#SaveTour" class="btn btn-lg btn-red" id= "SaveTour"></a>
+                    </div>
+
+                </div>
+
+            </div>
 
 
-        <!--<div class = "row">-->
-        <!--&lt;!&ndash;<div class="col-sm-8"> <h1></h1> </div>&ndash;&gt;-->
-        <!--<div class="col-sm-2"><button type="button" id="login" class="btn btn-success">Login </button></div>-->
-        <!--<div class="col-sm-2"><button type="button" id="Tour" class="btn btn-success">Tours </button></div>-->
-        <!--</div>-->
-        <!--<h1></h1>
-        <div class="container" align="right">
-            <button type="button" id="login" class="btn btn-success btn-lg" pull-right>Login </button>
-            <button type="button" id="Tour" class="btn btn-success btn-lg">Tours </button>
-        </div>-->
-        <!--<button type="button" class="btn btn-success btn-lg" pull-right>Login</button>-->
-        <!--<button type="button" class="btn btn-success btn-lg" pull-right>Tours</button>-->
-        <!--<button type="button" class="btn btn-success btn-lg" pull-right>Link</button>-->
-        <!--<img class = picture src="FrontEnd\Pictures\vintage map.jpg" id = pic1 height = "700" width ="1000"/>-->
-        <!--            <p> Weil das Teilen von Erfahrungen unbezahlbar ist</p>-->
+            <div  id = "page2">
 
+    <!--            <IMG class ="img-responsive" STYLE="position:absolute; TOP:0; LEFT:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
+                <div class ="row">
+                    <div class = "col-md-10 col-sm-6">
+                        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" class="img-responsive" SRC="/FrontEnd/Pictures/logo.png"/>
+                    </div>
+                    <div class = "col-md-2 col-sm-6">
+                        <div class="btn-toolbar" align="right">
+                            <a href="#login" class="btn btn-default btn-white">Login</a>
+                            <a href="#searchtours" class="btn btn-default btn-red">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
+                        </div>
+                    </div>
+                </div>
+    -->
 
-    </div>
-
-    <div  id = "page2">
-
-        <IMG class ="orangeheader" STYLE="position:absolute; TOP:0; LEFT:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
         <!--<p>Buttons Page</p>-->
         <!--<IMG STYLE="position:absolute; TOP:10px; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>-->
 
-        <div class="btn-toolbar">
-            <a href="#login" class="btn btn-default btn-white">Login</a>
-            <a href="#searchtours" class="btn btn-default btn-red">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
-        </div>
+            <!--<div class="btn-toolbar" align="right">
+                <a href="#login" class="btn btn-default btn-white">Login</a>
+                <a href="#searchtours" class="btn btn-default btn-red">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
+            </div>-->
 
-        <h2 class = "maintitle" style="text-decoration:underline; top:150px; ">So funktioniert's</h2>
+                <div class = "row">
+                    <div class = "col-md-12 col-sm-12">
+                        <h2 class = "maintitle" style="text-decoration:underline;top:50px; " id="page2_heading"></h2>
+                    </div>
+                </div>
 
-        <image class="img-responsive" id = "feature" align = "center" style="WIDTH:700px; HEIGHT:600px" src="/FrontEnd/Pictures/So funktionierts2.png"></image>
-        <!--<h2 text align="center" id="functionality">Functionality</h2>
-         <div class="table-responsive">
-             <table class="table table-borderless">
-                 <tbody>
-                     <tr>
-                         <td></td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-lightbulb-o fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td></td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-share-alt fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td></td>
-                         <td></td>
-                         &lt;!&ndash;<td align="center"><i class="fa fa-location-arrow fa-4x"></i></td>&ndash;&gt;
-                         &lt;!&ndash;<td align="center"><img src="/FrontEnd/Pictures/arrow4.png" height="100"/></td>&ndash;&gt;
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         &lt;!&ndash;<td align="center"><img src="/FrontEnd/Pictures/arrow.png" height="100"/></td>&ndash;&gt;
-                         &lt;!&ndash;td align="center"><i class="fa fa-location-arrow fa-4x fa-rotate-90"></i></td>&ndash;&gt;
-                         <td><img src="/FrontEnd/Pictures/RightDown.png" height="100"/></td>
-                         <td></td>
-                         <td><img src="/FrontEnd/Pictures/LeftDown.png" height="100"/></td>
-                         &lt;!&ndash;<td align="center"><img src="/FrontEnd/Pictures/arrow2.png" height="100"/></td>&ndash;&gt;
-                         <td align="center" style = "word-wrap: break-word; white-space:normal;"><p>Lade einfach Bilder und Videos deiner Tour hoch.</p></td>
-                         <td></td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-group fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td></td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-magic fa-stack-1x"></i>
-                             </span></td>
-                         <td></td>
-                         <td></td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-camera-retro fa-stack-1x"></i>
-                             </span>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px; white-space:normal;"><p>Ergänze wichtige Erlebnisse und teile deine Erfahrung mit Gleichgesinnten, Reiseneulingen und deinen Lieben.</p></td>
-                         <td></td>
-                         <td></td>
-                         &lt;!&ndash;<td><img src="/FrontEnd/Pictures/arrow2.png" height="100"/></td>&ndash;&gt;
-                         <td><img src="/FrontEnd/Pictures/LeftDown.png" height="100"/></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         &lt;!&ndash;<td><img src="/FrontEnd/Pictures/arrow5.png" height="100"/></td>&ndash;&gt;
-                         &lt;!&ndash;<td align="center"><i class="fa fa-location-arrow fa-3x fa-rotate-90"></i></td>
-                         <td><td align="center"><i class="fa fa-location-arrow fa-3x"></i></td></td>&ndash;&gt;
-                         <td><img src="/FrontEnd/Pictures/RightDown.png" height="100"/></td>
-                         <td></td>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                     </tr>
-                     <tr>
-                         <td></td>
-                         <td><img src="/FrontEnd/Pictures/LeftUp.png.png" height="100"/></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-comments fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td></td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-plane fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td></td>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         <td></td>
-                         <td></td>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         <td></td>
-                         <td></td>
-                     </tr>
-                 </tbody>
-             </table>
-         </div>-->
-        <!--<div class="table-responsive">
-             <table class="table table-borderless">
-                 <tbody>
-                     <tr>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-lightbulb-o fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-share-alt fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         <td align="left"><img src ="/FrontEnd/Pictures/arrow.png"></td>
-                         <td align="center" style = "word-wrap: break-word; white-space:normal;"><p>Lade einfach Bilder und Videos deiner Tour hoch.</p></td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-group fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-magic fa-stack-1x"></i>
-                             </span></td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-camera-retro fa-stack-1x"></i>
-                             </span>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px; white-space:normal;"><p>Ergänze wichtige Erlebnisse und teile deine Erfahrung mit Gleichgesinnten, Reiseneulingen und deinen Lieben.</p></td>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                     </tr>
-                     <tr>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-comments fa-stack-1x"></i>
-                             </span></i>
-                         </td>
-                         <td></td>
-                         <td align="center">
-                             <span class="fa-stack fa-2x">
-                                 <i class="fa fa-circle fa-stack-2x icon-background2"></i>
-                                 <i class="fa fa-plane fa-stack-1x"></i>
-                             </span>
-                         </td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         <td></td>
-                         <td align="center" style = "word-wrap: break-word;min-width: 150px;  white-space:normal;"><p>Erhalte automatisch deine Entdeckerkarte mit deiner Route, strukturierten Galerien und vielen weiteren spannenden Ansichten und Optionen.</p></td>
-                         <td></td>
-                     </tr>
-                 </tbody>
-             </table>
-         </div>-->
-
-        <!--<button id="toursearch" class="btn btn-success .btn-lg">Search tour </button>
-        <button id="toursave" class="btn btn-success .btn-lg">Save Tour </button>
-        <h2 align="center">Functionality</h2>
-        <div class = "row">
-            <div class="col-sm-6" align="center"><i class="fa fa-lightbulb-o fa-2x"></i></div>
-            <div class="col-sm-6" align="center"><i class="fa fa-share-alt fa-2x"></i></div>
-        </div>
-        <div class = "row top-buffer">
-            <div class="col-sm-4" align="center"><i class="fa fa-group fa-2x"></i></div>
-            <div class="col-sm-4" align="center"><i class="fa fa-magic fa-2x"></i></div>
-            <div class="col-sm-4" align="center"><i class="fa fa-camera-retro fa-2x"></i></div>
-        </div>
-        <div class = "row top-buffer">
-            <div class="col-sm-6" align="center"><i class="fa fa-comments fa-2x"></i></div>
-            <div class="col-sm-6" align="center"><i class="fa fa-plane fa-2x"></i></div>
-        </div>-->
-        <!--            <i class="fa fa-camera-retro fa-2x"></i>
-                    <i class="fa fa-magic fa-2x"></i>
-                    <i class="fa fa-share-alt fa-2x"></i>
-                    <i class="fa fa-plane fa-2x"></i>
-                    <i class="fa fa-group fa-2x"></i>
-                    <i class="fa fa-comments fa-2x"></i>
-                    <i class="fa fa-lightbulb-o fa-2x"></i>-->
-        <!--<img  class = picture src="FrontEnd\Pictures\pic3.jpg" id = pic2 height = "700" width ="1000"/>
-
-        -->
-
-    </div>
+                <div class ="row">
+                    <div class = "col-md-12 col-sm-12">
+                        <image class="img-responsive" id = "feature" align = "center" style="WIDTH:500px; HEIGHT:400px; padding-bottom:20px" src="/FrontEnd/Pictures/So funktionierts2.png"></image>
+                    </div>
+                </div>
 
 
-    <div id = "page3">
-        <IMG STYLE="position:absolute; TOP:0; LEFT:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
-        <!--
+            </div>
+
+            <div id = "page3">
+ <!--              <IMG STYLE="position:absolute; TOP:0; LEFT:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
+                <div class ="row">
+                    <div class = "col-md-10 col-sm-6">
+                        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+                    </div>
+        &lt;!&ndash;
                 <div class = intro style="height:50px">
                     <IMG STYLE="position:absolute; TOP:10px; LEFT:50px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
                 </div>
-        -->
-        <div class="btn-toolbar">
-            <a href="#login" class="btn btn-default btn-white">Login</a>
-            <a href="#searchtours" class="btn btn-default btn-red">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
-        </div>
+        &ndash;&gt;
+                    <div class = "col-md-2 col-sm-6">
+                        <div class="btn-toolbar" align="right">
+                            <a href="#login" class="btn btn-default btn-white">Login</a>
+                            <a href="#searchtours" class="btn btn-default btn-red">Tours  <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
+                        </div>
+                    </div>
+                </div>
+    -->
         <!--<img class = picture src="FrontEnd\Pictures\pic4.jpeg" id = pic3 height = "700" width ="1000"/>&ndash;&gt;-->
-        <div class = "slimScrollBar"></div>
-        <div class="container-page3">
+        <!--<div class = "slimScrollBar"></div>-->
+<!--        <div class="container-page3">-->
             <!--            <div class = "row">
                             <div class="col-sm-12">
                                 <IMG STYLE="position:absolute; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
                             </div>
                         </div>-->
-            <h2 class="maintitle" style="text-decoration:underline; top:150px; ">Deine Features</h2>
-            <div class="row-a">
-                <div class="col-sm-10">
-                    <p class="title">Entdecke die Möglichkeiten! (Overview Screenshot)</p>
-                    <p class = "content">Browse durch Touren verschiedenster Rundreisen. Erlebe Erfahrungsberichte von Reisenden zu Reisezielen die für dich bisher unerreichbar erschienen. Finde das Abenteuer, das zu deinen Vorstellungen passt.</p>
-                </div>
-                <div class="col-sm-2">
-                    <IMG class="feature_images" SRC="/FrontEnd/Pictures/Schatzkarte.png" style = "WIDTH:190px; HEIGHT:180px" align="right"/>
+                <h2 class="maintitle" style="text-decoration:underline; top:150px; padding-bottom:10px" id="page3_heading">Deine Features</h2>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-8">
+                        <p class="title" id="feat_head1">Entdecke die Möglichkeiten! (Overview Screenshot)</p>
+                        <p class = "content" id="feat_content1">Browse durch Touren verschiedenster Rundreisen. Erlebe Erfahrungsberichte von Reisenden zu Reisezielen die für dich bisher unerreichbar erschienen. Finde das Abenteuer, das zu deinen Vorstellungen passt.</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <IMG class="feature_images" SRC="/FrontEnd/Pictures/Schatzkarte.png" style = "WIDTH:190px; HEIGHT:180px" align="right"/>
+                    </div>
+                    <div class="col-sm-1"></div>
+
                 </div>
 
-            </div>
-
-            <div class="row-a">
+            <div class="row">
+                <div class="col-sm-1"></div>
                 <div class="col-sm-2">
                     <IMG class="feature_images" SRC="/FrontEnd/Pictures/Itinerary.png" style = "WIDTH:190px; HEIGHT:180px" align="left"/>
                 </div>
-                <div class="col-sm-10">
-                    <p class="title">Profitiere von den Erfahrungen anderer! (itinerary view screenshot)</p>
-                    <p class = "content">Nutze das Wissen von Reisenden, die deine Destination bereits erkundet haben. Lass dir ein Gefühl für die passende Aufenthaltsdauer an deinen Stopps geben und wie du sie am besten verbindest. Baue auf diesen Erfahrungen die Entdeckungstour auf, die deine persönliche Note enthält.</p>
+                <div class="col-sm-8">
+                    <p class="title" id="feat_head2">Profitiere von den Erfahrungen anderer! (itinerary view screenshot)</p>
+                    <p class = "content" id="feat_content2">Nutze das Wissen von Reisenden, die deine Destination bereits erkundet haben. Lass dir ein Gefühl für die passende Aufenthaltsdauer an deinen Stopps geben und wie du sie am besten verbindest. Baue auf diesen Erfahrungen die Entdeckungstour auf, die deine persönliche Note enthält.</p>
                 </div>
+                <div class="col-sm-1"></div>
             </div>
 
             <div class="row">
-                <div class="col-md-10">
-                    <p class="title">Tauche ein!(Gallery screenshot)</p>
-                    <p class = "content">Lass dich vom Big Picture der Rundreisen mitreißen. Sieh was dich bei deinen Stopps und auf deinem Weg dorthin tatsächlich erwartet. Fotos und Videos von Reisenden befeuern deine Vorstellungskraft und Vorfreude.</p>
+                <div class="col-sm-1"></div>
+                <div class="col-md-8">
+                    <p class="title" id="feat_head3">Tauche ein!(Gallery screenshot)</p>
+                    <p class = "content" id="feat_content3">Lass dich vom Big Picture der Rundreisen mitreißen. Sieh was dich bei deinen Stopps und auf deinem Weg dorthin tatsächlich erwartet. Fotos und Videos von Reisenden befeuern deine Vorstellungskraft und Vorfreude.</p>
                 </div>
                 <div class="col-md-2">
                     <IMG class="feature_images" SRC="/FrontEnd/Pictures/Gallery.png" style = "WIDTH:190px; HEIGHT:180px;" align="right"/>
                 </div>
+                <div class="col-sm-1"></div>
 
             </div>
             <div class="row">
+                <div class="col-sm-1"></div>
                 <div class="col-md-2">
                     <IMG class="feature_images" SRC="/FrontEnd/Pictures/Koffer.png" style = "WIDTH:190px; HEIGHT:180px" align="left"/>
                 </div>
-                <div class="col-md-10">
-                    <p class="title">Leg los!</p>
-                    <p class = "content">Start deine Vorbereitungen sobald du weißt, wo es hingehen soll. Erhalte wichtige Tipps, buche Unterkünfte, Transports und Aktivitäten, so wie es zu deinem Abenteuer passt. Oder doch lieber ganz komfortabel alles organisieren lassen? Dann browse durch unsere sofort buchbaren Rundreisepakete ausgesuchter Anbieter. Egal wie, unbedingt dran denken Bilder mit Geotags zu schießen.</p>
+                <div class="col-md-8">
+                    <p class="title" id="feat_head4">Leg los!</p>
+                    <p class = "content" id="feat_content4">Start deine Vorbereitungen sobald du weißt, wo es hingehen soll. Erhalte wichtige Tipps, buche Unterkünfte, Transports und Aktivitäten, so wie es zu deinem Abenteuer passt. Oder doch lieber ganz komfortabel alles organisieren lassen? Dann browse durch unsere sofort buchbaren Rundreisepakete ausgesuchter Anbieter. Egal wie, unbedingt dran denken Bilder mit Geotags zu schießen.</p>
                 </div>
+                <div class="col-sm-1"></div>
 
             </div>
             <div class="row">
-                <div class="col-md-10">
-                    <p class="title">Teile und inspiriere andere!</p>
-                    <p class = "content">Wenn du von deinem Erlebnis zurückkommst, zeig es deinen Freunden und der Welt. Teile deine Erfahrungen, um andere zu inspirieren. Einfach Bilder hochladen. Wir helfen dir mit ein bisschen Magie deine Erfahrungen zu einem unvergesslichen Highlight aufzubereiten.</p>
+                <div class="col-sm-1"></div>
+                <div class="col-md-8">
+                    <p class="title" id="feat_head5">Teile und inspiriere andere!</p>
+                    <p class = "content" id="feat_content5">Wenn du von deinem Erlebnis zurückkommst, zeig es deinen Freunden und der Welt. Teile deine Erfahrungen, um andere zu inspirieren. Einfach Bilder hochladen. Wir helfen dir mit ein bisschen Magie deine Erfahrungen zu einem unvergesslichen Highlight aufzubereiten.</p>
                 </div>
                 <div class="col-md-2">
                     <IMG class="feature_images" SRC="/FrontEnd/Pictures/Share.png" style = "WIDTH:190px; HEIGHT:180px" align="right"/>
                 </div>
+                <div class="col-sm-1"></div>
             </div>
 
 
-        </div>
+<!--        </div>-->
 
         <!--<div class="container-intro">
                <div class="table-responsive">
@@ -412,28 +275,33 @@
 
 
     <div id = "page4">
-        <IMG STYLE="position:absolute; TOP:0; LEFT:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
-        <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
 
-        <div class="btn-toolbar">
-            <a href="#login" class="btn btn-default btn-white">Login</a>
-            <a href="#searchtours" class="btn btn-default btn-red">Tours   <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
-        </div>
+        <!--<IMG STYLE="position:absolute; TOP:0; LEFT:0; width:100%; HEIGHT:60px" SRC="/FrontEnd/Pictures/head.jpg"/>
+        <div class ="row">
+            <div class = "col-md-10 col-sm-6">
+                <IMG STYLE="position:absolute; TOP:10px; LEFT:70px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>
+            </div>
+            <div class = "col-md-2 col-sm-6">
+                <div class="btn-toolbar">
+                    <a href="#login" class="btn btn-default btn-white">Login</a>
+                    <a href="#searchtours" class="btn btn-default btn-red">Tours   <img style="WIDTH:15px; HEIGHT:15px" src ="/FrontEnd/Pictures/magnifying-glass.png"/></a>
+                </div>
+            </div>
+        </div>-->
+
         <h2 class = "maintitle" style="text-decoration:underline; top:150px; ">Browse durch Touren</h2>
-        <!--<p>Map pic Goes here</p> -->
-        <!--<IMG STYLE="position:absolute; TOP:35px; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>-->
+        <!--<IMG STYLE="position:absolute; TOP:35px; LEFT:100px; WIDTH:259px; HEIGHT:50px" SRC="/FrontEnd/Pictures/logo.png"/>&ndash;&gt;-->
         <!--<img class = picture src="FrontEnd\Pictures\vintage map.jpg" height = "700" width ="1000"/>-->
-        <button type="button" class="btn btn-success">View all </button>
-        <IMG STYLE="position:absolute; bottom:0; LEFT:0; right:0; width:100%; HEIGHT:40px" SRC="/FrontEnd/Pictures/head.jpg"/>
+        <button type="button" class="btn btn-success" style="text-align:center">View all </button>
+        <!--<IMG STYLE="position:absolute; bottom:0; LEFT:0; right:0; width:100%; HEIGHT:40px" SRC="/FrontEnd/Pictures/head.jpg"/>-->
         <div id = "footer">
             <ul class="list-inline">
                 <li><a href="#About">About us</a></li>
-                <li><a href="#FAQ" id ="FAQ">FAQ</a></li>
+                <li><a href="#FAQ">FAQ</a></li>
                 <li><a href="">Partners</a></li>
                 <li><a href="">AGB</a></li>
                 <li><a href="">Impressum</a></li>
             </ul>
         </div>
-    </div>
     </div>
 </div>

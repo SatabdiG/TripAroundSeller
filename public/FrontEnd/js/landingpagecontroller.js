@@ -5,6 +5,7 @@
 
 function landingpagecontroller() {
     $(document).ready(function () {
+         $('.dropdown-toggle').dropdown();
         $('#viewall').on('click', function()
         {
            window.location.href="#searchtours"
@@ -32,11 +33,27 @@ function landingpagecontroller() {
             window.location.href="#login";
         });
 
+        $('#langdropdown').on('click', function(evt){
+            console.log("trans has been clicked");
+        });
+
       /*  $('#About').on('click', function(evt){
             console.log("The about button has been clicked");
             window.location.href="#About";
         })*/
+/*         var data = '{ "button_tourssearch": "Tour sssssss"}';
+         var obj = $.parseJSON(data);
+        document.getElementById("SearchTour").innerHTML = obj.button_tourssearch;*/
 
+/*        var mydata = JSON.parse(data);
+	    document.getElementById("SearchTour").innerHTML = mydata.button_tourssearch;*/
+
+	   /* $.getJSON( 'de.json', function(data) {
+            *//*var obj = $.parseJSON(data);*//*
+            *//*document.getElementById("SearchTour").innerHTML = obj.button_tourssearch; *//*
+            $('#SearchTour').html(data.button_tourssearch);
+
+	    });*/
 
 
         /*
@@ -70,10 +87,21 @@ function landingpagecontroller() {
             afterLoad: function(anchorLink, index){},
             afterRender: function(){},
         });*/
-        setTimeout(function() {
+/*        setTimeout(function() {
             $("#page3").trigger('click');
-        },10);
+        },10);*/
+        var arraynull=[];
+        if(lang === "")
+        {
+        if($("#eng").text()===""){
+            lang = "Deutsch";
+        }
+        }
+       translateFunction(arraynull,translateLanding);
 
     });
 }
+
+
+
 
