@@ -5,7 +5,6 @@
  */
 var mapname;
 var myCenter=new google.maps.LatLng(51.508742,-0.120850);
-//var socket=io();
 var socket=io();
 var filenameglobal;
 var src;
@@ -20,7 +19,7 @@ var nomap=0;
 var map;
 var stage;
 var overlay;
-
+var lang ="";
 var name;
 
 //From map page
@@ -67,6 +66,8 @@ var linesymbol={
 /*** Home page initializer **/
 function homeinit(){
   //Reset Modal
+  var arraynull = [];
+  window.onload = translateFunction(arraynull,translateLogin);
   $('#myModal').on('show.bs.modal', function(){
     $('#registerusr')[0].reset();
     $('#info').text('');
@@ -76,6 +77,7 @@ function homeinit(){
   mapname="";
   password="";
   $(document).ready(function(){
+    console.log("lang sel:" +lang);
 
     $("#goback").on('click', function(event)
     {
@@ -203,6 +205,7 @@ function dashboardfunction(){
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
   console.log("User logged in as "+userid);
+
 
       $("#logoutbutton").on('click', function()
       {
@@ -511,7 +514,6 @@ function dashboardfunction(){
                 });
 
               });*/
-
 
               //Publish button
               var publishbutton=document.getElementById("publish"+msg.name);
@@ -1185,6 +1187,8 @@ function imagecontroller(){
     $("#beforepagebutton").click(function(){
       window.location.href="#dashboard";
     });*/
+
+    window.onload = translateFunction(translateNavbar,translateImageUpload);
   });
 
 }
@@ -2167,6 +2171,100 @@ function ResetAll()
   usermanualmarker.forEach(function(marker) {
     marker.setMap(null);
   });
+
+}
+
+
+function translateFunction(arr1,arr2) {
+    /*console.log("SSAsadsasasa"+ $(this).text()+" "+lang);*/
+    console.log("SSAsadsasasa"+"#eng"+" "+lang);
+    var out = "";
+    var i = 0;
+    var m = 0;
+   /* if($(this).text()===""){
+        lang = "English";
+    }*/
+
+    var arr = arr1.concat(arr2);
+    console.log(lang+lang);
+
+    $(document).on('click', '.dropdown-menu li a', function () {
+     lang = $(this).text();
+     console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
+
+
+      if(lang=="English" || lang =="Englisch"){
+        console.log(arr.length);
+        for(i = 0; i<arr.length; i++){
+            /*console.log(i);*/
+            out = arr[i].en;
+            eleId = arr[i].id;
+/*            console.log(out);
+            console.log(a);*/
+            console.log(eleId);
+            document.getElementById(eleId).innerHTML = out;
+        }
+    }
+    else if(lang=="Deutsch" || lang=="German"){
+        for(i = 0; i<arr.length; i++){
+/*        console.log(i);*/
+            out = arr[i].de;
+            eleId = arr[i].id;
+
+            console.log(eleId);
+            document.getElementById(eleId).innerHTML = out;
+            console.log(out);
+            console.log(document.getElementById(eleId));
+    }
+    }
+
+});
+
+    /*var lang ="Deutsch";
+    console.log(lang); */
+
+    /*var sub_key=[];
+    *//*var transkeys = Object.keys(arr);*//*
+    for(var j in arr){
+        var key = j;
+        var val = arr[j];
+        for(var k in val){
+            sub_key[m] = k;
+            m++;
+
+        }
+    }*/
+
+    /*for(i = 0; i<arr.length; i++){
+        out = arr[0].en;
+
+    }*/
+    console.log("lang before if:" +lang);
+    if(lang=="English" || lang =="Englisch"){
+        console.log(arr.length);
+        for(i = 0; i<arr.length; i++){
+            /*console.log(i);*/
+            out = arr[i].en;
+            eleId = arr[i].id;
+/*            console.log(out);
+            console.log(a);*/
+            console.log(eleId);
+            document.getElementById(eleId).innerHTML = out;
+        }
+    }
+    else if(lang=="Deutsch" || lang=="German"){
+        for(i = 0; i<arr.length; i++){
+/*        console.log(i);*/
+            out = arr[i].de;
+            eleId = arr[i].id;
+
+            console.log(eleId);
+            document.getElementById(eleId).innerHTML = out;
+            console.log(out);
+            console.log(document.getElementById(eleId));
+    }
+    }
+
 
 }
 

@@ -1076,7 +1076,7 @@ function iteniarygenerator()
 
 
     });
-
+         translateFunction(translateNavbar, translateIteniary);
     });
 
     $('#saveIteniary').on('click', function(evt)
