@@ -67,7 +67,8 @@ var linesymbol={
 function homeinit(){
   //Reset Modal
   var arraynull = [];
-  window.onload = translateFunction(arraynull,translateLogin);
+
+
   $('#myModal').on('show.bs.modal', function(){
     $('#registerusr')[0].reset();
     $('#info').text('');
@@ -77,13 +78,19 @@ function homeinit(){
   mapname="";
   password="";
   $(document).ready(function(){
+      if(lang === "")
+      {
+        lang=sessionStorage.getItem("lang");
+      }
     console.log("lang sel:" +lang);
-    /*
+    translateFunction(arraynull,translateLogin);
+
+
     $("#goback").on('click', function(event)
     {
       window.location.href="#";
-      window.location.reload()
-    });*/
+      //window.location.reload()
+    })
     /*
       if(document.getElementById("pp-nav") != null)
       {
@@ -201,6 +208,10 @@ function homeinit(){
 
 /** User's Dashboard **/
 function dashboardfunction(){
+    if(lang ==="")
+    {
+        lang=sessionStorage.getItem("lang");
+    }
   $(document).ready(function(){
   $('#viewmapregion').empty();
   if(userid===undefined)
@@ -591,6 +602,10 @@ function imagecontroller(){
   console.log("The map id is as"+ mapname);
   initialize();
   $(document).ready(function(){
+    if(lang === "")
+    {
+      lang=sessionStorage.getItem("lang");
+    }
     /*if(mapname == undefined)
     {
       window.location.href="#dashboard";
@@ -1189,7 +1204,7 @@ function imagecontroller(){
       window.location.href="#dashboard";
     });*/
 
-    window.onload = translateFunction(translateNavbar,translateImageUpload);
+   translateFunction(translateNavbar,translateImageUpload);
   });
 
 }
@@ -1725,6 +1740,11 @@ function imagegallerycontroller(){
   }
   else
     nomap=1;*/
+  if(lang === "")
+  {
+    lang=sessionStorage.getItem("lang");
+  }
+
     if(userid === undefined)
     {
         userid=sessionStorage.getItem("username");
@@ -1733,7 +1753,7 @@ function imagegallerycontroller(){
     console.log("In gallery page"+userid);
   $(document).ready(function(){
      //Launch Filters modal
-    $('#galllogout').click(function(){
+    $('#logoutbutton').click(function(){
         sessionStorage.setItem("username",undefined);
         sessionStorage.setItem("mapname",undefined);
         userid="";
@@ -2192,6 +2212,7 @@ function translateFunction(arr1,arr2) {
 
     $(document).on('click', '.dropdown-menu li a', function () {
      lang = $(this).text();
+     sessionStorage.setItem("lang", lang);
      console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
 
 

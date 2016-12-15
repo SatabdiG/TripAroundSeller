@@ -9,6 +9,11 @@ function landingpagecontroller() {
         sessionStorage.setItem("searchmap","");
     }
     $(document).ready(function () {
+       if(sessionStorage.getItem("lang") !==null)
+       {
+           lang=sessionStorage.getItem("lang");
+       }
+
          $('.dropdown-toggle').dropdown();
         $('#viewall').on('click', function()
         {
@@ -95,6 +100,7 @@ function landingpagecontroller() {
         {
         if($("#eng").text()===""){
             lang = "Deutsch";
+            sessionStorage.setItem("lang", lang);
         }
         }
        translateFunction(arraynull,translateLanding);
