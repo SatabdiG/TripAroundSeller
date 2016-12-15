@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 
 
   var mongofil="mongodb://localhost:27017/testimages";
+
+
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
