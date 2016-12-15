@@ -8,22 +8,26 @@ const app	=	express();
 var fs=require('fs');
 var http=require("http").Server(app);
 var socket=require("socket.io")(http);
-
+//var cookiep=require("cookie-parser");
+//var session=require("express-session");
 var formidable=require('formidable');
 var mv= require('mv');
 var busboy = require('connect-busboy');
 app.use(bodyParser.json());
 
-app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+//app.use(express.session({secret:"qwertsvcyeA"}));
+
+app.use(busboy());
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
 
-// Image Compression
+// Image Compressione
 const imagemin = require('imagemin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminPngquant = require('imagemin-pngquant');
@@ -765,6 +769,9 @@ app.post('/dragdrop', function(req,res){
 app.post('/login',function(req,res){
   var username=req.body.name;
   var password=req.body.password;
+  console.log("in Login printing cookies",req.cookies);
+
+
   //Access MongoDB - see if user is authorized
   connect.verifyusers(mongofil,'usercollection',username, password,function(results, username){
     if(results!=undefined){

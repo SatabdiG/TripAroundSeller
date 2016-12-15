@@ -11,13 +11,11 @@ var active=0;
 
 function viewtourcontroller()
 {
-    if(document.getElementById("pp-nav") != null)
-    {
-       document.getElementById("pp-nav").remove();
-
-    }
     locations=[];
-
+    if(serachmap === "")
+    {
+        serachmap=sessionStorage.getItem("searchmap");
+    }
     $(document).ready(function(){
         initialize();
         itemarkers=[];
@@ -296,10 +294,9 @@ function viewtourcontroller()
 //The OverView Page Controller
 function overviewpagecontroller()
 {
-    if(document.getElementById("pp-nav") != null)
+    if(serachmap === "")
     {
-        document.getElementById("pp-nav").remove();
-
+        serachmap=sessionStorage.getItem("searchmap");
     }
     console.log("You are viewing the overview page for"+serachmap+"  "+name);
     $(document).ready(function(){
@@ -352,6 +349,10 @@ function overviewpagecontroller()
 //The View Gallery Controller
 function viewgallerycontrol()
 {
+    if(serachmap === "")
+    {
+        serachmap=sessionStorage.getItem("searchmap");
+    }
     console.log("In View Gallery controller"+ serachmap);
     $(document).ready(function(){
         loc1=[];

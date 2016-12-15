@@ -114,6 +114,7 @@ function homeinit(){
         if(dat.status != "fail")
         {
           console.log("Successful Login");
+          sessionStorage.setItem("username", username);
           userid=username;
           name=dat.username;
           password=data.password;
@@ -199,12 +200,17 @@ function homeinit(){
 function dashboardfunction(){
   $(document).ready(function(){
   $('#viewmapregion').empty();
+  if(userid===undefined)
+    userid=sessionStorage.getItem("username");
   console.log("User logged in as "+userid);
 
       $("#logoutbutton").on('click', function()
       {
           console.log("Logout button is clicked");
           //Logout and cancel the sesion
+
+          sessionStorage.setItem("username",undefined);
+          sessionStorage.setItem("mapname",undefined);
           userid="";
           name="";
           mapname="";
@@ -544,6 +550,7 @@ function dashboardfunction(){
     console.log("Link clicked");
     console.log("Event id is"+event.target.id);
     mapname=event.target.id;
+    sessionStorage.setItem("mapname", mapname);
     window.location.href="#UploadImages";
 
   });
@@ -571,18 +578,35 @@ function imagecontroller(){
   var markers=[];
   var picobj={};
   var maps={};
+  if(userid === undefined || mapname === undefined)
+  {
+    userid=sessionStorage.getItem("username");
+    mapname=sessionStorage.getItem("mapname")
+  }
+
   console.log("User logged in as" + userid);
   console.log("The map id is as"+ mapname);
   initialize();
   $(document).ready(function(){
-    if(mapname == undefined)
+    /*if(mapname == undefined)
     {
       window.location.href="#dashboard";
     }
     else
     {
       nomap=1;
-    }
+    }*/
+    $('#logout').click(function(){
+      console.log("On Logging out");
+        sessionStorage.setItem("username",undefined);
+        sessionStorage.setItem("mapname",undefined);
+        userid="";
+        name="";
+        mapname="";
+        //window.location.href="#";
+        return true;
+
+    });
     Dropzone.autoDiscover=false;
 
 
@@ -680,6 +704,7 @@ function imagecontroller(){
             mapn.name="guestmap";
           }else
           {
+
             userobj.mapname=mapname;
             mapn.name=mapname;
           }
@@ -1267,10 +1292,15 @@ $("#menu-toggle").click(function(e){
 function imageupload() {
   $(document).ready(function(){
 
-    if(mapname == undefined)
+    /*if(mapname == undefined)
       window.location.href="#UploadImages";
     else
-      nomap=1;
+      nomap=1;*/
+      if(userid === undefined ||mapname === undefined)
+      {
+          userid=sessionStorage.getItem("username");
+          mapname=sessionStorage.getItem("mapname")
+      }
     //Get markers and initialize them on map
     console.log("User logged in as "+userid);
     initialize();
@@ -1682,15 +1712,29 @@ function imageupload() {
 
 //Controller for Image gallery page
 function imagegallerycontroller(){
+  /*
   if(mapname == undefined){
     //User has not chosen a map
     window.location.href="#dashboard";
   }
   else
-    nomap=1;
+    nomap=1;*/
+    if(userid === undefined)
+    {
+        userid=sessionStorage.getItem("username");
+        mapname=sessionStorage.getItem("mapname")
+    }
+    console.log("In gallery page"+userid);
   $(document).ready(function(){
      //Launch Filters modal
-
+    $('#galllogout').click(function(){
+        sessionStorage.setItem("username",undefined);
+        sessionStorage.setItem("mapname",undefined);
+        userid="";
+        name="";
+        mapname="";
+        return true;
+    });
     $('#filters').on("click", function(evt){
       console.log("Filters modal opened");
       //display the filters

@@ -8,6 +8,21 @@ function iteniarygenerator()
 {
     var count=1;
     $(document).ready(function(){
+        if(userid === undefined)
+        {
+            userid=sessionStorage.getItem("username");
+            mapname=sessionStorage.getItem("mapname");
+        }
+        $('#itelogout').click(function(){
+            sessionStorage.setItem("username",undefined);
+            sessionStorage.setItem("mapname",undefined);
+            userid="";
+            name="";
+            mapname="";
+            return true;
+        });
+        console.log("You are in the iteniary page"+userid);
+        initialize();
         var dat={};
         dat.mapID=mapname;
         dat.userid=userid;
@@ -112,9 +127,7 @@ function iteniarygenerator()
 
     var createMarker=0;
     var seennames=[];
-    console.log("You are in the iteniary page"+userid);
 
-    initialize();
 
     $("#logoutbutton").on('click', function()
     {

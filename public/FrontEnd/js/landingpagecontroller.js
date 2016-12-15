@@ -4,15 +4,15 @@
 
 
 function landingpagecontroller() {
+    if(serachmap!="")
+    {
+        sessionStorage.setItem("searchmap","");
+    }
     $(document).ready(function () {
         $('#viewall').on('click', function()
         {
-           window.location.href="#searchtours"
-        });
-        userid="";
-        mapname="";
-        serachmap="";
-        name="";
+           window.location.href="#searchtours";        });
+
         console.log("Welcome to the trip Around -- landing page");
         $('#login').on('click', function () {
             window.location.href = "#login";
