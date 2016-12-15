@@ -234,11 +234,33 @@ var translateDashboard=[
     "en":"Submit",
     "de":"Submit"
 },
+{
+    "id": "dashb",
+    "en":"Welcome to TripAround. Here, you can create a new map or you can select a previously saved map.",
+    "de":"Willkommen bei TripAround. Hier können Sie eine neue Karte erstellen oder eine zuvor gespeicherte Karte auswählen."
+},
 ];
 
 var translateImageUpload=[
+{
+    "id": "upldimgtitle",
+    "en": "Upload images to your map. If the images have geo tags, they will be displayed on the map below. Don't forget to save the map before leaving this page!",
+    "de": "Laden Sie Bilder auf Ihre Karte hoch. Wenn die Bilder Geo-Tags haben, werden sie auf der Karte unten angezeigt. Vergessen Sie nicht, die Karte zu speichern, bevor Sie diese Seite verlassen!"
+}
+];
+
+var translateImageGallery = [
+{
+    "id":"overview",
+    "en":"Overview",
+    "de":"Ubersicht",
+}
+];
+
+var translateEditMap = [
 
 ];
+
 var translateIteniary=[
 {
     "id":"createTourStop",
@@ -252,16 +274,8 @@ var translateIteniary=[
 
 }
 ];
-var translateImageGallery = [
-{
-    "id":"overview",
-    "en":"Overview",
-    "de":"Ubersicht",
-}
-];
-var translateEditMap = [
 
-];
+
 /*
 
 var translateArray = [
