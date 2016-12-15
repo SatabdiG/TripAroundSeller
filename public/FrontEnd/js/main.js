@@ -78,25 +78,26 @@ function homeinit(){
   password="";
   $(document).ready(function(){
     console.log("lang sel:" +lang);
-
+    /*
     $("#goback").on('click', function(event)
     {
       window.location.href="#";
       window.location.reload()
-    });
+    });*/
+    /*
       if(document.getElementById("pp-nav") != null)
       {
           document.getElementById("pp-nav").remove();
           window.location.reload();
 
-      }
+      }*/
     $('#guestlink').click(function(event){
       console.log("Guest link click");
       event.preventDefault();
       userid="guest";
       window.location.href="#dashboard";
     });
-    $('input#usersub').click(function(event) {
+    $('#usersub').click(function(event) {
       event.preventDefault();
       var data = {};
       data.name = $('#usr').val();
