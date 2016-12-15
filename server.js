@@ -1,27 +1,32 @@
 
-var express	=	require("express");
+const express	=	require("express");
 var bodyParser =	require("body-parser");
 var multer	=	require('multer');
 var multerguest=require('multer');
 var path=require('path');
-var app	=	express();
+const app	=	express();
 var fs=require('fs');
 var http=require("http").Server(app);
-var socket=require("socket.io").listen(http);
+var socket=require("socket.io")(http);
+
 var formidable=require('formidable');
 var mv= require('mv');
+var busboy = require('connect-busboy');
 app.use(bodyParser.json());
 
-/*var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";*/
+app.use(busboy());
+var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-
-  var mongofil="mongodb://localhost:27017/testimages";
-
+//var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
 //Blurred Detection middlewares.
 
+// Image Compression
+const imagemin = require('imagemin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminPngquant = require('imagemin-pngquant');
 
 var userid;
 var filename;
@@ -535,12 +540,14 @@ app.post('/mapupload', function(req,res){
   });
 
   if(marker.length>0) {
+    console.log("Marker length"+marker.length);
+
 
     for(i=0;i<marker.length;i++)
     {
       var markerid=req.body.id+i+currenthours;
-      console.log(marker[i]);
-      connect.addmarkers(mongofil,"someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
+      console.log("Got Marker"+marker[i].tourstopname);
+      connect.addmarkers(mongofil, marker[i].tourstopname,"someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
       console.log(mssg);
         if(mssg!=undefined) {
           if (mssg == "yes")
@@ -549,7 +556,17 @@ app.post('/mapupload', function(req,res){
             flag = false;
         }
       });
+      connect.addTourStops(mongofil,req.body.id, req.body.name, "car",marker[i].tourstopname,marker[i].lat,marker[i].lon,"",0, function (message) {
+         if(message!=undefined)
+         {
+             if (message == "yes")
+                 flag = true;
+             else
+                 flag = false;
+         }
+      });
     }
+
     console.log("flag    "+flag);
     if(flag == true)
     {
@@ -637,13 +654,23 @@ app.post("/deleteTourStop", function(req, res)
 
 //Handler for drag and drop
 app.post('/dragdrop', function(req,res){
-  console.log("In drag and drop"+userid);
   var form=new formidable.IncomingForm();
   form.multiple=true;
   form.uploadDir=path.join(__dirname,'/uploads');
   form.on('file',function(field,file){
     console.log("File Name"+file.name);
-    fs.rename(file.path,path.join(form.uploadDir,file.name));
+    fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
+        imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
+            plugins: [
+                imageminMozjpeg({quality: 40}),
+                imageminPngquant({quality: '40-45'})
+            ]
+        }).then(function(files) {
+            console.log('File compressed successfully.');
+        });
+
+        console.log('\t In drag drop my upload dir is '+form.uploadDir+' and my filename is '+file.name);
+    });
   });
   form.on('field', function(name,value){
     console.log("In Drag and Drop"+ name +"  "+ value);
@@ -691,7 +718,33 @@ app.post('/dragdrop', function(req,res){
               }
             }
           });
+        }else
+      {
+        if(name === "tourstop")
+        {
+          console.log("In Tourstop");
+          var obj=JSON.parse(value);
+          var lat=obj["lat"];
+          var lon=obj["lon"];
+          var mapname=obj["mapname"];
+          var tourst=obj["userid"];
+          var tourstopname=obj["address"];
+          connect.addTourStops(mongofil,tourst,mapname,"bus", tourstopname,lat,lon, "",0, function (mssg) {
+            if(mssg!=undefined)
+            {
+              if(mssg ===  "yes")
+              {
+                console.log("Done");
+              }else
+              {
+                console.log("Not Done");
+              }
+            }
+
+
+          });
         }
+      }
 
     }
 
@@ -909,8 +962,8 @@ app.post('/userimageupload', function(req,res){
         var mapname=obj['mapname'];
         var userid=obj['id'];
         var uploadpath='/uploads/'+userid+'/' + mapname;
-        var mapversion="something";
-
+        var mapversion=obj['tourstopname'];
+        console.log("User store images"+filenames);
         //call database and update the database
         for(var i=0;i<filenames.length;i++)
         {
@@ -928,13 +981,34 @@ app.post('/userimageupload', function(req,res){
           });
         }
       }
+      else
+      {
+          if(name === "tourstop")
+          {
+            console.log("Got tourstop!!");
+            var obj=JSON.parse(value);
+              var filenames=obj['filename'];
+
+          }
+      }
     }
 
   });
 
   form.on('file',function(field,file){
     console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
-    fs.rename(file.path,path.join(form.uploadDir,file.name));
+    fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
+        imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
+            plugins: [
+                imageminMozjpeg({quality: 40}),
+                imageminPngquant({quality: '40-45'})
+            ]
+        }).then(function(files) {
+            console.log('File compressed successfully.');
+        });
+
+        console.log('\t In drag drop my upload dir is '+form.uploadDir+' and my filename is '+file.name);
+    });
   });
   form.on('error',function(err){
     console.log("Error has ocurred");
@@ -974,7 +1048,91 @@ app.post('/updateimagedescription', function (req, res) {
   });
 });
 
+app.post('/file_upload', function(req, res) {
+    // var user=req.body.sessioninfo.userid;
+    console.log("\n\n\tUploading: I am here : halllllloooo2");
+    var form = new formidable.IncomingForm();
+    form.multiple=true;
+    var userID;
+    var mapID;
+    var fstream;
+    var myFileName;
+    var spawn = require('child_process').spawn;
+    py = spawn('python', ['process_doc.py']);
+    dataString = '';
+    var flag = 0;
+    form.on('field', function(field, value) {
+        console.log("Trying to find field " + field + " and value is "+ value);
+        var jvObject = JSON.parse(value);
+        userID = jvObject['userid'];
+        mapID = jvObject['mapname'];
+    });
 
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("Uploading: " + filename);
+        myFileName = filename;
+        // check if file with same name already exist, if yes change the name.
+        fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+        file.pipe(fstream);
+    });
+
+    req.busboy.on('finish', function () {
+        console.log("OK Everything is done now.");
+        console.log("userid: " + userID);
+        console.log("mapID: " + mapID);
+        console.log("myFileName: " + myFileName);
+
+        py.stdout.on('data', function(data){
+            dataString += data.toString();
+            console.log("\n\t\t\t\tIn data");
+        });
+        py.stdout.on('end', function(){
+            // console.log ("I am hereeeee "+dataString)
+            var jsonObj = JSON.parse(dataString);
+            jsonObj.userID = userID
+            jsonObj.mapID = mapID
+            // console.log("This is heading number 1"+jsonObj["heading_1"])
+            connect.saveDocs(mongofil, jsonObj, function (msg) {
+                if(msg!= undefined) {
+                    if(msg == "done") //{
+                        console.log("Document saved: "+ msg);
+                    // return res.end("yes doc saved");}
+                    else
+                    // return res.end("no");
+                        console.log("No");
+                }
+            });
+
+            return res.end('Completed');
+
+        });
+        py.stdin.write(JSON.stringify(myFileName));
+        py.stdin.end();
+
+
+        res.end('Yes');
+    });
+    form.parse(req);
+});
+
+// myjson = '{ "_id": "583af12e6c3e6b16f4b81b36", "content_5": "Gut gestärkt machen Sie sich morgens auf den Weg zur Bongani Mountain Lodge. Diese liegt an der südwestlichen Grenze des Krüger Nationalparks, ca. 45 km vom Eingang entfernt. Ein idealer Ausgangspunkt für Safaris auf dem ca. 8000 Hektar großen Privatgelände des Mthethomusha Private Game Reserves. Dieses ist ebenfalls die Heimat der Big Five. Nach dem Mittagessen und ein paar Stunden Ruhe steht eine Geländewagensafari an. Zum Abschluss des Tages genießen Sie ein köstliches Abendessen und übernachten in der Bongani Mountain Lodge.", "content_7": "Transfer zum Flughafen nach Johannesburg (ca. 450 km) und Flug nach Kapstadt. Hier erwartet Sie schon Ihre deutschsprachige Reiseleitung. Der Rest des Tages steht Ihnen zur freien Verfügung. Nutzen Sie die Zeit, um die „Mutterstadt“ auf eigene Faust zu entdecken. Die nächsten Nächte verbringen Sie in Ihrem Hotel in der Region Kapstadt.", "content_6": "In den frühen Morgenstunden unternehmen Sie die erste Safari im Geländewagen. Mal sehen, ob sich die Tiere im Morgengrauen blicken lassen. Im Anschluss an das ausgiebige Frühstück können Sie sich bereits auf ein leckeres Mittagessen freuen. Am Nachmittaggeht es wieder auf Spurensuche. Vielleicht haben Sie ja schon Ihr Lieblingsgeschöpf im Reservat entdeckt? Abendessen und Übernachtung in der Bongani Mountain Lodge.","tot_contents": "12","content_4": "Während der Fahrt im Reisefahrzeug entdecken Sie den Park. Können Sie sich die unglaublichen Weiten des Krüger Parks vorstellen, der 1898 von Paul Krüger zum Schutz gefährdeter Arten gegründet wurde? Seit 1926 gilt er als Nationalpark und umfasst eine Fläche von über 18.000 km². Er erstreckt sich 350 km von Nord nach Süd und 60 km von Ost nach West. Somit gilt er als eines der größtenWildreservate Afrikas. Mit Hilfe Ihres Reiseleiters halten Sie Ausschau nach den berühmten “Big Five” - Löwen, Leoparden, Elefanten, Büffel und Nashörner. Nach diesem einmaligen Erlebnis fahren Sie zurück in die Region Lowveld, wo die Übernachtung erfolgt.","content_3": "Auf dem Weg in die Region Lowveld, deren bildhübsche Landschaft von subtropischen Obstplantagen geprägt ist, besuchen Sie Dullstoom. Bekannt als Südafrikas „Hauptstadt des Fliegenfischens“ bietet der beschauliche Ort weit mehr als das. Während Sie gemütlich über die Straßen schlendern, entdecken Sie die vielen kleinen Läden und Restaurants. Beim Anblick des Blyde River Canyons schweigen Sie vermutlich für einen Moment. Sei es aus Ehrfurcht, sei es aus Erstaunen – dieser Canyon ist riesig! Nicht umsonst gilt er als eines der größten Naturwunder Afrikas. Anschließend besichtigen Sie „Bourke’s Luck Potholes“, ein Wunderwerk der Flusserosion. Sehen dievom Wasser erschaffenen Löcher nicht so aus, als hätte sie jemand mit einem großen Bohrer erschaffen? Nach einem spannenden Tag beziehen Sie Ihr Nachtquartier in der Region Lowveld.","content_2": "Ankunft in Johannesburg und Begrüßung durch Ihre deutschsprachige Reiseleitung. Sie brechen auf zu einer Orientierungsfahrt durch Pretoria, der Verwaltungshauptstadt Südafrikas. Diese wurde im Jahre 1855 gegründet und 5 Jahre später zur Hauptstadt der Buren ernannt. Sie bewundern den „Church Square“ mit seiner imposanten Statue von „Uncle Paul Kruger“, dem ehemaligen Präsidenten der Südafrikanischen Republik. Lassen Sie sich am „Voortrekker Monument“ und bei den „Union Buildings“ in die Zeit der Einwanderer zurückversetzen. Am Nachmittag tauchen Sie in das Township Soweto ein, das vor allem durch Nelson Mandela und die schreckliche Zeit der Apartheid bekannt wurde. Wussten Sie, dass ein Großteil Sowetos heute der farbigen Mittelschicht gehört und hier sogar einige prachtvolle Villen stehen? Die Übernachtung findet in der Region Johannesburg statt.","content_1": "Linienflug von Frankfurt n2ach Johannesburg. ","heading_10": "10. Tag - Kapstadt - Weinregion - Kapstadt (auf Wunsch). ","heading_11": "11. Tag - Abreise. ","heading_12": "12. Tag - Ankunft in Deutschland.","content_8": "Auch dieser Tag steht Ihnen zur freien Verfügung. Sollten Sie das optionale Ausflugspaket gebucht haben, erwartet Sie heute eine halbtägige Stadtrundfahrt. Lassen Sie sich beindrucken von den Sehenswürdigkeiten und dem multi-ethnischen Charakter, der denPuls dieser Stadt prägt. Als ruhige Oase im Herzen der Stadt ist der Stadtgarten „Company‘sGardens“ bekannt. Kurz durchatmen inmittender grünen Oase, bevor es vorbei am Old Slave House weiter zum Malay- Viertel geht. Dieses wird auch „Bo-Kaap“ genannt. Die knallbunten Häuser in Bonbon- Farben sind ein beliebtes Fotomotiv. Den krönenden Abschluss bietet Ihnen der überwältigende Ausblick auf Kapstadt und Robben Island vom „Signal Hill“ aus.","content_12": "Änderungen des Reiseverlaufs vorbehalten.","content_11": "Transfer zum Flughafen von Kapstadt und Rückflug mit Zwischenstopp nach Deutschland.","content_10": "Nutzen Sie einen weiteren freien Tag um Kapstadt noch einmal auf eigene Faust zu erkunden. Im Rahmen des Ausflugspaketslernen Sie heute die berühmten, südafrikanischen Weine kennen. Sie entdecken die herrliche Weinroute um Franschhoek und Stellenbosch.Bei zwei Proben kitzelt der leckere Wein Ihre Geschmacksnerven wach. Fruchtig oder herb, was mundet Ihnen mehr? Dies war ein traumhafter Tag, welchen Sie sicherlich in positiver Erinnerung behalten werden.","tot_headings": "12","content_9": "Genießen Sie Ihre freie Zeit in Kapstadt. Sie wollten schon immer mal das südwestliche Ende Afrikas erkunden? Dann habenwir genau das Richtige für Sie! Bei Buchung des optionalen Ausflugspakets ist Ihr erster Stopp das ehemalige Fischerdorf Hout Bay. Kurios ist die Tatsache, dass das Ortseingangsschild die „RepublicofHout Bay“ ausweist. Dann endlich erblicken Sie das Kap der Guten Hoffnung, welches einst wegen seiner schroffen Klippen unter Seefahrern gefürchtet war. Danach geht es weiter zum Cape Point. Auf dem Rückweg erwartet Sie ein weiteres Highlight! Der botanische Garten von Kirstenbosch. Ein wahres Meer an bunten Pflanzen und Blumen ist unter anderem der Grund dafür, warum dieser Garten zu den schönsten weltweit zählt. Gemütliche kleine Parkbänke schmiegen sich perfekt in das idyllische Landschaftsbild und laden zum Verweilen ein.","status": "1","heading_8": "8. Tag - Kapstadt (auf Wunsch). ","heading_9": "9. Tag - Kapstadt - Kap der Guten Hoffnung - Kirstenbosch - Kapstadt (auf Wunsch). ","heading_2": "2. Tag - Johannesburg - Pretoria - Johannesburg. ","heading_3": "3. Tag - Johannesburg - Region Lowveld (ca. 560 km). ","heading_1": "1. Tag - Anreise. ","heading_6": "6. Tag - Malelane. ","heading_7": "7. Tag - Malelane - Johannesburg - Kapstadt. ","heading_4": "4. Tag - Region Lowveld - Krüger Nationalpark - Region Lowveld. ","heading_5": "5. Tag - Region Lowveld - Malelane (ca. 150 km). ","userID": "muaz","mapID": "My First Map" }'
+// myjson2 = '{ "_id": "583b84ed2ce47604907f8447", "status": "1", "heading_2": "Day 2: Los Angeles", "tot_headings": "5", "heading_1": "Day 1: Los Angeles", "content_5": "Simple Content 5", "heading_4": "Day 4: Palm Springs - Williams / Grand Canyon", "heading_5": "Day 5: Williams - Page (Classic) / Grand Canyon (Superior)", "tot_contents": "5", "content_4": "Simple Content 4", "content_3": "Simple Content 3", "content_2": "Simple Content 2", "content_1": "Simple content 1 ", "heading_3": "Day 3: Los Angeles – PalmSprings", "userID": "muaz", "mapID": "My First Map" }'
+// myjson3 = '{"_id":"58404317bce2800d28d0781e","status":"1","heading_2":"Day 2: Los Angeles","tot_headings":"5","heading_1":"Day 1: Los Angeles","content_5":"Simple Content 5","heading_4":"Day 4: Palm Springs - Williams / Grand Canyon","heading_5":"Day 5: Williams - Page (Classic) / Grand Canyon (Superior)","tot_contents":"5","content_4":"Simple Content 4","content_3":"Simple Content 3","content_2":"Simple Content 2","content_1":"Simple content 1 ","heading_3":"Day 3: Los Angeles â€“ PalmSprings","userID":"muaz","mapID":"My First Map"}'
+app.post('/fetchiter', function(req, res){
+    var mapID=req.body.mapID;
+    var userid=req.body.userid;
+    console.log("\n\t\tIn fetchiter with mapID = "+ mapID + " and userid = " + userid);
+
+    connect.fetchData(mongofil, userid, mapID, function (doc) {
+        // console.log(typeof doc);
+        // console.log(typeof myjson3);
+        // console.log(doc);
+        // console.log(myjson3);
+
+        return res.end(doc);
+    });
+});
 
 
 //******** Socket Function to receive data *********
@@ -994,7 +1152,42 @@ socket.on('connection',function(socket){
    console.log("Longittude"+msg);
   });
 
+ socket.on('picdetailsimageupload', function(msg){
 
+   var filename=msg.filename;
+   var tourstop=msg.tourstopname;
+     console.log("Pic details update" + filename+ tourstop);
+   //Update the imagedetails in picturescollection
+
+     connect.updateImageDescription(mongofil,filename,tourstop, function(mssg){
+       if(mssg == "done")
+       {
+         console.log("Picture has been updated");
+       }
+
+     });
+
+
+ });
+
+    socket.on('tourstopdetailsupdate', function(msg){
+
+        var lat=msg.lat;
+        var lon=msg.lon;
+        var tourstopname=msg.tourstopname;
+        console.log("Tour details update" + lat+ tourstopname);
+        //Update the imagedetails in picturescollection
+
+        connect.updateTour(mongofil,lat,lon,tourstopname, function(mssg){
+            if(mssg == "done")
+            {
+                console.log("Picture has been updated");
+            }
+
+        });
+
+
+    });
 
   socket.on('UserData',function(msg){
     console.log("In user data function");
@@ -1087,15 +1280,15 @@ socket.on('connection',function(socket){
 
   socket.on("fetchImg", function(msg)
   {
-    console.log("Message received in g=fetch Img"+msg.userid);
+    console.log("Message received in g=fetch Img"+msg.tourstopname);
     var userid=msg.userid;
     var mapname=msg.mapname;
     var tourstopname=msg.tourstopname;
-    connect.getPicturesTourStop(mongofil, userid,mapname,tourstopname, function(picname,picpath,description){
+    connect.getPicturesTourStop(mongofil, userid,mapname,tourstopname, function(picname,picpath,tourstopname){
       if(picname!=undefined && picpath!=undefined )
       {
         console.log("picname"+picname);
-        socket.emit("getImg", {"picname":picname,"picpath":picpath});
+        socket.emit("getImg", {"picname":picname,"picpath":picpath, "tourstopname":tourstopname});
       }
     });
 
@@ -1107,11 +1300,11 @@ socket.on('connection',function(socket){
         var userid=msg.userid;
         var mapname=msg.mapname;
         var tourstopname=msg.tourstopname;
-        connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,description){
+        connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,tourstopname){
             if(picname!=undefined && picpath!=undefined )
             {
                 console.log("picname"+picname);
-                socket.emit("getImgsrc", {"picname":picname,"picpath":picpath});
+                socket.emit("getImgsrc", {"picname":picname,"picpath":picpath,"tourstopname":tourstopname});
             }
         });
 

@@ -47,7 +47,11 @@ function viewtourcontroller()
        {
           console.log("In View serach"+msg.name);
           //Make the iterniary Page
-           var nmt=msg.name;
+           //var nmt=msg.name;
+           var str1=msg.name.toString().replace(/. /g,'');
+           var str2=str1.replace(/,/g,'');
+           var str3=str2.replace("/",'');
+           var nmt=str3;
            var description=msg.description;
            var vehicle=msg.vehicle;
            var lat=msg.lat;
@@ -65,7 +69,7 @@ function viewtourcontroller()
            });
            itemarkers.push(marker);
            locations.push(msg.name);
-           tempstr = nmt;
+           tempstr = msg.name;
            var tempid=document.getElementById("headsrc"+nmt);
            console.log("Tempid"+tempid);
            if(tempid === null) {
@@ -194,25 +198,30 @@ function viewtourcontroller()
                    target: '+=1'
                });
            var picarray = [];
-
-           socket.emit("fetchImgsrc", {"tourstopname": nmt, "mapname": serachmap});
+           var tempvar=msg.name;
+           socket.emit("fetchImgsrc", {"tourstopname": msg.name, "mapname": serachmap});
            socket.on("getImgsrc", function (msg) {
+               console.log("Get Images"+msg.tourstopname);
                var picname = msg.picname;
                var picpath = msg.picpath;
-               if (picarray.includes(picname) === false) {
-                   picarray.push(picname);
+
                    var totalpath = picpath + "/" + picname;
                    var appendto = document.getElementById('ulsrc' + nmt);
-
                    var div = document.createElement("div");
                    var li = document.createElement("li");
                    var img = document.createElement("img");
                    img.setAttribute("class", "displayimg");
+                   img.setAttribute("id", "img"+nmt+picname);
                    //$('#gall'+marker.title).append('<img src="'+e.target.result+'" class="displayimg" >');
                    img.setAttribute("src", totalpath);
-                   li.appendChild(img);
-                   //div.appendChild(img);
-                   appendto.appendChild(li);
+                   var tempele=document.getElementById("img"+nmt+picname);
+                   if(tempele === null) {
+                       if(msg.tourstopname === tempvar ) {
+                           li.appendChild(img);
+                           //div.appendChild(img);
+                           appendto.appendChild(li);
+                       }
+                   }
 
                    $('#slidesrc' + nmt).jcarousel('scroll', '+=2');
                    $('#slidesrc' + nmt).jcarousel('reload');
@@ -222,7 +231,7 @@ function viewtourcontroller()
                    //Create two button
                    $('#slidesrc' + nmt).jcarousel('reload');
 
-               }
+
 
 
            });
@@ -239,8 +248,9 @@ function viewtourcontroller()
                 tempcount+=1;
                 if(tempcount<itemarkers.length) {
                     console.log("*******"+tempcount+"  "+i);
-                    src = itemarkers[i].getPosition();
-                    des = itemarkers[tempcount].getPosition();
+                    var src = itemarkers[i].getPosition();
+                    var des = itemarkers[tempcount].getPosition();
+                    console.log("Src Des"+ src+"  "+des);
                     getDirections(map, src, des);
                 }
 

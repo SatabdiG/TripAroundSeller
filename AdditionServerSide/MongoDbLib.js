@@ -105,21 +105,20 @@ module.exports= {
 
     },
 
-  updateDescription:function(connectionstring, userid, mapid,usertext, callback){
+    updateImageDescription:function(connectionstring, filename, tourstop, callback){
     if(callback)
       callback();
     //find the description
-     console.log("In Update Description");
+     console.log("In Image contents");
     mongodb.connect(connectionstring,function(err,db){
       if(!err){
-        var cursor=db.collection("mapcollection").find({"userid":userid, "mapname":mapid});
+        var cursor=db.collection("picturescollection").find({"picname":filename});
         cursor.each(function(err,doc){
-          console.log("In doc"+userid+"  "+mapid);
           if(doc!=null)
           {
-            console.log("Document ID"+doc._id+"  "+usertext);
+            console.log("Document ID"+doc._id);
             var docid=doc._id;
-            db.collection("mapcollection").update({_id:docid},{$set:{"mapdescription":usertext}});
+            db.collection("picturescollection").update({_id:docid},{$set:{"tourstopname":tourstop}});
             return callback("done");
 
           }
@@ -129,6 +128,56 @@ module.exports= {
     });
 
   },
+
+    updateTour:function(connectionstring, lat,lon, tourstop, callback){
+        if(callback)
+            callback();
+        //find the description
+        console.log("In Tour contents"+tourstop);
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection("tourstop").find({"Lat":lat, "Lng":lon});
+                cursor.each(function(err,doc){
+                    if(doc!=null)
+                    {
+                        console.log("Document ID"+doc._id);
+                        var docid=doc._id;
+                        db.collection("tourstop").update({_id:docid},{$set:{"tourstopname":tourstop}});
+                        return callback("done");
+
+                    }
+                });
+
+            }
+        });
+
+    },
+
+
+    updateDescription:function(connectionstring, userid, mapid,usertext, callback){
+        if(callback)
+            callback();
+        //find the description
+        console.log("In Update Description");
+        mongodb.connect(connectionstring,function(err,db){
+            if(!err){
+                var cursor=db.collection("mapcollection").find({"userid":userid, "mapname":mapid});
+                cursor.each(function(err,doc){
+                    console.log("In doc"+userid+"  "+mapid);
+                    if(doc!=null)
+                    {
+                        console.log("Document ID"+doc._id+"  "+usertext);
+                        var docid=doc._id;
+                        db.collection("mapcollection").update({_id:docid},{$set:{"mapdescription":usertext}});
+                        return callback("done");
+
+                    }
+                });
+
+            }
+        });
+
+    },
 
   updatePictures:function(connectionstring, userid, mapid,filename,usertext, callback){
     if(callback)
@@ -204,7 +253,7 @@ module.exports= {
                     if(doc!=null)
                     {
                         console.log("Document"+doc.face);
-                        callback(doc.picname,doc.picpath);
+                        callback(doc.picname,doc.picpath,doc.tourstopname);
                     }
                 });
 
@@ -223,7 +272,7 @@ module.exports= {
                     if(doc!=null)
                     {
                         console.log("Document"+doc.face);
-                        callback(doc.picname,doc.picpath);
+                        callback(doc.picname,doc.picpath, doc.tourstopname);
                     }
                 });
 
@@ -518,13 +567,13 @@ module.exports= {
                       }, {w: 1}, function (err, records) {
 
                           if (records != null) {
-                              console.log("Trail Added");
+                              console.log("Tour Stop Added");
                               callback("yes");
                               db.close();
                           }
                           else {
                               callback("no");
-                              console.log("Trail cannot add");
+                              console.log("Tour Stop  cannot add");
                           }
                       });
 
@@ -895,7 +944,7 @@ addmapversion: function (connectionstring, databasename,_mapdataversionid, _user
   });
 },
 
-addmarkers: function (connectionstring,mapdataversionid,markerid,userid,mapid,Latid,Lngid,time,filename, callback) {
+addmarkers: function (connectionstring,tourstopname,mapdataversionid,markerid,userid,mapid,Latid,Lngid,time,filename, callback) {
   if (callback) {
     callback();
   }
@@ -904,6 +953,7 @@ addmarkers: function (connectionstring,mapdataversionid,markerid,userid,mapid,La
     var collec = db.collection('markercollection');
     if (collec != null) {
       db.collection('markercollection').insert({
+        "tourstopname":tourstopname,
         "mapdataversionid": mapdataversionid,
         "markerid": markerid,
         "userid": userid,
@@ -995,6 +1045,36 @@ retrievevalues: function ( connectionstring, databasename, mapdataversionid, mar
           console.log("Database not found! error");
         }
       });
+    },
+    saveDocs: function(connectionstring, json_data, callback){
+        if (callback) callback();
+
+        var coll_name = "docscollection";
+        mongodb.connect(connectionstring, function (err, db) {
+            db.collection(coll_name).save(json_data, function (err, result) {
+                if (err) return console.log(err);
+                console.log('saved to database');
+            });
+        });
+        return callback("done");
+    },
+    fetchData: function(connectionstring, userid, mapID, callback){
+        var coll_name = "docscollection";
+        // console.log(q)
+        // console.log(typeof q)
+        mongodb.connect(connectionstring, function (err, db) {
+            if(!err){
+                var cursor = db.collection(coll_name).find({
+                    "userID": userid,
+                    "mapID": mapID,
+                });
+                cursor.each(function (err2, doc) {
+                    if(doc!=null){
+                        callback(JSON.stringify(doc));
+                    }
+                });
+            }
+        });
     }
 
 
