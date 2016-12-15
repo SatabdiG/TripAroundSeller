@@ -216,6 +216,11 @@ var translateNavbar=[
     "en":"Log Out",
     "de":"Log Out"
 },
+{
+    "id": "welcome",
+    "en": "Welcome, ",
+    "de": "Wilkommen, "
+},
 ];
 
 var translateDashboard=[
