@@ -208,15 +208,16 @@ function homeinit(){
 
 /** User's Dashboard **/
 function dashboardfunction(){
-    if(lang ==="")
-    {
-        lang=sessionStorage.getItem("lang");
-    }
+
   $(document).ready(function(){
+      if(lang ==="")
+      {
+          lang=sessionStorage.getItem("lang");
+      }
   $('#viewmapregion').empty();
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
-  console.log("User logged in as "+userid);
+  console.log("User logged in as "+userid+lang);
 
 
       $("#logoutbutton").on('click', function()
@@ -575,8 +576,7 @@ function dashboardfunction(){
     $("#beforepagebutton span").text("<");
   });
   $("#beforepagebutton").click(function(){
-    window.location.href="#";
-  });*/
+    window.location.href="#"; });*/
 
 
 
