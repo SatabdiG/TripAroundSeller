@@ -561,7 +561,7 @@ function dashboardfunction(){
 
 
 
-
+    translateFunction(translateNavbar,translateDashboard);
   });
   //document ready function concludes
 } //dashboard function finishes
@@ -1681,6 +1681,7 @@ function imageupload() {
         });
 
     }
+    translateFunction(translateNavbar,translateEditMap);
   });
   }
 
@@ -1835,7 +1836,7 @@ function imagegallerycontroller(){
 
       }
     });
-
+    translateFunction(translateNavbar,translateImageGallery);
   });
 }
 
