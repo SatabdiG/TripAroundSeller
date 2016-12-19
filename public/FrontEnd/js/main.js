@@ -306,8 +306,10 @@ function dashboardfunction(){
               $('#infofrm').css('color', 'green');
               mapname=dat.name;
               var obj=document.getElementById('maps'+mapname);
-              if(obj == null)
-               $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + mapname +'"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+mapname+'" id="editbutton'+mapname+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+mapname+'" id="removebutton'+mapname+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>'+' <button class="btn btn-danger btn-xs '+mapname+'" id="publish'+mapname+'">  <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Publish Maps</button>' + '</div></div></div>');
+              if(obj == null) {
+                  var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
+                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div></div></div>');
+              }
                 var publishbutton=document.getElementById("publish"+mapname);
                 publishbutton.addEventListener("click", function (evt) {
                     publishmapid=mapname;
@@ -421,10 +423,10 @@ function dashboardfunction(){
                contentType:"application/JSON"
 
              }).done(function(msg){
-               console.log("Message is "+msg)
+               console.log("Message is "+msg);
                if(msg == "yes")
                {
-                 console.log("Yes returned"+msg+"  "+deletemapid);
+                 console.log("Yes returned"+msg+"  "+ deletemapid);
                  //Refresh the Page
                  if($('#confirmdeletion').dialog("isOpen"))
                    $('#confirmdeletion').dialog("close");
@@ -478,10 +480,23 @@ function dashboardfunction(){
           socket.emit('getmaps', {userid:userid});
           socket.on('viewmaps', function(msg){
             console.log(msg.description);
+            var publish=msg.publish;
+            console.log("Publish is"+publish);
+            if(publish ==="N")
+            {
+              //create private button
+                var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
+            }else
+            {
+              //Create public button
+                var buttonstr='<button class="btn btn-success customplacement"><i class="fa fa-check" aria-hidden="true"></i> Public</button>';
+
+            }
+            console.log("Buttonstr"+buttonstr);
           //Clear view map region
             var obj=document.getElementById(msg.name);
             if(obj == null) {
-              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + '<button class="btn btn-danger btn-xs '+mapname+'" id="publish'+msg.name+'">  <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ '</div></div></div>');/*
+              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ buttonstr+  '</div></div></div>');/*
               '<div id="maps'+msg.name+'"><a id="' + msg.name + '" class="button">' + msg.name + '</a> <div id="info'+msg.info+'"> Description : '+msg.description+'</div><button class="'+msg.name+'" id="editbutton'+msg.name+'"> Edit </button><button class="'+msg.name+'" id="removebutton'+msg.name+'"> Remove Map </button></div><br>');*/
               /*
               var editbutt=document.getElementById("editbutton"+msg.name);

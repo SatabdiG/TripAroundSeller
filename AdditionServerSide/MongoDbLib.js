@@ -330,7 +330,7 @@ module.exports= {
           if(doc!=null)
           {
             console.log(doc);
-            callback(doc.mapname, doc.mapdescription);
+            callback(doc.mapname, doc.mapdescription,doc.publish);
           }
         });
 

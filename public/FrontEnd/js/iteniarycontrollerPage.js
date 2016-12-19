@@ -13,6 +13,10 @@ function iteniarygenerator()
             userid=sessionStorage.getItem("username");
             mapname=sessionStorage.getItem("mapname");
         }
+        if(lang === "")
+        {
+            lang=sessionStorage.getItem("lang");
+        }
         $('#itelogout').click(function(){
             sessionStorage.setItem("username",undefined);
             sessionStorage.setItem("mapname",undefined);

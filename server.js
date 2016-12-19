@@ -1400,10 +1400,10 @@ socket.on('connection',function(socket){
 
   socket.on('getmaps', function(msg){
      console.log('Message received'+msg.userid);
-    connect.getMaps(mongofil, msg.userid, function(mapname, mapdescription){
+    connect.getMaps(mongofil, msg.userid, function(mapname, mapdescription, publish){
       if(mapname!=undefined && mapdescription!=undefined){
         console.log("Map description"+mapdescription);
-        socket.emit('viewmaps', {name:mapname, description:mapdescription});
+        socket.emit('viewmaps', {name:mapname, description:mapdescription, publish:publish});
       }
     });
   });

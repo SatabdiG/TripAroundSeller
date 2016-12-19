@@ -1,7 +1,7 @@
 html { overflow-y: scroll; }
 
 body {
-  background-image:url("/FrontEnd/Pictures/striped_lens.png");
+  background-image:url("/FrontEnd/Pictures/old_map_@2X.png");
   background-repeat: repeat;
   padding-bottom: 20px;
   padding-top: 70px;
@@ -436,6 +436,39 @@ navbar{
   overflow-x: hidden;
 
 }
+
+.mapobj{
+  width: 100%;
+  height: auto;
+  background-color: #F28123;
+}
+
+.navbar-custom
+{
+
+  background-color:#FF8017;
+
+}
+.customplacement
+{
+
+  position: absolute;
+  top: 5%;
+  right: 3%;
+}
+
+.navbar-custom a
+{
+
+  color: #0b0b0b;
+}
+
+.navbar-custom li a
+{
+
+  color: #0b0b0b;
+}
+
 
 #logout{
   float:right;
