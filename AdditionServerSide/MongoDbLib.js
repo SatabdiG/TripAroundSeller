@@ -701,6 +701,32 @@ module.exports= {
             }
         });
     },
+
+    isuserseller:function (connectionstring, userid,callback) {
+      if(callback)
+          callback();
+
+      console.log("In user seller? with"+userid);
+      mongodb.connect(connectionstring, function (err, db) {
+
+          if(!err)
+          {
+              var cursor=db.collection("usercollection").find({"userid":userid});
+              cursor.each(function (err,doc) {
+                 if(doc!=null)
+                 {
+                     console.log("Doc is"+doc.type);
+                     return callback(doc.type);
+                 }
+
+
+              });
+          }
+
+
+      });
+
+    },
    //Update the Maps so that they can be published
     updateMaps:function (connectionstring, userid,mapid,publish, callback) {
         if(callback){

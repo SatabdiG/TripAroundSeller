@@ -606,6 +606,7 @@ function imagecontroller(){
     {
       lang=sessionStorage.getItem("lang");
     }
+
     /*if(mapname == undefined)
     {
       window.location.href="#dashboard";
@@ -614,6 +615,28 @@ function imagecontroller(){
     {
       nomap=1;
     }*/
+    //Get is the current logged in user is a seller or not
+
+    var data={};
+    data.username=userid;
+
+    $.ajax({
+      url:"/isuserseller",
+      method:"POST",
+      contentType:"application/JSON",
+        data:JSON.stringify(data)
+
+    }).done(function (msg) {
+      console.log("Function has been completed successfully"+msg);
+      if(msg==="no")
+      {
+        //User is not a seller remove everything related to fileupload
+          $("#fileupload").remove();
+      }
+
+
+    });
+
     $('#logout').click(function(){
       console.log("On Logging out");
         sessionStorage.setItem("username",undefined);

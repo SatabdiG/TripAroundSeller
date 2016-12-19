@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 //app.use(express.session({secret:"qwertsvcyeA"}));
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
@@ -229,7 +229,31 @@ app.post('/registeruser', function(req,res){
   });
 
 });
+//Is user a seller for fileupload handlers
+app.post("/isuserseller", function(req, res){
 
+    var userid=req.body.username;
+    console.log("In the user seller"+userid);
+    //log into MongoDb get the userid reference
+    connect.isuserseller(mongofil, userid, function(response){
+
+      if(response!=null)
+      {
+        if(response === "user account")
+        {
+          return res.end("no");
+        }else
+        {
+          return res.end("yes");
+        }
+      }
+
+
+    });
+
+
+
+});
 
 //Handler for Map publish
 
