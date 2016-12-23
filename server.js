@@ -107,7 +107,7 @@ var gueststore =   multerguest.diskStorage({
 
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(__dirname + "/index.html");
 });
 //Image Upload form
 app.post('/api/photo',function(req,res){
