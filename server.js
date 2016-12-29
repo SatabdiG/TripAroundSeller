@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 //app.use(express.session({secret:"qwertsvcyeA"}));
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+// var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
@@ -956,15 +956,19 @@ app.post('/userdetailssave', function(req, res){
 //Save Images of registered users
 
 app.post('/userimageupload', function(req,res){
-  console.log("In registered user handler");
+  console.log("\n\nIn registered user handler");
   var form=new formidable.IncomingForm();
+  var fields = [];
+  var files = [];
   var mapname;
   var dir;
   var filenames;
   var uploaddir;
   form.multiple=true;
   form.on('field',function(name,value){
-    console.log("Response  "+name+":"+value);
+    console.log(name, value);
+    fields.push([name, value]);
+    console.log("Response  "+name+" <<< :D :D :"+value);
     if(name == "mapname") {
       var obj=JSON.parse(value);
       console.log(obj['name']);
@@ -1003,7 +1007,7 @@ app.post('/userimageupload', function(req,res){
             if(msg!=undefined)
             {
               if(msg == "yes"){
-                console.log("Yay "+msg);
+                // console.log("Yay "+msg);
               }else
               {
                 console.log("Could add to user database. Check");

@@ -663,17 +663,81 @@ function imagecontroller(){
         return true;
 
     });
-    Dropzone.autoDiscover=false;
 
+    function dataURItoBlob(dataURI) {
+          // convert base64/URLEncoded data component to raw binary data held in a string
+          var byteString;
+          if (dataURI.split(',')[0].indexOf('base64') >= 0)
+              byteString = atob(dataURI.split(',')[1]);
+          else
+              byteString = unescape(dataURI.split(',')[1]);
+
+          // separate out the mime component
+          var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+          // write the bytes of the string to a typed array
+          var ia = new Uint8Array(byteString.length);
+          for (var i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+          }
+          console.log('I am here in dataURI function');
+          return new Blob([ia], {type:mimeString});
+      }
+
+    function blobToFile(theBlob, fileName){
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        theBlob.lastModifiedDate = new Date();
+        theBlob.name = fileName;
+        return theBlob;
+    }
+
+    function base64ToFile(dataURI, origFile) {
+        var byteString, mimestring;
+
+        if(dataURI.split(',')[0].indexOf('base64') !== -1 ) {
+            byteString = atob(dataURI.split(',')[1]);
+        } else {
+            byteString = decodeURI(dataURI.split(',')[1]);
+        }
+
+        mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        var content = new Array();
+        for (var i = 0; i < byteString.length; i++) {
+            content[i] = byteString.charCodeAt(i);
+        }
+
+        var newFile = new File(
+            [new Uint8Array(content)], origFile.name, {type: mimestring}
+        );
+
+
+        // Copy props set by the dropzone in the original file
+
+        var origProps = [
+            "upload", "status", "previewElement", "previewTemplate", "accepted"
+        ];
+
+        $.each(origProps, function(i, p) {
+            newFile[p] = origFile[p];
+        });
+
+        return newFile;
+    }
+
+    Dropzone.autoDiscover=false;
 
     //Dropzone Code
     var myDropZone=new Dropzone("#dropzonePreview",{
       url:"/dragdrop",
       autoProcessQueue:false,
+      uploadMultiple:false,
+      acceptedFiles: 'image/*',
       parallelUploads: 10,
 
       init:function(){
         this.on('addedfile', function(file){
+            _this = this;
             console.log("Added File");
             $('#userphoto').css('color', "transparent");
             EXIF.getData(file, function(){
@@ -749,29 +813,64 @@ function imagecontroller(){
             });
 
             file.previewElement.appendChild(removebutton);
+
+            myReader2 = new FileReader();
+            myReader2.onload = function(event) {
+                var i = document.getElementById("source_image");
+                i.src = event.target.result;
+                i.onload = function() {
+                    console.log("Image loaded");
+                    var source_image = document.getElementById('source_image');
+
+                    var quality = 70;
+                    console.log("Quality >>" + quality);
+                    console.log("process start...");
+                    var time_start = new Date().getTime();
+                    comp = jic.compress(source_image, quality, "jpg");
+
+                    var editedFile = base64ToFile(comp.src, file);
+
+                    // Replace original with resized
+
+                    var origFileIndex = _this.files.indexOf(file);
+                    console.log('Index is ' + origFileIndex);
+                    _this.files[origFileIndex] = editedFile;
+
+                    // Enqueue added file manually making it available for
+                    // further processing by dropzone
+                    _this.enqueueFile(editedFile);
+                };
+            };
+            myReader2.readAsDataURL(file);
         });
 
         this.on("sending",function(file,xhr,formData){
+          console.log('I am in sending');
+
           var userobj={};
           var mapn={};
           var tourstop={};
           if(userid=="guest"){
-            userobj.mapname="guestmap";
-            mapn.name="guestmap";
-          }else
-          {
-
-            userobj.mapname=mapname;
-            mapn.name=mapname;
+              userobj.mapname="guestmap";
+              mapn.name="guestmap";
+          }
+          else {
+              userobj.mapname=mapname;
+              mapn.name=mapname;
           }
           userobj.filename=file.name;
           userobj.id=userid;
           mapn.user=userid;
+
           formData.append("userobj", JSON.stringify(userobj));
           formData.append("mapname",JSON.stringify(mapn));
-
+                  // formData.append('file', myImage, userobj.filename);
         });
 
+        // this.on("processingfile", function(file){
+        //
+        //
+        // });
         this.on("complete", function(file){
             if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                 //Reset Drpzone
@@ -888,111 +987,141 @@ function imagecontroller(){
             var filetmp=fileemenet[i];
             filenameglobal=filetmp.name;
             console.log("File name########"+filetmp.name);
-            form.append('uploads[]',filetmp,filetmp.name);
-            filename.push(filetmp.name);
-            picobj=filetmp.name;
-            var time=EXIF.getTag(filetmp,"DateTime");
-            console.log("Date Time"+time);
-            //Get the address of the fileement
-              EXIF.getData(filetmp, function(){
-                  var name=this.name;
-                  var lat=EXIF.getTag(this,"GPSLatitude");
-                  var lon=EXIF.getTag(this,"GPSLongitude");
-                  var latRef = EXIF.getTag(this,"GPSLatitudeRef");
-                  var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
-                  var geocoder = new google.maps.Geocoder;
-                  if(lat === undefined ||lon === undefined)
-                  {
-                      var filename=[];
-                      var seennames=[];
+            myReader = new FileReader();
+            myReader.onload = function(event) {
+                var i = document.getElementById("source_image");
+                i.src = event.target.result;
+                i.onload = function(){
+                    console.log("Image loaded");
 
-                      var filenamev = $("#userphoto").val().split('\\').pop();
-                      filename.push(name);
-                      userpic.filename=filename;
-                      //var address=results[1].formatted_address;
-                      userpic.tourstopname="";
-                      console.log("Filename"+JSON.stringify(mapnameobj));
-                      console.log("Filename"+JSON.stringify(userpic));
-                      console.log("Problem in name   "+filenamev);
+                    var source_image = document.getElementById('source_image');
+                    var result_image = document.getElementById('result_image');
 
-                      form.append('userobj',JSON.stringify(userpic));
-                      $.ajax({
-                          url:"/userimageupload",
-                          type:"POST",
-                          data:form,
-                          processData:false,
-                          contentType:false
-                      }).done(function(msg){
-                          if(msg == "yes") {
-                              //check if image is reflected here
-                              //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
-                              console.log("After Save"+filename);
-                              $("#uploadstatus").text("File has been uploaded");
-                              $("#uploadstatus").css({"color":"green"});
-                              $("#uploadForm2")[0].reset();
-                              $('#dropzonePreview').on('complete',function(file){
-                                  console.log("Finally!!");
-                                  $('#dropzonePreview').removeAllFiles(true);
-                              });
-                          }
-                          else
-                                $("#uploadstatus").text("File has not been uploaded");
-                      });
+                    var quality = 70;
+                    console.log("Quality >>" + quality);
+                    console.log("process start...");
+                    var time_start = new Date().getTime();
+                    myImage = dataURItoBlob(jic.compress(source_image,quality,"jpg").src);
 
-                  }else {
-                      var seennames=[];
-                      var latt = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
-                      var lonn = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
-                      var temp = new google.maps.LatLng(latt, lonn);
-                      geocoder.geocode({'latLng': temp}, function (results, status) {
-                          var filename=[];
-                          if(seennames.indexOf(name) === -1) {
-                              seennames.push(name);
-                              if (status === 'OK') {
-                                  var filenamev = $("#userphoto").val().split('\\').pop();
-                                  console.log("Pictures array" + filenameglobal);
-                                  var address = results[1].formatted_address;
-                                  userpic.tourstopname = address;
-                                  filename.push(name);
-                                  userpic.filename = filename;
-                                  console.log("Filename" + JSON.stringify(mapnameobj));
-                                  console.log("Filename" + JSON.stringify(userpic));
-                                  console.log("Problem in name   " + filenamev);
+                    form.append('uploads[]', myImage,filetmp.name);
 
-                                  form.append('userobj', JSON.stringify(userpic));
-                                  $.ajax({
-                                      url: "/userimageupload",
-                                      type: "POST",
-                                      data: form,
-                                      processData: false,
-                                      contentType: false
-                                  }).done(function (msg) {
-                                      if (msg == "yes") {
-                                          //check if image is reflected here
-                                          //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
-                                          console.log("After Save" + filename);
-                                          $("#uploadstatus").text("File has been uploaded");
-                                          $("#uploadstatus").css({"color": "green"});
-                                          $("#uploadForm2")[0].reset();
-                                          $('#dropzonePreview').on('complete', function (file) {
-                                              console.log("Finally!!");
-                                              $('#dropzonePreview').removeAllFiles(true);
-                                          });
-                                      }
-                                      else
-                                          $("#uploadstatus").text("File has not been uploaded");
-                                  });
+                    var duration = new Date().getTime() - time_start;
 
-                                  console.log("Names  " + filename);
-                                  var filename = $("#userphoto").val().split('\\').pop();
-                                  console.log("Filename   " + filename);
+                    console.log("process finished...");
+                    console.log('Processed in: ' + duration + 'ms');
 
 
-                              }
-                          }
-                      });
-                  }
-              });
+                    filename.push(filetmp.name);
+                    picobj=filetmp.name;
+                    var time=EXIF.getTag(filetmp,"DateTime");
+                    console.log("Date Time"+time);
+                    //Get the address of the fileement
+                    EXIF.getData(filetmp, function(){
+                        var name=this.name;
+                        var lat=EXIF.getTag(this,"GPSLatitude");
+                        var lon=EXIF.getTag(this,"GPSLongitude");
+                        var latRef = EXIF.getTag(this,"GPSLatitudeRef");
+                        var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
+                        var geocoder = new google.maps.Geocoder;
+                        if(lat === undefined ||lon === undefined)
+                        {
+                            var filename=[];
+                            var seennames=[];
+
+                            var filenamev = $("#userphoto").val().split('\\').pop();
+                            filename.push(name);
+                            userpic.filename=filename;
+                            //var address=results[1].formatted_address;
+                            userpic.tourstopname="";
+                            console.log("Filename"+JSON.stringify(mapnameobj));
+                            console.log("Filename"+JSON.stringify(userpic));
+                            console.log("Problem in name   "+filenamev);
+
+                            form.append('userobj',JSON.stringify(userpic));
+                            $.ajax({
+                                url:"/userimageupload",
+                                type:"POST",
+                                data:form,
+                                processData:false,
+                                contentType:false
+                            }).done(function(msg){
+                                if(msg == "yes") {
+                                    //check if image is reflected here
+                                    //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
+                                    console.log("After Save"+filename);
+                                    $("#uploadstatus").text("File has been uploaded");
+                                    $("#uploadstatus").css({"color":"green"});
+                                    $("#uploadForm2")[0].reset();
+                                    $('#dropzonePreview').on('complete',function(file){
+                                        console.log("Finally!!");
+                                        $('#dropzonePreview').removeAllFiles(true);
+                                    });
+                                }
+                                else
+                                    $("#uploadstatus").text("File has not been uploaded");
+                            });
+
+                        }else {
+                            var seennames=[];
+                            var latt = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
+                            var lonn = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
+                            var temp = new google.maps.LatLng(latt, lonn);
+                            geocoder.geocode({'latLng': temp}, function (results, status) {
+                                var filename=[];
+                                if(seennames.indexOf(name) === -1) {
+                                    seennames.push(name);
+                                    if (status === 'OK') {
+                                        var filenamev = $("#userphoto").val().split('\\').pop();
+                                        console.log("Pictures array" + filenameglobal);
+                                        var address = results[1].formatted_address;
+                                        userpic.tourstopname = address;
+                                        filename.push(name);
+                                        userpic.filename = filename;
+                                        console.log("Filename" + JSON.stringify(mapnameobj));
+                                        console.log("Filename" + JSON.stringify(userpic));
+                                        console.log("Problem in name   " + filenamev);
+
+                                        form.append('userobj', JSON.stringify(userpic));
+                                        $.ajax({
+                                            url: "/userimageupload",
+                                            type: "POST",
+                                            data: form,
+                                            processData: false,
+                                            contentType: false
+                                        }).done(function (msg) {
+                                            if (msg == "yes") {
+                                                //check if image is reflected here
+                                                //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
+                                                console.log("After Save" + filename);
+                                                $("#uploadstatus").text("File has been uploaded");
+                                                $("#uploadstatus").css({"color": "green"});
+                                                $("#uploadForm2")[0].reset();
+                                                $('#dropzonePreview').on('complete', function (file) {
+                                                    console.log("Finally!!");
+                                                    $('#dropzonePreview').removeAllFiles(true);
+                                                });
+                                            }
+                                            else
+                                                $("#uploadstatus").text("File has not been uploaded");
+                                        });
+
+                                        console.log("Names  " + filename);
+                                        var filename = $("#userphoto").val().split('\\').pop();
+                                        console.log("Filename   " + filename);
+
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+                };
+
+            };
+            myReader.readAsDataURL(filetmp);
+
+            // form.append('uploads[]',filetmp,filetmp.name);
+
           }
         }
 
