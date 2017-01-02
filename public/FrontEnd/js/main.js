@@ -82,7 +82,7 @@ function homeinit(){
       {
         lang=sessionStorage.getItem("lang");
       }
-    console.log("lang sel:" +lang);
+    ////console.log("lang sel:" +lang);
     translateFunction(arraynull,translateLogin);
 
 
@@ -99,7 +99,7 @@ function homeinit(){
 
       }*/
     $('#guestlink').click(function(event){
-      console.log("Guest link click");
+      ////console.log("Guest link click");
       event.preventDefault();
       userid="guest";
       window.location.href="#dashboard";
@@ -109,7 +109,7 @@ function homeinit(){
       var data = {};
       data.name = $('#usr').val();
       data.password = $('#pass').val();
-      console.log(data);
+      ////console.log(data);
       username= $('#usr').val();
       $.ajax({
         url: '/login',
@@ -117,13 +117,13 @@ function homeinit(){
         data: JSON.stringify(data),
         contentType: 'application/json'
       }).done(function (data) {
-        console.log("Browser Data"+data);
+        ////console.log("Browser Data"+data);
         var dat=JSON.parse(data);
           // var dat=data;
-        console.log("Browser Data"+dat.status);
+        ////console.log("Browser Data"+dat.status);
         if(dat.status != "fail")
         {
-          console.log("Successful Login");
+          ////console.log("Successful Login");
           sessionStorage.setItem("username", username);
           userid=username;
           name=dat.username;
@@ -132,7 +132,7 @@ function homeinit(){
         }
         else
         {
-          console.log("Wrong cred");
+          ////console.log("Wrong cred");
           $('#usertext').text("The user id or password is wrong. Please re-enter!!");
           $('#usertext').css({'color':'red'});
           $('#usr').val('');
@@ -156,7 +156,7 @@ function homeinit(){
           data:JSON.stringify(clientobj),
           contentType:'application/json'
         }).done(function(msg){
-          console.log("Returned message "+msg);
+          ////console.log("Returned message "+msg);
           if(msg == 'present'){
             //already present
             $('#info').text('User Id is already present. Please choose another');
@@ -200,7 +200,7 @@ function homeinit(){
     }, function(){});
 
     $('#About').click(function(event){
-      console.log("About link click");
+      ////console.log("About link click");
       window.location.href="#About";
     });
   });
@@ -217,12 +217,12 @@ function dashboardfunction(){
   $('#viewmapregion').empty();
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
-  console.log("User logged in as "+userid+lang);
+  ////console.log("User logged in as "+userid+lang);
 
 
       $("#logoutbutton").on('click', function()
       {
-          console.log("Logout button is clicked");
+          ////console.log("Logout button is clicked");
           //Logout and cancel the sesion
 
           sessionStorage.setItem("username",undefined);
@@ -267,7 +267,7 @@ function dashboardfunction(){
 
 
   $('#savebutt').on('click', function(){
-    console.log("Clicked on savebutton option");
+    ////console.log("Clicked on savebutton option");
     //Launch form
     if(userid =="guest"){
       $('#dialog').dialog("open");
@@ -278,7 +278,7 @@ function dashboardfunction(){
      $('#myModal').modal('show');
 
       $("#submit").on('click', function(){
-        console.log("User clicked submit!");
+        ////console.log("User clicked submit!");
         if($('#mapname').val()=='')
         {
           $('#infofrm').text('please enter some map name to start');
@@ -299,7 +299,7 @@ function dashboardfunction(){
             data:JSON.stringify(dat),
             contentType:'application/JSON'
           }).done(function(msg){
-            console.log('Done');
+            ////console.log('Done');
             if(msg == 'yes') {
               $('#myModal').modal('hide');
               $('#infofrm').text('Map is Saved');
@@ -320,10 +320,10 @@ function dashboardfunction(){
                 var removebutt=document.getElementById("removebutton"+mapname);
                 removebutt.addEventListener("click", function(evt){
                     evt.preventDefault();
-                    console.log("In remove button");
+                    ////console.log("In remove button");
                     var tempid="removebutton"+mapname;
                     var tempstr=tempid.substring(12, tempid.length);
-                    console.log("Remove clicked " + tempstr);
+                    ////console.log("Remove clicked " + tempstr);
                   /*
                    if(mapname == undefined) {
                    deletemapid = msg.name;
@@ -364,7 +364,7 @@ function dashboardfunction(){
           text: "I want to Publish this map for everybody to See!!",
           "class":"btn btn-default",
           click: function(){
-            console.log("clicked"+publishmapid);
+            ////console.log("clicked"+publishmapid);
             var publishmaps={};
             publishmaps.id=publishmapid;
             publishmaps.publish="Y";
@@ -376,7 +376,7 @@ function dashboardfunction(){
               contentType:"application/JSON"
 
             }).done(function(msg){
-              console.log("Returned"+msg);
+              ////console.log("Returned"+msg);
               if(msg == "yes")
               {
                 //Update status message
@@ -411,7 +411,7 @@ function dashboardfunction(){
           text: "I want to delete this map",
           "class": "btn btn-danger",
           click: function() {
-             console.log("Clicked"+deletemapid);
+             ////console.log("Clicked"+deletemapid);
              //Send a post request to server delete all references to map and refresh page.
              var deletedata={};
              deletedata.userid=userid;
@@ -423,10 +423,10 @@ function dashboardfunction(){
                contentType:"application/JSON"
 
              }).done(function(msg){
-               console.log("Message is "+msg);
+               ////console.log("Message is "+msg);
                if(msg == "yes")
                {
-                 console.log("Yes returned"+msg+"  "+ deletemapid);
+                 ////console.log("Yes returned"+msg+"  "+ deletemapid);
                  //Refresh the Page
                  if($('#confirmdeletion').dialog("isOpen"))
                    $('#confirmdeletion').dialog("close");
@@ -469,7 +469,7 @@ function dashboardfunction(){
         data:JSON.stringify(getmap),
         contentType:'application/JSON'
       }).done(function(msg){
-        console.log("Returned message is "+msg);
+        ////console.log("Returned message is "+msg);
         if(msg =="no"){
           $('#viewmapregion').text('You Have No Saved Maps. Please create one to start');
           $('#viewmapregion').css('color','green');
@@ -479,9 +479,9 @@ function dashboardfunction(){
           //call socket function
           socket.emit('getmaps', {userid:userid});
           socket.on('viewmaps', function(msg){
-            console.log(msg.description);
+            ////console.log(msg.description);
             var publish=msg.publish;
-            console.log("Publish is"+publish);
+            ////console.log("Publish is"+publish);
             if(publish ==="N")
             {
               //create private button
@@ -492,7 +492,7 @@ function dashboardfunction(){
                 var buttonstr='<button class="btn btn-success customplacement"><i class="fa fa-check" aria-hidden="true"></i> Public</button>';
 
             }
-            console.log("Buttonstr"+buttonstr);
+            ////console.log("Buttonstr"+buttonstr);
           //Clear view map region
             var obj=document.getElementById(msg.name);
             if(obj == null) {
@@ -502,13 +502,13 @@ function dashboardfunction(){
               var editbutt=document.getElementById("editbutton"+msg.name);
 
               editbutt.addEventListener("click", function(evt){
-                console.log("Hello");
+                //console.log("Hello");
                 //launch modal
                 $("#DescriptionEdit").modal("show");
                 $("#description").val(msg.description);
                 $("#descriptionsub").on("click", function(evt){
                   evt.preventDefault();
-                  console.log("Hello");
+                  //console.log("Hello");
                   var data={};
                   if($('#description').val() == '')
                   {
@@ -523,7 +523,7 @@ function dashboardfunction(){
                     }else
                       data.mapid=mapname;
                     data.text=$('#description').val();
-                    console.log("Data  "+data.userid+"  "+data.mapid);
+                    //console.log("Data  "+data.userid+"  "+data.mapid);
                     //make a form submission
                     $.ajax({
                       url:'/mapdescriptionedit',
@@ -531,7 +531,7 @@ function dashboardfunction(){
                       data:JSON.stringify(data),
                       contentType:'application/JSON'
                     }).done(function(msg){
-                      console.log("Returned  "+msg);
+                      //console.log("Returned  "+msg);
                       if(msg=="yes")
                       {
                         $("#DescriptionEdit").modal("hide");
@@ -548,7 +548,7 @@ function dashboardfunction(){
               publishbutton.addEventListener("click", function (evt) {
                 evt.preventDefault();
                 var tempid=this.id;
-                console.log("Clicked "+msg.name);
+                ////console.log("Clicked "+msg.name);
                 publishmapid=msg.name;
                 $('#publishconformation').dialog("open");
 
@@ -559,7 +559,7 @@ function dashboardfunction(){
                 evt.preventDefault();
                 var tempid=this.id;
                 var tempstr=tempid.substring(12, tempid.length);
-                console.log("Remove clicked " + tempstr);
+                ////console.log("Remove clicked " + tempstr);
                 /*
                 if(mapname == undefined) {
                   deletemapid = msg.name;
@@ -577,8 +577,8 @@ function dashboardfunction(){
 
 
   $('#viewmapregion').on('click','a', function(event){
-    console.log("Link clicked");
-    console.log("Event id is"+event.target.id);
+    ////console.log("Link clicked");
+    ////console.log("Event id is"+event.target.id);
     mapname=event.target.id;
     sessionStorage.setItem("mapname", mapname);
     window.location.href="#UploadImages";
@@ -613,8 +613,8 @@ function imagecontroller(){
     mapname=sessionStorage.getItem("mapname")
   }
 
-  console.log("User logged in as" + userid);
-  console.log("The map id is as"+ mapname);
+  ////console.log("User logged in as" + userid);
+  ////console.log("The map id is as"+ mapname);
   initialize();
   $(document).ready(function(){
     if(lang === "")
@@ -642,7 +642,7 @@ function imagecontroller(){
         data:JSON.stringify(data)
 
     }).done(function (msg) {
-      console.log("Function has been completed successfully"+msg);
+      ////console.log("Function has been completed successfully"+msg);
       if(msg==="no")
       {
         //User is not a seller remove everything related to fileupload
@@ -653,7 +653,7 @@ function imagecontroller(){
     });
 
     $('#logout').click(function(){
-      console.log("On Logging out");
+      ////console.log("On Logging out");
         sessionStorage.setItem("username",undefined);
         sessionStorage.setItem("mapname",undefined);
         userid="";
@@ -680,7 +680,7 @@ function imagecontroller(){
           for (var i = 0; i < byteString.length; i++) {
               ia[i] = byteString.charCodeAt(i);
           }
-          console.log('I am here in dataURI function');
+          // //console.log('I am here in dataURI function');
           return new Blob([ia], {type:mimeString});
       }
 
@@ -731,14 +731,16 @@ function imagecontroller(){
     var myDropZone=new Dropzone("#dropzonePreview",{
       url:"/dragdrop",
       autoProcessQueue:false,
-      uploadMultiple:false,
+      // autoQueue: false,
+      // uploadMultiple:false,
       acceptedFiles: 'image/*',
       parallelUploads: 10,
 
       init:function(){
         this.on('addedfile', function(file){
+
             _this = this;
-            console.log("Added File");
+            ////console.log("Added File");
             $('#userphoto').css('color', "transparent");
             EXIF.getData(file, function(){
               var lat=EXIF.getTag(this,"GPSLatitude");
@@ -752,7 +754,7 @@ function imagecontroller(){
                 var latRef = EXIF.getTag(this,"GPSLatitudeRef");
                 var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
 
-              console.log("Lat refef"+latRef +"  "+lonRef);
+              ////console.log("Lat refef"+latRef +"  "+lonRef);
               if(lat == undefined || lon== undefined)
                 alert("Sorry No Geo Tags present in images");
               else {
@@ -760,8 +762,8 @@ function imagecontroller(){
                 lon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
                 var date=new Date();
                 var tim=time;
-                console.log("Latitide : " + lat);
-                console.log("Longitude : " + lon);
+                ////console.log("Latitide : " + lat);
+                ////console.log("Longitude : " + lon);
                 var temp=new google.maps.LatLng(lat,lon);
                 socket.emit('Latitude', lat);
                 socket.emit('Longitude', lon);
@@ -769,15 +771,15 @@ function imagecontroller(){
                     if (status === 'OK') {
                       var markerobj={};
                         address = results[1].formatted_address;
-                        console.log("Place name:" + results[1].formatted_address);
-                        console.log("Place name   " + results[1]);
+                        ////console.log("Place name:" + results[1].formatted_address);
+                        ////console.log("Place name   " + results[1]);
                         infowindow.setContent(results[1].formatted_address);
                         markerobj.lat=lat;
                         markerobj.lon=lon;
                         markerobj.time=tim;
                         markerobj.id=userid+tim;
                         markerobj.tourstopname=address;
-                        console.log("File Name"+file.name);
+                        ////console.log("File Name"+file.name);
                         markerobj.filename=file.name;
                         //********* input name *****************
                         markercollec.push(markerobj);
@@ -798,7 +800,7 @@ function imagecontroller(){
                         markers.push(marker);
                     }else
                     {
-                      console.log("Geocoder failed"+status);
+                      ////console.log("Geocoder failed"+status);
                     }
                 });
               }
@@ -816,15 +818,19 @@ function imagecontroller(){
 
             myReader2 = new FileReader();
             myReader2.onload = function(event) {
+                console.log(file.status);
+                // var i = new Image();
+
                 var i = document.getElementById("source_image");
                 i.src = event.target.result;
+
                 i.onload = function() {
-                    console.log("Image loaded");
+                    ////console.log("Image loaded");
                     var source_image = document.getElementById('source_image');
 
                     var quality = 70;
-                    console.log("Quality >>" + quality);
-                    console.log("process start...");
+                    ////console.log("Quality >>" + quality);
+                    //console.log("process start...");
                     var time_start = new Date().getTime();
                     comp = jic.compress(source_image, quality, "jpg");
 
@@ -832,20 +838,24 @@ function imagecontroller(){
 
                     // Replace original with resized
 
-                    var origFileIndex = _this.files.indexOf(file);
-                    console.log('Index is ' + origFileIndex);
-                    _this.files[origFileIndex] = editedFile;
+                    var origFileIndex = myDropZone.files.indexOf(file);
+                    //console.log('Index is ' + origFileIndex);
+                    myDropZone.files[origFileIndex] = editedFile;
 
                     // Enqueue added file manually making it available for
                     // further processing by dropzone
-                    _this.enqueueFile(editedFile);
+
+                    editedFile.status = Dropzone.ADDED;
+                    myDropZone.enqueueFile(editedFile);
+
+                    delete source_image;
                 };
             };
             myReader2.readAsDataURL(file);
         });
 
         this.on("sending",function(file,xhr,formData){
-          console.log('I am in sending');
+          //console.log('I am in sending');
 
           var userobj={};
           var mapn={};
@@ -867,16 +877,12 @@ function imagecontroller(){
                   // formData.append('file', myImage, userobj.filename);
         });
 
-        // this.on("processingfile", function(file){
-        //
-        //
-        // });
         this.on("complete", function(file){
             if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                 //Reset Drpzone
                 this.removeAllFiles(true);
             }
-            console.log("On complete dropzone"+file.name);
+            //console.log("On complete dropzone"+file.name);
             EXIF.getData(file, function() {
                 var lat = EXIF.getTag(this, "GPSLatitude");
                 var lon = EXIF.getTag(this, "GPSLongitude");
@@ -889,7 +895,7 @@ function imagecontroller(){
                     var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
                     var lattemp = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
                     var latlon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
-                    console.log("Lat lon dropzone" + latlon + "  " + lattemp);
+                    //console.log("Lat lon dropzone" + latlon + "  " + lattemp);
                     var temp = new google.maps.LatLng(lattemp, latlon);
                     geocoder.geocode({'latLng': temp}, function (results, status) {
                         if (status === 'OK') {
@@ -931,13 +937,13 @@ function imagecontroller(){
           processData:false,
           contentType:false
         }).done(function(msg){
-          console.log(msg);
+          //console.log(msg);
           if(msg == "yes") {
             $("#uploadstatus").text("File has been uploaded");
             $("#uploadstatus").css({"color":"green"});
             $("#uploadForm2")[0].reset();
             $('#dropzonePreview').on('complete',function(file){
-              console.log("Finally!!");
+              //console.log("Finally!!");
             $('#dropzonePreview').removeAllFiles(true);
             });
           }
@@ -945,7 +951,7 @@ function imagecontroller(){
             $("#uploadstatus").text("File has not been uploaded");
         });
 
-        console.log("Names  "+filename);
+        //console.log("Names  "+filename);
         var userpicinfo={};
         userpicinfo.userid=userid;
         userpicinfo.filename=filename;
@@ -956,11 +962,11 @@ function imagecontroller(){
           data:JSON.stringify(userpicinfo),
           contentType:'application/json'
         }).done(function(msg){
-          console.log("Done!!  " +msg);
+          //console.log("Done!!  " +msg);
         });
 
         var filename=$("#userphoto").val().split('\\').pop();
-        console.log("Filename   "+filename);
+        //console.log("Filename   "+filename);
         socket.emit('UserData',{id:userid,file:filename, mapid:"guestmap"});
       }
       else {
@@ -986,20 +992,20 @@ function imagecontroller(){
           {
             var filetmp=fileemenet[i];
             filenameglobal=filetmp.name;
-            console.log("File name########"+filetmp.name);
+            //console.log("File name########"+filetmp.name);
             myReader = new FileReader();
             myReader.onload = function(event) {
                 var i = document.getElementById("source_image");
                 i.src = event.target.result;
                 i.onload = function(){
-                    console.log("Image loaded");
+                    //console.log("Image loaded");
 
                     var source_image = document.getElementById('source_image');
                     var result_image = document.getElementById('result_image');
 
                     var quality = 70;
-                    console.log("Quality >>" + quality);
-                    console.log("process start...");
+                    //console.log("Quality >>" + quality);
+                    //console.log("process start...");
                     var time_start = new Date().getTime();
                     myImage = dataURItoBlob(jic.compress(source_image,quality,"jpg").src);
 
@@ -1007,14 +1013,14 @@ function imagecontroller(){
 
                     var duration = new Date().getTime() - time_start;
 
-                    console.log("process finished...");
-                    console.log('Processed in: ' + duration + 'ms');
+                    //console.log("process finished...");
+                    //console.log('Processed in: ' + duration + 'ms');
 
 
                     filename.push(filetmp.name);
                     picobj=filetmp.name;
                     var time=EXIF.getTag(filetmp,"DateTime");
-                    console.log("Date Time"+time);
+                    //console.log("Date Time"+time);
                     //Get the address of the fileement
                     EXIF.getData(filetmp, function(){
                         var name=this.name;
@@ -1033,9 +1039,9 @@ function imagecontroller(){
                             userpic.filename=filename;
                             //var address=results[1].formatted_address;
                             userpic.tourstopname="";
-                            console.log("Filename"+JSON.stringify(mapnameobj));
-                            console.log("Filename"+JSON.stringify(userpic));
-                            console.log("Problem in name   "+filenamev);
+                            //console.log("Filename"+JSON.stringify(mapnameobj));
+                            //console.log("Filename"+JSON.stringify(userpic));
+                            //console.log("Problem in name   "+filenamev);
 
                             form.append('userobj',JSON.stringify(userpic));
                             $.ajax({
@@ -1048,12 +1054,12 @@ function imagecontroller(){
                                 if(msg == "yes") {
                                     //check if image is reflected here
                                     //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
-                                    console.log("After Save"+filename);
+                                    //console.log("After Save"+filename);
                                     $("#uploadstatus").text("File has been uploaded");
                                     $("#uploadstatus").css({"color":"green"});
                                     $("#uploadForm2")[0].reset();
                                     $('#dropzonePreview').on('complete',function(file){
-                                        console.log("Finally!!");
+                                        //console.log("Finally!!");
                                         $('#dropzonePreview').removeAllFiles(true);
                                     });
                                 }
@@ -1072,14 +1078,14 @@ function imagecontroller(){
                                     seennames.push(name);
                                     if (status === 'OK') {
                                         var filenamev = $("#userphoto").val().split('\\').pop();
-                                        console.log("Pictures array" + filenameglobal);
+                                        //console.log("Pictures array" + filenameglobal);
                                         var address = results[1].formatted_address;
                                         userpic.tourstopname = address;
                                         filename.push(name);
                                         userpic.filename = filename;
-                                        console.log("Filename" + JSON.stringify(mapnameobj));
-                                        console.log("Filename" + JSON.stringify(userpic));
-                                        console.log("Problem in name   " + filenamev);
+                                        //console.log("Filename" + JSON.stringify(mapnameobj));
+                                        //console.log("Filename" + JSON.stringify(userpic));
+                                        //console.log("Problem in name   " + filenamev);
 
                                         form.append('userobj', JSON.stringify(userpic));
                                         $.ajax({
@@ -1092,12 +1098,12 @@ function imagecontroller(){
                                             if (msg == "yes") {
                                                 //check if image is reflected here
                                                 //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
-                                                console.log("After Save" + filename);
+                                                //console.log("After Save" + filename);
                                                 $("#uploadstatus").text("File has been uploaded");
                                                 $("#uploadstatus").css({"color": "green"});
                                                 $("#uploadForm2")[0].reset();
                                                 $('#dropzonePreview').on('complete', function (file) {
-                                                    console.log("Finally!!");
+                                                    //console.log("Finally!!");
                                                     $('#dropzonePreview').removeAllFiles(true);
                                                 });
                                             }
@@ -1105,9 +1111,9 @@ function imagecontroller(){
                                                 $("#uploadstatus").text("File has not been uploaded");
                                         });
 
-                                        console.log("Names  " + filename);
+                                        //console.log("Names  " + filename);
                                         var filename = $("#userphoto").val().split('\\').pop();
-                                        console.log("Filename   " + filename);
+                                        //console.log("Filename   " + filename);
 
 
                                     }
@@ -1133,7 +1139,7 @@ function imagecontroller(){
       { //save the guest map
         maps.name="guestmap";
         maps.id=userid;
-        console.log("Map coordinates "+ markerobj);
+        //console.log("Map coordinates "+ markerobj);
         maps.markerobj=markercollec;
         $.ajax({
           url:"/mapupload",
@@ -1141,7 +1147,7 @@ function imagecontroller(){
           data:JSON.stringify(maps),
           contentType:'application/json'
         }).done(function(response){
-          console.log(response);
+          //console.log(response);
           if(response === "yes") {
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
@@ -1167,21 +1173,21 @@ function imagecontroller(){
         maps.name=mapname;
         maps.id=userid;
         maps.markerobj=markercollec;
-        console.log("Map collection"+ markercollec);
+        //console.log("Map collection"+ markercollec);
         for(var i=0;i<markercollec.length;i++)
         {
           var pos=markercollec[i];
-          console.log("******* Pos ******", pos);
+          //console.log("******* Pos ******", pos);
 
         }
-        console.log("Map coordinates "+ markerobj);
+        //console.log("Map coordinates "+ markerobj);
         $.ajax({
           url:"/mapupload",
           type:'POST',
           data:JSON.stringify(maps),
           contentType:'application/json'
         }).done(function(response){
-          console.log(response);
+          //console.log(response);
           if(response =="yes") {
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
@@ -1218,12 +1224,12 @@ function imagecontroller(){
               contentType:'application/JSON'
             }
           ).done(function(msg){
-            console.log("Returbned message"+ msg);
+            //console.log("Returbned message"+ msg);
           });
       }
     });
     $("#userphoto").on('change', function (event) {
-      console.log("changed"+ event);
+      //console.log("changed"+ event);
       var input=$("#userphoto").get(0).files;
       var count=0;
       for(var i=0;i<input.length;i++)
@@ -1242,8 +1248,8 @@ function imagecontroller(){
             lon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
             var date=new Date();
             var tim=date.getMilliseconds();
-            console.log("Latitide : " + lat);
-            console.log("Longitude : " + lon);
+            //console.log("Latitide : " + lat);
+            //console.log("Longitude : " + lon);
              var temp=new google.maps.LatLng(lat,lon);
               var geocoder = new google.maps.Geocoder;
               var infowindow = new google.maps.InfoWindow;
@@ -1252,8 +1258,8 @@ function imagecontroller(){
                 if(status === 'OK')
                 {
                    var address=results[1].formatted_address;
-                   console.log("Place name:"+results[1].formatted_address);
-                   console.log("Place name   "+results[1]);
+                   //console.log("Place name:"+results[1].formatted_address);
+                   //console.log("Place name   "+results[1]);
                    infowindow.setContent(results[1].formatted_address);
                     socket.emit('Latitude', lat);
                     socket.emit('Longitude', lon);
@@ -1264,7 +1270,7 @@ function imagecontroller(){
                     markerobj.id=userid+tim;
                     var filename = $('#userphoto').val().split('\\').pop();
                     //var fil=document.getElementById("userphoto");
-                    console.log("Name is **&*&"+ this.name+"  "+filename);
+                    //console.log("Name is **&*&"+ this.name+"  "+filename);
                     //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
                     markerobj.filename=this.name;
                     var fil=$("#userphoto").get(0).files;
@@ -1281,7 +1287,7 @@ function imagecontroller(){
                     marker.addListener('click',function () {
                         infowindow.open(map, marker);
                         var reader=new FileReader();
-                        console.log(fil[0]);
+                        //console.log(fil[0]);
                         reader.readAsDataURL(fil[0]);
                         reader.onload=function (e) {
                             $('#image-container').attr("src", e.target.result);
@@ -1293,7 +1299,7 @@ function imagecontroller(){
 
                 }else
                 {
-                  console.log("Geocoder failed due to"+status);
+                  //console.log("Geocoder failed due to"+status);
                 }
               });
 
@@ -1303,7 +1309,7 @@ function imagecontroller(){
       }
     });
       $('#submit_doc').click(function(evt){
-          console.log ( '#submit_doc was clicked' );
+          //console.log ( '#submit_doc was clicked' );
           $("#myFile").prop('disabled', true);
           $("#submit_doc").prop('disabled', true);
           evt.preventDefault();
@@ -1429,21 +1435,21 @@ function placemarker(location, src){
   var tempobj={};
   var filename=src.split('/');
   var actual=filename[filename.length-1];
-  console.log("actua"+actual+"  "+filename);
+  //console.log("actua"+actual+"  "+filename);
   tempobj.filename=actual;
 
-  console.log("In place marker"+src);
+  //console.log("In place marker"+src);
   var marker=new google.maps.Marker({
     position:location,
   });
 
   tempobj.lat=marker.getPosition().lat();
   tempobj.lng=marker.getPosition().lng();
-  console.log("The lat object is"+ src);
+  //console.log("The lat object is"+ src);
   userarray.push(JSON.stringify(tempobj));
   marker.setMap(map);
   marker.addListener('click',function () {
-    console.log("Image Source"+src);
+    //console.log("Image Source"+src);
    //document.getElementById("image").innerHTML='<img src="'+src+'" />';
     //$('#image-container').append('<img class="imageholder" src="'+src+'"</img>');
     $('#image-container').attr("src",src);
@@ -1454,7 +1460,7 @@ function placemarker(location, src){
   markercoor.push(marker);
   $('#something').hide();
 
-  console.log(markercoor);
+  //console.log(markercoor);
 }
 
 function animateCircle(line){
@@ -1462,7 +1468,7 @@ function animateCircle(line){
   window.setInterval(function() {
     count = (count + 1) % 200;
     var icons = line.get('icons');
-    console.log("Icons "+icons);
+    //console.log("Icons "+icons);
     icons[0].offset = (count / 2) + '%';
     line.set('icons', icons);
   }, 20);
@@ -1489,7 +1495,7 @@ function imageupload() {
           mapname=sessionStorage.getItem("mapname")
       }
     //Get markers and initialize them on map
-    console.log("User logged in as "+userid);
+    //console.log("User logged in as "+userid);
     initialize();
 
     var input = document.getElementById('searchbox');
@@ -1522,7 +1528,7 @@ function imageupload() {
       var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
         if (!place.geometry) {
-          console.log("Returned place contains no geometry");
+          //console.log("Returned place contains no geometry");
           return;
         }
         var icon = {
@@ -1556,7 +1562,7 @@ function imageupload() {
     //Fetch images from Server using socketio
     socket.emit("ImageGall",{userid: userid, mapid:mapname});
     socket.on("imagereturn", function(mssg) {
-      console.log("Thumbanils "+mssg.picname);
+      //console.log("Thumbanils "+mssg.picname);
       var loc;
       if (userid == "guest") {
         var mapid = "guestmap";
@@ -1567,7 +1573,7 @@ function imageupload() {
         var mapid=mapname;
         loc=mssg.picpath+"/"+mssg.picname;
       }
-      console.log("Locations "+loc);
+      //console.log("Locations "+loc);
       //if($("#thumbnail li").length === 0)
       var pic=document.getElementById(mssg.picname);
       if(pic == undefined)
@@ -1579,8 +1585,8 @@ function imageupload() {
     var clickname;
     var temp=document.getElementById("thumbnail");
     $('#thumbnail').on('click','img',function(event){
-      console.log("Clicked"+event);
-      console.log($(this).attr('src'));
+      //console.log("Clicked"+event);
+      //console.log($(this).attr('src'));
       clickname=$(this).attr('src');
 
       if($('#something').is(':visible'))
@@ -1606,7 +1612,7 @@ function imageupload() {
       socket.emit("LoadMarker", {id:userid, mapid:"guestmap"});
       socket.on("drawmarkers",function(msg){
         paths=[];
-        console.log(msg.lat+"    "+msg.lng);
+        //console.log(msg.lat+"    "+msg.lng);
         //draw markers on map
         paths.push({lat: msg.lat, lng:msg.lng});
         var myCenter = new google.maps.LatLng(msg.lat, msg.lng);
@@ -1617,7 +1623,7 @@ function imageupload() {
         map.setZoom(2);
         marker.setMap(map);
         marker.addListener('click',function () {
-          console.log("Image Source"+src);
+          //console.log("Image Source"+src);
           $('#image-container').append('<img class="imageholder" src="uploads/'+userid+'/'+msg.filename+'"</img>');
           $('#myModal').modal('show');
           $("#imagedescriptionsub").on("click", function(evt){
@@ -1660,25 +1666,25 @@ function imageupload() {
       //airplane line
       socket.emit("GetTrails", {id:userid, mapid:mapname});
       socket.on("drawtrails", function(msg){
-        console.log("Draw Trails gives"+msg.src+"  "+msg.des);
+        //console.log("Draw Trails gives"+msg.src+"  "+msg.des);
         var src=msg.src;
         var des=msg.des;
         var paths=[];
         if(src.length > 1)
         {
-          console.log("fetched more than one src objs");
+          //console.log("fetched more than one src objs");
           var srcarr=[];
           for(var i=0;i<src.length;i++)
           {
             var latt=parseFloat(src[i].lat);
             var lont=parseFloat(src[i].lon);
-            console.log("Src"+src[i].lat+"  "+src[i].lon);
+            //console.log("Src"+src[i].lat+"  "+src[i].lon);
             var srctemp={lat: latt, lng:lont};
             srcarr.push(srctemp);
           }
           if(des.lat != undefined || des.lon != undefined)
             srcarr.push({lat: parseFloat(des.lat), lng:parseFloat(des.lon)});
-          console.log(srctemp);
+          //console.log(srctemp);
           paths=srcarr;
         }else {
 
@@ -1688,7 +1694,7 @@ function imageupload() {
           paths.push(srctemp);
           paths.push(finaltemp);
         }
-        console.log("Final Paths"+paths);
+        //console.log("Final Paths"+paths);
           var description = msg.description;
           var vehicle = msg.mode;
           var path = new google.maps.Polyline({
@@ -1780,13 +1786,13 @@ function imageupload() {
               //Save the Map details
               var desc = $('#traildescription').val();
               if (desc == "") {
-                console.log("Trail Description is empty");
+                //console.log("Trail Description is empty");
                 $('#traildescription').text("Please enter a valid Trail Description");
               } else {
                 var trail = {};
                 trail.name = userid;
                 trail.map = mapname;
-                console.log("Trail description is present");
+                //console.log("Trail description is present");
                 trail.pathobj = path.getPath().getArray().toString();
                 trail.description = desc;
                 if (vehicle == "") {
@@ -1795,14 +1801,14 @@ function imageupload() {
                 } else {
                   trail.mode = vehicle;
                 }
-                console.log("Created Object" + JSON.stringify(trail) + latitude + longitude);
+                //console.log("Created Object" + JSON.stringify(trail) + latitude + longitude);
                 $.ajax({
                   url: '/traildescription',
                   method: 'POST',
                   data: JSON.stringify(trail),
                   contentType: 'application/JSON'
                 }).done(function (msg) {
-                  console.log("Returend message" + msg);
+                  //console.log("Returend message" + msg);
                   if (msg == "yes") {
                     //close the modal
                     $("#optionsmodal").modal("hide");
@@ -1834,7 +1840,7 @@ function imageupload() {
       socket.emit("LoadMarker", {id:userid, mapid:mapname});
       socket.on("drawmarkers",function data(msg){
         //draw markers on map
-        console.log("Fetched data"+msg.lat+"  "+msg.lng+"  "+msg.id);
+        //console.log("Fetched data"+msg.lat+"  "+msg.lng+"  "+msg.id);
         var temp={lat: msg.lat, lng:msg.lng};
         paths.push(temp);
 
@@ -1863,7 +1869,7 @@ function imageupload() {
 
 
           $("#imagedescriptionsub").on("click", function(evt){
-            console.log("Image description clicked");
+            //console.log("Image description clicked");
             var content=$('#imageinfo').val();
             if(content != "")
             {
@@ -1879,7 +1885,7 @@ function imageupload() {
                 data:JSON.stringify(imgdesdata),
                 contentType:'application/JSON'
               }).done(function(msg){
-                console.log("Return msg"+msg);
+                //console.log("Return msg"+msg);
                 if(msg == "yes")
                 {
                   $('#image-des').text(content);
@@ -1917,7 +1923,7 @@ function imagegallerycontroller(){
         userid=sessionStorage.getItem("username");
         mapname=sessionStorage.getItem("mapname")
     }
-    console.log("In gallery page"+userid);
+    //console.log("In gallery page"+userid);
   $(document).ready(function(){
      //Launch Filters modal
     $('#logoutbutton').click(function(){
@@ -1929,14 +1935,14 @@ function imagegallerycontroller(){
         return true;
     });
     $('#filters').on("click", function(evt){
-      console.log("Filters modal opened");
+      //console.log("Filters modal opened");
       //display the filters
       $('#filtermodal').modal("show");
       //smile check function
       /*
       $('#facecheck').on("click", function (evt) {
         $('#facecheck').attr("checked", true);
-        console.log("Smile checked clicked");
+        //console.log("Smile checked clicked");
         //call the server function
         var data={};
         data.userid=userid;
@@ -1949,7 +1955,7 @@ function imagegallerycontroller(){
           var facevar=mssg.facevar;
           var smilevar=mssg.smilevar;
           var tempimg = document.getElementById("div"+mssg.picname);
-          console.log("Data  "+facevar+"  "+mssg.picname);
+          //console.log("Data  "+facevar+"  "+mssg.picname);
           if(tempimg!= undefined) {
             if (facevar == 0) {
               tempimg.remove();
@@ -1962,7 +1968,7 @@ function imagegallerycontroller(){
       //Smile check  function
       $('#smilecheck').on("click", function(evt){
         $('#smilecheck').attr("checked", true);
-        console.log("Smile checked clicked");
+        //console.log("Smile checked clicked");
 
         socket.emit("ImageGall",{userid: userid, mapid:mapid});
         socket.on("imagereturn", function(mssg) {
@@ -1970,7 +1976,7 @@ function imagegallerycontroller(){
           var facevar=mssg.facevar;
           var smilevar=mssg.smilevar;
           var tempimg = document.getElementById("div"+mssg.picname);
-          console.log("Data  "+facevar+"  "+mssg.picname);
+          //console.log("Data  "+facevar+"  "+mssg.picname);
           if(tempimg!=undefined) {
             if (smilevar == 0) {
               tempimg.remove();
@@ -1983,13 +1989,13 @@ function imagegallerycontroller(){
 
     $('#dispall').on("click", function (evt) {
         $('#dispall').attr("checked", true);
-        console.log("Display all checked clicked");
+        //console.log("Display all checked clicked");
         socket.emit("ImageGall",{userid: userid, mapid:mapid});
         socket.on("imagereturn", function(mssg) {
           //Check if the image is  present if it is remove
           var facevar=mssg.facevar;
           var tempimg = document.getElementById("div"+mssg.picname);
-          console.log("Data  "+facevar+"  "+mssg.picname);
+          //console.log("Data  "+facevar+"  "+mssg.picname);
           if(userid=="guest"){
             var mapid="guestmap";
             var loc="uploads/"+mssg.picname;
@@ -2029,7 +2035,7 @@ function imagegallerycontroller(){
        }
       });
     //$('.blueberry').blueberry();
-    console.log("User is logged as"+ userid);
+    //console.log("User is logged as"+ userid);
     if(userid =="guest")
     {
       var mapid="guestmap";
@@ -2040,9 +2046,9 @@ function imagegallerycontroller(){
 
     socket.emit("ImageGall",{userid: userid, mapid:mapid});
     socket.on("imagereturn", function(mssg){
-      console.log(mssg.description);
-      console.log(mssg.picname);
-      console.log(mssg.picpath);
+      //console.log(mssg.description);
+      //console.log(mssg.picname);
+      //console.log(mssg.picpath);
       if(userid=="guest"){
         var mapid="guestmap";
         var loc="uploads/"+mssg.picname;
@@ -2052,7 +2058,7 @@ function imagegallerycontroller(){
         var loc=mssg.picpath+"/"+mssg.picname;
       }
       if(mssg.picname != undefined && mssg.picpath!=undefined) {
-        console.log("loc"+loc);
+        //console.log("loc"+loc);
         loc1.push(loc);
         var temp=document.getElementById(mssg.picname);
         if(temp == undefined)
@@ -2076,12 +2082,12 @@ function imagegallerycontroller(){
 /*
 function serachpage()
 {
-  console.log("Hello");
+  //console.log("Hello");
   socket.emit("getpublishedmaps", {userid:userid});
   socket.on('receivepublishedmaps', function(msg){
-    console.log("Activated")
-    console.log(msg.name);
-    console.log(msg.description);
+    //console.log("Activated")
+    //console.log(msg.name);
+    //console.log(msg.description);
     //$('#viewmapregion').append(msg.name+msg.description);
     var obj=document.getElementById(msg.name);
     if(obj == null) {
@@ -2099,7 +2105,7 @@ function airplanehandler(){
       var startpos, startend;
       var path;
 
-      console.log("In airplane loop");
+      //console.log("In airplane loop");
       map.addListener("click", function (event) {
         var objplane = [];
         if(objplane.count>0)
@@ -2110,10 +2116,10 @@ function airplanehandler(){
             objplane.pop();
           }
         }
-        console.log("0obj"+objplane);
+        //console.log("0obj"+objplane);
         map.setOptions({draggable: false});
 
-        console.log("ZZZ"+event.latLng+"  "+objplane);
+        //console.log("ZZZ"+event.latLng+"  "+objplane);
         startpos = event.latLng.lat();
         startend = event.latLng.lng();
 
@@ -2122,7 +2128,7 @@ function airplanehandler(){
         map.panTo(coors);
         objplane.push(coors);
         objplane.push(coorssum);
-        console.log("obj" + objplane);
+        //console.log("obj" + objplane);
         var path1 = new google.maps.Polyline({
           path: objplane,
           editable: true,
@@ -2159,11 +2165,11 @@ function trainhandler(){
     var startpos, startend;
     var path;
 
-    console.log("In airplane loop");
+    //console.log("In airplane loop");
     map.addListener("click", function (event) {
       var objtrain = [];
       map.setOptions({draggable: false});
-      console.log(event.latLng);
+      //console.log(event.latLng);
       startpos = event.latLng.lat();
       startend = event.latLng.lng();
       var coors = new google.maps.LatLng(startpos, startend);
@@ -2173,7 +2179,7 @@ function trainhandler(){
       var des={lat: startpos+5, lng: startend+5};
       objtrain.push(src);
       objtrain.push(des);
-      console.log("obj" + objtrain);
+      //console.log("obj" + objtrain);
       var path2 = new google.maps.Polyline({
         path: objtrain,
         editable: true,
@@ -2188,7 +2194,7 @@ function trainhandler(){
 
       if (path2 != undefined) {
         path2.addListener("click", function (event) {
-          console.log("Dragging");
+          //console.log("Dragging");
           path2.setMap(null);
         });
       }
@@ -2208,7 +2214,7 @@ function trainhandler(){
 }
 
 function SaveData(){
-  console.log("In save data "+userarray.length);
+  //console.log("In save data "+userarray.length);
   if(userarray.length<1)
   {
     $("#mapinfosec").text("Please click a picture to get a draggable marker");
@@ -2225,7 +2231,7 @@ function SaveData(){
       sendobj.filename=obj.filename;
       sendobj.lat=obj.lat;
       sendobj.lon=obj.lng;
-      console.log("Built send obj"+sendobj.filename);
+      //console.log("Built send obj"+sendobj.filename);
 
       $.ajax({
         url:('/usermarkersave'),
@@ -2233,7 +2239,7 @@ function SaveData(){
         data:JSON.stringify(sendobj),
         contentType:'application/JSON'
       }).done(function(msg){
-        console.log("Returned message"+msg);
+        //console.log("Returned message"+msg);
         if(msg == "yes")
         {
           $('#mapinfosec').text("Your Map data was saved");
@@ -2256,7 +2262,7 @@ function SaveData(){
       var obj=userpaths[i].path;
 
       var path=obj.getPath().getArray().toString();
-      console.log("Obj is"+path);
+      //console.log("Obj is"+path);
 
       var sendobj={};
       sendobj.userid=userid;
@@ -2266,7 +2272,7 @@ function SaveData(){
       sendobj.mode=userpaths[i].mode;
      // sendobj.lat=obj.lat;
     //  sendobj.lon=obj.lng;
-     console.log("Built send obj"+sendobj.path);
+     //console.log("Built send obj"+sendobj.path);
 
       $.ajax({
         url:('/usertrailmanual'),
@@ -2274,14 +2280,14 @@ function SaveData(){
         data:JSON.stringify(sendobj),
         contentType:'application/JSON'
       }).done(function(msg){
-        console.log("Returned message"+msg);
+        //console.log("Returned message"+msg);
         if(msg == "yes")
         {
-          console.log("Yes returned");
+          //console.log("Yes returned");
           userpaths=[];
         }else
         {
-          console.log("No returned");
+          //console.log("No returned");
           userpaths=[];
         }
       });
@@ -2295,19 +2301,19 @@ function SaveData(){
 function bushandler()
 {
       busactive=1;
-      console.log(airplanehandler.active +"  "+trainhandler.active);
+      //console.log(airplanehandler.active +"  "+trainhandler.active);
       if(planeactive != 1 && trainactive != 1) {
 
       var startpos, startend;
       var path;
 
-      console.log("In airplane loop");
+      //console.log("In airplane loop");
 
       map.addListener("click", function (event) {
 
         var objbus = [];
         map.setOptions({draggable: false});
-        console.log(event.latLng);
+        //console.log(event.latLng);
         startpos = event.latLng.lat();
         startend = event.latLng.lng();
         var coors = new google.maps.LatLng(startpos, startend);
@@ -2315,7 +2321,7 @@ function bushandler()
         map.panTo(coors);
         objbus.push(coors);
         objbus.push(coorssum);
-        console.log("obj" + objbus);
+        //console.log("obj" + objbus);
         var path = new google.maps.Polyline({
           path: objbus,
           editable: true,
@@ -2329,7 +2335,7 @@ function bushandler()
         });
         if (path != undefined) {
           path.addListener("click", function (event) {
-            console.log("Dragging");
+            //console.log("Dragging");
             path.setMap(null);
           });
         }
@@ -2365,8 +2371,8 @@ function ResetAll()
 
 
 function translateFunction(arr1,arr2) {
-    /*console.log("SSAsadsasasa"+ $(this).text()+" "+lang);*/
-    console.log("SSAsadsasasa"+"#eng"+" "+lang);
+    /*//console.log("SSAsadsasasa"+ $(this).text()+" "+lang);*/
+    //console.log("SSAsadsasasa"+"#eng"+" "+lang);
     var out = "";
     var i = 0;
     var m = 0;
@@ -2375,43 +2381,43 @@ function translateFunction(arr1,arr2) {
     }*/
 
     var arr = arr1.concat(arr2);
-    console.log(lang+lang);
+    //console.log(lang+lang);
 
     $(document).on('click', '.dropdown-menu li a', function () {
      lang = $(this).text();
      sessionStorage.setItem("lang", lang);
-     console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
+     //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
 
 
       if(lang=="English" || lang =="Englisch"){
-        console.log(arr.length);
+        //console.log(arr.length);
         for(i = 0; i<arr.length; i++){
-            /*console.log(i);*/
+            /*//console.log(i);*/
             out = arr[i].en;
             eleId = arr[i].id;
-/*            console.log(out);
-            console.log(a);*/
-            console.log(eleId);
+/*            //console.log(out);
+            //console.log(a);*/
+            //console.log(eleId);
             document.getElementById(eleId).innerHTML = out;
         }
     }
     else if(lang=="Deutsch" || lang=="German"){
         for(i = 0; i<arr.length; i++){
-/*        console.log(i);*/
+/*        //console.log(i);*/
             out = arr[i].de;
             eleId = arr[i].id;
 
-            console.log(eleId);
+            //console.log(eleId);
             document.getElementById(eleId).innerHTML = out;
-            console.log(out);
-            console.log(document.getElementById(eleId));
+            //console.log(out);
+            //console.log(document.getElementById(eleId));
     }
     }
 
 });
 
     /*var lang ="Deutsch";
-    console.log(lang); */
+    //console.log(lang); */
 
     /*var sub_key=[];
     *//*var transkeys = Object.keys(arr);*//*
@@ -2429,29 +2435,29 @@ function translateFunction(arr1,arr2) {
         out = arr[0].en;
 
     }*/
-    console.log("lang before if:" +lang);
+    //console.log("lang before if:" +lang);
     if(lang=="English" || lang =="Englisch"){
-        console.log(arr.length);
+        //console.log(arr.length);
         for(i = 0; i<arr.length; i++){
-            /*console.log(i);*/
+            /*//console.log(i);*/
             out = arr[i].en;
             eleId = arr[i].id;
-/*            console.log(out);
-            console.log(a);*/
-            console.log(eleId);
+/*            //console.log(out);
+            //console.log(a);*/
+            //console.log(eleId);
             document.getElementById(eleId).innerHTML = out;
         }
     }
     else if(lang=="Deutsch" || lang=="German"){
         for(i = 0; i<arr.length; i++){
-/*        console.log(i);*/
+/*        //console.log(i);*/
             out = arr[i].de;
             eleId = arr[i].id;
 
-            console.log(eleId);
+            //console.log(eleId);
             document.getElementById(eleId).innerHTML = out;
-            console.log(out);
-            console.log(document.getElementById(eleId));
+            //console.log(out);
+            //console.log(document.getElementById(eleId));
     }
     }
 
