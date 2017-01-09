@@ -354,7 +354,7 @@ module.exports= {
           {
 
               //console.log("Got Data" + doc.tourstopname);
-              callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description);
+              callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description,doc.duration);
 
           }
         });
@@ -378,7 +378,7 @@ module.exports= {
                     {
 
                         //console.log("Got Data" + doc.tourstopname);
-                        callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description);
+                        callback(doc.tourstopname, doc.vehicle, doc.lat, doc.lon, doc.description, doc.duration);
 
                     }
                 });
@@ -530,7 +530,7 @@ module.exports= {
 
 
 
-  addTourStops:function(connectionstring, userid, mapname, vehicle, tourstopname,lat,lng, description,pos, callback)
+  addTourStops:function(connectionstring, userid, mapname, vehicle, tourstopname,lat,lng, description,pos, dur, callback)
   {
     if(callback)
       callback();
@@ -551,8 +551,6 @@ module.exports= {
                       pos1=doc.position+1;
                   }
               }
-
-
               //New Tour
               mongodb.connect(connectionstring, function (err, db) {
                   var collec = db.collection('tourstop');
@@ -565,7 +563,8 @@ module.exports= {
                           "lat": lat,
                           "lon": lng,
                           "description": description,
-                          "position":pos1
+                          "position":pos1,
+                          "duration":dur
                       }, {w: 1}, function (err, records) {
 
                           if (records != null) {

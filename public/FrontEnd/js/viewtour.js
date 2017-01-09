@@ -54,7 +54,7 @@ function viewtourcontroller()
            var vehicle=msg.vehicle;
            var lat=msg.lat;
            var lon=msg.lng;
-
+            var dur=msg.duration;
            var pos=new google.maps.LatLng(lat,lon);
            map.panTo(pos);
            map.setZoom(5);
@@ -67,7 +67,7 @@ function viewtourcontroller()
            });
            itemarkers.push(marker);
            locations.push(msg.name);
-           tempstr = msg.name;
+           tempstr = "Durations: "+dur+" days in "+ msg.name;
            var tempid=document.getElementById("headsrc"+nmt);
            console.log("Tempid"+tempid);
            if(tempid === null) {

@@ -2471,7 +2471,6 @@ function ResetAll()
   });
 
 }
-
 function translateFunction(arr1,arr2) {
     /*console.log("SSAsadsasasa"+ $(this).text()+" "+lang);*/
     console.log("SSAsadsasasa"+"#eng"+" "+lang);
@@ -2488,7 +2487,7 @@ function translateFunction(arr1,arr2) {
     $(document).on('click', '.dropdown-menu li a', function () {
         lang = $(this).text();
         sessionStorage.setItem("lang", lang);
-        console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
+        //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
 
 
         if(lang=="English" || lang =="Englisch"){

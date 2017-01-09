@@ -487,9 +487,10 @@ app.post('/tourstopsave', function(req,res){
         var des=req.body.des;
         var veh="driving";
         var pos=req.body.pos;
+        var dur=req.body.duration;
         console.log("In Tour Stop Save"+markername);
         //Make respective db entry
-        connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
+        connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos,dur, function(message)
         {
             if(message!=undefined) {
                 if (message == "yes") {
@@ -518,8 +519,9 @@ app.post('/itesave', function(req,res){
     var des=marr.des;
     var veh="driving";
     var pos=marr.pos;
+    var dur=1;
     //Make respective db entry
-    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
+    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, dur, function(message)
     {
       if(message!=undefined) {
         if (message == "yes") {
@@ -606,7 +608,7 @@ app.post('/mapupload', function(req,res){
             flag = false;
         }
       });
-      connect.addTourStops(mongofil,req.body.id, req.body.name, "car",marker[i].tourstopname,marker[i].lat,marker[i].lon,"",0, function (message) {
+      connect.addTourStops(mongofil,req.body.id, req.body.name, "car",marker[i].tourstopname,marker[i].lat,marker[i].lon,"",0, 1, function (message) {
          if(message!=undefined)
          {
              if (message == "yes")
@@ -779,7 +781,7 @@ app.post('/dragdrop', function(req,res){
           var mapname=obj["mapname"];
           var tourst=obj["userid"];
           var tourstopname=obj["address"];
-          connect.addTourStops(mongofil,tourst,mapname,"bus", tourstopname,lat,lon, "",0, function (mssg) {
+          connect.addTourStops(mongofil,tourst,mapname,"bus", tourstopname,lat,lon, "",0,1, function (mssg) {
             if(mssg!=undefined)
             {
               if(mssg ===  "yes")
@@ -931,6 +933,7 @@ app.post('/usertourstop', function(req,res){
                 var uploadpath='/uploads/'+userid+'/' + mapname;
                 var tourstopname=obj['tourstopname'];
                 var description=obj['description'];
+
 
                 //call database and update the database
                 for(var i=0;i<filenames.length;i++)
@@ -1396,21 +1399,21 @@ socket.on('connection',function(socket){
   socket.on('getTourStops', function(msg){
     console.log("Message received"+msg.userid);
     console.log("Mapname"+msg.mapname);
-    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,description, duration)
     {
       if(tourstopnam!=undefined ) {
         console.log("Sending Data"+description);
-        socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
+        socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon, duration:duration});
       }
     });
   });
   socket.on('getSearchTours', function(msg){
     console.log("Message received is"+msg.mapname);
-        connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+        connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description, duration)
       {
           if(tourstopnam!=undefined ) {
               console.log("Sending Data"+description);
-              socket.emit("viewserachtours", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
+              socket.emit("viewserachtours", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon, duration:duration});
           }
       });
   });

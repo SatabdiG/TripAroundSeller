@@ -491,6 +491,17 @@ navbar{
 
 }
 
+.menuheader
+{
+  text-align: center;
+}
+
+.menubutton
+{
+  width: 75%;
+  background-color: #DB3E00;
+
+}
 
 .favthumbcontainer a{
   color: #ffb366;

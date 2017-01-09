@@ -25,6 +25,9 @@ function serachpage()
             //Display save button
             $("#SearchTour").remove();
 
+        }else
+        {
+            username=sessionStorage.getItem("username");
         }
        console.log("In Controller");
         console.log("Hello");
