@@ -143,6 +143,7 @@ function iteniarygenerator()
         window.location.href="#";
     });
     locnames=[];
+
     //fetch Results and populate the page
     socket.emit("getTourStops",{"userid":userid,"mapname":mapname});
     socket.on("viewTourStops",function(msg){

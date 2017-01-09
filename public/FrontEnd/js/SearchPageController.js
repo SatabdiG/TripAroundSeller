@@ -14,6 +14,11 @@ function serachpage()
              window.location.href="#";
         });
 
+        $('#durationmodal').on("click", function(){
+           console.log("Element had been clicked");
+
+        });
+
        console.log("Username is "+sessionStorage.getItem("username"));
         if(sessionStorage.getItem("username") === null)
         {
