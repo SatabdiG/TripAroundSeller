@@ -823,7 +823,7 @@ module.exports= {
     });
   },
   //Save Maps to database
-  addmaps:function (connectionstring,userid, mapname, mapdescription, callback) {
+  addmaps:function (connectionstring,userid, mapname, mapdescription, startDate, geoTagsStatus, endDate, callback) {
 
     if (callback) {
       callback();
@@ -838,7 +838,10 @@ module.exports= {
           "userid": userid,
           "mapname": mapname,
           "mapdescription": mapdescription,
-          "publish":"N"
+            "publish":"N",
+          "startDate": startDate,
+          "endDate": endDate,
+          "geoTagsStatus": geoTagsStatus
         }, {w: 1}, function (err, records) {
 
           if (records != null) {

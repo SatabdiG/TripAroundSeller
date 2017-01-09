@@ -6,6 +6,7 @@ var itemarkers=[];
 
 function iteniarygenerator()
 {
+    $(".modal-backdrop").remove()
     var count=1;
     $(document).ready(function(){
         if(userid === undefined)

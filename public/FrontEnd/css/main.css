@@ -875,3 +875,5 @@ i {
     font-size: 16px;
     line-height: 1.42857143;
 }
+
+.datepicker{z-index:1151 !important;}

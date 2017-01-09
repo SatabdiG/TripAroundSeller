@@ -277,7 +277,13 @@ function dashboardfunction(){
       //Launch form
      $('#myModal').modal('show');
 
-      $("#submit").on('click', function(){
+        $('#datetimepicker1').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+        $('#datetimepicker2').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+        $("#submit").on('click', function(){
         ////console.log("User clicked submit!");
         if($('#mapname').val()=='')
         {
@@ -292,7 +298,13 @@ function dashboardfunction(){
           dat.name=$('#mapname').val();
           dat.description=$('#descriptiontext').val();
           dat.userid=userid;
+          dat.startDate = $('#datetimepicker1').val();
+          dat.endDate = $('#datetimepicker2').val();
+          dat.geoTagsStatus = parseInt($('#geoTags_info input:radio:checked').val()); // 1 for yes, 0 for no, and 2 for try
 
+          // console.log(typeof parseInt(dat.geoTagsStatus));
+          // console.log(parseInt(dat.geoTagsStatus));
+          // return;
           $.ajax({
             url:'/mapsave',
             method:'POST',
@@ -332,8 +344,25 @@ function dashboardfunction(){
                     deletemapid=tempstr;
                     $('#confirmdeletion').dialog("open");
                 });
+                var link_toGo;
+                switch(dat.geoTagsStatus){
+                    case 0:
+                        link_toGo = "#iteniary"
+                        console.log('You have selected no');
+                        break;
+                    case 1:
+                        link_toGo = "#UploadImages"
+                        console.log('You have selected yes');
+                        break;
+                    case 2:
+                        link_toGo = "#UploadImages"
+                        console.log('You have selected try');
+                        break;
+                }
+                $('#myModal').modal('hide');
+                sessionStorage.setItem("mapname", mapname);
+                window.location.href=link_toGo;
 
-                //return false;
             }
             else
             {
@@ -342,8 +371,8 @@ function dashboardfunction(){
               $('#infofrm').css('color', 'red');
             }
           });
-          $('#myModal').modal('toggle');
-          return false;
+
+          // return false;
         }
       });
 
@@ -577,8 +606,8 @@ function dashboardfunction(){
 
 
   $('#viewmapregion').on('click','a', function(event){
-    ////console.log("Link clicked");
-    ////console.log("Event id is"+event.target.id);
+    // console.log("Link clicked");
+    // console.log("Event id is : "+event.target.id);
     mapname=event.target.id;
     sessionStorage.setItem("mapname", mapname);
     window.location.href="#UploadImages";
@@ -607,6 +636,9 @@ function imagecontroller(){
   var markers=[];
   var picobj={};
   var maps={};
+  console.log('trying to hide box');
+  // $('.modal-backdrop fade in').remove();
+  $(".modal-backdrop").remove();
   if(userid === undefined || mapname === undefined)
   {
     userid=sessionStorage.getItem("username");
@@ -998,7 +1030,7 @@ function imagecontroller(){
                 var i = document.getElementById("source_image");
                 i.src = event.target.result;
                 i.onload = function(){
-                    //console.log("Image loaded");
+                    console.log("Image loaded");
 
                     var source_image = document.getElementById('source_image');
                     var result_image = document.getElementById('result_image');

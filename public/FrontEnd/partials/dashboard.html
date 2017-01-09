@@ -1,3 +1,6 @@
+<style>
+  .datepicker{z-index:1151 !important;}
+</style>
 <!-- Upon loggin in the user sees this page first -->
 <!-- old navbar
 <nav class="navbar navbar-inverse">
@@ -132,7 +135,25 @@
             <label for="descriptiontext">Describe your trip</label>
             <textarea class="form-control" id="descriptiontext" rows="3" placeholder="Example: My friends and I went to Paris for a weekend. We had so much fun!"></textarea>
           </div>
-
+          <div class="form-group">
+            <label for="desc">When was your tour?</label>
+          </div>
+          <div class="form-group">
+            <!--<label for="startDate">Start Date</label>-->
+            <input id="datetimepicker1" type="text" class="form-control" placeholder="Start Date"/>
+          </div>
+          <div class="form-group">
+            <!--<label for="endDate">End Date</label>-->
+            <input id="datetimepicker2" type="text" class="form-control" placeholder="End Date"/>
+          </div>
+          <div class="form-group">
+            <label for="containGeos">Do your pictures have geotags?</label><br/>
+            <div class="btn-group" id="geoTags_info" data-toggle="buttons">
+            <label for="yesGeo"><input type="radio" name="have_geos" value="1" checked>Yes</label><br/>
+            <label for="noGeo"><input type="radio" name="have_geos" value="0" >No</label><br/>
+            <label for="tryGeo"><input type="radio" name="have_geos" value="2" > Don't know, let's try with one picture</label>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
