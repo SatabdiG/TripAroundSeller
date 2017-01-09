@@ -437,6 +437,8 @@ navbar{
 
 }
 
+
+
 .mapobj{
   width: 100%;
   height: auto;
@@ -457,6 +459,60 @@ navbar{
   right: 3%;
 }
 
+#myinspiration
+{
+
+  padding-bottom: 20px;
+  position: relative;
+  top: 35px;
+  background-color: #ffb366;
+  font-size: 20px;
+  text-align: center;
+  height: 30px;
+
+
+}
+.username{
+  padding-top: 5px;
+  font-size: 15px;
+  color: #021a40;
+
+}
+
+.favthumbcontainer{
+
+  background-color: #F28123;
+  width:75%;
+  padding-bottom: 30px;
+  padding-top: 45px;
+  text-align: center;
+  overflow-x: hidden;
+
+
+}
+
+.menuheader
+{
+  text-align: center;
+}
+
+.menubutton
+{
+  width: 75%;
+  background-color: #DB3E00;
+
+}
+
+.favthumbcontainer a{
+  color: #ffb366;
+}
+
+.customplacementcheck
+{
+  position: relative;
+  top:5%;
+  right:3%;
+}
 .navbar-custom a
 {
 
@@ -856,6 +912,11 @@ i {
   color: #C0392B;
   border-radius: 1.6em; }
 }*/
+
+#inspiarea
+{
+  padding-top: 40px;
+}
 .top-buffer { margin-top:30px; }
 
 .FooterTitle{

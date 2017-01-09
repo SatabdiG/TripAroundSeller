@@ -31,6 +31,7 @@ function iteniarygenerator()
         var dat={};
         dat.mapID=mapname;
         dat.userid=userid;
+
         $.ajax({
             url: '/fetchiter',
             method: 'POST',
@@ -40,7 +41,6 @@ function iteniarygenerator()
             // console.log(typeof msg);
             // console.log(msg);
             myobj = JSON.parse(msg);
-
             for(i = 1; i <= parseInt(myobj["tot_contents"]); i++){
                 heading = "heading_";
                 content = "content_";
@@ -127,12 +127,29 @@ function iteniarygenerator()
 
         });
 
+        var durationtotal=4;
+        for(i=1;i<durationtotal;i++)
+        {
+            var buttontxt="dur"+i;
+            $("#"+buttontxt).on("click", function () {
+               console.log("Clicked");
+                var values=$(this).text();
+               $("#duration").val(values);
+            });
+        }
+       $("#dur1").on("click", function(evt)
+       {
+          var values=$(this).text();
+          $("#duration").val(values);
+       });
     //Contains user created markers
     var markers = [];
 
     var createMarker=0;
     var seennames=[];
-
+    $(".itenary-panel").accordion({
+        collapsible: true
+    });
 
     $("#logoutbutton").on('click', function()
     {
@@ -144,6 +161,7 @@ function iteniarygenerator()
         window.location.href="#";
     });
     locnames=[];
+
     //fetch Results and populate the page
     socket.emit("getTourStops",{"userid":userid,"mapname":mapname});
     socket.on("viewTourStops",function(msg){
@@ -154,6 +172,7 @@ function iteniarygenerator()
             locnames.push(msg.name);
             console.log("locnames"+locnames);
             //var nmt=msg.name.replace(/ /g,'');
+            var dur=msg.duration;
             var strtmp=msg.name;
             var str1=strtmp.replace(/. /g,'');
             var str2=str1.replace(/,/g,'');
@@ -176,7 +195,8 @@ function iteniarygenerator()
             itemarkers.push(marker);
             //Create the rest of the structure
             //Create a header for the string
-            tempstr = msg.name;
+
+            tempstr = "Duration : "+dur+" Days in "+msg.name;
             //Main Container div
             var tempid=document.getElementById("head"+nmt);
             if(tempid === null) {
@@ -627,6 +647,10 @@ function iteniarygenerator()
                 itemarkers.push(marker);
                 if(marker.title != null){
                     //Create a header for the string
+                    if($("#duration").val()!== "")
+                    {
+                        tempstr = "Duration :"+$('#duration').val()+" Days in "+marker.title;
+                    }else
                     tempstr = marker.title;
                     //Main Container div
                     var mother=document.createElement('div');
@@ -838,6 +862,7 @@ function iteniarygenerator()
                         userobj.lng = marker.getPosition().lng();
                         userobj.des = $('#text' + marker.title).text();
                         userobj.pos=count;
+                        userobj.duration=$("#duration").val();
                         count+=1;
 
 
