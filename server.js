@@ -1205,7 +1205,6 @@ socket.on('connection',function(socket){
    console.log("Longittude"+msg);
   });
 
-
  socket.on('picdetailsimageupload', function(msg){
 
    var filename=msg.filename;
@@ -1229,13 +1228,13 @@ socket.on('connection',function(socket){
         var lat=msg.lat;
         var lon=msg.lon;
         var tourstopname=msg.tourstopname;
-        console.log("Tour details update" + lat+ tourstopname);
+        //console.log("Tour details update" + lat+ tourstopname);
         //Update the imagedetails in picturescollection
 
         connect.updateTour(mongofil,lat,lon,tourstopname, function(mssg){
             if(mssg == "done")
             {
-                console.log("Picture has been updated");
+                //console.log("Picture has been updated");
             }
 
         });
@@ -1244,10 +1243,10 @@ socket.on('connection',function(socket){
     });
 
   socket.on('UserData',function(msg){
-    console.log("In user data function");
+    //console.log("In user data function");
     user=msg.id;
     map=msg.mapid;
-    console.log("The user is"+user+"  "+map);
+    //console.log("The user is"+user+"  "+map);
 
   });
 
@@ -1313,15 +1312,15 @@ socket.on('connection',function(socket){
     });
 
   socket.on("GetTrails", function(msg){
-    console.log("In get trails");
+    //console.log("In get trails");
     //Get the trails
     var userid=msg.id;
     var maps=msg.mapid;
 
     connect.getTrails(mongofil,userid,maps,function(userid,mapid,src,des, description, mode){
-      console.log("In get Trails");
+      //console.log("In get Trails");
       if(src != undefined || des != undefined ||mode != undefined ) {
-        console.log("Retrived for trails   " + src.lat + "  " + des.lon+"  "+mode);
+        //console.log("Retrived for trails   " + src.lat + "  " + des.lon+"  "+mode);
         socket.emit("drawtrails", {src: src, des: des, map:mapid, mode:mode, description:description});
       }
     });
@@ -1329,10 +1328,10 @@ socket.on('connection',function(socket){
   });
 
   socket.on('ImageGall', function(msg){
-    console.log("Message received"+ msg.mapid);
+    //console.log("Message received"+ msg.mapid);
     connect.getPictures(mongofil, msg.userid, msg.mapid,function(picname, picpath, mapid, description, facevar, smilevar){
       if(picname!=undefined && picpath!= undefined && mapid!= undefined) {
-        console.log(picname + "  " + facevar + "   " + mapid);
+        //console.log(picname + "  " + facevar + "   " + mapid);
         socket.emit("imagereturn", {picname: picname, picpath: picpath, mapid: mapid, userid:msg.userid, description:description, facevar:facevar, smilevar:smilevar});
       }
     });
@@ -1340,10 +1339,10 @@ socket.on('connection',function(socket){
   });
 
     socket.on('ViewGall', function(msg){
-        console.log("Message received"+ msg.mapid);
+        //console.log("Message received"+ msg.mapid);
         connect.getPicturesViewPage(mongofil, msg.mapid,function(picname, picpath, mapid, description, facevar, smilevar){
             if(picname!=undefined && picpath!= undefined && mapid!= undefined) {
-                console.log(picname + "  " + facevar + "   " + mapid);
+                //console.log(picname + "  " + facevar + "   " + mapid);
                 socket.emit("ViewGallReturn", {picname: picname, picpath: picpath, mapid: mapid, userid:msg.userid, description:description, facevar:facevar, smilevar:smilevar});
             }
         });
@@ -1352,14 +1351,14 @@ socket.on('connection',function(socket){
 
   socket.on("fetchImg", function(msg)
   {
-    console.log("Message received in g=fetch Img"+msg.tourstopname);
+    //console.log("Message received in g=fetch Img"+msg.tourstopname);
     var userid=msg.userid;
     var mapname=msg.mapname;
     var tourstopname=msg.tourstopname;
     connect.getPicturesTourStop(mongofil, userid,mapname,tourstopname, function(picname,picpath,tourstopname){
       if(picname!=undefined && picpath!=undefined )
       {
-        console.log("picname"+picname);
+        //console.log("picname"+picname);
         socket.emit("getImg", {"picname":picname,"picpath":picpath, "tourstopname":tourstopname});
       }
     });
@@ -1368,7 +1367,7 @@ socket.on('connection',function(socket){
 
     socket.on("fetchImgsrc", function(msg)
     {
-        console.log("Message received in g=fetch Img"+msg.userid);
+        //console.log("Message received in g=fetch Img"+msg.userid);
         var userid=msg.userid;
         var mapname=msg.mapname;
         var tourstopname=msg.tourstopname;
