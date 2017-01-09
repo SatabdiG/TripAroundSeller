@@ -90,7 +90,7 @@ function homeinit(){
     {
       window.location.href="#";
       //window.location.reload()
-    })
+    });
     /*
       if(document.getElementById("pp-nav") != null)
       {
@@ -99,7 +99,7 @@ function homeinit(){
 
       }*/
     $('#guestlink').click(function(event){
-      console.log("Guest link click");
+      //console.log("Guest link click");
       event.preventDefault();
       userid="guest";
       window.location.href="#dashboard";
@@ -215,10 +215,50 @@ function dashboardfunction(){
           lang=sessionStorage.getItem("lang");
       }
   $('#viewmapregion').empty();
+  $('#inspiarea').empty();
+
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
   console.log("User logged in as "+userid+lang);
+    //Fill in insi area from the current users fav list
+      socket.emit("viewfavmaps", {username:userid});
+      socket.on("getfavmaps", function(mssg){
+         console.log("Getting favorite maps");
+         var username=mssg.username;
+         var mapname=mssg.mapname;
+         var description=mssg.description;
+         console.log("Details retrived are"+ username+"  "+ mapname+"  "+description);
+         var obj=document.getElementById("favmaps"+mapname);
+         if(obj === null) {
+             $('#inspiarea').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a' + mapname + '" class="searchlink"><div id="favmaps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + description + '</p></div></a><div id="favimage'+mapname+'" class="thumbnail"></div> <div class="username"> By User :'+username+'</div> <div class="fav"></div> </div></div>');
+             var doc = document.getElementById("favimage" + mapname);
+             var location=mapname;
+             socket.emit("searchimage", {mapname:mapname});
+             socket.on("getimagesearch", function(msg) {
+                 console.log("Mapname" + location);
+                 piclocation = msg.location + "/" + msg.picname;
+                 console.log("in get Search Images" + piclocation);
+                 var temele = document.getElementById("imgsrc" + location);
+                 if (temele == null) {
+                     var imgele = document.createElement("img");
+                     imgele.setAttribute("id", "imgsrc" + location);
+                     imgele.setAttribute("class", "thumbnailimg");
+                     imgele.setAttribute("src", piclocation);
+                     doc.appendChild(imgele);
+                 }
+             });
+             $('#a'+mapname).on('click', function(evt){
+                 evt.preventDefault();
+                 sessionStorage.setItem("searchmap", mapname);
+                 serachmap=mapname;
+                 window.location.href="#overview";
+             });
 
+
+         }
+
+
+      });
 
       $("#logoutbutton").on('click', function()
       {
@@ -308,12 +348,54 @@ function dashboardfunction(){
               var obj=document.getElementById('maps'+mapname);
               if(obj == null) {
                   var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
-                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div></div></div>');
+                  var editbutton='<button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>';
+                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p id="info'+mapname+'">Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div></div></div>');
               }
                 var publishbutton=document.getElementById("publish"+mapname);
                 publishbutton.addEventListener("click", function (evt) {
                     publishmapid=mapname;
                     $('#publishconformation').dialog("open");
+
+                });
+
+                var editbutt=document.getElementById("editbutton"+mapname);
+
+                editbutt.addEventListener("click", function(evt){
+                    console.log("Hello");
+                    //launch modal
+                    $("#DescriptionEdit").modal("show");
+                    $("#description").val(msg.description);
+                    $("#descriptionsub").on("click", function(evt){
+                        evt.preventDefault();
+                        console.log("Hello");
+                        var data={};
+                        if($('#description').val() == '')
+                        {
+                            $('#infodescrip').text("Please enter a description");
+                            $("#infodescrip").css("color", "red");
+                        }else
+                        {
+                            var data={};
+                            data.userid=userid;
+                            data.mapid=mapname;
+                            data.text=$('#description').val();
+                            console.log("Data  "+data.userid+"  "+data.mapid);
+                            //make a form submission
+                            $.ajax({
+                                url:'/mapdescriptionedit',
+                                type:'POST',
+                                data:JSON.stringify(data),
+                                contentType:'application/JSON'
+                            }).done(function(msg){
+                                console.log("Returned  "+msg);
+                                if(msg=="yes")
+                                {
+                                    $("#DescriptionEdit").modal("toggle");
+                                    $('#info'+data.mapid).text("Description: "+data.text);
+                                }
+                            });
+                        }
+                    });
 
                 });
 
@@ -323,8 +405,8 @@ function dashboardfunction(){
                     console.log("In remove button");
                     var tempid="removebutton"+mapname;
                     var tempstr=tempid.substring(12, tempid.length);
-                    console.log("Remove clicked " + tempstr);
-                  /*
+                    //console.log("Remove clicked " + tempstr);
+                   /*
                    if(mapname == undefined) {
                    deletemapid = msg.name;
                    }else
@@ -364,7 +446,7 @@ function dashboardfunction(){
           text: "I want to Publish this map for everybody to See!!",
           "class":"btn btn-default",
           click: function(){
-            console.log("clicked"+publishmapid);
+            //console.log("clicked"+publishmapid);
             var publishmaps={};
             publishmaps.id=publishmapid;
             publishmaps.publish="Y";
@@ -376,7 +458,7 @@ function dashboardfunction(){
               contentType:"application/JSON"
 
             }).done(function(msg){
-              console.log("Returned"+msg);
+              //console.log("Returned"+msg);
               if(msg == "yes")
               {
                 //Update status message
@@ -411,7 +493,7 @@ function dashboardfunction(){
           text: "I want to delete this map",
           "class": "btn btn-danger",
           click: function() {
-             console.log("Clicked"+deletemapid);
+             //console.log("Clicked"+deletemapid);
              //Send a post request to server delete all references to map and refresh page.
              var deletedata={};
              deletedata.userid=userid;
@@ -481,7 +563,7 @@ function dashboardfunction(){
           socket.on('viewmaps', function(msg){
             console.log(msg.description);
             var publish=msg.publish;
-            console.log("Publish is"+publish);
+            //console.log("Publish is"+publish);
             if(publish ==="N")
             {
               //create private button
@@ -496,52 +578,59 @@ function dashboardfunction(){
           //Clear view map region
             var obj=document.getElementById(msg.name);
             if(obj == null) {
-              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ buttonstr+  '</div></div></div>');/*
+              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p id="info'+msg.name+'">Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ buttonstr+  '</div></div></div>');/*
               '<div id="maps'+msg.name+'"><a id="' + msg.name + '" class="button">' + msg.name + '</a> <div id="info'+msg.info+'"> Description : '+msg.description+'</div><button class="'+msg.name+'" id="editbutton'+msg.name+'"> Edit </button><button class="'+msg.name+'" id="removebutton'+msg.name+'"> Remove Map </button></div><br>');*/
-              /*
+
               var editbutt=document.getElementById("editbutton"+msg.name);
 
               editbutt.addEventListener("click", function(evt){
-                console.log("Hello");
-                //launch modal
-                $("#DescriptionEdit").modal("show");
-                $("#description").val(msg.description);
-                $("#descriptionsub").on("click", function(evt){
+                  $("#DescriptionEdit").on('hidden.bs.modal', function () {
+                      $(this).data('bs.modal', null);
+                  });
                   evt.preventDefault();
-                  console.log("Hello");
-                  var data={};
-                  if($('#description').val() == '')
-                  {
-                    $('#infodescrip').text("Please enter a description");
-                    $("#infodescrip").css("color", "red");
-                  }else
-                  {
-                    var data={};
-                    data.userid=userid;
-                    if(mapname == undefined) {
-                      data.mapid = msg.name;
-                    }else
-                      data.mapid=mapname;
-                    data.text=$('#description').val();
-                    console.log("Data  "+data.userid+"  "+data.mapid);
-                    //make a form submission
-                    $.ajax({
-                      url:'/mapdescriptionedit',
-                      type:'POST',
-                      data:JSON.stringify(data),
-                      contentType:'application/JSON'
-                    }).done(function(msg){
-                      console.log("Returned  "+msg);
-                      if(msg=="yes")
-                      {
-                        $("#DescriptionEdit").modal("hide");
-                        $('#info'+msg.info).text("Description: "+data.text);
-                      }
-                    });
-                  }
-                });
+                  var currele=this.id;
+                  var temele=currele.substring(10, currele.length);
+                  console.log("Hello"+currele.substring(10, currele.length)+"  "+$("#DescriptionEdit").hasClass('in'));
+                  if(temele.indexOf(msg.name)!== -1) {
+                      //launch modal
+                      $("#DescriptionEdit").modal("show");
+                      $("#description").val(msg.description);
+                      $("#descriptionsub").on("click", function (evt) {
 
-              });*/
+                          evt.preventDefault();
+
+                          if ($('#description').val() == '') {
+                              $('#infodescrip').text("Please enter a description");
+                              $("#infodescrip").css("color", "red");
+                          } else {
+                              var data = {};
+                              data.userid = userid;
+                              data.mapid = msg.name;
+                              data.text = $('#description').val();
+                              console.log("Data  " + data.userid + "  " + data.mapid);
+                              //make a form submission
+                              $.ajax({
+                                  url: '/mapdescriptionedit',
+                                  type: 'POST',
+                                  data: JSON.stringify(data),
+                                  contentType: 'application/JSON'
+                              }).done(function (msg) {
+                                  console.log("Returned  " + msg);
+                                  if (msg == "yes") {
+                                      $("#DescriptionEdit").modal("hide");
+                                      $("#DescriptionEdit").on('hidden.bs.modal', function () {
+                                          $(this).data('bs.modal', null);
+                                      });
+                                      $('#info' + data.mapid).text("Description: " + data.text);
+                                  }
+                              });
+                          }
+
+                      });
+                  }
+
+
+              });
 
               //Publish button
               var publishbutton=document.getElementById("publish"+msg.name);
@@ -690,7 +779,12 @@ function imagecontroller(){
 
               console.log("Lat refef"+latRef +"  "+lonRef);
               if(lat == undefined || lon== undefined)
-                alert("Sorry No Geo Tags present in images");
+              {
+                  //alert("Sorry No Geo Tags present in images");
+                  $("#uploadstatus").css({"color":"red"});
+                  $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+
+              }
               else {
                 lat = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
                 lon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
@@ -1107,7 +1201,12 @@ function imagecontroller(){
             var latRef = EXIF.getTag(this,"GPSLatitudeRef");
             var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
           if(lat == undefined || lon== undefined)
-            alert("Sorry No Geo Tags present in images");
+          {
+              //alert("Sorry No Geo Tags present in images");
+              $("#uploadstatus").css({"color":"red"});
+              $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+          }
+
           else {
             lat = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
             lon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
@@ -2437,10 +2536,11 @@ tripapp.controller('imagegallerycontroller', function($scope){
 tripapp.controller('dashboardcontroller', function($scope){
   $scope.userid=name;
   $scope.init=dashboardfunction();
+  /*
   socket.emit('getpublishedmaps', {userid:userid});
   socket.on('viewpublishedmaps', function(msg) {
 
-  });
+  });*/
 
 });
 

@@ -179,6 +179,8 @@ module.exports= {
 
     },
 
+
+
   updatePictures:function(connectionstring, userid, mapid,filename,usertext, callback){
     if(callback)
       callback();
@@ -643,6 +645,80 @@ module.exports= {
     });
 
   },
+    //Get Fav map details
+    getfavmapdetails:function (connectionstring, userid, callback) {
+      console.log("Got fav map details");
+      if(callback)
+          callback();
+
+      mongodb.connect(connectionstring, function(err, db){
+         if(!err)
+         {
+             var collec=db.collection('favorite').count({"userid":userid}, function(err, count)
+             {
+                 console.log("Fav maps"+count);
+                 if(count>0)
+                 {
+                     var cursor=db.collection('favorite').find({"userid":userid});
+                     cursor.each(function (err, doc) {
+                         if(doc!=null)
+                         {
+                             console.log("Got data"+doc.mapname);
+                             //Make an entry into mapcollection to get the details
+
+                             var acccursor=db.collection('mapcollection').find({"mapname":doc.mapname});
+                             acccursor.each(function (err, doc1) {
+                                 if(doc1!=null)
+                                 {
+                                     console.log("Accessed mapcollection"+doc1.mapname);
+                                     callback(doc1.mapname, doc1.mapdescription, doc1.userid);
+                                 }
+
+
+                             });
+                         }
+                     });
+                 }
+
+             });
+
+         }
+      });
+
+    },
+    //Add a favorite map to the database
+
+    addfavmap:function(connectionstring, userid, mapname, callback){
+        console.log("In fav map add");
+        if(callback)
+            callback();
+        mongodb.connect(connectionstring, function (err, db) {
+
+            var collec = db.collection('favorite');
+            if (collec != null) {
+                db.collection('favorite').insert({
+                    "userid": userid,
+                    "mapname": mapname
+                }, {w: 1}, function (err, records) {
+
+                    if (records != null) {
+                        console.log("FavMap Added");
+                        callback("yes");
+                        db.close();
+                    }
+                    else {
+                        callback("no");
+                        console.log("FavMap cannot add");
+                    }
+                });
+
+            }
+
+
+
+        });
+
+    },
 
 
   //add face to database

@@ -14,18 +14,25 @@ function serachpage()
              window.location.href="#";
         });
 
+       console.log("Username is "+sessionStorage.getItem("username"));
+        if(sessionStorage.getItem("username") === null)
+        {
+            //Display save button
+            $("#SearchTour").remove();
+
+        }
        console.log("In Controller");
         console.log("Hello");
         socket.emit("getpublishedmaps", {userid:userid});
         socket.on('receivepublishedmaps', function(msg) {
-            console.log("Activated")
+            console.log("Activated");
             console.log(msg.name);
             console.log(msg.description);
             //$('#viewmapregion').append(msg.name+msg.description);
             var obj = document.getElementById("maps"+msg.name);
             console.log("Objobj"+obj);
             if (obj == null) {
-                $('#viewmapregionsearch').append('<div class="col-md-4 col-lg-6"> <div class="thumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
+                $('#viewmapregionsearch').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><input type="checkbox" id="check'+msg.name+'" class="customplacementcheck"><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
                 var doc = document.getElementById("imagecontainer" + msg.name);
                 var location=msg.name;
                 socket.emit("searchimage", {mapname:msg.name});
@@ -41,16 +48,49 @@ function serachpage()
                         imgele.setAttribute("src", piclocation);
                         doc.appendChild(imgele);
                     }
+                });
+                $('#check'+msg.name).on("click", function () {
+                    console.log("Checkbox clicked");
+                }) ;
+
+                $('#SearchTour').on('click', function () {
+                    var input = $( "input:checkbox" );
+
+                    console.log("number of checkboxes found"+input.length);
+                    if(input.length > 0) {
+                        for (i = 0; i < input.length; i++) {
+                            console.log(input[i]);
+                            console.log(input[i].getAttribute("id"));
+                            var map=input[i].getAttribute("id");
+                            var newmap=map.substr(5,map.length);
+                            console.log("Sending map"+newmap);
+                            if(username !== undefined)
+                            {
+                                console.log("User currently logged in is"+ username);
+                                //Make a database entry with the checkbox
+
+                                var data={};
+                                data.username=username;
+                                data.favmap=newmap;
+                                $.ajax({
+                                    url:"/savefav",
+                                    method:"POST",
+                                    data:JSON.stringify(data),
+                                    contentType:'application/JSON'
+                                }).done(function (mssg) {
+                                   console.log("The mssg returned is"+mssg);
+                                   if(mssg === "yes")
+                                   {
+                                       $("#status").css("color","green");
+                                       $("#status").text("Your favorites are now saved");
+                                   }
+                                });
+                            }
+                        }
+                    }
 
                 });
-
-
-
             }
-
-
-
-
 
             $('#a'+msg.name).on('click', function(evt){
                evt.preventDefault();

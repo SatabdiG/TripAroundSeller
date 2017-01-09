@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 //app.use(express.session({secret:"qwertsvcyeA"}));
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
@@ -166,6 +166,28 @@ app.post('/photos',function(req,res){
         return res.end("Success");
       }
   });
+});
+
+//Save the user favorite tours
+
+app.post('/savefav', function (req, res) {
+  var user=req.body.username;
+  var favmaps=req.body.favmap;
+  console.log("In the sav fav handler"+user+" "+favmaps);
+  //Make the  database entry
+  connect.addfavmap(mongofil, user, favmaps, function(mssg){
+    if(mssg != undefined)
+    {
+      if(mssg === "yes")
+         return res.end("yes");
+      else
+        return res.end("no");
+    }
+
+  });
+
+
+
 });
 
 var uploadguest= multer({dest:__dirname+'/uploads'});
@@ -1183,6 +1205,7 @@ socket.on('connection',function(socket){
    console.log("Longittude"+msg);
   });
 
+
  socket.on('picdetailsimageupload', function(msg){
 
    var filename=msg.filename;
@@ -1270,6 +1293,24 @@ socket.on('connection',function(socket){
     });
 
   });
+
+  //Get favorite map details.
+
+    socket.on("viewfavmaps", function (mssg) {
+       console.log("In view fav maps "+mssg.username);
+       connect.getfavmapdetails(mongofil, mssg.username, function(mapname, description, username)
+       {
+
+         if(mapname!== undefined || description !== undefined || username !== undefined)
+         {
+           console.log("In view fav maps got"+ mapname+"  "+ description+"  "+username);
+           socket.emit("getfavmaps", {username:username, mapname:mapname, description:description})
+
+         }
+
+
+       });
+    });
 
   socket.on("GetTrails", function(msg){
     console.log("In get trails");
