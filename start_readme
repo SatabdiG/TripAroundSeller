@@ -1,0 +1,12 @@
+------README---------
+
+MongoDB, NodeJs & Express need to be installed.
+
+Clone the repository.
+
+server.js is the server file.
+
+In cmd prompt navigate to the server.js file in the project and execute--node server.js
+The application runs on http://localhost:3030/
+
+Mongodb should be running to log in or create an account in the application.
