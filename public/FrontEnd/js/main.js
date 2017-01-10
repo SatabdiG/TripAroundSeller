@@ -2656,13 +2656,20 @@ tripapp.config(function($routeProvider) {
   .when('/viewgallery',{
       templateUrl:'/FrontEnd/partials/viewgallery.html',
       controller:'viewgallerycontrol'
-  });
+  })
 
-/*
    .when('/About',{
         templateUrl:'/FrontEnd/partials/About.html',
    })
-*/
+
+   .when('/FAQ',{
+        templateUrl:'/FrontEnd/partials/FAQ.html',
+   })
+
+     .when('/share',{
+      templateUrl:'/FrontEnd/partials/share.html',
+      controller:'ShareController'
+  });
 
 
 });
@@ -2752,4 +2759,11 @@ tripapp.controller('viewgallerycontrol', function($scope)
     $scope.userid=name;
     $scope.map=mapname;
     $scope.init=viewgallerycontrol();
+});
+
+tripapp.controller('ShareController', function($scope){
+  $scope.userid=name;
+  $scope.init = ShareController();
+  $scope.message="Hello";
+
 });
