@@ -308,7 +308,7 @@ function dashboardfunction(){
               var obj=document.getElementById('maps'+mapname);
               if(obj == null) {
                   var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
-                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div></div></div>');
+                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div><div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div></div></div>');
               }
                 var publishbutton=document.getElementById("publish"+mapname);
                 publishbutton.addEventListener("click", function (evt) {
@@ -2526,15 +2526,20 @@ tripapp.config(function($routeProvider) {
   .when('/viewgallery',{
       templateUrl:'/FrontEnd/partials/viewgallery.html',
       controller:'viewgallerycontrol'
-  });
+  })
 
-/*
+  .when('/share', {
+      templateUrl:'/FrontEnd/partials/share.html',
+      controller:'ShareController'
+  })
+
    .when('/About',{
         templateUrl:'/FrontEnd/partials/About.html',
    })
-*/
 
-
+   .when('/FAQ',{
+        templateUrl:'/FrontEnd/partials/FAQ.html',
+   });
 });
 
 
@@ -2621,4 +2626,12 @@ tripapp.controller('viewgallerycontrol', function($scope)
     $scope.userid=name;
     $scope.map=mapname;
     $scope.init=viewgallerycontrol();
+});
+
+tripapp.controller('ShareController', function($scope){
+  $scope.userid=name;
+  $scope.message="Hello";
+/*  $scope.map=mapname;*/
+  $scope.init=ShareController();
+
 });
