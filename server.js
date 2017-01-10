@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 //app.use(express.session({secret:"qwertsvcyeA"}));
 
 app.use(busboy());
-// var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+//var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
 var mongofil="mongodb://localhost:27017/testimages";
 
@@ -111,18 +111,18 @@ app.get('/',function(req,res){
 });
 //Image Upload form
 app.post('/api/photo',function(req,res){
-  //console.log("In server");
-  //console.log(JSON.stringify(req.body));
-  //console.log(JSON.stringify(req.body.files.context.location));
-  //console.log(JSON.stringify(req.body.userid));
-  //console.log(JSON.stringify(req.body.filename));
-  //console.log("User id"+__userid);
-  //console.log(filedata);
+  console.log("In server");
+  console.log(JSON.stringify(req.body));
+  console.log(JSON.stringify(req.body.files.context.location));
+  console.log(JSON.stringify(req.body.userid));
+  console.log(JSON.stringify(req.body.filename));
+  console.log("User id"+__userid);
+  console.log(filedata);
     upload(req,res,function(err) {
-        ////console.log(req.body);
-        ////console.log( req.files[0].destination);
-        ////console.log( req.files[0].filename);
-        ////console.log( req.files[0].path);
+        //console.log(req.body);
+        //console.log( req.files[0].destination);
+        //console.log( req.files[0].filename);
+        //console.log( req.files[0].path);
         _userid = req.body.userid;
       // _userpassword = req.files[0].userpassword;
      // _username = req.files[0].username;
@@ -148,7 +148,7 @@ app.post('/api/photo',function(req,res){
       }
       else
       {
-          //console.log("In here");
+          console.log("In here");
       }
         if(err) {
             return res.end("Error uploading file.");
@@ -168,10 +168,32 @@ app.post('/photos',function(req,res){
   });
 });
 
+//Save the user favorite tours
+
+app.post('/savefav', function (req, res) {
+  var user=req.body.username;
+  var favmaps=req.body.favmap;
+  console.log("In the sav fav handler"+user+" "+favmaps);
+  //Make the  database entry
+  connect.addfavmap(mongofil, user, favmaps, function(mssg){
+    if(mssg != undefined)
+    {
+      if(mssg === "yes")
+         return res.end("yes");
+      else
+        return res.end("no");
+    }
+
+  });
+
+
+
+});
+
 var uploadguest= multer({dest:__dirname+'/uploads'});
 /* Guest Log in */
 app.post('/guestlogin', function(req,res){
-  //console.log("In guest handler");
+  console.log("In guest handler");
   var form=new formidable.IncomingForm();
   form.multiple=true;
   form.uploadDir=path.join(__dirname,'/uploads');
@@ -180,13 +202,13 @@ app.post('/guestlogin', function(req,res){
     mv(file.path,join(form.uploadDir,file.name), function(err){
       if(!err)
       {
-        //console.log("File uploaded");
+        console.log("File uploaded");
       }else
         console.log("Error occurs"+err);
     });
   });
   form.on('error',function(err){
-    //console.log("Error has ocurred");
+    console.log("Error has ocurred");
     return res.end("no");
   });
   form.on('end',function(){
@@ -205,12 +227,12 @@ app.post('/registeruser', function(req,res){
   var password=req.body.password;
   var email=req.body.email;
   var type=req.body.type;
-  //console.log("Email  "+ email);
+  console.log("Email  "+ email);
 
   //Access Mongodb See is user is there
   connect.userPresent(mongofil, userid, function(msg){
     if(msg!=undefined){
-      //console.log("Returned data"+msg);
+      console.log("Returned data"+msg);
       if(msg =='present'){
         return res.end(msg);
       }
@@ -218,7 +240,7 @@ app.post('/registeruser', function(req,res){
       {
           connect.addusers(mongofil, userid, username, password,type, function (mssg) {
             if (mssg != undefined) {
-              //console.log("Returned data" + mssg);
+              console.log("Returned data" + mssg);
               return res.end(mssg);
             }
           });
@@ -233,7 +255,7 @@ app.post('/registeruser', function(req,res){
 app.post("/isuserseller", function(req, res){
 
     var userid=req.body.username;
-    //console.log("In the user seller"+userid);
+    console.log("In the user seller"+userid);
     //log into MongoDb get the userid reference
     connect.isuserseller(mongofil, userid, function(response){
 
@@ -261,13 +283,13 @@ app.post("/publishmap", function(req, res){
   var userid=req.body.userid;
   var mapid=req.body.id;
   var publish=req.body.publish;
-  //console.log("Publish Map"+publish+mapid+userid);
+  console.log("Publish Map"+publish+mapid+userid);
   //Make the database connect and update the database
   connect.updateMaps(mongofil,userid,mapid,publish, function(message)
   {
 
     if(message!=undefined) {
-      //console.log("Returned message" + message);
+      console.log("Returned message" + message);
       if (message == "done") {
         return res.end("yes");
       } else {
@@ -282,9 +304,9 @@ app.post("/publishmap", function(req, res){
 
 app.post('/guestdetailssave',function(req,res){
   var filename=req.body.filename;
-  //console.log("In guest details handler");
-  //console.log(req.body);
-  //console.log("User id "+req.body.userid);
+  console.log("In guest details handler");
+  console.log(req.body);
+  console.log("User id "+req.body.userid);
   for(var i=0;i<filename.length;i++)
   {
     if(req.body.userid == 'guest') {
@@ -293,7 +315,7 @@ app.post('/guestdetailssave',function(req,res){
       var mapversionid="something";
     }
     connect.storeImages(mongofil,mapversionid,req.body.userid,mapid,"markerid",filename[i],pathid,function(message){
-      //console.log("Message"+message);
+      console.log("Message"+message);
       if(message == "yes")
         return res.end("yes");
       else
@@ -317,7 +339,7 @@ app.post('/usermarkersave', function(req, res){
   connect.addmarkers(mongofil,"someversion",markerid,userid,mapid,lat,lon, currenthours,filename,function(mssg){
     if(mssg!=undefined)
     {
-      //console.log("Retrived mssg"+mssg);
+      console.log("Retrived mssg"+mssg);
       if(mssg == "yes")
         return res.end("yes");
       else
@@ -339,7 +361,7 @@ app.post('/traildescription', function (req,res) {
   var src={};
   var des={};
   var descr=req.body.description;
-  //console.log("trails"+trails);
+  console.log("trails"+trails);
   for(var i=0;i<temparr.length;i++)
   {
 
@@ -357,7 +379,7 @@ app.post('/traildescription', function (req,res) {
     }
 
   }
-  //console.log(coorarr);
+  console.log(coorarr);
   var count=0;
 
   src.lon=coorarr[count];
@@ -368,9 +390,9 @@ app.post('/traildescription', function (req,res) {
   count=count+1;
   des.lat=coorarr[count];
 
-  //console.log(src.lat+"  "+src.lon);
+  console.log(src.lat+"  "+src.lon);
   connect.updatetrail(mongofil,username, mapid, src, des,descr,mode, function(msg){
-    //console.log("Returned "+msg);
+    console.log("Returned "+msg);
     if(msg!=undefined)
     {
       if(msg == "done")
@@ -385,7 +407,7 @@ app.post('/traildescription', function (req,res) {
 
 //Save trails for user's manual trails on the map page
 app.post('/usertrailmanual', function(req, res){
-  //console.log("User trail manual Save");
+  console.log("User trail manual Save");
   var username=req.body.userid;
   var mapid=req.body.mapname;
   var mode=req.body.mode;
@@ -411,7 +433,7 @@ app.post('/usertrailmanual', function(req, res){
     }
 
   }
-  //console.log("array "+coorarr);
+  console.log("array "+coorarr);
   //Create the trail array
   var finalarr=[];
   for(var i=0;i<coorarr.length;i=i+2)
@@ -419,7 +441,7 @@ app.post('/usertrailmanual', function(req, res){
     var obj={};
     obj.lat=coorarr[i];
     obj.lon=coorarr[i+1];
-    //console.log("obj is"+obj);
+    console.log("obj is"+obj);
     finalarr.push(obj);
 
   }
@@ -439,7 +461,7 @@ app.post('/usertrailmanual', function(req, res){
 
 
     connect.addtrails(mongofil, username, mapid, src, dest,desc, mode, function (msg) {
-      //console.log("The msg is" + msg);
+      console.log("The msg is" + msg);
       if (msg != undefined) {
         if (msg == "yes")
           return res.end("yes");
@@ -453,11 +475,11 @@ app.post('/usertrailmanual', function(req, res){
 
 
 app.post('/tourstopsave', function(req,res){
-    //console.log("In tourstopsave");
+    console.log("In tourstopsave");
     res.end("yes");
     var username=req.body.name;
     var mapname=req.body.mapname;
-    //console.log("Mapname"+mapname);
+    console.log("Mapname"+mapname);
 
         var markername=req.body.markername;
         var lat=req.body.lat;
@@ -465,9 +487,10 @@ app.post('/tourstopsave', function(req,res){
         var des=req.body.des;
         var veh="driving";
         var pos=req.body.pos;
-        //console.log("In Tour Stop Save"+markername);
+        var dur=req.body.duration;
+        console.log("In Tour Stop Save"+markername);
         //Make respective db entry
-        connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
+        connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos,dur, function(message)
         {
             if(message!=undefined) {
                 if (message == "yes") {
@@ -483,11 +506,11 @@ app.post('/tourstopsave', function(req,res){
 });
 
 app.post('/itesave', function(req,res){
-  //console.log("In Itesave");
+  console.log("In Itesave");
   res.end("yes");
   var username=req.body.name;
   var mapname=req.body.mapname;
-  //console.log("Mapname"+mapname);
+  console.log("Mapname"+mapname);
   var markers=req.body.objs;
   markers.forEach(function(marr){
     var markername=marr.name;
@@ -496,8 +519,9 @@ app.post('/itesave', function(req,res){
     var des=marr.des;
     var veh="driving";
     var pos=marr.pos;
+    var dur=1;
     //Make respective db entry
-    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, function(message)
+    connect.addTourStops(mongofil,username,mapname,veh,markername,lat,lon,des,pos, dur, function(message)
     {
       if(message!=undefined) {
         if (message == "yes") {
@@ -513,10 +537,10 @@ app.post('/itesave', function(req,res){
 });
 
 app.post('/usertrailsave', function(req, res){
-  //console.log("In user trail Save");
+  console.log("In user trail Save");
   var marker=[];
   (req.body.markerobj).forEach(function(eve){
-    //console.log(eve);
+    console.log(eve);
     marker.push(eve);
   });
   var username=req.body.username;
@@ -525,7 +549,7 @@ app.post('/usertrailsave', function(req, res){
   var mode=req.body.mode;
   if(marker.length >1) {
     for (var i = 0; i < marker.length; i++) {
-      //console.log("I is" + i);
+      console.log("I is" + i);
       var src = {};
       src.lon = marker[i].lon;
       src.lat = marker[i].lat;
@@ -539,7 +563,7 @@ app.post('/usertrailsave', function(req, res){
         dest.lat = marker[i + 1].lat;
       }
       connect.addtrails(mongofil, username, mapname, src, dest,descp,mode, function (msg) {
-        //console.log("The msg is" + msg);
+        console.log("The msg is" + msg);
         if (msg != undefined) {
           if (msg == "yes")
             return res.end("yes");
@@ -563,20 +587,20 @@ app.post('/mapupload', function(req,res){
   var marker=[];
   var currenthours=date.getMinutes();
   (req.body.markerobj).forEach(function(eve){
-    //console.log(eve);
+    console.log(eve);
     marker.push(eve);
   });
 
   if(marker.length>0) {
-    //console.log("Marker length"+marker.length);
+    console.log("Marker length"+marker.length);
 
 
     for(i=0;i<marker.length;i++)
     {
       var markerid=req.body.id+i+currenthours;
-      //console.log("Got Marker"+marker[i].tourstopname);
+      console.log("Got Marker"+marker[i].tourstopname);
       connect.addmarkers(mongofil, marker[i].tourstopname,"someversion",marker[i].id,req.body.id,req.body.name,marker[i].lat,marker[i].lon, marker[i].time,marker[i].filename,function(mssg){
-      //console.log(mssg);
+      console.log(mssg);
         if(mssg!=undefined) {
           if (mssg == "yes")
             flag = true;
@@ -584,7 +608,7 @@ app.post('/mapupload', function(req,res){
             flag = false;
         }
       });
-      connect.addTourStops(mongofil,req.body.id, req.body.name, "car",marker[i].tourstopname,marker[i].lat,marker[i].lon,"",0, function (message) {
+      connect.addTourStops(mongofil,req.body.id, req.body.name, "car",marker[i].tourstopname,marker[i].lat,marker[i].lon,"",0, 1, function (message) {
          if(message!=undefined)
          {
              if (message == "yes")
@@ -595,7 +619,7 @@ app.post('/mapupload', function(req,res){
       });
     }
 
-    //console.log("flag    "+flag);
+    console.log("flag    "+flag);
     if(flag == true)
     {
       return res.end("yes");
@@ -604,7 +628,7 @@ app.post('/mapupload', function(req,res){
       return res.end("no");
   }
   else {
-    //console.log("Empty");
+    console.log("Empty");
     return res.end("no");
   }
 
@@ -612,16 +636,16 @@ app.post('/mapupload', function(req,res){
 
 //Handler for Map description edit
 app.post('/mapdescriptionedit', function(req, res){
-  //console.log(req.body);
+  console.log(req.body);
   var username=req.body.userid;
   var mapid=req.body.mapid;
   var newdes=req.body.text;
-  //console.log("In map description edit"+username+"  "+mapid);
+  console.log("In map description edit"+username+"  "+mapid);
   //Call MongoDb server
   connect.updateDescription(mongofil,username, mapid,newdes,function(msg){
     if(msg!=undefined)
     {
-      //console.log("Retrived Message"+msg);
+      console.log("Retrived Message"+msg);
       if(msg == "done")
         return res.end("yes");
       else
@@ -640,7 +664,7 @@ app.post("/detelemap", function(req, res){
   //Call mongodb delete all referneces to mongodb
   connect.deleteallmap(mongofil, username, delmap, function(msg){
     if(msg!=undefined) {
-      //console.log("Retrived message" + msg);
+      console.log("Retrived message" + msg);
       if(msg =="done")
       {
         return res.end("yes");
@@ -655,15 +679,15 @@ app.post("/detelemap", function(req, res){
 
 app.post("/deleteTourStop", function(req, res)
 {
-  //console.log("In delete tour Stop");
+  console.log("In delete tour Stop");
   var username=req.body.username;
   var mapname=req.body.mapname;
   var tourstopname=req.body.tourstopname;
-  //console.log("Got data"+username+" v"+mapname+" v"+tourstopname);
+  console.log("Got data"+username+" v"+mapname+" v"+tourstopname);
   connect.deleteTourStop(mongofil,username,mapname,tourstopname, function(msg){
     if(msg!=undefined)
     {
-      //console.log("Retrived message is"+msg);
+      console.log("Retrived message is"+msg);
       if(msg === "done")
       {
         return res.end("yes");
@@ -686,7 +710,7 @@ app.post('/dragdrop', function(req,res){
   form.multiple=true;
   form.uploadDir=path.join(__dirname,'/uploads');
   form.on('file',function(field,file){
-    //console.log("File Name"+file.name);
+    console.log("File Name"+file.name);
     fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
         imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
             plugins: [
@@ -701,11 +725,11 @@ app.post('/dragdrop', function(req,res){
     });
   });
   form.on('field', function(name,value){
-    //console.log("In Drag and Drop"+ name +"  "+ value);
+    console.log("In Drag and Drop"+ name +"  "+ value);
 
     if(name == "mapname") {
       var obj=JSON.parse(value);
-      //console.log(obj['name']);
+      console.log(obj['name']);
       var dir = __dirname + '/uploads/'+obj['user'];
       var actual=__dirname+'/uploads/'+obj['user']+'/'+obj['name'];
       if (!fs.existsSync(dir)) {
@@ -732,17 +756,17 @@ app.post('/dragdrop', function(req,res){
         var userid=obj['id'];
         var uploadpath='/uploads/'+userid+'/' + mapname;
         var mapversion="something";
-        //console.log("The value of object user"+JSON.parse(value));
-        //console.log("The value of user pictures are"+obj['id']);
+        console.log("The value of object user"+JSON.parse(value));
+        console.log("The value of user pictures are"+obj['id']);
         //call database and update the database
           connect.storeImages(mongofil,mapversion,userid,mapname,"markerid",filenames,uploadpath,0,0,"",function(msg){
             if(msg!=undefined)
             {
               if(msg == "yes"){
-                //console.log("Yay "+msg);
+                console.log("Yay "+msg);
               }else
               {
-                //console.log("Could add to user database. Check");
+                console.log("Could add to user database. Check");
               }
             }
           });
@@ -750,22 +774,22 @@ app.post('/dragdrop', function(req,res){
       {
         if(name === "tourstop")
         {
-          //console.log("In Tourstop");
+          console.log("In Tourstop");
           var obj=JSON.parse(value);
           var lat=obj["lat"];
           var lon=obj["lon"];
           var mapname=obj["mapname"];
           var tourst=obj["userid"];
           var tourstopname=obj["address"];
-          connect.addTourStops(mongofil,tourst,mapname,"bus", tourstopname,lat,lon, "",0, function (mssg) {
+          connect.addTourStops(mongofil,tourst,mapname,"bus", tourstopname,lat,lon, "",0,1, function (mssg) {
             if(mssg!=undefined)
             {
               if(mssg ===  "yes")
               {
-                //console.log("Done");
+                console.log("Done");
               }else
               {
-                //console.log("Not Done");
+                console.log("Not Done");
               }
             }
 
@@ -778,7 +802,7 @@ app.post('/dragdrop', function(req,res){
 
   });
   form.on('error',function(err){
-    //console.log("Error has ocurred");
+    console.log("Error has ocurred");
     return res.end("no");
   });
   form.on('end',function(){
@@ -793,13 +817,13 @@ app.post('/dragdrop', function(req,res){
 app.post('/login',function(req,res){
   var username=req.body.name;
   var password=req.body.password;
-  //console.log("in Login printing cookies",req.cookies);
+  console.log("in Login printing cookies",req.cookies);
 
 
   //Access MongoDB - see if user is authorized
   connect.verifyusers(mongofil,'usercollection',username, password,function(results, username){
     if(results!=undefined){
-      //console.log("fetched results"+ results);
+      console.log("fetched results"+ results);
       if(results == 'success')
       {
         //user present entered correct password allow login
@@ -820,7 +844,7 @@ app.post('/login',function(req,res){
       }
     }
     else {
-        //console.log("Fetched results were undefined");
+        console.log("Fetched results were undefined");
 
     }
 
@@ -833,12 +857,16 @@ app.post('/login',function(req,res){
 app.post('/mapsave', function(req, res){
   var mapname=req.body.name;
   var description=req.body.description;
-  //console.log("Name is  "+ mapname);
+  console.log("Name is  "+ mapname);
   var user=req.body.userid;
+  var startDate = req.body.startDate;
+  var endDate = req.body.endDate;
+  var geoTagsStatus = req.body.geoTagsStatus;
+
   //Call mongodb function and save the map
-  connect.addmaps(mongofil,user, mapname, description,function(msg){
+  connect.addmaps(mongofil,user, mapname, description, startDate, geoTagsStatus, endDate, function(msg){
     if(msg!=undefined){
-      //console.log("Map returned "+msg);
+      console.log("Map returned "+msg);
        if(msg == "add"){
          return res.end('yes');
        }
@@ -870,7 +898,7 @@ app.post('/viewmap', function(req,res){
 
 
 app.post('/usertourstop', function(req,res){
-    //console.log("In registered user handler");
+    console.log("In registered user handler");
     var form=new formidable.IncomingForm();
     var mapname;
     var dir;
@@ -878,10 +906,10 @@ app.post('/usertourstop', function(req,res){
     var uploaddir;
     form.multiple=true;
     form.on('field',function(name,value){
-        //console.log("Response  "+name+":"+value);
+        console.log("Response  "+name+":"+value);
         if(name == "details") {
             var obj=JSON.parse(value);
-            //console.log(obj['name']);
+            console.log(obj['name']);
             var dir = __dirname + '/uploads/'+obj['user'];
             var actual=__dirname+'/uploads/'+obj['user']+'/'+obj['name'];
             if (!fs.existsSync(dir)) {
@@ -910,18 +938,19 @@ app.post('/usertourstop', function(req,res){
                 var tourstopname=obj['tourstopname'];
                 var description=obj['description'];
 
+
                 //call database and update the database
                 for(var i=0;i<filenames.length;i++)
                 {
-                    //console.log("The filename is"+filenames[i]);
+                    console.log("The filename is"+filenames[i]);
                     connect.storeImages(mongofil,tourstopname,userid,mapname,"markerid",filenames[i],uploadpath,0,0,"", function(msg){
                         if(msg!=undefined)
                         {
                             if(msg == "yes"){
-                                //console.log("Yay "+msg);
+                                console.log("Yay "+msg);
                             }else
                             {
-                                //console.log("Could add to user database. Check");
+                                console.log("Could add to user database. Check");
                             }
                         }
                     });
@@ -932,11 +961,11 @@ app.post('/usertourstop', function(req,res){
     });
 
     form.on('file',function(field,file){
-        //console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
+        console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
         fs.rename(file.path,path.join(form.uploadDir,file.name));
     });
     form.on('error',function(err){
-        //console.log("Error has ocurred");
+        console.log("Error has ocurred");
         return res.end("no");
     });
 
@@ -948,7 +977,7 @@ app.post('/usertourstop', function(req,res){
 });
 //Save registered user details
 app.post('/userdetailssave', function(req, res){
-    //console.log("Resgistered user details"+req.body);
+    console.log("Resgistered user details"+req.body);
     return res.end("yes");
 
 });
@@ -956,22 +985,18 @@ app.post('/userdetailssave', function(req, res){
 //Save Images of registered users
 
 app.post('/userimageupload', function(req,res){
-  //console.log("\n\nIn registered user handler");
+  console.log("In registered user handler");
   var form=new formidable.IncomingForm();
-  var fields = [];
-  var files = [];
   var mapname;
   var dir;
   var filenames;
   var uploaddir;
   form.multiple=true;
   form.on('field',function(name,value){
-    //console.log(name, value);
-    fields.push([name, value]);
-    //console.log("Response  "+name+" <<< :D :D :"+value);
+    console.log("Response  "+name+":"+value);
     if(name == "mapname") {
       var obj=JSON.parse(value);
-      //console.log(obj['name']);
+      console.log(obj['name']);
       var dir = __dirname + '/uploads/'+obj['user'];
       var actual=__dirname+'/uploads/'+obj['user']+'/'+obj['name'];
       if (!fs.existsSync(dir)) {
@@ -998,19 +1023,19 @@ app.post('/userimageupload', function(req,res){
         var userid=obj['id'];
         var uploadpath='/uploads/'+userid+'/' + mapname;
         var mapversion=obj['tourstopname'];
-        //console.log("User store images"+filenames);
+        console.log("User store images"+filenames);
         //call database and update the database
         for(var i=0;i<filenames.length;i++)
         {
-          //console.log("The filename is"+filenames[i]);
+          console.log("The filename is"+filenames[i]);
           connect.storeImages(mongofil,mapversion,userid,mapname,"markerid",filenames[i],uploadpath,0,0,"", function(msg){
             if(msg!=undefined)
             {
               if(msg == "yes"){
-                // //console.log("Yay "+msg);
+                console.log("Yay "+msg);
               }else
               {
-                //console.log("Could add to user database. Check");
+                console.log("Could add to user database. Check");
               }
             }
           });
@@ -1020,7 +1045,7 @@ app.post('/userimageupload', function(req,res){
       {
           if(name === "tourstop")
           {
-            //console.log("Got tourstop!!");
+            console.log("Got tourstop!!");
             var obj=JSON.parse(value);
               var filenames=obj['filename'];
 
@@ -1031,7 +1056,7 @@ app.post('/userimageupload', function(req,res){
   });
 
   form.on('file',function(field,file){
-    //console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
+    console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
     fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
         imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
             plugins: [
@@ -1039,14 +1064,14 @@ app.post('/userimageupload', function(req,res){
                 imageminPngquant({quality: '40-45'})
             ]
         }).then(function(files) {
-            //console.log('File compressed successfully.');
+            console.log('File compressed successfully.');
         });
 
-        //console.log('\t In drag drop my upload dir is '+form.uploadDir+' and my filename is '+file.name);
+        console.log('\t In drag drop my upload dir is '+form.uploadDir+' and my filename is '+file.name);
     });
   });
   form.on('error',function(err){
-    //console.log("Error has ocurred");
+    console.log("Error has ocurred");
     return res.end("no");
   });
 
@@ -1058,13 +1083,13 @@ app.post('/userimageupload', function(req,res){
 });
 //Save registered user details
 app.post('/userdetailssave', function(req, res){
-  //console.log("Resgistered user details"+req.body);
+  console.log("Resgistered user details"+req.body);
   return res.end("yes");
 
 });
 
 app.post('/updateimagedescription', function (req, res) {
-  //console.log("In image update description");
+  console.log("In image update description");
   var filename=req.body.filename;
   var username=req.body.username;
   var mapname=req.body.mapid;
@@ -1074,7 +1099,7 @@ app.post('/updateimagedescription', function (req, res) {
     {
       if(msg == "done")
       {
-        //console.log("ImageDescription updated"+ msg);
+        console.log("ImageDescription updated"+ msg);
         return res.end("yes");
       }else
         return res.end("no");
@@ -1085,7 +1110,7 @@ app.post('/updateimagedescription', function (req, res) {
 
 app.post('/file_upload', function(req, res) {
     // var user=req.body.sessioninfo.userid;
-    //console.log("\n\n\tUploading: I am here : halllllloooo2");
+    console.log("\n\n\tUploading: I am here : halllllloooo2");
     var form = new formidable.IncomingForm();
     form.multiple=true;
     var userID;
@@ -1097,15 +1122,17 @@ app.post('/file_upload', function(req, res) {
     dataString = '';
     var flag = 0;
     form.on('field', function(field, value) {
-        //console.log("Trying to find field " + field + " and value is "+ value);
+        console.log("Trying to find field " + field + " and value is "+ value);
         var jvObject = JSON.parse(value);
         userID = jvObject['userid'];
         mapID = jvObject['mapname'];
     });
 
+
+
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
-        //console.log("Uploading: " + filename);
+        console.log("Uploading: " + filename);
         myFileName = filename;
         // check if file with same name already exist, if yes change the name.
         fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
@@ -1113,21 +1140,21 @@ app.post('/file_upload', function(req, res) {
     });
 
     req.busboy.on('finish', function () {
-        //console.log("OK Everything is done now.");
-        //console.log("userid: " + userID);
-        //console.log("mapID: " + mapID);
-        //console.log("myFileName: " + myFileName);
+        console.log("OK Everything is done now.");
+        console.log("userid: " + userID);
+        console.log("mapID: " + mapID);
+        console.log("myFileName: " + myFileName);
 
         py.stdout.on('data', function(data){
             dataString += data.toString();
-            //console.log("\n\t\t\t\tIn data");
+            console.log("\n\t\t\t\tIn data");
         });
         py.stdout.on('end', function(){
-            // //console.log ("I am hereeeee "+dataString)
+            // console.log ("I am hereeeee "+dataString)
             var jsonObj = JSON.parse(dataString);
             jsonObj.userID = userID
             jsonObj.mapID = mapID
-            // //console.log("This is heading number 1"+jsonObj["heading_1"])
+            // console.log("This is heading number 1"+jsonObj["heading_1"])
             connect.saveDocs(mongofil, jsonObj, function (msg) {
                 if(msg!= undefined) {
                     if(msg == "done") //{
@@ -1151,19 +1178,16 @@ app.post('/file_upload', function(req, res) {
     form.parse(req);
 });
 
-// myjson = '{ "_id": "583af12e6c3e6b16f4b81b36", "content_5": "Gut gestärkt machen Sie sich morgens auf den Weg zur Bongani Mountain Lodge. Diese liegt an der südwestlichen Grenze des Krüger Nationalparks, ca. 45 km vom Eingang entfernt. Ein idealer Ausgangspunkt für Safaris auf dem ca. 8000 Hektar großen Privatgelände des Mthethomusha Private Game Reserves. Dieses ist ebenfalls die Heimat der Big Five. Nach dem Mittagessen und ein paar Stunden Ruhe steht eine Geländewagensafari an. Zum Abschluss des Tages genießen Sie ein köstliches Abendessen und übernachten in der Bongani Mountain Lodge.", "content_7": "Transfer zum Flughafen nach Johannesburg (ca. 450 km) und Flug nach Kapstadt. Hier erwartet Sie schon Ihre deutschsprachige Reiseleitung. Der Rest des Tages steht Ihnen zur freien Verfügung. Nutzen Sie die Zeit, um die „Mutterstadt“ auf eigene Faust zu entdecken. Die nächsten Nächte verbringen Sie in Ihrem Hotel in der Region Kapstadt.", "content_6": "In den frühen Morgenstunden unternehmen Sie die erste Safari im Geländewagen. Mal sehen, ob sich die Tiere im Morgengrauen blicken lassen. Im Anschluss an das ausgiebige Frühstück können Sie sich bereits auf ein leckeres Mittagessen freuen. Am Nachmittaggeht es wieder auf Spurensuche. Vielleicht haben Sie ja schon Ihr Lieblingsgeschöpf im Reservat entdeckt? Abendessen und Übernachtung in der Bongani Mountain Lodge.","tot_contents": "12","content_4": "Während der Fahrt im Reisefahrzeug entdecken Sie den Park. Können Sie sich die unglaublichen Weiten des Krüger Parks vorstellen, der 1898 von Paul Krüger zum Schutz gefährdeter Arten gegründet wurde? Seit 1926 gilt er als Nationalpark und umfasst eine Fläche von über 18.000 km². Er erstreckt sich 350 km von Nord nach Süd und 60 km von Ost nach West. Somit gilt er als eines der größtenWildreservate Afrikas. Mit Hilfe Ihres Reiseleiters halten Sie Ausschau nach den berühmten “Big Five” - Löwen, Leoparden, Elefanten, Büffel und Nashörner. Nach diesem einmaligen Erlebnis fahren Sie zurück in die Region Lowveld, wo die Übernachtung erfolgt.","content_3": "Auf dem Weg in die Region Lowveld, deren bildhübsche Landschaft von subtropischen Obstplantagen geprägt ist, besuchen Sie Dullstoom. Bekannt als Südafrikas „Hauptstadt des Fliegenfischens“ bietet der beschauliche Ort weit mehr als das. Während Sie gemütlich über die Straßen schlendern, entdecken Sie die vielen kleinen Läden und Restaurants. Beim Anblick des Blyde River Canyons schweigen Sie vermutlich für einen Moment. Sei es aus Ehrfurcht, sei es aus Erstaunen – dieser Canyon ist riesig! Nicht umsonst gilt er als eines der größten Naturwunder Afrikas. Anschließend besichtigen Sie „Bourke’s Luck Potholes“, ein Wunderwerk der Flusserosion. Sehen dievom Wasser erschaffenen Löcher nicht so aus, als hätte sie jemand mit einem großen Bohrer erschaffen? Nach einem spannenden Tag beziehen Sie Ihr Nachtquartier in der Region Lowveld.","content_2": "Ankunft in Johannesburg und Begrüßung durch Ihre deutschsprachige Reiseleitung. Sie brechen auf zu einer Orientierungsfahrt durch Pretoria, der Verwaltungshauptstadt Südafrikas. Diese wurde im Jahre 1855 gegründet und 5 Jahre später zur Hauptstadt der Buren ernannt. Sie bewundern den „Church Square“ mit seiner imposanten Statue von „Uncle Paul Kruger“, dem ehemaligen Präsidenten der Südafrikanischen Republik. Lassen Sie sich am „Voortrekker Monument“ und bei den „Union Buildings“ in die Zeit der Einwanderer zurückversetzen. Am Nachmittag tauchen Sie in das Township Soweto ein, das vor allem durch Nelson Mandela und die schreckliche Zeit der Apartheid bekannt wurde. Wussten Sie, dass ein Großteil Sowetos heute der farbigen Mittelschicht gehört und hier sogar einige prachtvolle Villen stehen? Die Übernachtung findet in der Region Johannesburg statt.","content_1": "Linienflug von Frankfurt n2ach Johannesburg. ","heading_10": "10. Tag - Kapstadt - Weinregion - Kapstadt (auf Wunsch). ","heading_11": "11. Tag - Abreise. ","heading_12": "12. Tag - Ankunft in Deutschland.","content_8": "Auch dieser Tag steht Ihnen zur freien Verfügung. Sollten Sie das optionale Ausflugspaket gebucht haben, erwartet Sie heute eine halbtägige Stadtrundfahrt. Lassen Sie sich beindrucken von den Sehenswürdigkeiten und dem multi-ethnischen Charakter, der denPuls dieser Stadt prägt. Als ruhige Oase im Herzen der Stadt ist der Stadtgarten „Company‘sGardens“ bekannt. Kurz durchatmen inmittender grünen Oase, bevor es vorbei am Old Slave House weiter zum Malay- Viertel geht. Dieses wird auch „Bo-Kaap“ genannt. Die knallbunten Häuser in Bonbon- Farben sind ein beliebtes Fotomotiv. Den krönenden Abschluss bietet Ihnen der überwältigende Ausblick auf Kapstadt und Robben Island vom „Signal Hill“ aus.","content_12": "Änderungen des Reiseverlaufs vorbehalten.","content_11": "Transfer zum Flughafen von Kapstadt und Rückflug mit Zwischenstopp nach Deutschland.","content_10": "Nutzen Sie einen weiteren freien Tag um Kapstadt noch einmal auf eigene Faust zu erkunden. Im Rahmen des Ausflugspaketslernen Sie heute die berühmten, südafrikanischen Weine kennen. Sie entdecken die herrliche Weinroute um Franschhoek und Stellenbosch.Bei zwei Proben kitzelt der leckere Wein Ihre Geschmacksnerven wach. Fruchtig oder herb, was mundet Ihnen mehr? Dies war ein traumhafter Tag, welchen Sie sicherlich in positiver Erinnerung behalten werden.","tot_headings": "12","content_9": "Genießen Sie Ihre freie Zeit in Kapstadt. Sie wollten schon immer mal das südwestliche Ende Afrikas erkunden? Dann habenwir genau das Richtige für Sie! Bei Buchung des optionalen Ausflugspakets ist Ihr erster Stopp das ehemalige Fischerdorf Hout Bay. Kurios ist die Tatsache, dass das Ortseingangsschild die „RepublicofHout Bay“ ausweist. Dann endlich erblicken Sie das Kap der Guten Hoffnung, welches einst wegen seiner schroffen Klippen unter Seefahrern gefürchtet war. Danach geht es weiter zum Cape Point. Auf dem Rückweg erwartet Sie ein weiteres Highlight! Der botanische Garten von Kirstenbosch. Ein wahres Meer an bunten Pflanzen und Blumen ist unter anderem der Grund dafür, warum dieser Garten zu den schönsten weltweit zählt. Gemütliche kleine Parkbänke schmiegen sich perfekt in das idyllische Landschaftsbild und laden zum Verweilen ein.","status": "1","heading_8": "8. Tag - Kapstadt (auf Wunsch). ","heading_9": "9. Tag - Kapstadt - Kap der Guten Hoffnung - Kirstenbosch - Kapstadt (auf Wunsch). ","heading_2": "2. Tag - Johannesburg - Pretoria - Johannesburg. ","heading_3": "3. Tag - Johannesburg - Region Lowveld (ca. 560 km). ","heading_1": "1. Tag - Anreise. ","heading_6": "6. Tag - Malelane. ","heading_7": "7. Tag - Malelane - Johannesburg - Kapstadt. ","heading_4": "4. Tag - Region Lowveld - Krüger Nationalpark - Region Lowveld. ","heading_5": "5. Tag - Region Lowveld - Malelane (ca. 150 km). ","userID": "muaz","mapID": "My First Map" }'
-// myjson2 = '{ "_id": "583b84ed2ce47604907f8447", "status": "1", "heading_2": "Day 2: Los Angeles", "tot_headings": "5", "heading_1": "Day 1: Los Angeles", "content_5": "Simple Content 5", "heading_4": "Day 4: Palm Springs - Williams / Grand Canyon", "heading_5": "Day 5: Williams - Page (Classic) / Grand Canyon (Superior)", "tot_contents": "5", "content_4": "Simple Content 4", "content_3": "Simple Content 3", "content_2": "Simple Content 2", "content_1": "Simple content 1 ", "heading_3": "Day 3: Los Angeles – PalmSprings", "userID": "muaz", "mapID": "My First Map" }'
-// myjson3 = '{"_id":"58404317bce2800d28d0781e","status":"1","heading_2":"Day 2: Los Angeles","tot_headings":"5","heading_1":"Day 1: Los Angeles","content_5":"Simple Content 5","heading_4":"Day 4: Palm Springs - Williams / Grand Canyon","heading_5":"Day 5: Williams - Page (Classic) / Grand Canyon (Superior)","tot_contents":"5","content_4":"Simple Content 4","content_3":"Simple Content 3","content_2":"Simple Content 2","content_1":"Simple content 1 ","heading_3":"Day 3: Los Angeles â€“ PalmSprings","userID":"muaz","mapID":"My First Map"}'
 app.post('/fetchiter', function(req, res){
     var mapID=req.body.mapID;
     var userid=req.body.userid;
-    //console.log("\n\t\tIn fetchiter with mapID = "+ mapID + " and userid = " + userid);
+    console.log("\n\t\tIn fetchiter with mapID = "+ mapID + " and userid = " + userid);
 
     connect.fetchData(mongofil, userid, mapID, function (doc) {
-        // //console.log(typeof doc);
-        // //console.log(typeof myjson3);
-        // //console.log(doc);
-        // //console.log(myjson3);
+        // console.log(typeof doc);
+        // console.log(typeof myjson3);
+        // console.log(doc);
+        // console.log(myjson3);
 
         return res.end(doc);
     });
@@ -1174,30 +1198,30 @@ app.post('/fetchiter', function(req, res){
 
 socket.on('connection',function(socket){
   socket.on('disconnect', function(){
-   //console.log("A user has disconnected");
+   console.log("A user has disconnected");
   });
 
   socket.on('Latitude', function(msg){
     _Latid = msg;
-    //console.log("Latitude"+ msg);
+    console.log("Latitude"+ msg);
   });
 
   socket.on('Longitude', function(msg){
     _Lngid = msg
-   //console.log("Longittude"+msg);
+   console.log("Longittude"+msg);
   });
 
  socket.on('picdetailsimageupload', function(msg){
 
    var filename=msg.filename;
    var tourstop=msg.tourstopname;
-     //console.log("Pic details update" + filename+ tourstop);
+     console.log("Pic details update" + filename+ tourstop);
    //Update the imagedetails in picturescollection
 
      connect.updateImageDescription(mongofil,filename,tourstop, function(mssg){
        if(mssg == "done")
        {
-         //console.log("Picture has been updated");
+         console.log("Picture has been updated");
        }
 
      });
@@ -1253,7 +1277,7 @@ socket.on('connection',function(socket){
     //create the intitial trail database
     connect.getMarkers(mongofil,userid,maps,function(lat,lng,time,filename, mapid, id){
       if(lat != undefined && lng != undefined) {
-        //console.log("Retrived   " + lat + "  " + lng);
+        console.log("Retrived   " + lat + "  " + lng);
         socket.emit("drawmarkers", {lat: lat, lng: lng, time:time, filename:filename, map:mapid, id:id});
       }
     });
@@ -1261,12 +1285,12 @@ socket.on('connection',function(socket){
   });
 
   socket.on("getNumTourStops", function(msg){
-    //console.log("Get Number of tour stops"+msg.mapname);
+    console.log("Get Number of tour stops"+msg.mapname);
     var mapname=msg.mapname;
     connect.getTourStopCount(mongofil, mapname, function(number){
       if(number!= null)
       {
-        //console.log("Sending data"+number);
+        console.log("Sending data"+number);
         socket.emit("viewNumTourStops", {count:number});
       }
 
@@ -1274,6 +1298,24 @@ socket.on('connection',function(socket){
     });
 
   });
+
+  //Get favorite map details.
+
+    socket.on("viewfavmaps", function (mssg) {
+       console.log("In view fav maps "+mssg.username);
+       connect.getfavmapdetails(mongofil, mssg.username, function(mapname, description, username)
+       {
+
+         if(mapname!== undefined || description !== undefined || username !== undefined)
+         {
+           console.log("In view fav maps got"+ mapname+"  "+ description+"  "+username);
+           socket.emit("getfavmaps", {username:username, mapname:mapname, description:description})
+
+         }
+
+
+       });
+    });
 
   socket.on("GetTrails", function(msg){
     //console.log("In get trails");
@@ -1338,7 +1380,7 @@ socket.on('connection',function(socket){
         connect.getPicturesTourStopsrc(mongofil, mapname,tourstopname, function(picname,picpath,tourstopname){
             if(picname!=undefined && picpath!=undefined )
             {
-                //console.log("picname"+picname);
+                console.log("picname"+picname);
                 socket.emit("getImgsrc", {"picname":picname,"picpath":picpath,"tourstopname":tourstopname});
             }
         });
@@ -1349,51 +1391,51 @@ socket.on('connection',function(socket){
 
     connect.getpublishedmaps(mongofil,function(mapname, mapdescription){
       if(mapname!=undefined && mapdescription!=undefined){
-        //console.log("Map description"+mapdescription);
+        console.log("Map description"+mapdescription);
         socket.emit('receivepublishedmaps', {name:mapname, description:mapdescription});
       }
     });
   });
 
   socket.on('getTourStops', function(msg){
-    //console.log("Message received"+msg.userid);
-    //console.log("Mapname"+msg.mapname);
-    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+    console.log("Message received"+msg.userid);
+    console.log("Mapname"+msg.mapname);
+    connect.getTourStops(mongofil,msg.userid,msg.mapname,function(tourstopnam, vehicle,lat,lon,description, duration)
     {
       if(tourstopnam!=undefined ) {
-        //console.log("Sending Data"+description);
-        socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
+        console.log("Sending Data"+description);
+        socket.emit("viewTourStops", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon, duration:duration});
       }
     });
   });
   socket.on('getSearchTours', function(msg){
-    //console.log("Message received is"+msg.mapname);
-        connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description)
+    console.log("Message received is"+msg.mapname);
+        connect.getSearchTours(mongofil,msg.mapname,function(tourstopnam, vehicle,lat,lon,description, duration)
       {
           if(tourstopnam!=undefined ) {
-              //console.log("Sending Data"+description);
-              socket.emit("viewserachtours", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon});
+              console.log("Sending Data"+description);
+              socket.emit("viewserachtours", {name: tourstopnam, description: description, vehicle: vehicle, lat: lat, lng: lon, duration:duration});
           }
       });
   });
   socket.on('searchimage', function(msg){
-    //console.log("In search images"+msg.mapname);
+    console.log("In search images"+msg.mapname);
     connect.getOneImage(mongofil, msg.mapname, function(picname, picloction){
       if(picname != undefined && picloction != undefined)
       {
-        //console.log("Sending data"+picname+"  "+picloction);
+        console.log("Sending data"+picname+"  "+picloction);
         socket.emit("getimagesearch",{picname:picname,location:picloction})
       }
     });
   });
 
   socket.on('getdes', function(msg){
-    //console.log("In get Description"+msg.mapname);
+    console.log("In get Description"+msg.mapname);
     connect.getDes(mongofil,msg.mapname, function(mapname, mapdes){
 
       if(mapname!= null || mapdes != null)
       {
-        //console.log("Sending data"+ mapname+ mapdes);
+        console.log("Sending data"+ mapname+ mapdes);
         socket.emit("recdes", {mapname:mapname,description:mapdes});
       }
 
@@ -1403,10 +1445,10 @@ socket.on('connection',function(socket){
   });
 
   socket.on('getmaps', function(msg){
-     //console.log('Message received'+msg.userid);
+     console.log('Message received'+msg.userid);
     connect.getMaps(mongofil, msg.userid, function(mapname, mapdescription, publish){
       if(mapname!=undefined && mapdescription!=undefined){
-        //console.log("Map description"+mapdescription);
+        console.log("Map description"+mapdescription);
         socket.emit('viewmaps', {name:mapname, description:mapdescription, publish:publish});
       }
     });

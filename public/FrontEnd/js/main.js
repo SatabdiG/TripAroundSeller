@@ -90,7 +90,7 @@ function homeinit(){
     {
       window.location.href="#";
       //window.location.reload()
-    })
+    });
     /*
       if(document.getElementById("pp-nav") != null)
       {
@@ -99,7 +99,8 @@ function homeinit(){
 
       }*/
     $('#guestlink').click(function(event){
-      ////console.log("Guest link click");
+      //console.log("Guest link click");
+
       event.preventDefault();
       userid="guest";
       window.location.href="#dashboard";
@@ -215,10 +216,51 @@ function dashboardfunction(){
           lang=sessionStorage.getItem("lang");
       }
   $('#viewmapregion').empty();
+  $('#inspiarea').empty();
+
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
   ////console.log("User logged in as "+userid+lang);
+  console.log("User logged in as "+userid+lang);
+    //Fill in insi area from the current users fav list
+      socket.emit("viewfavmaps", {username:userid});
+      socket.on("getfavmaps", function(mssg){
+         console.log("Getting favorite maps");
+         var username=mssg.username;
+         var mapname=mssg.mapname;
+         var description=mssg.description;
+         console.log("Details retrived are"+ username+"  "+ mapname+"  "+description);
+         var obj=document.getElementById("favmaps"+mapname);
+         if(obj === null) {
+             $('#inspiarea').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a' + mapname + '" class="searchlink"><div id="favmaps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + description + '</p></div></a><div id="favimage'+mapname+'" class="thumbnail"></div> <div class="username"> By User :'+username+'</div> <div class="fav"></div> </div></div>');
+             var doc = document.getElementById("favimage" + mapname);
+             var location=mapname;
+             socket.emit("searchimage", {mapname:mapname});
+             socket.on("getimagesearch", function(msg) {
+                 console.log("Mapname" + location);
+                 piclocation = msg.location + "/" + msg.picname;
+                 console.log("in get Search Images" + piclocation);
+                 var temele = document.getElementById("imgsrc" + location);
+                 if (temele == null) {
+                     var imgele = document.createElement("img");
+                     imgele.setAttribute("id", "imgsrc" + location);
+                     imgele.setAttribute("class", "thumbnailimg");
+                     imgele.setAttribute("src", piclocation);
+                     doc.appendChild(imgele);
+                 }
+             });
+             $('#a'+mapname).on('click', function(evt){
+                 evt.preventDefault();
+                 sessionStorage.setItem("searchmap", mapname);
+                 serachmap=mapname;
+                 window.location.href="#overview";
+             });
 
+
+         }
+
+
+      });
 
       $("#logoutbutton").on('click', function()
       {
@@ -277,7 +319,13 @@ function dashboardfunction(){
       //Launch form
      $('#myModal').modal('show');
 
-      $("#submit").on('click', function(){
+        $('#datetimepicker1').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+        $('#datetimepicker2').datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+        $("#submit").on('click', function(){
         ////console.log("User clicked submit!");
         if($('#mapname').val()=='')
         {
@@ -292,7 +340,13 @@ function dashboardfunction(){
           dat.name=$('#mapname').val();
           dat.description=$('#descriptiontext').val();
           dat.userid=userid;
+          dat.startDate = $('#datetimepicker1').val();
+          dat.endDate = $('#datetimepicker2').val();
+          dat.geoTagsStatus = parseInt($('#geoTags_info input:radio:checked').val()); // 1 for yes, 0 for no, and 2 for try
 
+          // console.log(typeof parseInt(dat.geoTagsStatus));
+          // console.log(parseInt(dat.geoTagsStatus));
+          // return;
           $.ajax({
             url:'/mapsave',
             method:'POST',
@@ -308,12 +362,54 @@ function dashboardfunction(){
               var obj=document.getElementById('maps'+mapname);
               if(obj == null) {
                   var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
-                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div><div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div></div></div>');
+                  var editbutton='<button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>';
+                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p id="info'+mapname+'">Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div></div></div>');
               }
                 var publishbutton=document.getElementById("publish"+mapname);
                 publishbutton.addEventListener("click", function (evt) {
                     publishmapid=mapname;
                     $('#publishconformation').dialog("open");
+
+                });
+
+                var editbutt=document.getElementById("editbutton"+mapname);
+
+                editbutt.addEventListener("click", function(evt){
+                    console.log("Hello");
+                    //launch modal
+                    $("#DescriptionEdit").modal("show");
+                    $("#description").val(msg.description);
+                    $("#descriptionsub").on("click", function(evt){
+                        evt.preventDefault();
+                        console.log("Hello");
+                        var data={};
+                        if($('#description').val() == '')
+                        {
+                            $('#infodescrip').text("Please enter a description");
+                            $("#infodescrip").css("color", "red");
+                        }else
+                        {
+                            var data={};
+                            data.userid=userid;
+                            data.mapid=mapname;
+                            data.text=$('#description').val();
+                            console.log("Data  "+data.userid+"  "+data.mapid);
+                            //make a form submission
+                            $.ajax({
+                                url:'/mapdescriptionedit',
+                                type:'POST',
+                                data:JSON.stringify(data),
+                                contentType:'application/JSON'
+                            }).done(function(msg){
+                                console.log("Returned  "+msg);
+                                if(msg=="yes")
+                                {
+                                    $("#DescriptionEdit").modal("toggle");
+                                    $('#info'+data.mapid).text("Description: "+data.text);
+                                }
+                            });
+                        }
+                    });
 
                 });
 
@@ -325,6 +421,8 @@ function dashboardfunction(){
                     var tempstr=tempid.substring(12, tempid.length);
                     ////console.log("Remove clicked " + tempstr);
                   /*
+                    //console.log("Remove clicked " + tempstr);
+                   /*
                    if(mapname == undefined) {
                    deletemapid = msg.name;
                    }else
@@ -332,8 +430,25 @@ function dashboardfunction(){
                     deletemapid=tempstr;
                     $('#confirmdeletion').dialog("open");
                 });
+                var link_toGo;
+                switch(dat.geoTagsStatus){
+                    case 0:
+                        link_toGo = "#iteniary"
+                        console.log('You have selected no');
+                        break;
+                    case 1:
+                        link_toGo = "#UploadImages"
+                        console.log('You have selected yes');
+                        break;
+                    case 2:
+                        link_toGo = "#UploadImages"
+                        console.log('You have selected try');
+                        break;
+                }
+                $('#myModal').modal('hide');
+                sessionStorage.setItem("mapname", mapname);
+                window.location.href=link_toGo;
 
-                //return false;
             }
             else
             {
@@ -342,8 +457,8 @@ function dashboardfunction(){
               $('#infofrm').css('color', 'red');
             }
           });
-          $('#myModal').modal('toggle');
-          return false;
+
+          // return false;
         }
       });
 
@@ -364,7 +479,7 @@ function dashboardfunction(){
           text: "I want to Publish this map for everybody to See!!",
           "class":"btn btn-default",
           click: function(){
-            ////console.log("clicked"+publishmapid);
+            console.log("clicked"+publishmapid);
             var publishmaps={};
             publishmaps.id=publishmapid;
             publishmaps.publish="Y";
@@ -376,7 +491,7 @@ function dashboardfunction(){
               contentType:"application/JSON"
 
             }).done(function(msg){
-              ////console.log("Returned"+msg);
+              console.log("Returned"+msg);
               if(msg == "yes")
               {
                 //Update status message
@@ -411,7 +526,7 @@ function dashboardfunction(){
           text: "I want to delete this map",
           "class": "btn btn-danger",
           click: function() {
-             ////console.log("Clicked"+deletemapid);
+             console.log("Clicked"+deletemapid);
              //Send a post request to server delete all references to map and refresh page.
              var deletedata={};
              deletedata.userid=userid;
@@ -469,7 +584,7 @@ function dashboardfunction(){
         data:JSON.stringify(getmap),
         contentType:'application/JSON'
       }).done(function(msg){
-        ////console.log("Returned message is "+msg);
+        console.log("Returned message is "+msg);
         if(msg =="no"){
           $('#viewmapregion').text('You Have No Saved Maps. Please create one to start');
           $('#viewmapregion').css('color','green');
@@ -479,9 +594,9 @@ function dashboardfunction(){
           //call socket function
           socket.emit('getmaps', {userid:userid});
           socket.on('viewmaps', function(msg){
-            ////console.log(msg.description);
+            console.log(msg.description);
             var publish=msg.publish;
-            ////console.log("Publish is"+publish);
+            //console.log("Publish is"+publish);
             if(publish ==="N")
             {
               //create private button
@@ -496,59 +611,66 @@ function dashboardfunction(){
           //Clear view map region
             var obj=document.getElementById(msg.name);
             if(obj == null) {
-              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<!--<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button>--> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ buttonstr+  '</div></div></div>');/*
+              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p id="info'+msg.name+'">Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ buttonstr+  '</div></div></div>');/*
               '<div id="maps'+msg.name+'"><a id="' + msg.name + '" class="button">' + msg.name + '</a> <div id="info'+msg.info+'"> Description : '+msg.description+'</div><button class="'+msg.name+'" id="editbutton'+msg.name+'"> Edit </button><button class="'+msg.name+'" id="removebutton'+msg.name+'"> Remove Map </button></div><br>');*/
-              /*
+
               var editbutt=document.getElementById("editbutton"+msg.name);
 
               editbutt.addEventListener("click", function(evt){
-                //console.log("Hello");
-                //launch modal
-                $("#DescriptionEdit").modal("show");
-                $("#description").val(msg.description);
-                $("#descriptionsub").on("click", function(evt){
+                  $("#DescriptionEdit").on('hidden.bs.modal', function () {
+                      $(this).data('bs.modal', null);
+                  });
                   evt.preventDefault();
-                  //console.log("Hello");
-                  var data={};
-                  if($('#description').val() == '')
-                  {
-                    $('#infodescrip').text("Please enter a description");
-                    $("#infodescrip").css("color", "red");
-                  }else
-                  {
-                    var data={};
-                    data.userid=userid;
-                    if(mapname == undefined) {
-                      data.mapid = msg.name;
-                    }else
-                      data.mapid=mapname;
-                    data.text=$('#description').val();
-                    //console.log("Data  "+data.userid+"  "+data.mapid);
-                    //make a form submission
-                    $.ajax({
-                      url:'/mapdescriptionedit',
-                      type:'POST',
-                      data:JSON.stringify(data),
-                      contentType:'application/JSON'
-                    }).done(function(msg){
-                      //console.log("Returned  "+msg);
-                      if(msg=="yes")
-                      {
-                        $("#DescriptionEdit").modal("hide");
-                        $('#info'+msg.info).text("Description: "+data.text);
-                      }
-                    });
-                  }
-                });
+                  var currele=this.id;
+                  var temele=currele.substring(10, currele.length);
+                  console.log("Hello"+currele.substring(10, currele.length)+"  "+$("#DescriptionEdit").hasClass('in'));
+                  if(temele.indexOf(msg.name)!== -1) {
+                      //launch modal
+                      $("#DescriptionEdit").modal("show");
+                      $("#description").val(msg.description);
+                      $("#descriptionsub").on("click", function (evt) {
 
-              });*/
+                          evt.preventDefault();
+
+                          if ($('#description').val() == '') {
+                              $('#infodescrip').text("Please enter a description");
+                              $("#infodescrip").css("color", "red");
+                          } else {
+                              var data = {};
+                              data.userid = userid;
+                              data.mapid = msg.name;
+                              data.text = $('#description').val();
+                              console.log("Data  " + data.userid + "  " + data.mapid);
+                              //make a form submission
+                              $.ajax({
+                                  url: '/mapdescriptionedit',
+                                  type: 'POST',
+                                  data: JSON.stringify(data),
+                                  contentType: 'application/JSON'
+                              }).done(function (msg) {
+                                  console.log("Returned  " + msg);
+                                  if (msg == "yes") {
+                                      $("#DescriptionEdit").modal("hide");
+                                      $("#DescriptionEdit").on('hidden.bs.modal', function () {
+                                          $(this).data('bs.modal', null);
+                                      });
+                                      $('#info' + data.mapid).text("Description: " + data.text);
+                                  }
+                              });
+                          }
+
+                      });
+                  }
+
+
+              });
 
               //Publish button
               var publishbutton=document.getElementById("publish"+msg.name);
               publishbutton.addEventListener("click", function (evt) {
                 evt.preventDefault();
                 var tempid=this.id;
-                ////console.log("Clicked "+msg.name);
+                console.log("Clicked "+msg.name);
                 publishmapid=msg.name;
                 $('#publishconformation').dialog("open");
 
@@ -559,7 +681,7 @@ function dashboardfunction(){
                 evt.preventDefault();
                 var tempid=this.id;
                 var tempstr=tempid.substring(12, tempid.length);
-                ////console.log("Remove clicked " + tempstr);
+                console.log("Remove clicked " + tempstr);
                 /*
                 if(mapname == undefined) {
                   deletemapid = msg.name;
@@ -577,8 +699,8 @@ function dashboardfunction(){
 
 
   $('#viewmapregion').on('click','a', function(event){
-    ////console.log("Link clicked");
-    ////console.log("Event id is"+event.target.id);
+    // console.log("Link clicked");
+    // console.log("Event id is : "+event.target.id);
     mapname=event.target.id;
     sessionStorage.setItem("mapname", mapname);
     window.location.href="#UploadImages";
@@ -607,6 +729,9 @@ function imagecontroller(){
   var markers=[];
   var picobj={};
   var maps={};
+  console.log('trying to hide box');
+  // $('.modal-backdrop fade in').remove();
+  $(".modal-backdrop").remove();
   if(userid === undefined || mapname === undefined)
   {
     userid=sessionStorage.getItem("username");
@@ -642,7 +767,7 @@ function imagecontroller(){
         data:JSON.stringify(data)
 
     }).done(function (msg) {
-      ////console.log("Function has been completed successfully"+msg);
+      console.log("Function has been completed successfully"+msg);
       if(msg==="no")
       {
         //User is not a seller remove everything related to fileupload
@@ -756,7 +881,12 @@ function imagecontroller(){
 
               ////console.log("Lat refef"+latRef +"  "+lonRef);
               if(lat == undefined || lon== undefined)
-                alert("Sorry No Geo Tags present in images");
+              {
+                  //alert("Sorry No Geo Tags present in images");
+                  $("#uploadstatus").css({"color":"red"});
+                  $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+
+              }
               else {
                 lat = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
                 lon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
@@ -937,13 +1067,13 @@ function imagecontroller(){
           processData:false,
           contentType:false
         }).done(function(msg){
-          //console.log(msg);
+          console.log(msg);
           if(msg == "yes") {
             $("#uploadstatus").text("File has been uploaded");
             $("#uploadstatus").css({"color":"green"});
             $("#uploadForm2")[0].reset();
             $('#dropzonePreview').on('complete',function(file){
-              //console.log("Finally!!");
+              console.log("Finally!!");
             $('#dropzonePreview').removeAllFiles(true);
             });
           }
@@ -951,7 +1081,7 @@ function imagecontroller(){
             $("#uploadstatus").text("File has not been uploaded");
         });
 
-        //console.log("Names  "+filename);
+        console.log("Names  "+filename);
         var userpicinfo={};
         userpicinfo.userid=userid;
         userpicinfo.filename=filename;
@@ -962,11 +1092,11 @@ function imagecontroller(){
           data:JSON.stringify(userpicinfo),
           contentType:'application/json'
         }).done(function(msg){
-          //console.log("Done!!  " +msg);
+          console.log("Done!!  " +msg);
         });
 
         var filename=$("#userphoto").val().split('\\').pop();
-        //console.log("Filename   "+filename);
+        console.log("Filename   "+filename);
         socket.emit('UserData',{id:userid,file:filename, mapid:"guestmap"});
       }
       else {
@@ -998,7 +1128,7 @@ function imagecontroller(){
                 var i = document.getElementById("source_image");
                 i.src = event.target.result;
                 i.onload = function(){
-                    //console.log("Image loaded");
+                    console.log("Image loaded");
 
                     var source_image = document.getElementById('source_image');
                     var result_image = document.getElementById('result_image');
@@ -1139,7 +1269,7 @@ function imagecontroller(){
       { //save the guest map
         maps.name="guestmap";
         maps.id=userid;
-        //console.log("Map coordinates "+ markerobj);
+        console.log("Map coordinates "+ markerobj);
         maps.markerobj=markercollec;
         $.ajax({
           url:"/mapupload",
@@ -1147,7 +1277,7 @@ function imagecontroller(){
           data:JSON.stringify(maps),
           contentType:'application/json'
         }).done(function(response){
-          //console.log(response);
+          console.log(response);
           if(response === "yes") {
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
@@ -1173,21 +1303,21 @@ function imagecontroller(){
         maps.name=mapname;
         maps.id=userid;
         maps.markerobj=markercollec;
-        //console.log("Map collection"+ markercollec);
+        console.log("Map collection"+ markercollec);
         for(var i=0;i<markercollec.length;i++)
         {
           var pos=markercollec[i];
-          //console.log("******* Pos ******", pos);
+          console.log("******* Pos ******", pos);
 
         }
-        //console.log("Map coordinates "+ markerobj);
+        console.log("Map coordinates "+ markerobj);
         $.ajax({
           url:"/mapupload",
           type:'POST',
           data:JSON.stringify(maps),
           contentType:'application/json'
         }).done(function(response){
-          //console.log(response);
+          console.log(response);
           if(response =="yes") {
             $("#uploadstatus").text("The map has been saved.");
             $("#uploadstatus").css({"color":"green"});
@@ -1224,12 +1354,12 @@ function imagecontroller(){
               contentType:'application/JSON'
             }
           ).done(function(msg){
-            //console.log("Returbned message"+ msg);
+            console.log("Returbned message"+ msg);
           });
       }
     });
     $("#userphoto").on('change', function (event) {
-      //console.log("changed"+ event);
+      console.log("changed"+ event);
       var input=$("#userphoto").get(0).files;
       var count=0;
       for(var i=0;i<input.length;i++)
@@ -1242,7 +1372,12 @@ function imagecontroller(){
             var latRef = EXIF.getTag(this,"GPSLatitudeRef");
             var lonRef = EXIF.getTag(this,"GPSLongitudeRef");
           if(lat == undefined || lon== undefined)
-            alert("Sorry No Geo Tags present in images");
+          {
+              //alert("Sorry No Geo Tags present in images");
+              $("#uploadstatus").css({"color":"red"});
+              $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+          }
+
           else {
             lat = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
             lon = (lon[0] + lon[1] / 60 + lon[2] / 3600) * (lonRef == "W" ? -1 : 1);
@@ -1258,8 +1393,8 @@ function imagecontroller(){
                 if(status === 'OK')
                 {
                    var address=results[1].formatted_address;
-                   //console.log("Place name:"+results[1].formatted_address);
-                   //console.log("Place name   "+results[1]);
+                   console.log("Place name:"+results[1].formatted_address);
+                   console.log("Place name   "+results[1]);
                    infowindow.setContent(results[1].formatted_address);
                     socket.emit('Latitude', lat);
                     socket.emit('Longitude', lon);
@@ -1270,7 +1405,7 @@ function imagecontroller(){
                     markerobj.id=userid+tim;
                     var filename = $('#userphoto').val().split('\\').pop();
                     //var fil=document.getElementById("userphoto");
-                    //console.log("Name is **&*&"+ this.name+"  "+filename);
+                    console.log("Name is **&*&"+ this.name+"  "+filename);
                     //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
                     markerobj.filename=this.name;
                     var fil=$("#userphoto").get(0).files;
@@ -1287,7 +1422,7 @@ function imagecontroller(){
                     marker.addListener('click',function () {
                         infowindow.open(map, marker);
                         var reader=new FileReader();
-                        //console.log(fil[0]);
+                        console.log(fil[0]);
                         reader.readAsDataURL(fil[0]);
                         reader.onload=function (e) {
                             $('#image-container').attr("src", e.target.result);
@@ -1299,7 +1434,7 @@ function imagecontroller(){
 
                 }else
                 {
-                  //console.log("Geocoder failed due to"+status);
+                  console.log("Geocoder failed due to"+status);
                 }
               });
 
@@ -1309,7 +1444,7 @@ function imagecontroller(){
       }
     });
       $('#submit_doc').click(function(evt){
-          //console.log ( '#submit_doc was clicked' );
+          console.log ( '#submit_doc was clicked' );
           $("#myFile").prop('disabled', true);
           $("#submit_doc").prop('disabled', true);
           evt.preventDefault();
@@ -1435,10 +1570,10 @@ function placemarker(location, src){
   var tempobj={};
   var filename=src.split('/');
   var actual=filename[filename.length-1];
-  //console.log("actua"+actual+"  "+filename);
+  console.log("actua"+actual+"  "+filename);
   tempobj.filename=actual;
 
-  //console.log("In place marker"+src);
+  console.log("In place marker"+src);
   var marker=new google.maps.Marker({
     position:location,
   });
@@ -1923,7 +2058,7 @@ function imagegallerycontroller(){
         userid=sessionStorage.getItem("username");
         mapname=sessionStorage.getItem("mapname")
     }
-    //console.log("In gallery page"+userid);
+    console.log("In gallery page"+userid);
   $(document).ready(function(){
      //Launch Filters modal
     $('#logoutbutton').click(function(){
@@ -1935,14 +2070,14 @@ function imagegallerycontroller(){
         return true;
     });
     $('#filters').on("click", function(evt){
-      //console.log("Filters modal opened");
+      console.log("Filters modal opened");
       //display the filters
       $('#filtermodal').modal("show");
       //smile check function
       /*
       $('#facecheck').on("click", function (evt) {
         $('#facecheck').attr("checked", true);
-        //console.log("Smile checked clicked");
+        console.log("Smile checked clicked");
         //call the server function
         var data={};
         data.userid=userid;
@@ -1955,7 +2090,7 @@ function imagegallerycontroller(){
           var facevar=mssg.facevar;
           var smilevar=mssg.smilevar;
           var tempimg = document.getElementById("div"+mssg.picname);
-          //console.log("Data  "+facevar+"  "+mssg.picname);
+          console.log("Data  "+facevar+"  "+mssg.picname);
           if(tempimg!= undefined) {
             if (facevar == 0) {
               tempimg.remove();
@@ -1968,7 +2103,7 @@ function imagegallerycontroller(){
       //Smile check  function
       $('#smilecheck').on("click", function(evt){
         $('#smilecheck').attr("checked", true);
-        //console.log("Smile checked clicked");
+        console.log("Smile checked clicked");
 
         socket.emit("ImageGall",{userid: userid, mapid:mapid});
         socket.on("imagereturn", function(mssg) {
@@ -1976,7 +2111,7 @@ function imagegallerycontroller(){
           var facevar=mssg.facevar;
           var smilevar=mssg.smilevar;
           var tempimg = document.getElementById("div"+mssg.picname);
-          //console.log("Data  "+facevar+"  "+mssg.picname);
+          console.log("Data  "+facevar+"  "+mssg.picname);
           if(tempimg!=undefined) {
             if (smilevar == 0) {
               tempimg.remove();
@@ -1989,13 +2124,13 @@ function imagegallerycontroller(){
 
     $('#dispall').on("click", function (evt) {
         $('#dispall').attr("checked", true);
-        //console.log("Display all checked clicked");
+        console.log("Display all checked clicked");
         socket.emit("ImageGall",{userid: userid, mapid:mapid});
         socket.on("imagereturn", function(mssg) {
           //Check if the image is  present if it is remove
           var facevar=mssg.facevar;
           var tempimg = document.getElementById("div"+mssg.picname);
-          //console.log("Data  "+facevar+"  "+mssg.picname);
+          console.log("Data  "+facevar+"  "+mssg.picname);
           if(userid=="guest"){
             var mapid="guestmap";
             var loc="uploads/"+mssg.picname;
@@ -2035,7 +2170,7 @@ function imagegallerycontroller(){
        }
       });
     //$('.blueberry').blueberry();
-    //console.log("User is logged as"+ userid);
+    console.log("User is logged as"+ userid);
     if(userid =="guest")
     {
       var mapid="guestmap";
@@ -2046,9 +2181,9 @@ function imagegallerycontroller(){
 
     socket.emit("ImageGall",{userid: userid, mapid:mapid});
     socket.on("imagereturn", function(mssg){
-      //console.log(mssg.description);
-      //console.log(mssg.picname);
-      //console.log(mssg.picpath);
+      console.log(mssg.description);
+      console.log(mssg.picname);
+      console.log(mssg.picpath);
       if(userid=="guest"){
         var mapid="guestmap";
         var loc="uploads/"+mssg.picname;
@@ -2058,7 +2193,7 @@ function imagegallerycontroller(){
         var loc=mssg.picpath+"/"+mssg.picname;
       }
       if(mssg.picname != undefined && mssg.picpath!=undefined) {
-        //console.log("loc"+loc);
+        console.log("loc"+loc);
         loc1.push(loc);
         var temp=document.getElementById(mssg.picname);
         if(temp == undefined)
@@ -2082,12 +2217,12 @@ function imagegallerycontroller(){
 /*
 function serachpage()
 {
-  //console.log("Hello");
+  console.log("Hello");
   socket.emit("getpublishedmaps", {userid:userid});
   socket.on('receivepublishedmaps', function(msg){
-    //console.log("Activated")
-    //console.log(msg.name);
-    //console.log(msg.description);
+    console.log("Activated")
+    console.log(msg.name);
+    console.log(msg.description);
     //$('#viewmapregion').append(msg.name+msg.description);
     var obj=document.getElementById(msg.name);
     if(obj == null) {
@@ -2105,7 +2240,7 @@ function airplanehandler(){
       var startpos, startend;
       var path;
 
-      //console.log("In airplane loop");
+      console.log("In airplane loop");
       map.addListener("click", function (event) {
         var objplane = [];
         if(objplane.count>0)
@@ -2116,10 +2251,10 @@ function airplanehandler(){
             objplane.pop();
           }
         }
-        //console.log("0obj"+objplane);
+        console.log("0obj"+objplane);
         map.setOptions({draggable: false});
 
-        //console.log("ZZZ"+event.latLng+"  "+objplane);
+        console.log("ZZZ"+event.latLng+"  "+objplane);
         startpos = event.latLng.lat();
         startend = event.latLng.lng();
 
@@ -2194,7 +2329,7 @@ function trainhandler(){
 
       if (path2 != undefined) {
         path2.addListener("click", function (event) {
-          //console.log("Dragging");
+          console.log("Dragging");
           path2.setMap(null);
         });
       }
@@ -2231,7 +2366,7 @@ function SaveData(){
       sendobj.filename=obj.filename;
       sendobj.lat=obj.lat;
       sendobj.lon=obj.lng;
-      //console.log("Built send obj"+sendobj.filename);
+      console.log("Built send obj"+sendobj.filename);
 
       $.ajax({
         url:('/usermarkersave'),
@@ -2239,7 +2374,7 @@ function SaveData(){
         data:JSON.stringify(sendobj),
         contentType:'application/JSON'
       }).done(function(msg){
-        //console.log("Returned message"+msg);
+        console.log("Returned message"+msg);
         if(msg == "yes")
         {
           $('#mapinfosec').text("Your Map data was saved");
@@ -2262,7 +2397,7 @@ function SaveData(){
       var obj=userpaths[i].path;
 
       var path=obj.getPath().getArray().toString();
-      //console.log("Obj is"+path);
+      console.log("Obj is"+path);
 
       var sendobj={};
       sendobj.userid=userid;
@@ -2272,7 +2407,7 @@ function SaveData(){
       sendobj.mode=userpaths[i].mode;
      // sendobj.lat=obj.lat;
     //  sendobj.lon=obj.lng;
-     //console.log("Built send obj"+sendobj.path);
+     console.log("Built send obj"+sendobj.path);
 
       $.ajax({
         url:('/usertrailmanual'),
@@ -2280,10 +2415,10 @@ function SaveData(){
         data:JSON.stringify(sendobj),
         contentType:'application/JSON'
       }).done(function(msg){
-        //console.log("Returned message"+msg);
+        console.log("Returned message"+msg);
         if(msg == "yes")
         {
-          //console.log("Yes returned");
+          console.log("Yes returned");
           userpaths=[];
         }else
         {
@@ -2368,97 +2503,93 @@ function ResetAll()
   });
 
 }
-
-
 function translateFunction(arr1,arr2) {
-    /*//console.log("SSAsadsasasa"+ $(this).text()+" "+lang);*/
-    //console.log("SSAsadsasasa"+"#eng"+" "+lang);
+    /*console.log("SSAsadsasasa"+ $(this).text()+" "+lang);*/
+    console.log("SSAsadsasasa"+"#eng"+" "+lang);
     var out = "";
     var i = 0;
     var m = 0;
-   /* if($(this).text()===""){
-        lang = "English";
-    }*/
+    /* if($(this).text()===""){
+     lang = "English";
+     }*/
 
     var arr = arr1.concat(arr2);
-    //console.log(lang+lang);
+    console.log(lang+lang);
 
     $(document).on('click', '.dropdown-menu li a', function () {
-     lang = $(this).text();
-     sessionStorage.setItem("lang", lang);
-     //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
+        lang = $(this).text();
+        sessionStorage.setItem("lang", lang);
+        //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
 
 
-      if(lang=="English" || lang =="Englisch"){
-        //console.log(arr.length);
-        for(i = 0; i<arr.length; i++){
-            /*//console.log(i);*/
-            out = arr[i].en;
-            eleId = arr[i].id;
-/*            //console.log(out);
-            //console.log(a);*/
-            //console.log(eleId);
-            document.getElementById(eleId).innerHTML = out;
+        if(lang=="English" || lang =="Englisch"){
+            console.log(arr.length);
+            for(i = 0; i<arr.length; i++){
+                /*console.log(i);*/
+                out = arr[i].en;
+                eleId = arr[i].id;
+                /*            console.log(out);
+                 console.log(a);*/
+                console.log(eleId);
+                document.getElementById(eleId).innerHTML = out;
+            }
         }
-    }
-    else if(lang=="Deutsch" || lang=="German"){
-        for(i = 0; i<arr.length; i++){
-/*        //console.log(i);*/
-            out = arr[i].de;
-            eleId = arr[i].id;
+        else if(lang=="Deutsch" || lang=="German"){
+            for(i = 0; i<arr.length; i++){
+                /*        console.log(i);*/
+                out = arr[i].de;
+                eleId = arr[i].id;
 
-            //console.log(eleId);
-            document.getElementById(eleId).innerHTML = out;
-            //console.log(out);
-            //console.log(document.getElementById(eleId));
-    }
-    }
+                console.log(eleId);
+                document.getElementById(eleId).innerHTML = out;
+                console.log(out);
+                console.log(document.getElementById(eleId));
+            }
+        }
 
-});
+    });
 
     /*var lang ="Deutsch";
-    //console.log(lang); */
+     console.log(lang); */
 
     /*var sub_key=[];
-    *//*var transkeys = Object.keys(arr);*//*
-    for(var j in arr){
-        var key = j;
-        var val = arr[j];
-        for(var k in val){
-            sub_key[m] = k;
-            m++;
-
-        }
-    }*/
+     *//*var transkeys = Object.keys(arr);*//*
+     for(var j in arr){
+     var key = j;
+     var val = arr[j];
+     for(var k in val){
+     sub_key[m] = k;
+     m++;
+     }
+     }*/
 
     /*for(i = 0; i<arr.length; i++){
-        out = arr[0].en;
-
-    }*/
-    //console.log("lang before if:" +lang);
+     out = arr[0].en;
+     }*/
+    console.log("lang before if:" +lang);
     if(lang=="English" || lang =="Englisch"){
-        //console.log(arr.length);
+        console.log(arr.length);
         for(i = 0; i<arr.length; i++){
-            /*//console.log(i);*/
+            /*console.log(i);*/
             out = arr[i].en;
             eleId = arr[i].id;
-/*            //console.log(out);
-            //console.log(a);*/
-            //console.log(eleId);
+            /*            console.log(out);
+             console.log(a);*/
+            console.log(eleId);
             document.getElementById(eleId).innerHTML = out;
         }
     }
     else if(lang=="Deutsch" || lang=="German"){
         for(i = 0; i<arr.length; i++){
-/*        //console.log(i);*/
+            /*        console.log(i);*/
             out = arr[i].de;
             eleId = arr[i].id;
 
-            //console.log(eleId);
+            console.log(eleId);
             document.getElementById(eleId).innerHTML = out;
-            //console.log(out);
-            //console.log(document.getElementById(eleId));
-    }
+            console.log(out);
+            console.log(document.getElementById(eleId));
+        }
     }
 
 
@@ -2526,20 +2657,15 @@ tripapp.config(function($routeProvider) {
   .when('/viewgallery',{
       templateUrl:'/FrontEnd/partials/viewgallery.html',
       controller:'viewgallerycontrol'
-  })
+  });
 
-  .when('/share', {
-      templateUrl:'/FrontEnd/partials/share.html',
-      controller:'ShareController'
-  })
-
+/*
    .when('/About',{
         templateUrl:'/FrontEnd/partials/About.html',
    })
+*/
 
-   .when('/FAQ',{
-        templateUrl:'/FrontEnd/partials/FAQ.html',
-   });
+
 });
 
 
@@ -2577,10 +2703,11 @@ tripapp.controller('imagegallerycontroller', function($scope){
 tripapp.controller('dashboardcontroller', function($scope){
   $scope.userid=name;
   $scope.init=dashboardfunction();
+  /*
   socket.emit('getpublishedmaps', {userid:userid});
   socket.on('viewpublishedmaps', function(msg) {
 
-  });
+  });*/
 
 });
 
@@ -2626,12 +2753,4 @@ tripapp.controller('viewgallerycontrol', function($scope)
     $scope.userid=name;
     $scope.map=mapname;
     $scope.init=viewgallerycontrol();
-});
-
-tripapp.controller('ShareController', function($scope){
-  $scope.userid=name;
-  $scope.message="Hello";
-/*  $scope.map=mapname;*/
-  $scope.init=ShareController();
-
 });

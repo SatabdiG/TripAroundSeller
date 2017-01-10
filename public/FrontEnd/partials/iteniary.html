@@ -74,6 +74,22 @@
                         <!--Iteniary pages go here -->
                        <!--Create Iteniary pages here -->
                         <input type="text" placeholder="Enter Tour Stop" id="place">
+                        <input type="text" placeholder="Time" id="duration">
+                        <div class="dropdown" id="dropdownd">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="durationclick" data-toggle="dropdown">|||
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="durationmenu">
+                                <li role="presentation"><div class="menuheader">Duration in Days</div></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><button role="menuitem" tabindex="-1"  id="dur1" class="btn btn-primary menubutton"> 1 </button></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><button role="menuitem" tabindex="-1" id="dur2" class="btn btn-primary menubutton"> 2 </button></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><button role="menuitem" tabindex="-1" id="dur3" class="btn btn-primary menubutton"> 3 </button></li>
+                                <li role="presentation" class="divider"></li>
+
+                            </ul>
+                        </div>
                         <button type="button" class="btn btn-primary" id="createTourStop"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-primary" id="replayTourAnimation"><i class="fa fa-repeat" aria-hidden="true"></i></button>
                         <!--<button type="button" class="btn btn-primary" id="saveIteniary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save </button>-->
@@ -85,5 +101,3 @@
             </div>
         </div>
 </div>
-
-
