@@ -2521,7 +2521,6 @@ function translateFunction(arr1,arr2) {
         sessionStorage.setItem("lang", lang);
         //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
 
-
         if(lang=="English" || lang =="Englisch"){
             console.log(arr.length);
             for(i = 0; i<arr.length; i++){
