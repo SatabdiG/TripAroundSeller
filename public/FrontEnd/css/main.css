@@ -931,6 +931,10 @@ i {
 
 }
 
+.item{
+    display:inline-block;
+}
+
 .FooterContent{
     font-family: "Indie flower";
     font-size: 16px;
