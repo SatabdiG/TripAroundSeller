@@ -9,7 +9,6 @@ function ShareController()
              window.location.href="#";
         });
 
-
         userid = sessionStorage.getItem("username");
         mapname = sessionStorage.getItem("mapname");
         console.log(userid);
