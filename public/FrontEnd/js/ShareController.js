@@ -1,5 +1,5 @@
 serachmap="";
-mapname1 = mapname;
+
 function ShareController()
 {
     console.log("In Share Page controller");
@@ -9,10 +9,11 @@ function ShareController()
              window.location.href="#";
         });
 
+
+        userid = sessionStorage.getItem("username");
+        mapname = sessionStorage.getItem("mapname");
         console.log(userid);
         console.log("Maaaaap:"+mapname);
-
-            console.log("Activated");
 
             $('#viewshare').append('<a id="map'+mapname+'" class="searchlink"><div id="maps' + mapname + '"><h3>' + mapname + '</h3></div></a>');
 

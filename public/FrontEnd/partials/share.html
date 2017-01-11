@@ -1,29 +1,69 @@
-<div class = "row" style="margin-top:0px;">
-    <div class = "col-md-6 text-left">
-        <h1>TripAround</h1>
+<!-- Description : User can share tours -->
+<!--<h1>(TripAround logo)</h1>-->
+
+<h3 style="display: inline;" id ="welcome">Welcome, </h3>
+<h3 style="display: inline;">{{userid}}</h3>
+
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">TripAround</a>
     </div>
-    <div class = "col-md-6 text-right">
-        <button class="btn btn-primary" id="logoutsearch">Log out</button>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ><a href="#overview" id="overview">OverView Tour </a></li>
+        <li><a href="#dashboard" id="dashboard">Dashboard </a></li>
+        <li><a href="#UploadImages" id="upload">Upload Pictures</a></li>
+        <li><a href ="#imagegallery" id="gallery">Gallery</a></li>
+        <li><a href="#ViewImages" id="editmap">Edit Map </a></li>
+        <li><a href="#iteniary" id="viewite">View Iterniary</a></li>
+        <li><a href="#searchtours" id="search">Search for Tours</a></li>
+        <li class="active"><a id="share">Share Tour<span class="sr-only">(current)</span></a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="btn btn-primary" id="logoutbutton">Log Out</a></li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <p id="sharehead">Here you can share your tours</p>
+  </div>
+</div>
+
+<div>
+    <div class = "item" id ="viewshare">
+        <IMG STYLE=" WIDTH:260px; HEIGHT:260px; margin-right:40px; margin-top:20px; display:inline-block"  SRC="\FrontEnd\Pictures\Share.png">
+        <p class="caption">Share your tour with your friends</p>
+        <a target="_blank" href="https://www.facebook.com"><i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i></a></li>
+	    <a target="_blank" href="https://www.twitter.com"><i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i></a></li>
+	    <a target="_blank" href="https://www.youtube.com"><i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i></a></li>
+	    <a target="_blank" href="https://www.pinterest.com"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+    </div>
+
+    <div class = "item">
+        <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-right:40px; margin-top:20px;"  SRC="\FrontEnd\Pictures\Gallery.png">
+        <p class="caption">Design your individual map</p>
+    </div>
+
+    <div class = "item">
+        <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-top:20px;"  SRC="\FrontEnd\Pictures\menu.png">
+        <p class="caption">Create your tour video</p>
     </div>
 </div>
 
-<h3 class="shareheading" id="search">Welcome to the Share Page</h3>
-
-<div class = "item" id ="viewshare">
-    <IMG STYLE=" WIDTH:260px; HEIGHT:260px; margin-right:40px; display:inline-block"  SRC="\FrontEnd\Pictures\Share.png">
-    <p class="caption">Share your tour with your friends</p>
-    <a href="https://www.facebook.com"><i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i></a></li>
-	<a href="https://www.twitter.com"><i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i></a></li>
-	<a href="https://www.youtube.com"><i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i></a></li>
-	<a href="https://www.pinterest.com"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-</div>
-
-<div class = "item">
-    <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-right:40px"  SRC="\FrontEnd\Pictures\Gallery.png">
-    <p class="caption">Design your individual map</p>
-</div>
-
-<div class = "item">
-    <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block;"  SRC="\FrontEnd\Pictures\menu.png">
-    <p class="caption">Create your tour video</p>
-</div>

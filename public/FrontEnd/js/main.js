@@ -2763,7 +2763,8 @@ tripapp.controller('viewgallerycontrol', function($scope)
 
 tripapp.controller('ShareController', function($scope){
   $scope.userid=name;
-  $scope.init = ShareController();
+  $scope.map=mapname;
   $scope.message="Hello";
+  $scope.init = ShareController();
 
 });
