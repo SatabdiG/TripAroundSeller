@@ -11,6 +11,12 @@ function serachpage()
     console.log("In Search Page in controller");
     $(document).ready(function()
     {
+        //Change button text
+        if(sessionStorage.getItem("username")!== null && userid !=="")
+        {
+            console.log()
+            $("#logoutsearch").html('Go back to Dashboard');
+        }
 
         console.log("Username is "+sessionStorage.getItem("username"));
         if(sessionStorage.getItem("username") === null || userid === "")
