@@ -13,6 +13,8 @@ function landingpagecontroller() {
        {
            lang=sessionStorage.getItem("lang");
        }
+       sessionStorage.setItem("username", null);
+       userid="";
 
          $('.dropdown-toggle').dropdown();
         $('#viewall').on('click', function()
