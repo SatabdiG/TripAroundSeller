@@ -267,8 +267,8 @@ function dashboardfunction(){
           ////console.log("Logout button is clicked");
           //Logout and cancel the sesion
 
-          sessionStorage.setItem("username",undefined);
-          sessionStorage.setItem("mapname",undefined);
+          sessionStorage.setItem("username",null);
+          sessionStorage.setItem("mapname",null);
           userid="";
           name="";
           mapname="";

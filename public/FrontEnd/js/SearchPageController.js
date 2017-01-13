@@ -7,11 +7,34 @@ serachmap="";
 function serachpage()
 {
 
+
     console.log("In Search Page in controller");
     $(document).ready(function()
     {
-            $('#logoutsearch').on('click', function(evt){
-             window.location.href="#";
+
+        console.log("Username is "+sessionStorage.getItem("username"));
+        if(sessionStorage.getItem("username") === null || userid === "")
+        {
+            //Display save button
+            console.log("To remove button");
+            $("#SearchTour").remove();
+
+        }else
+        {
+            username=sessionStorage.getItem("username");
+        }
+
+         $('#logoutsearch').on('click', function(evt){
+             console.log("username"+userid);
+            if(sessionStorage.getItem("username")!== null && userid !=="")
+             {
+                 //Rout back to dasboard
+                 window.location.href="#dashboard";
+             }else
+            {
+                sessionStorage.setItem("username", null);
+                window.location.href="#";
+            }
         });
 
         $('#durationmodal').on("click", function(){
@@ -19,16 +42,7 @@ function serachpage()
 
         });
 
-       console.log("Username is "+sessionStorage.getItem("username"));
-        if(sessionStorage.getItem("username") === null)
-        {
-            //Display save button
-            $("#SearchTour").remove();
 
-        }else
-        {
-            username=sessionStorage.getItem("username");
-        }
        console.log("In Controller");
         console.log("Hello");
         socket.emit("getpublishedmaps", {userid:userid});
