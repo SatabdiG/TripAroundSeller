@@ -14,7 +14,7 @@ function serachpage()
         //Change button text
         if(sessionStorage.getItem("username")!== null && userid !=="")
         {
-            console.log()
+            console.log();
             $("#logoutsearch").html('Go back to Dashboard');
         }
 
@@ -63,6 +63,12 @@ function serachpage()
                 $('#viewmapregionsearch').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><input type="checkbox" id="check'+msg.name+'" class="customplacementcheck"><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
                 var doc = document.getElementById("imagecontainer" + msg.name);
                 var location=msg.name;
+                //If user if not logged in
+                if(sessionStorage.getItem("username") === null || userid === "")
+                {
+                    $('#check'+msg.name).remove();
+                }
+
                 socket.emit("searchimage", {mapname:msg.name});
                 socket.on("getimagesearch", function(msg){
                     console.log("Mapname"+location);
