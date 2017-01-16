@@ -340,6 +340,25 @@ module.exports= {
     });
   },
 
+  getmapdet:function(connectionstring, mapname, userid, callback){
+    if(callback)
+      callback();
+    //console.log("UserID"+userid);
+    mongodb.connect(connectionstring,function(err,db){
+      if(!err){
+        var cursor=db.collection('mapcollection').find({"mapname":mapname}, {"userid":userid});
+        cursor.each(function(err,doc){
+          if(doc!=null)
+          {
+            //console.log(doc);
+            callback(doc.mapdescription,doc.publish);
+          }
+        });
+
+      }
+    });
+  },
+
   getTourStops:function(connectionstring, userid,mapname, callback)
   {
 

@@ -1,7 +1,7 @@
 <!-- Description : User can share tours -->
 <!--<h1>(TripAround logo)</h1>-->
 
-<h3 style="display: inline;" id ="welcome">Welcome, </h3>
+<h3 style="display: inline;" id ="welcome"></h3>
 <h3 style="display: inline;">{{userid}}</h3>
 
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
@@ -44,24 +44,41 @@
   </div>
 </div>
 
-<div>
-    <div class = "item" id ="viewshare">
-        <IMG STYLE=" WIDTH:260px; HEIGHT:260px; margin-right:40px; margin-top:20px; display:inline-block"  SRC="\FrontEnd\Pictures\Share.png">
-        <p class="caption">Share your tour with your friends</p>
-        <a target="_blank" href="https://www.facebook.com"><i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i></a></li>
-	    <a target="_blank" href="https://www.twitter.com"><i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i></a></li>
-	    <a target="_blank" href="https://www.youtube.com"><i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i></a></li>
-	    <a target="_blank" href="https://www.pinterest.com"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+<div class = "row">
+    <div class = "col-md-4">
+        <div class = "item" id ="viewshare">
+        <!--<IMG STYLE=" WIDTH:260px; HEIGHT:260px; margin-right:40px; margin-top:20px; display:inline-block"  SRC="\FrontEnd\Pictures\Share.png">-->
+        <!--<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//de.yahoo.com/?p=us">Share on Facebook</a>-->
+        <!--<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//localhost:3030/#/overview/?p=us">Share on Facebook</a>-->
+        <p id = "p1" class="caption">Share your tour with your friends</p>
+        </div>
     </div>
 
-    <div class = "item">
-        <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-right:40px; margin-top:20px;"  SRC="\FrontEnd\Pictures\Gallery.png">
-        <p class="caption">Design your individual map</p>
+
+    <div class = "col-md-4">
+        <div class = "item">
+            <p id ="p2" class="caption">Design your individual map</p>
+            <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-right:40px; margin-top:20px;"  SRC="\FrontEnd\Pictures\Gallery.png">
+        </div>
     </div>
 
-    <div class = "item">
-        <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-top:20px;"  SRC="\FrontEnd\Pictures\menu.png">
-        <p class="caption">Create your tour video</p>
+    <div class = "col-md-4">
+        <div class = "item">
+            <p id ="p3" class="caption">Create your tour video</p>
+            <IMG STYLE=" WIDTH:260px; HEIGHT:260px; display:inline-block; margin-top:20px;"  SRC="\FrontEnd\Pictures\menu.png">
+        </div>
     </div>
+</div>
+
+<div class = "row">
+        <div class = "col-md-12">
+             <div class = "item">
+        <!--<a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//localhost%3A3030/%23/overview">Share on Facebook</a>-->
+                <a target="_blank" href="https://www.facebook.com" id="facebook"><i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i></a></li>
+	            <a target="_blank" href="https://www.twitter.com"><i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i></a></li>
+	            <a target="_blank" href="https://www.youtube.com"><i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i></a></li>
+	            <a target="_blank" href="https://www.pinterest.com"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+            </div>
+        </div>
 </div>
 

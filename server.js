@@ -1453,6 +1453,15 @@ socket.on('connection',function(socket){
       }
     });
   });
+
+  socket.on('getmapdet', function(msg){
+    connect.getmapdet(mongofil, msg.mapname, msg.userid, function(mapdescription, publish){
+      if(mapdescription!=undefined){
+        console.log("Map description"+mapdescription);
+        socket.emit('viewmapdet', {description:mapdescription, publish:publish});
+      }
+    });
+  });
 });
 
 

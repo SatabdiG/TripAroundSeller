@@ -2516,7 +2516,7 @@ function translateFunction(arr1,arr2) {
     var arr = arr1.concat(arr2);
     console.log(lang+lang);
 
-    $(document).on('click', '.dropdown-menu li a', function () {
+    $(document).on('click', '#langdropdown li a', function () {
         lang = $(this).text();
         sessionStorage.setItem("lang", lang);
         //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
