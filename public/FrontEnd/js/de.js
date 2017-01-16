@@ -275,6 +275,31 @@ var translateIteniary=[
 }
 ];
 
+var translateShare=[
+{
+    "id":"sharehead",
+    "en":"Here you can share your tours",
+    "de":"Hier kannst du deine Touren teilen",
+},
+{
+    "id": "p1",
+    "en":"Share your tour with your friends",
+    "de":"Teil deine Tour mit deine Freunden"
+
+},
+{
+    "id": "p2",
+    "en":"Design your individual map",
+    "de":"Gestalten Sie Ihre individuelle Karte"
+
+},
+{
+    "id": "p3",
+    "en":"Create your tour video",
+    "de":"Erstellen Sie Ihr Tourvideo"
+
+}
+];
 
 /*
 

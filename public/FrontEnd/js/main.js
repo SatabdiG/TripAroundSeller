@@ -218,6 +218,9 @@ function dashboardfunction(){
   $('#viewmapregion').empty();
   $('#inspiarea').empty();
 
+  var tranarr = transla("Edit", lang);
+  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:"+tranarr);
+
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
   ////console.log("User logged in as "+userid+lang);
@@ -291,7 +294,7 @@ function dashboardfunction(){
   //User has selected no maps
   if(nomap==0)
   {
-    $('#info').text("Select a map or create a new one.");
+    $('#info').text(tranarr[6]);
   }
   //Save maps user
   $('#formcontainer').dialog({
@@ -611,7 +614,8 @@ function dashboardfunction(){
           //Clear view map region
             var obj=document.getElementById(msg.name);
             if(obj == null) {
-              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p id="info'+msg.name+'">Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>'+ buttonstr+  '</div></div></div>');/*
+
+              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p id="info'+msg.name+'">Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>' + tranarr[1] + '</a> ' + '<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>' + tranarr[2] + '</button> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>' + tranarr[3] + '</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i>' + tranarr[4] + '</button>'+ buttonstr+  '</div></div></div>');/*
               '<div id="maps'+msg.name+'"><a id="' + msg.name + '" class="button">' + msg.name + '</a> <div id="info'+msg.info+'"> Description : '+msg.description+'</div><button class="'+msg.name+'" id="editbutton'+msg.name+'"> Edit </button><button class="'+msg.name+'" id="removebutton'+msg.name+'"> Remove Map </button></div><br>');*/
 
               var editbutt=document.getElementById("editbutton"+msg.name);
@@ -2516,7 +2520,7 @@ function translateFunction(arr1,arr2) {
     var arr = arr1.concat(arr2);
     console.log(lang+lang);
 
-    $(document).on('click', '.dropdown-menu li a', function () {
+    $(document).on('click', '#langdropdown li a', function () {
         lang = $(this).text();
         sessionStorage.setItem("lang", lang);
         //console.log("jhfkdsjofkorjaiwhrosjrpwekjr" +lang);
