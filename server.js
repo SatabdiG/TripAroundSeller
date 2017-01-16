@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 //app.use(express.session({secret:"qwertsvcyeA"}));
 
 app.use(busboy());
-var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
+// var mongofil="mongodb://satabdi:trip@ds041536.mlab.com:41536/heroku_jllqwp1p";
 
-//var mongofil="mongodb://localhost:27017/testimages";
+var mongofil="mongodb://localhost:27017/testimages";
 
 //Computer Vision Middlewares//
 
@@ -1076,10 +1076,10 @@ app.post('/userimageupload', function(req,res){
   });
 
   form.on('end',function(){
-    res.send("yes");
+      res.send("yes");
   });
 
-  form.parse(req);
+    form.parse(req);
 });
 //Save registered user details
 app.post('/userdetailssave', function(req, res){
