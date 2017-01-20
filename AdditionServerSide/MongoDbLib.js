@@ -1198,6 +1198,34 @@ retrievevalues: function ( connectionstring, databasename, mapdataversionid, mar
                 });
             }
         });
+    },
+    fetchMarkers: function(connectionstring, userid, mapID, callback){
+        var coll_name = "markercollection";
+        // //console.log(q)
+        // //console.log(typeof q)
+        // var docs = []
+        mongodb.connect(connectionstring, function (err, db) {
+            if(!err){
+                db.collection(coll_name).find({
+                    "userid": userid,
+                    "mapid": mapID,
+                }).toArray(function (err, result) {
+                    callback(JSON.stringify(result));
+                    // callback(result);
+                });
+
+                // var cursor = db.collection(coll_name).find({
+                //     "userID": userid,
+                //     "mapID": mapID,
+                // });
+                // cursor.each(function (err2, doc) {
+                //     if(doc!=null){
+                //         docs.push(JSON.stringify(doc));
+                //         // callback(JSON.stringify(doc));
+                //     }
+                // });
+            }
+        });
     }
 
 

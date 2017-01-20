@@ -27,8 +27,11 @@ def check_para_bold(para):
     return para.runs[0].bold
 
 def iter_headings(paragraphs, f_n):
+    directory = './Text/'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     tokens = f_n.split('.')
-    fo = open('./Text/'+tokens[0]+".txt", "wb")
+    fo = open(directory+tokens[0]+".txt", "wb")
     day = None
     heading = True
     headings_container = []

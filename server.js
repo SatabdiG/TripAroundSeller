@@ -1193,6 +1193,159 @@ app.post('/fetchiter', function(req, res){
     });
 });
 
+function geotoPix(lat, lng, width, height, transX, transY, scaleFactor){
+    return [(lng + transX)* scaleFactor, height - (lat - transY)* scaleFactor];
+}
+
+function translate(pts, w, h){
+  pts[0] = parseInt(pts[0]);
+  pts[1] = parseInt(pts[1]);
+  // console.log(pts[0] + ', '+pts[1])
+  if (pts[0] == 0){
+      pts[0] += 10;
+  }
+  if (pts[1] == 0){
+      pts[1] += 10;
+  }
+  if (pts[0] == w){
+      pts[0] -= 50;
+  }
+  if (pts[1] == h){
+      pts[1] -= 50;
+  }
+  // console.log()
+  // console.log('Now : '+pts[0] + ', '+pts[1])
+  return pts;
+}
+app.post('/downloadMap', function(req, res){
+    var mime = require('mime');
+    var mapID=req.body.mapID;
+    var userid=req.body.userid;
+    console.log("\n\t\tIn downloadMap with mapID = "+ mapID + " and userid = " + userid);
+
+    lats = [];
+    lngs = [];
+    connect.fetchMarkers(mongofil, userid, mapID, function (locs) {
+        // console.log(locs)
+        // console.log(typeof locs)
+        // console.log(locs["Lat"]);
+        obj = JSON.parse(locs);
+        // console.log(obj[0]);
+        for(i = 0; i< obj.length; i++){
+          lats.push(obj[i]["Lat"]);
+          lngs.push(obj[i]["Lng"]);
+        }
+
+        scaleFactor = 5;
+        basic_w = 360;
+        basic_h = 170;
+
+        width = basic_w*scaleFactor;
+        height = basic_h*scaleFactor;
+
+        // Translating Geolocations to pixels
+        for(x = 0; x < lngs.length; x++) {
+            console.log('Lat = '+ lats[x]+', Lng = '+lngs[x]);
+            pts = geotoPix(lats[x], lngs[x], width, height, basic_w/2, -basic_h/2, scaleFactor);
+            lngs[x] = pts[0];
+            lats[x] = pts[1];
+            console.log('Now : '+ parseInt(pts[0])+',  '+parseInt(pts[1]));
+        }
+
+        for(i = 0; i< lats.length; i++)
+          console.log(""+lats[i]+", "+lngs[i]);
+
+
+        var Canvas = require('canvas')
+            , Image = Canvas.Image
+            , canvas = new Canvas(width, height)
+            , ctx = canvas.getContext('2d');
+
+        var min_lat = Math.min.apply(null, lats),
+            max_lat = Math.max.apply(null, lats);
+        var min_lng = Math.min.apply(null, lngs),
+            max_lng = Math.max.apply(null, lngs);
+        var diff_lat = max_lat - min_lat;
+        var diff_lng = max_lng - min_lng;
+
+        margin_y = 0.25 * height; // margin_y is 25% of total height
+        margin_x = 2 * margin_y;
+
+        scaling_lat = (height - 2 * margin_y) / diff_lat;
+        scaling_lng = (width - 2 * margin_x) / diff_lng;
+
+
+
+        console.log('Min = '+ min_lat+' max = '+max_lat);
+        console.log('Min = '+ min_lng+' max = '+max_lng);
+        console.log('Diff lng = '+ diff_lng+' Diff lat = '+diff_lat);
+        console.log('Scaling lng = '+ scaling_lng+' Scaling lat = '+scaling_lat);
+        console.log('margin_x = '+ margin_x+' margin_y = '+margin_y);
+
+          // console.log("Lat is "+lats[i]+" lng is "+lngs[i]);
+
+        require("fs").readFile(__dirname+'/public/FrontEnd/Pictures/bg.png', function(err1, squid){
+            if (err1) throw err1;
+            map_img = new Image;
+            map_img.src = squid;
+
+            ctx.drawImage(map_img, 0, 0, width, height);
+
+            require("fs").readFile(__dirname+'/public/FrontEnd/Pictures/marker_2.png', function(err, squid){
+                if (err) throw err;
+                img = new Image;
+                img.src = squid;
+
+                ctx.font = "20px Arial";
+
+
+                for(x = 0; x < lngs.length; x++) {
+
+                    pts = [(lngs[x] - min_lng ) * scaling_lng+ margin_x, (lats[x] - min_lat ) *scaling_lat+ margin_y];
+                    // pts = translate(pts, width, height);
+                    // pts = [(lngs[x]), (lats[x])];
+                    console.log('plotting = '+ parseInt(pts[0])+',  '+parseInt(pts[1]));
+                    // console.log('plotting = '+ parseInt(lngs[x])+',  '+parseInt(lats[x]));
+                    // pts = geotoPix(lats[x], lngs[x], width, height, basic_w/2, -85, scaleFactor);
+                    // console.log(lngs[x]+ ', '+lats[x]+' and '+pts[0]+ ', '+pts[1]);
+                    // ctx.lineTo(pts[0], pts[1]);
+                    // ctx.lineTo(lngs[x]*1 + 180, height-lats[x]*1-85);
+                    ctx.drawImage(img, pts[0], pts[1], img.width / 4, img.height / 4);
+                    // ctx.fillText(names[x], pts[0]+10, pts[1]+10);
+                }
+
+
+                var base64Data = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
+                require("fs").writeFile(__dirname+"/uploads/"+userid+"/"+mapID+".png", base64Data, 'base64', function(err) {
+                    // console.log('hello '+err);
+                    // console.log("");
+                    return res.end("/uploads/"+userid+"/"+mapID+".png");
+                });
+            });
+
+        });
+
+
+        // console.log(typeof myjson3);
+        // console.log(locs);
+        // var img = fs.readFileSync('./sample.jpg');
+        // res.setHeader('Content-disposition', 'attachment; filename=sample.jpg');
+        // res.setHeader('Content-type', mimetype);
+        // var filestream = fs.createReadStream(file);
+      // filestream.pipe(res);
+        // res.writeHead(200, {'Content-Type': 'image/jpeg' });
+        // res.end(img, 'binary');
+        // console.log(myjson3);
+
+        // return res.end(doc);
+
+    });
+
+
+    // res.send(img, 'binary');
+    // res.end("Hello :) with mapID = "+ mapID + " and userid = " + userid);
+
+});
 
 //******** Socket Function to receive data *********
 
