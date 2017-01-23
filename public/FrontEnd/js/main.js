@@ -84,7 +84,13 @@ function homeinit(){
       }
     ////console.log("lang sel:" +lang);
     translateFunction(arraynull,translateLogin);
-
+    var tranarr = transla("login", lang);
+    document.getElementById("usr").placeholder = tranarr[0];
+    document.getElementById("pass").placeholder = tranarr[1];
+    document.getElementById("username").placeholder = tranarr[0];
+    document.getElementById("password").placeholder = tranarr[1];
+    document.getElementById("name").placeholder = tranarr[2];
+    document.getElementById("email").placeholder = tranarr[3];
 
     $("#goback").on('click', function(event)
     {
@@ -121,10 +127,10 @@ function homeinit(){
         ////console.log("Browser Data"+data);
         var dat=JSON.parse(data);
           // var dat=data;
-        ////console.log("Browser Data"+dat.status);
+        console.log("Browser Data"+dat.status);
         if(dat.status != "fail")
         {
-          ////console.log("Successful Login");
+          console.log("Successful Login");
           sessionStorage.setItem("username", username);
           userid=username;
           name=dat.username;
@@ -133,8 +139,8 @@ function homeinit(){
         }
         else
         {
-          ////console.log("Wrong cred");
-          $('#usertext').text("The user id or password is wrong. Please re-enter!!");
+          console.log("Wrong cred");
+          $('#usertext').text(tranarr[4]);
           $('#usertext').css({'color':'red'});
           $('#usr').val('');
           $('#pass').val('');
@@ -160,7 +166,7 @@ function homeinit(){
           ////console.log("Returned message "+msg);
           if(msg == 'present'){
             //already present
-            $('#info').text('User Id is already present. Please choose another');
+            $('#info').text(tranarr[5]);
             $('#info').css('color', 'red');
             //Reset All fields
             $('#registerusr')[0].reset();
@@ -169,14 +175,14 @@ function homeinit(){
           else if(msg =='add'){
             //Added Successfully
             $('#myModal').modal('hide');
-            $('#usertext').text("User added. Please Login");
+            $('#usertext').text(tranarr[6]);
             $('#usertext').css('color','green');
 
           }else
           {
             //Error Happed
             $('#myModal').modal('hide');
-            $('#usertext').text("Error happened. Please try again later");
+            $('#usertext').text(tranarr[7]);
             $('#usertext').css('color','red');
 
           }
@@ -185,7 +191,7 @@ function homeinit(){
       }
       else
       {
-        $('usertext').text("Please enter value of Username/Password/Email");
+        $('#usertext').text(tranarr[8]);
       }
 
     });
@@ -218,8 +224,12 @@ function dashboardfunction(){
   $('#viewmapregion').empty();
   $('#inspiarea').empty();
 
-  var tranarr = transla("Edit", lang);
-  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:"+tranarr);
+  var tranarr = transla("dashboard", lang);
+  document.getElementById("mapname").placeholder = tranarr[10];
+  document.getElementById("descriptiontext").placeholder = tranarr[11];
+  document.getElementById("datetimepicker1").placeholder = tranarr[12];
+  document.getElementById("datetimepicker2").placeholder = tranarr[13];
+
 
   if(userid===undefined)
     userid=sessionStorage.getItem("username");
@@ -235,7 +245,8 @@ function dashboardfunction(){
          console.log("Details retrived are"+ username+"  "+ mapname+"  "+description);
          var obj=document.getElementById("favmaps"+mapname);
          if(obj === null) {
-             $('#inspiarea').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a' + mapname + '" class="searchlink"><div id="favmaps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + description + '</p></div></a><div id="favimage'+mapname+'" class="thumbnail"></div> <div class="username"> By User :'+username+'</div> <div class="fav"></div> </div></div>');
+             /*$('#inspiarea').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a' + mapname + '" class="searchlink"><div id="favmaps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>Description: ' + description + '</p></div></a><div id="favimage'+mapname+'" class="thumbnail"></div> <div class="username"> By User :'+username+'</div> <div class="fav"></div> </div></div>');*/
+             $('#inspiarea').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a' + mapname + '" class="searchlink"><div id="favmaps' + mapname + '"><h3>' + mapname + '</h3>' + '<p>' + tranarr[0] + ': ' + description + '</p></div></a><div id="favimage'+mapname+'" class="thumbnail"></div> <div class="username">'+tranarr[19]+': '+username+'</div> <div class="fav"></div> </div></div>');
              var doc = document.getElementById("favimage" + mapname);
              var location=mapname;
              socket.emit("searchimage", {mapname:mapname});
@@ -332,7 +343,7 @@ function dashboardfunction(){
         ////console.log("User clicked submit!");
         if($('#mapname').val()=='')
         {
-          $('#infofrm').text('please enter some map name to start');
+          $('#infofrm').text(tranarr[14]);
           $('#infofrm').css('color', 'red');
           return;
         }
@@ -366,7 +377,7 @@ function dashboardfunction(){
               if(obj == null) {
                   var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
                   var editbutton='<button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>';
-                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p id="info'+mapname+'">Description: ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Select map</a> ' + '<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Edit map</button> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Delete map</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> Publish Maps</button>' + buttonstr+ '</div></div></div>');
+                  $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div  class="mapobj" id="maps' + mapname + '"><h3>' + mapname + '</h3>' + '<p id="info'+mapname+'">'+tranarr[0]+': ' + dat.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> '+tranarr[1]+'</a> ' + '<button class="btn btn-default btn-xs ' + mapname + '" id="editbutton' + mapname + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> '+tranarr[2]+'</button> <button class="btn btn-danger btn-xs ' + mapname + '" id="removebutton' + mapname + '"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> '+tranarr[3]+'</button>' + ' <button class="btn btn-success btn-xs ' + mapname + '" id="publish' + mapname + '">  <i class="fa fa-eye fa-lg" aria-hidden="true"></i> '+tranarr[4]+'</button>' + buttonstr+ '</div></div></div>');
               }
                 var publishbutton=document.getElementById("publish"+mapname);
                 publishbutton.addEventListener("click", function (evt) {
@@ -388,7 +399,8 @@ function dashboardfunction(){
                         var data={};
                         if($('#description').val() == '')
                         {
-                            $('#infodescrip').text("Please enter a description");
+                           // $('#infodescrip').text("Please enter a description");
+                           $('#infodescrip').text(tranarr[15]);
                             $("#infodescrip").css("color", "red");
                         }else
                         {
@@ -408,7 +420,8 @@ function dashboardfunction(){
                                 if(msg=="yes")
                                 {
                                     $("#DescriptionEdit").modal("toggle");
-                                    $('#info'+data.mapid).text("Description: "+data.text);
+                                   // $('#info'+data.mapid).text("Description: "+data.text);
+                                   $('#info'+data.mapid).text(tranarr[0]+": "+data.text);
                                 }
                             });
                         }
@@ -456,7 +469,7 @@ function dashboardfunction(){
             else
             {
               //Close this form and launch a new popup/modal/magnific popup and proceed to save images.
-              $('#infofrm').text('Map cannot be Saved. Try again later');
+              $('#infofrm').text(tranarr[16]);
               $('#infofrm').css('color', 'red');
             }
           });
@@ -479,8 +492,9 @@ function dashboardfunction(){
       autoOpen:false,
       buttons:[
         {
-          text: "I want to Publish this map for everybody to See!!",
+          text: "",
           "class":"btn btn-default",
+          "id": "pblshmapbutton",
           click: function(){
             console.log("clicked"+publishmapid);
             var publishmaps={};
@@ -501,15 +515,16 @@ function dashboardfunction(){
                 if($('#publishconformation').dialog("isOpen"))
                   $('#publishconformation').dialog("close");
                 $('#staus').css('color','green');
-                $('#staus').text("Your Map is now public !");
+                $('#staus').text(tranarr[17]);
 
               }
             });
           }
         },
         {
-          text:"I do not want to publish this map",
+          text:"",
           "class":"btn btn-default",
+          "id":"nopblshmapbutton",
           click: function () {
             $("#publishconformation").dialog("close");
           }
@@ -526,8 +541,9 @@ function dashboardfunction(){
       autoOpen:false,
       buttons: [
         {
-          text: "I want to delete this map",
+          text: "",
           "class": "btn btn-danger",
+          "id": "delmapbutton",
           click: function() {
              console.log("Clicked"+deletemapid);
              //Send a post request to server delete all references to map and refresh page.
@@ -536,8 +552,8 @@ function dashboardfunction(){
              deletedata.mapid=deletemapid;
              $.ajax({
                url:"/detelemap",
-               type:"POST",
                data:JSON.stringify(deletedata),
+               type:"POST",
                contentType:"application/JSON"
 
              }).done(function(msg){
@@ -555,8 +571,9 @@ function dashboardfunction(){
           }
         },
         {
-          text: "I want to keep this map",
+          text: "",
           "class": 'btn btn-default',
+          "id": "keepmapbutton",
           click: function() {
             $(this).dialog("close");
           }
@@ -589,7 +606,7 @@ function dashboardfunction(){
       }).done(function(msg){
         console.log("Returned message is "+msg);
         if(msg =="no"){
-          $('#viewmapregion').text('You Have No Saved Maps. Please create one to start');
+          $('#viewmapregion').text(tranarr[18]);
           $('#viewmapregion').css('color','green');
         }
         else
@@ -603,11 +620,11 @@ function dashboardfunction(){
             if(publish ==="N")
             {
               //create private button
-                var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i> Private</button>';
+                var buttonstr='<button class="btn btn-primary customplacement"><i class="fa fa-building" aria-hidden="true"></i>' + tranarr[9] + '</button>';
             }else
             {
               //Create public button
-                var buttonstr='<button class="btn btn-success customplacement"><i class="fa fa-check" aria-hidden="true"></i> Public</button>';
+                var buttonstr='<button class="btn btn-success customplacement"><i class="fa fa-check" aria-hidden="true"></i>' + tranarr[8] + '</button>';
 
             }
             ////console.log("Buttonstr"+buttonstr);
@@ -615,7 +632,7 @@ function dashboardfunction(){
             var obj=document.getElementById(msg.name);
             if(obj == null) {
 
-              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p id="info'+msg.name+'">Description: ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>' + tranarr[1] + '</a> ' + '<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>' + tranarr[2] + '</button> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>' + tranarr[3] + '</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i>' + tranarr[4] + '</button>'+ buttonstr+  '</div></div></div>');/*
+              $('#viewmapregion').append('<div class="row"><div class="col-lg-6"><div class="mapobj" id="maps' + msg.name +'"><h3>' + msg.name + '</h3>' + '<p id="info'+msg.name+'"> ' + tranarr[0] + ' : ' + msg.description + '</p>' + '<a class="btn btn-primary btn-xs" id="' + msg.name + '"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>' + tranarr[1] + '</a> ' + '<button class="btn btn-default btn-xs '+msg.name+'" id="editbutton'+msg.name+'"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>' + tranarr[2] + '</button> <button class="btn btn-danger btn-xs '+msg.name+'" id="removebutton'+msg.name+'"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>' + tranarr[3] + '</button>' + ' <button class="btn btn-success btn-xs '+mapname+'" id="publish'+msg.name+'"> <i class="fa fa fa-eye fa-lg" aria-hidden="true"></i>' + tranarr[4] + '</button>'+ buttonstr+  '</div></div></div>');/*
               '<div id="maps'+msg.name+'"><a id="' + msg.name + '" class="button">' + msg.name + '</a> <div id="info'+msg.info+'"> Description : '+msg.description+'</div><button class="'+msg.name+'" id="editbutton'+msg.name+'"> Edit </button><button class="'+msg.name+'" id="removebutton'+msg.name+'"> Remove Map </button></div><br>');*/
 
               var editbutt=document.getElementById("editbutton"+msg.name);
@@ -637,7 +654,7 @@ function dashboardfunction(){
                           evt.preventDefault();
 
                           if ($('#description').val() == '') {
-                              $('#infodescrip').text("Please enter a description");
+                              $('#infodescrip').text(tranarr[15]);
                               $("#infodescrip").css("color", "red");
                           } else {
                               var data = {};
@@ -658,7 +675,7 @@ function dashboardfunction(){
                                       $("#DescriptionEdit").on('hidden.bs.modal', function () {
                                           $(this).data('bs.modal', null);
                                       });
-                                      $('#info' + data.mapid).text("Description: " + data.text);
+                                      $('#info' + data.mapid).text(tranarr[0]+": " + data.text);
                                   }
                               });
                           }
@@ -750,7 +767,7 @@ function imagecontroller(){
     {
       lang=sessionStorage.getItem("lang");
     }
-
+    var tranarr = transla("imgagecon", lang);
     /*if(mapname == undefined)
     {
       window.location.href="#dashboard";
@@ -888,7 +905,8 @@ function imagecontroller(){
               {
                   //alert("Sorry No Geo Tags present in images");
                   $("#uploadstatus").css({"color":"red"});
-                  $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+                 // $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+                 $("#uploadstatus").text(tranarr[0]);
 
               }
               else {
@@ -1073,7 +1091,8 @@ function imagecontroller(){
         }).done(function(msg){
           console.log(msg);
           if(msg == "yes") {
-            $("#uploadstatus").text("File has been uploaded");
+            //$("#uploadstatus").text("File has been uploaded");
+            $("#uploadstatus").text(tranarr[1]);
             $("#uploadstatus").css({"color":"green"});
             $("#uploadForm2")[0].reset();
             $('#dropzonePreview').on('complete',function(file){
@@ -1082,7 +1101,8 @@ function imagecontroller(){
             });
           }
           else
-            $("#uploadstatus").text("File has not been uploaded");
+            //$("#uploadstatus").text("File has not been uploaded");
+            $("#uploadstatus").text(tranarr[2]);
         });
 
         console.log("Names  "+filename);
@@ -1198,7 +1218,8 @@ function imagecontroller(){
                                     });
                                 }
                                 else
-                                    $("#uploadstatus").text("File has not been uploaded");
+                                   //$("#uploadstatus").text("File has not been uploaded");
+                                   $("#uploadstatus").text(tranarr[2]);
                             });
 
                         }else {
@@ -1233,7 +1254,9 @@ function imagecontroller(){
                                                 //check if image is reflected here
                                                 //socket.emit("picdetailsimageupload",{filename: filename,tourstopname:address});
                                                 //console.log("After Save" + filename);
-                                                $("#uploadstatus").text("File has been uploaded");
+
+                                               // $("#uploadstatus").text("File has been uploaded");
+                                               $("#uploadstatus").text(tranarr[1]);
                                                 $("#uploadstatus").css({"color": "green"});
                                                 $("#uploadForm2")[0].reset();
                                                 $('#dropzonePreview').on('complete', function (file) {
@@ -1242,7 +1265,8 @@ function imagecontroller(){
                                                 });
                                             }
                                             else
-                                                $("#uploadstatus").text("File has not been uploaded");
+                                                //$("#uploadstatus").text("File has not been uploaded");
+                                                $("#uploadstatus").text(tranarr[2])
                                         });
 
                                         //console.log("Names  " + filename);
@@ -1283,7 +1307,8 @@ function imagecontroller(){
         }).done(function(response){
           console.log(response);
           if(response === "yes") {
-            $("#uploadstatus").text("The map has been saved.");
+           // $("#uploadstatus").text("The map has been saved.");
+            $("#uploadstatus").text(tranarr[3]);
             $("#uploadstatus").css({"color":"green"});
             //Reset Map
               /*
@@ -1323,7 +1348,8 @@ function imagecontroller(){
         }).done(function(response){
           console.log(response);
           if(response =="yes") {
-            $("#uploadstatus").text("The map has been saved.");
+            //$("#uploadstatus").text("The map has been saved.");
+            $("#uploadstatus").text(tranarr[3]);
             $("#uploadstatus").css({"color":"green"});
             $('#userphoto').css('color', "black");
             //Reset Map
@@ -1338,7 +1364,8 @@ function imagecontroller(){
           }
           else
           {
-            $("#uploadstatus").text("The map has not been saved.");
+           // $("#uploadstatus").text("The map has not been saved.");
+           $("#uploadstatus").text(tranarr[4]);
             $("#uploadstatus").css({"color":"red"});
           }
         });
@@ -1379,7 +1406,8 @@ function imagecontroller(){
           {
               //alert("Sorry No Geo Tags present in images");
               $("#uploadstatus").css({"color":"red"});
-              $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+             // $("#uploadstatus").text("Attention!! Some of your images do not have geotags");
+              $("#uploadstatus").text(tranarr[0]);
           }
 
           else {
@@ -1485,7 +1513,8 @@ function imagecontroller(){
                   $('#myFile').val('');
                   f_status.innerHTML = '<h2>Uploaded Successfully</h2>';
               } else {
-                  alert('An error occurred!');
+
+                  alert(tranarr[5]);
               }
           };
 
@@ -1622,12 +1651,17 @@ $("#menu-toggle").click(function(e){
 
 /** Controller for Map Page **/
 function imageupload() {
+   if(lang === "")
+  {
+    lang=sessionStorage.getItem("lang");
+  }
   $(document).ready(function(){
 
     /*if(mapname == undefined)
       window.location.href="#UploadImages";
     else
       nomap=1;*/
+      var tranarr = transla("imageupload", lang);
       if(userid === undefined ||mapname === undefined)
       {
           userid=sessionStorage.getItem("username");
@@ -1876,7 +1910,8 @@ function imageupload() {
           path.addListener("click", function (event) {
             this.descr = description;
             if (description == "") {
-              $('#infotxt').text("You don't have a description for this trail yet. Please click edit description to get a description");
+              /*$('#infotxt').text("You don't have a description for this trail yet. Please click edit description to get a description");*/
+              $('#infotxt').text(tranarr[0]);
             }
             else {
               $('#infotxt').text(description);
@@ -1926,7 +1961,8 @@ function imageupload() {
               var desc = $('#traildescription').val();
               if (desc == "") {
                 //console.log("Trail Description is empty");
-                $('#traildescription').text("Please enter a valid Trail Description");
+                //$('#traildescription').text("Please enter a valid Trail Description");
+                $('#traildescription').text(tranarr[1]);
               } else {
                 var trail = {};
                 trail.name = userid;
@@ -1935,7 +1971,8 @@ function imageupload() {
                 trail.pathobj = path.getPath().getArray().toString();
                 trail.description = desc;
                 if (vehicle == "") {
-                  $('#traildescription').text("Please choose Bus or Airplane");
+                  //$('#traildescription').text("Please choose Bus or Airplane");
+                  $('#traildescription').text(tranarr[2]);
                   trail.mode = "";
                 } else {
                   trail.mode = vehicle;
@@ -2065,6 +2102,7 @@ function imagegallerycontroller(){
     console.log("In gallery page"+userid);
   $(document).ready(function(){
      //Launch Filters modal
+    var tranarr = transla("imagegal", lang);
     $('#logoutbutton').click(function(){
         sessionStorage.setItem("username",undefined);
         sessionStorage.setItem("mapname",undefined);
@@ -2204,7 +2242,7 @@ function imagegallerycontroller(){
         {
           var text=mssg.description;
           if(text == "")
-            text="No description yet";
+            text=tranarr[0];
 
           $('#imagegall').append('<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" id="div'+mssg.picname+'"><a href="' + loc + '" class="thumbnail"><img class="img-responsive" src="' + loc + '" alt="' + mssg.picname + '" id="'+mssg.picname+'"><div class="caption"><p id="cap'+mssg.picname+'">' +text+'</p></div></a></div>');
         }
@@ -2353,6 +2391,7 @@ function trainhandler(){
 }
 
 function SaveData(){
+    var tranarr = transla("editmap", lang);
   //console.log("In save data "+userarray.length);
   if(userarray.length<1)
   {
@@ -2394,7 +2433,7 @@ function SaveData(){
   }
   if(userpaths.length<1)
   {
-    $("#mapinfosec").text("Please click either airplane,bus,train handler");
+    $("#mapinfosec").text(tranarr[0]);
 
   }else {
     for (var i = 0; i < userpaths.length; i++) {

@@ -102,31 +102,11 @@ var translateLanding=[
 },
 ];
 var translateLogin=[
-{
+/*{
     "id": "usersub",
     "en":"Sign in",
     "de":"Anmeldung"
-},
-{
-    "id": "username",
-    "en":"Username",
-    "de":"Benutzername"
-},
-{
-    "id": "password",
-    "en":"Password",
-    "de":"Passwort"
-},
-{
-    "id": "name",
-    "en":"Name",
-    "de":"Name"
-},
-{
-    "id": "email",
-    "en":"Email",
-    "de":"Email"
-},
+},*/
 {
     "id": "guestlink",
     "en":"Continue as guest",
@@ -220,7 +200,7 @@ var translateNavbar=[
     "id": "welcome",
     "en": "Welcome, ",
     "de": "Wilkommen, "
-},
+}
 ];
 
 var translateDashboard=[
@@ -235,10 +215,96 @@ var translateDashboard=[
     "de":"Submit"
 },
 {
+    "id": "dialog",
+    "en":"Please login/register to save or view maps.",
+    "de":"Bitte einloggen / registrieren um zu speichern oder Karten anzuzeigen."
+},
+{
     "id": "dashb",
     "en":"Welcome to TripAround. Here, you can create a new map or you can select a previously saved map.",
     "de":"Willkommen bei TripAround. Hier können Sie eine neue Karte erstellen oder eine zuvor gespeicherte Karte auswählen."
 },
+{
+    "id": "savebutt",
+    "en":"Create new map",
+    "de":"Erstell eine neue Karte"
+},
+{
+    "id": "myinspiration",
+    "en":"My inspiration",
+    "de":"Meine Inspiration"
+},
+{
+    "id": "createmaplabel",
+    "en":"Create a new map",
+    "de":"Erstellen Sie eine neue Karte"
+},
+{
+    "id": "createmapname",
+    "en":"Name your map",
+    "de":"Nenn deine Karte"
+},
+{
+    "id": "createdesc",
+    "en":"Describe your trip",
+    "de":"Beschreib deine Reise"
+},
+{
+    "id": "createdate",
+    "en":"When was your tour?",
+    "de":"Wann war deine Tour?"
+},
+{
+    "id": "creategeotag",
+    "en":"Do your pictures have geotags?",
+    "de":"Haben deine Bilder Geotags?"
+},
+{
+    "id": "idyes",
+    "en":"Yes!",
+    "de":"Ja!"
+},
+{
+    "id": "idno",
+    "en":"No",
+    "de":"Nein"
+},
+{
+    "id": "idtry",
+    "en":"Don't know, let's try with one picture",
+    "de":"Weiß nicht, versuchen wir es mit einem Bild"
+},
+{
+    "id": "confirmdeletion",
+    "en":"This map will be permanently deleted and cannot be recovered. Are you sure?",
+    "de":"Diese Karte wird endgültig gelöscht und kann nicht wiederhergestellt werden. Bist du sicher?"
+},
+{
+    "id": "delmapbutton",
+    "en":"I want to delete this map",
+    "de":"Ich möchte diese Karte löschen"
+},
+{
+    "id": "keepmapbutton",
+    "en":"I want to keep this map",
+    "de":"Ich möchte diese Karte beibehalten"
+},
+{
+    "id": "publishconformation",
+    "en":"This Map will be published ",
+    "de":"Diese Karte wird veröffentlicht"
+},
+{
+    "id": "pblshmapbutton",
+    "en":"I want to publish this map for everybody to See!!",
+    "de":"Ich möchte diese Karte für jedermann zu sehen!"
+},
+{
+    "id": "nopblshmapbutton",
+    "en":"I do not want to publish this map",
+    "de":"Ich möchte diese Karte nicht veröffentlichen"
+},
+
 ];
 
 var translateImageUpload=[
@@ -246,6 +312,16 @@ var translateImageUpload=[
     "id": "upldimgtitle",
     "en": "Upload images to your map. If the images have geo tags, they will be displayed on the map below. Don't forget to save the map before leaving this page!",
     "de": "Laden Sie Bilder auf Ihre Karte hoch. Wenn die Bilder Geo-Tags haben, werden sie auf der Karte unten angezeigt. Vergessen Sie nicht, die Karte zu speichern, bevor Sie diese Seite verlassen!"
+},
+{
+    "id": "savemap",
+    "en": "Save Map",
+    "de": "Karte Speichern"
+},
+{
+    "id": "droptext",
+    "en": "Drop pictures here",
+    "de": "Gebe Bilder hier ab"
 }
 ];
 
@@ -254,10 +330,20 @@ var translateImageGallery = [
     "id":"overview",
     "en":"Overview",
     "de":"Ubersicht",
+},
+{
+    "id":"maptext",
+    "en":"You are viewing the images of: ",
+    "de":"Sie sehen die Bilder von: ",
 }
 ];
 
 var translateEditMap = [
+{
+    "id":"mapinfo",
+    "en":"You are viewing: ",
+    "de":"Sie sehen gerade:",
+},
 
 ];
 
@@ -273,6 +359,20 @@ var translateIteniary=[
     "de":"Replay"
 
 }
+];
+
+var translateSearch=[
+{
+    "id":"searchtitle",
+    "en":"Search Page",
+    "de":"Tours suchen",
+},
+/*{
+     "id": "replayTourAnimation",
+    "en":"Replay",
+    "de":"Replay"
+
+}*/
 ];
 
 var translateShare=[
