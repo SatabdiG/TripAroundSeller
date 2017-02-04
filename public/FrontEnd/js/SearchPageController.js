@@ -9,13 +9,21 @@ function serachpage()
 
 
     console.log("In Search Page in controller");
+    var arraynull = [];
     $(document).ready(function()
     {
+        if(lang === "")
+        {
+            lang=sessionStorage.getItem("lang");
+        }
+        var tranarr = transla("search", lang);
+        translateFunction(arraynull,translateSearch);
+
         //Change button text
         if(sessionStorage.getItem("username")!== null && userid !=="")
         {
             console.log();
-            $("#logoutsearch").html('Go back to Dashboard');
+            $("#logoutsearch").html(tranarr[1]);
         }
 
         console.log("Username is "+sessionStorage.getItem("username"));
@@ -60,7 +68,7 @@ function serachpage()
             var obj = document.getElementById("maps"+msg.name);
             console.log("Objobj"+obj);
             if (obj == null) {
-                $('#viewmapregionsearch').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p>Description: ' + msg.description + '</p></div></a><input type="checkbox" id="check'+msg.name+'" class="customplacementcheck"><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
+                $('#viewmapregionsearch').append('<div class="col-md-4 col-lg-6"> <div class="favthumbcontainer"><a id="a'+msg.name+'" class="searchlink"><div id="maps' + msg.name + '"><h3>' + msg.name + '</h3>' + '<p> '+ tranarr[0] +' ' + msg.description + '</p></div></a><input type="checkbox" id="check'+msg.name+'" class="customplacementcheck"><div id="imagecontainer'+msg.name+'" class="thumbnail"></div></div></div>');
                 var doc = document.getElementById("imagecontainer" + msg.name);
                 var location=msg.name;
                 //If user if not logged in

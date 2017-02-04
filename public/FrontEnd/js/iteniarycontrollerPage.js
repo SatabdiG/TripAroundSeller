@@ -18,6 +18,10 @@ function iteniarygenerator()
         {
             lang=sessionStorage.getItem("lang");
         }
+
+        var tranarr = transla("iteniary", lang);
+        document.getElementById("place").placeholder = tranarr[1];
+        document.getElementById("duration").placeholder = tranarr[5];
         $('#itelogout').click(function(){
             sessionStorage.setItem("username",undefined);
             sessionStorage.setItem("mapname",undefined);
@@ -97,7 +101,8 @@ function iteniarygenerator()
 
                 //Delete button
                 var button = document.createElement('button');
-                var tmp = document.createTextNode('Delete');
+                //var tmp = document.createTextNode('Delete');
+                var tmp = document.createTextNode(tranarr[2]);
                 button.setAttribute("id", "del" + replaced_heading_name);
                 button.setAttribute("class", "btn btn-danger");
                 button.appendChild(tmp);
@@ -106,14 +111,16 @@ function iteniarygenerator()
                 var buttonsave = document.createElement("button");
                 buttonsave.setAttribute("id", "buttonsubmit" + replaced_heading_name);
                 buttonsave.setAttribute("class", "btn btn-primary");
-                var textsave = document.createTextNode(' Save ');
+                //var textsave = document.createTextNode('Save');
+                var textsave = document.createTextNode(tranarr[3]);
                 buttonsave.appendChild(textsave);
 
                 //** Edit Button for Rediting the tour stop **//
                 var editbutton = document.createElement("button");
                 editbutton.setAttribute("id", "editbutton" + replaced_heading_name);
                 editbutton.setAttribute("class", "btn btn-primary");
-                var textedit = document.createTextNode('Edit');
+               // var textedit = document.createTextNode('Edit');
+                var textedit = document.createTextNode(tranarr[4]);
                 editbutton.appendChild(textedit);
                 //**Edit Transportation **//
 
@@ -200,7 +207,8 @@ function iteniarygenerator()
             //Create the rest of the structure
             //Create a header for the string
 
-            tempstr = "Duration : "+dur+" Days in "+msg.name;
+            /*tempstr = "Duration : "+dur+" Days in "+msg.name;*/
+            tempstr = tranarr[6]+ ": "+dur+" "+tranarr[7]+" "+msg.name;
             //Main Container div
             var tempid=document.getElementById("head"+nmt);
             if(tempid === null) {
@@ -260,7 +268,8 @@ function iteniarygenerator()
 
                 //Delete button
                 var button = document.createElement('button');
-                var tmp = document.createTextNode('Delete');
+                //var tmp = document.createTextNode('Delete');
+                var tmp = document.createTextNode(tranarr[2]);
                 button.setAttribute("id", "del" + nmt);
                 button.setAttribute("class", "btn btn-danger");
                 button.appendChild(tmp);
@@ -269,14 +278,16 @@ function iteniarygenerator()
                 var buttonsave = document.createElement("button");
                 buttonsave.setAttribute("id", "buttonsubmit" + nmt);
                 buttonsave.setAttribute("class", "btn btn-primary");
-                var textsave = document.createTextNode(' Save ');
+                //var textsave = document.createTextNode("Save");
+                var textsave = document.createTextNode(tranarr[3]);
                 buttonsave.appendChild(textsave);
                 //footer.appendChild(buttonsave);
                 //** Edit Button for Rediting the tour stop **//
                 var editbutton = document.createElement("button");
                 editbutton.setAttribute("id", "editbutton" + nmt);
                 editbutton.setAttribute("class", "btn btn-primary");
-                var textedit = document.createTextNode('Edit');
+                //var textedit = document.createTextNode('Edit');
+                var textedit = document.createTextNode(tranarr[4]);
                 editbutton.appendChild(textedit);
                 //**Edit Transportation **//
                 //**Edit Transportation **//
@@ -439,11 +450,13 @@ function iteniarygenerator()
                     if (msg === "yes") {
                         //Set status message
                         $("#statusText").css("color", "green");
-                        $("#statusText").text("Your Map has been deleted");
+                       // $("#statusText").text("Your Map has been deleted");
+                        $("#statusText").text(tranarr[14]);
 
                     } else {
                         $("#statusText").css("color", "red");
-                        $("#statusText").text("Your Map has not  been deleted");
+                       //$("#statusText").text("Your Map has not  been deleted");
+                        $("#statusText").text(tranarr[15]);
                     }
                 });
                 //$('#IteniaryPage').remove($('#del'+marker.title));
@@ -511,12 +524,14 @@ function iteniarygenerator()
                         console.log(msg);
                         if (msg == "yes") {
 
-                            $("#statusText").text("File has been uploaded");
+                            //$("#statusText").text("File has been uploaded");
+                            $("#statusText").text(tranarr[8]);
                             $("#statusText").css({"color": "green"});
 
                         }
                         else
-                            $("#uploadstatus").text("File has not been uploaded");
+                            //$("#uploadstatus").text("File has not been uploaded");
+                            $("#uploadstatus").text(tranarr[9]);
                     });
 
                     var userobj = {};
@@ -543,11 +558,13 @@ function iteniarygenerator()
                         console.log("returedn" + msg);
                         if (msg == "yes") {
                             $('#statusText').css("color", "green");
-                            $('#statusText').text("Your Tour stops are now saved");
+                            //$('#statusText').text("Your Tour stops are now saved");
+                            $('#statusText').text(tranarr[10]);
 
                         } else {
                             $('#statusText').css("color", "red");
-                            $('#statusText').text("Your Tour stops are not saved");
+                            //$('#statusText').text("Your Tour stops are not saved");
+                            $('#statusText').text(tranarr[11]);
                         }
                     });
 
@@ -653,7 +670,8 @@ function iteniarygenerator()
                     //Create a header for the string
                     if($("#duration").val()!== "")
                     {
-                        tempstr = "Duration :"+$('#duration').val()+" Days in "+marker.title;
+                        //tempstr = "Duration :"+$('#duration').val()+" Days in "+marker.title;
+                        tempstr = tranarr[6]+ ":"+$('#duration').val()+" "+tranarr[7]+" "+marker.title;
                     }else
                     tempstr = marker.title;
                     //Main Container div
@@ -703,7 +721,8 @@ function iteniarygenerator()
                     var tempbox = document.createElement("textarea");
                     tempbox.setAttribute("id", "text" + marker.title);
                     tempbox.setAttribute("class", "textboxiteniarypage");
-                    tempbox.setAttribute("placeholder", "Please enter Text Description for tour stop here");
+                    //tempbox.setAttribute("placeholder", "Please enter Text Description for tour stop here");
+                    tempbox.setAttribute("placeholder", tranarr[12]);
                     //Add to div des
                     des.appendChild(tempbox);
                     container.appendChild(des);
@@ -712,7 +731,8 @@ function iteniarygenerator()
 
                     //Delete button
                     var button = document.createElement('button');
-                    var tmp = document.createTextNode('Delete');
+                    //var tmp = document.createTextNode("Delete");
+                    var tmp = document.createTextNode(tranarr[2]);
                     button.setAttribute("id", "del" + marker.title);
                     button.setAttribute("class", "btn btn-danger");
                     button.appendChild(tmp);
@@ -721,14 +741,16 @@ function iteniarygenerator()
                     var buttonsave = document.createElement("button");
                     buttonsave.setAttribute("id", "buttonsubmit" + marker.title);
                     buttonsave.setAttribute("class", "btn btn-primary");
-                    var textsave = document.createTextNode(' Save ');
+                    //var textsave = document.createTextNode(' Save ');
+                    var textsave = document.createTextNode(tranarr[3]);
                     buttonsave.appendChild(textsave);
                     //footer.appendChild(buttonsave);
                     //** Edit Button for Rediting the tour stop **//
                     var editbutton = document.createElement("button");
                     editbutton.setAttribute("id", "editbutton" + marker.title);
                     editbutton.setAttribute("class", "btn btn-primary");
-                    var textedit = document.createTextNode('Edit');
+                    //var textedit = document.createTextNode('Edit');
+                    var textedit = document.createTextNode(tranarr[4]);
                     editbutton.appendChild(textedit);
                     //**Edit Transportation **//
                     //Create Image Gallery
@@ -852,12 +874,14 @@ function iteniarygenerator()
                             console.log(msg);
                             if(msg == "yes") {
 
-                                $("#statusText").text("File has been uploaded");
+                               // $("#statusText").text("File has been uploaded");
+                               $("#statusText").text(tranarr[8]);
                                 $("#statusText").css({"color":"green"});
 
                             }
                             else
-                                $("#uploadstatus").text("File has not been uploaded");
+                               // $("#uploadstatus").text("File has not been uploaded");
+                               $("#uploadstatus").text(tranarr[9]);
                         });
                         var userobj={};
 
@@ -884,12 +908,14 @@ function iteniarygenerator()
                         console.log("returedn" + msg);
                         if (msg == "yes") {
                             $('#statusText').css("color","green");
-                            $('#statusText').text("Your Tour stops are now saved");
+                            //$('#statusText').text("Your Tour stops are now saved");
+                            $('#statusText').text(tranarr[10]);
 
                         }else
                         {
                             $('#statusText').css("color","red");
-                            $('#statusText').text("Your Tour stops are not saved");
+                            //$('#statusText').text("Your Tour stops are not saved");
+                            $('#statusText').text(tranarr[11]);
                         }
                     });
                     });
@@ -1080,13 +1106,13 @@ function iteniarygenerator()
             //Check to see the contents of itemarkers
             if (itemarkers.length == 0) {
                 //No markers ! ask users to add markers
-                $('#statusText').text("Please Enter a tour stop");
+                $('#statusText').text(tranarr[1]);
                 $('#place').css('background-color', " #f3c4e2 ");
 
             } else {
                 if (itemarkers.length == 1) {
                     //Only One marker unable to animate path
-                    $('#statusText').text("Please Enter at least two tour stop");
+                    $('#statusText').text(tranarr[0]);
                     $('#place').css('background-color', " #f3c4e2 ");
                 } else {
                     //Set the status messages to null. remove the css on place if present
@@ -1145,12 +1171,12 @@ function iteniarygenerator()
                 console.log("returedn" + msg);
                 if (msg == "yes") {
                     $('#statusText').css("color","green");
-                    $('#statusText').text("Your Tour stops are now saved");
+                    $('#statusText').text(tranarr[10]);
 
                 }else
                 {
                     $('#statusText').css("color","red");
-                    $('#statusText').text("Your Tour stops are not saved");
+                    $('#statusText').text(tranarr[11]);
                 }
             });
 
@@ -1158,7 +1184,8 @@ function iteniarygenerator()
         else
         {
             $('#statusText').css("color","red");
-            $('#statusText').text("Please enter at least one Tour Stop to proceed");
+           // $('#statusText').text("Please enter at least one Tour Stop to proceed");
+            $('#statusText').text(tranarr[13]);
         }
 
     });

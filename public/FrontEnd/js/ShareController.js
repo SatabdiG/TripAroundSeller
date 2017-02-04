@@ -38,6 +38,11 @@ function ShareController()
             });
         });
 
+// <<<<<<< HEAD
+// =======
+        // });
+
+// >>>>>>> 26e1487131df0512ef23bd5f3c26185a8383795f
         $('#logoutsearch').on('click', function(evt){
              window.location.href="#";
         });
@@ -57,9 +62,10 @@ function ShareController()
         mapname = sessionStorage.getItem("mapname");
         console.log(userid);
 
-        $('#viewshare').append('<div id = "imagecontainer'+mapname+'" class="thumbnail" ></div>');
+        $('#viewshare').append('<div id = "imagecontainer'+mapname+'" class="thumbnail"></div>');
         $('#viewshare').append('');
-        $('#viewshare').append('<a id="map'+mapname+'" class="searchlink"><div id="maps' + mapname + '"><h4> http://localhost:3030/#/overview </h4></div></a></br>');
+        $('#viewshare').append('<a target="_blank"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a></li>');
+       // $('#viewshare').append('<a id="map'+mapname+'" class="searchlink"><div id="maps' + mapname + '"><h4> http://localhost:3030/#/overview </h4></div></a></br>');
         var doc = document.getElementById("imagecontainer" + mapname);
         var location = mapname;
         socket.emit("searchimage", {mapname:mapname}, {userid:userid});
@@ -79,6 +85,14 @@ function ShareController()
                     }
         });
 
+        $("#viewshare a").click(function(e) {
+            shareFacebook("http://www.triparound.de/#/overview","hi","TripAroundSeller\public\FrontEnd\Pictures\downloads-bg.jpg");
+            return false;
+        });
+
+        function shareFacebook(url, text, image) {
+            open('http://facebook.com/sharer.php?s=100&p[url]=' + url + '&p[images][0]=' + image + '&p[title]=' + text, 'fbshare', 'height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0');
+        }
 
         $('#map'+mapname).on('click', function(evt){
                /*evt.preventDefault();*/
