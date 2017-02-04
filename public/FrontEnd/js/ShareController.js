@@ -6,6 +6,7 @@ function ShareController()
     console.log("In Share Page controller");
     $(document).ready(function()
     {
+        // -muaz This is where map generation gets triggered.
         $('#download_map').on('click', function (evt) {
             var dat={};
             dat.mapID=mapname;
@@ -18,37 +19,25 @@ function ShareController()
             }).done(function(msg){
                 console.log('This is my msg : '+msg);
                 var mymapDownloadObj = document.getElementById("mymapDownload");
-                var imgele = document.createElement("img");
-                imgele.setAttribute("id", "imgsrcmymapDownload");
-                imgele.setAttribute("class","thumbnailimg");
-                imgele.setAttribute("src", msg);
-                imgele.setAttribute("height", 170);
-                imgele.setAttribute("width", 360);
-                mymapDownloadObj.appendChild(imgele);
-                // $('#temp').attr("src",msg);
+                var imgele = document.getElementById("imgsrcmymapDownload");
+                if(imgele == null){
+                    var linnk = document.createElement("a");
+                    var imgele = document.createElement("img");
+                    linnk.setAttribute("download", mapname+".png");
+                    linnk.setAttribute("href", msg);
+                    linnk.setAttribute("title", mapname);
+                    imgele.setAttribute("id", "imgsrcmymapDownload");
+                    imgele.setAttribute("class","thumbnailimg");
+                    imgele.setAttribute("src", msg);
+                    imgele.setAttribute("height", 170);
+                    imgele.setAttribute("width", 360);
+                    linnk.appendChild(imgele);
+                    mymapDownloadObj.appendChild(linnk);
+                }
+
             });
         });
-        // $('#download_map').attr("href",window.location.host+"/downloadMap?mapID="+mapname+"&userid="+userid);
-        // on('click', function (evt) {
-        //     console.log('Button got clicked');
-        //     console.log('Map id = '+mapname);
-        //     console.log('User id = '+userid);
-        //     var dat={};
-        //     dat.mapID=mapname;
-        //     dat.userid=userid;
-        //     // window.location.href = "/downloadMap?mapID="+mapname+"&userid="+userid;
-        //
-        //     $.ajax({
-        //         url: '/downloadMap',
-        //         method: 'POST',
-        //         data: JSON.stringify(dat),
-        //         contentType: 'application/json'
-        //     }).done(function(msg){
-        //         console.log('This is my msg : ');
-        //         $('#temp').attr("src",msg);
-        //     });
 
-        // });
         $('#logoutsearch').on('click', function(evt){
              window.location.href="#";
         });

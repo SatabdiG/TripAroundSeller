@@ -28,10 +28,14 @@ function iteniarygenerator()
         });
         console.log("You are in the iteniary page"+userid);
         initialize();
+
+
+        // -muaz  Following code sends request to server in order to fetch itineraries for a particular user and map name
+        // -muaz  Once fetched they are displayed in to divs.
+
         var dat={};
         dat.mapID=mapname;
-        dat.userid=userid;
-
+        dat.userid=userid
         $.ajax({
             url: '/fetchiter',
             method: 'POST',

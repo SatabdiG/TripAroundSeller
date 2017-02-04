@@ -27,10 +27,16 @@ var mongofil="mongodb://localhost:27017/testimages";
 
 //Blurred Detection middlewares.
 
-// Image Compressione
+// -muaz for compression at server side, imagemin middleware is used, link: https://www.npmjs.com/package/imagemin
+// -muaz Follow installation instruction mentioned on web page.
+// Image Compression
 const imagemin = require('imagemin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminPngquant = require('imagemin-pngquant');
+
+// -muaz for map generation in order to fit linear and quadratic model between two points
+var math = require('mathjs');
+var linspace = require('linspace');
 
 var userid;
 var filename;
@@ -711,6 +717,7 @@ app.post('/dragdrop', function(req,res){
   form.uploadDir=path.join(__dirname,'/uploads');
   form.on('file',function(field,file){
     console.log("File Name"+file.name);
+    // -muaz Image compression at server side, this compression is for the images which are received using dropzone.
     fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
         imagemin([path.join(form.uploadDir,file.name)], path.join(form.uploadDir), {
             plugins: [
@@ -983,7 +990,7 @@ app.post('/userdetailssave', function(req, res){
 });
 
 //Save Images of registered users
-
+// -muaz Following code accepts image from client and compresses it.
 app.post('/userimageupload', function(req,res){
   console.log("In registered user handler");
   var form=new formidable.IncomingForm();
@@ -1055,6 +1062,7 @@ app.post('/userimageupload', function(req,res){
 
   });
 
+  // -muaz actual file compression goes here. Compresses it and saves it in to folder. This compression is for single image upload.
   form.on('file',function(field,file){
     console.log("File name"+file.path+"  "+path.join(form.uploadDir,file.name));
     fs.rename(file.path, path.join(form.uploadDir, file.name), function(){
@@ -1108,9 +1116,10 @@ app.post('/updateimagedescription', function (req, res) {
   });
 });
 
+// -muaz  Recieves the file with extension '.docx', saves it in folder 'uploads', calls the script process_doc.py which parses
+// -muaz  the doc file and send the parsed content back to this function by which data get saved in to database.
 app.post('/file_upload', function(req, res) {
     // var user=req.body.sessioninfo.userid;
-    console.log("\n\n\tUploading: I am here : halllllloooo2");
     var form = new formidable.IncomingForm();
     form.multiple=true;
     var userID;
@@ -1129,8 +1138,8 @@ app.post('/file_upload', function(req, res) {
     });
 
 
-
     req.pipe(req.busboy);
+    // receiving file and saving it on file system.
     req.busboy.on('file', function (fieldname, file, filename) {
         console.log("Uploading: " + filename);
         myFileName = filename;
@@ -1139,29 +1148,34 @@ app.post('/file_upload', function(req, res) {
         file.pipe(fstream);
     });
 
+    // -muaz  once saved on file system, a thread is generated in order to call process_doc.py file which then parses it.
     req.busboy.on('finish', function () {
         console.log("OK Everything is done now.");
         console.log("userid: " + userID);
         console.log("mapID: " + mapID);
         console.log("myFileName: " + myFileName);
 
+        // -muaz  receiving data from python file asynchronously,
         py.stdout.on('data', function(data){
             dataString += data.toString();
             console.log("\n\t\t\t\tIn data");
         });
+        // -muaz  Once thread is finished this function gets triggered where parsed data get saved in to database.
         py.stdout.on('end', function(){
-            // console.log ("I am hereeeee "+dataString)
+
+            // -muaz jsonObj is a json object with keys heading_x and content_x where 'x' is the number of a heading, so
+            // -muaz if we have 10 headings and contents, jsonObj will contain heading_1 to heading_10 and similar is for
+            // -muaz contents.
             var jsonObj = JSON.parse(dataString);
-            jsonObj.userID = userID
-            jsonObj.mapID = mapID
-            // console.log("This is heading number 1"+jsonObj["heading_1"])
+            jsonObj.userID = userID;
+            jsonObj.mapID = mapID;
+
+            // -muaz  saving data in to database.
             connect.saveDocs(mongofil, jsonObj, function (msg) {
                 if(msg!= undefined) {
                     if(msg == "done") //{
-                        console.log("Document saved: "+ msg);
-                    // return res.end("yes doc saved");}
+                        console.log("Document saved: "+ msg)
                     else
-                    // return res.end("no");
                         console.log("No");
                 }
             });
@@ -1169,6 +1183,7 @@ app.post('/file_upload', function(req, res) {
             return res.end('Completed');
 
         });
+        // -muaz  calling the pyton file with name of file as argument.
         py.stdin.write(JSON.stringify(myFileName));
         py.stdin.end();
 
@@ -1197,26 +1212,126 @@ function geotoPix(lat, lng, width, height, transX, transY, scaleFactor){
     return [(lng + transX)* scaleFactor, height - (lat - transY)* scaleFactor];
 }
 
-function translate(pts, w, h){
-  pts[0] = parseInt(pts[0]);
-  pts[1] = parseInt(pts[1]);
-  // console.log(pts[0] + ', '+pts[1])
-  if (pts[0] == 0){
-      pts[0] += 10;
-  }
-  if (pts[1] == 0){
-      pts[1] += 10;
-  }
-  if (pts[0] == w){
-      pts[0] -= 50;
-  }
-  if (pts[1] == h){
-      pts[1] -= 50;
-  }
-  // console.log()
-  // console.log('Now : '+pts[0] + ', '+pts[1])
-  return pts;
+function findLinearModel(y2, y1, x2, x1){
+    m = (y2 - y1)/(x2 - x1);
+    b = y2 - m*x2;
+    // console.log('Between vector: ('+x1+', '+y1+') and ('+x2+', '+y2+')  Slope : '+m);
+    // console.log('Bias: '+b);
+    return [m, b];
 }
+
+function findQuadraticModel(y3, y2, y1, x3, x2, x1){
+    A = [[x3*x3, x3, 1], [x2*x2, x2, 1], [x1*x1, x1, 1]];
+    Y = [[y3], [y2], [y1]];
+    AInv = math.inv(A);
+    X = math.multiply(AInv, Y);
+    newX = [X[0][0], X[1][0], X[2][0]];
+    return newX;
+}
+polynomials = 2;
+
+function findBasisFunctionModel(int_x_pts, int_y_pts){
+  i = 0;
+  A = [];
+  for(p=0;p<int_x_pts.length;p++){
+    ptt = int_x_pts[p];
+    rowVector = [];
+    for(i=0;i<=polynomials;i++){
+        rowVector.push(Math.pow(ptt, i));
+        // if(i%2==0)
+        //   rowVector.push(Math.sin(i*ptt));
+        // else
+        //     rowVector.push(Math.cos(i*ptt));
+    }
+    A.push(rowVector);
+  }
+  Y = [];
+  for(p=0;p<int_y_pts.length;p++) {
+      Y.push([int_y_pts[p]]);
+  }
+  // console.log(A);
+  ATranspose = math.transpose(A);
+  matMul = math.multiply(ATranspose, A);
+  matMulInv = math.inv(matMul);
+  matMulInvMulATranspose = math.multiply(matMulInv, ATranspose);
+  weights = math.multiply(matMulInvMulATranspose, Y);
+  // W = [weights[0][0], weights[1][0], weights[2][0]];
+    W = [];
+    for(p=0;p<=polynomials;p++){
+      W.push(weights[p][0]);
+    }
+  // W = [weights[0][0], weights[1][0]];
+  return W;
+}
+
+function getCurvesBetweenPoints(last_point, pts){
+    console.log('Fetching points between '+last_point+' and '+pts);
+    lin_model = findLinearModel(pts[1], last_point[1], pts[0], last_point[0]);
+    slope = lin_model[0];
+    bias = lin_model[1];
+
+    numberofPointsInBetween = 1;
+    int_x_pts = [];
+    int_y_pts = [];
+
+    // -muaz Following code is working and it used generate route like a polynomial
+    // START
+    // int_x_pts.push(last_point[0]);
+    // int_y_pts.push(last_point[1]);
+    // for(ix=0;ix<numberofPointsInBetween;ix++){
+    //     random_ratio = Math.random();
+    //     x_int = (pts[0]+ last_point[0]) * random_ratio;
+    //     int_x_pts.push(x_int);
+    //
+    //     y_int = slope*x_int + bias;
+    //
+    //     preturb_amount = Math.random();
+    //     diff_y = (pts[1] - last_point[1]);
+    //     preturbation = diff_y * preturb_amount;
+    //     y_int_preturbed = y_int + preturbation;
+    //     int_y_pts.push(y_int_preturbed);
+    // }
+    // int_x_pts.push(pts[0]);
+    // int_y_pts.push(pts[1]);
+    // console.log(int_x_pts);
+    // W = findBasisFunctionModel(int_x_pts, int_y_pts);
+
+    x_int = (pts[0]+ last_point[0])/2;
+
+    y_int = slope*x_int + bias;
+
+    curveFactor = 0.01; // 0 is no curve, 1 is fully curved
+    diff_y = (pts[1] - last_point[1]);
+    preturbation = diff_y * curveFactor;
+    y_int_preturbed = y_int + preturbation;
+
+    diff_x = Math.abs(pts[0] - last_point[0]);
+    points_to_generate = parseInt(diff_x * 1.25);
+
+    lins = linspace(last_point[0], pts[0], points_to_generate);
+    QM = findQuadraticModel(y_int_preturbed, pts[1], last_point[1], x_int, pts[0], last_point[0]);
+    hess = QM[0];
+    lin = QM[1];
+    bias = QM[2];
+    x1 = lins[0];
+
+    newPtList = [];
+    // console.log(lins.length)
+    for(idx = 0; idx < lins.length; idx++){
+
+        yy = hess*Math.pow(lins[idx],2) + lin*lins[idx] + bias;
+        // yy=0;
+        // for(p =0;p<=polynomials;p++){
+        //   yy+=W[p]*Math.pow(lins[idx], p);
+        // }
+        // yy = W[0]*Math.sin(0*lins[idx]) + W[1]*Math.cos(1*lins[idx]) ;
+        newPt = [parseInt(lins[idx]), yy];
+        newPtList.push(newPt);
+    }
+    return newPtList;
+}
+
+// -muaz Code where fancy map gets generated
 app.post('/downloadMap', function(req, res){
     var mime = require('mime');
     var mapID=req.body.mapID;
@@ -1226,36 +1341,34 @@ app.post('/downloadMap', function(req, res){
     lats = [];
     lngs = [];
     connect.fetchMarkers(mongofil, userid, mapID, function (locs) {
-        // console.log(locs)
-        // console.log(typeof locs)
-        // console.log(locs["Lat"]);
+        // -muaz latitudes and longitudes are fetched from database.
         obj = JSON.parse(locs);
-        // console.log(obj[0]);
         for(i = 0; i< obj.length; i++){
           lats.push(obj[i]["Lat"]);
           lngs.push(obj[i]["Lng"]);
         }
 
-        scaleFactor = 5;
+        // scaleFactor controls actual size of the image.
+        scaleFactor = 5 ;
+        line_width = scaleFactor;
         basic_w = 360;
         basic_h = 170;
 
+        // -muaz Ultimate width and height of image.
         width = basic_w*scaleFactor;
         height = basic_h*scaleFactor;
 
-        // Translating Geolocations to pixels
+        // -muaz Translating Geolocations to pixels
         for(x = 0; x < lngs.length; x++) {
-            console.log('Lat = '+ lats[x]+', Lng = '+lngs[x]);
+            // console.log('Lat = '+ lats[x]+', Lng = '+lngs[x]);
             pts = geotoPix(lats[x], lngs[x], width, height, basic_w/2, -basic_h/2, scaleFactor);
             lngs[x] = pts[0];
             lats[x] = pts[1];
-            console.log('Now : '+ parseInt(pts[0])+',  '+parseInt(pts[1]));
         }
 
-        for(i = 0; i< lats.length; i++)
-          console.log(""+lats[i]+", "+lngs[i]);
-
-
+        // -muaz  canvas middleware is used in order to draw/plot things on image. Middleware can be found at following
+        // -muaz location: https://www.npmjs.com/package/canvas. Please following proper instruction in order to use
+        // -muaz canvas properly
         var Canvas = require('canvas')
             , Image = Canvas.Image
             , canvas = new Canvas(width, height)
@@ -1268,22 +1381,15 @@ app.post('/downloadMap', function(req, res){
         var diff_lat = max_lat - min_lat;
         var diff_lng = max_lng - min_lng;
 
+        // -muaz y-axis margin was kept to be 25% of th height such that map looks centered
         margin_y = 0.25 * height; // margin_y is 25% of total height
-        margin_x = 2 * margin_y;
+        margin_x = 2 * margin_y; // margin_x is twice as margin_y
 
+        // -muaz scaling factors for latitude and longitude to have a "zoom" effect.
         scaling_lat = (height - 2 * margin_y) / diff_lat;
         scaling_lng = (width - 2 * margin_x) / diff_lng;
 
-
-
-        console.log('Min = '+ min_lat+' max = '+max_lat);
-        console.log('Min = '+ min_lng+' max = '+max_lng);
-        console.log('Diff lng = '+ diff_lng+' Diff lat = '+diff_lat);
-        console.log('Scaling lng = '+ scaling_lng+' Scaling lat = '+scaling_lat);
-        console.log('margin_x = '+ margin_x+' margin_y = '+margin_y);
-
-          // console.log("Lat is "+lats[i]+" lng is "+lngs[i]);
-
+        // -muaz Here is where background image is placed. Change this image/location in order to have different background.
         require("fs").readFile(__dirname+'/public/FrontEnd/Pictures/bg.png', function(err1, squid){
             if (err1) throw err1;
             map_img = new Image;
@@ -1291,6 +1397,7 @@ app.post('/downloadMap', function(req, res){
 
             ctx.drawImage(map_img, 0, 0, width, height);
 
+            // -muaz marker image has to be loaded first in order to place it at multiple places.
             require("fs").readFile(__dirname+'/public/FrontEnd/Pictures/marker_2.png', function(err, squid){
                 if (err) throw err;
                 img = new Image;
@@ -1298,27 +1405,44 @@ app.post('/downloadMap', function(req, res){
 
                 ctx.font = "20px Arial";
 
-
+                // -muaz these offsets are found empirically, these offsets are used because without these marker images
+                // -muaz and "routes" does not coincide. So to remove that artifact these offsets are used.
+                offset_x = 0.023*width; // found 0.023 empirically
+                offset_y = 0.0353*height; // found 0.0353 empirically
+                last_point = [];
                 for(x = 0; x < lngs.length; x++) {
-
+                    // -muaz lats and lngs (which were already in form of pixels) are then scaled and margins were added
                     pts = [(lngs[x] - min_lng ) * scaling_lng+ margin_x, (lats[x] - min_lat ) *scaling_lat+ margin_y];
-                    // pts = translate(pts, width, height);
-                    // pts = [(lngs[x]), (lats[x])];
-                    console.log('plotting = '+ parseInt(pts[0])+',  '+parseInt(pts[1]));
-                    // console.log('plotting = '+ parseInt(lngs[x])+',  '+parseInt(lats[x]));
-                    // pts = geotoPix(lats[x], lngs[x], width, height, basic_w/2, -85, scaleFactor);
-                    // console.log(lngs[x]+ ', '+lats[x]+' and '+pts[0]+ ', '+pts[1]);
-                    // ctx.lineTo(pts[0], pts[1]);
-                    // ctx.lineTo(lngs[x]*1 + 180, height-lats[x]*1-85);
-                    ctx.drawImage(img, pts[0], pts[1], img.width / 4, img.height / 4);
-                    // ctx.fillText(names[x], pts[0]+10, pts[1]+10);
+
+                    ctx.lineWidth = line_width;
+                    if (x >= 1){
+                        // -muaz in between two points, list of curvy points has to be generated such that route looks fancier.
+                        ptList = getCurvesBetweenPoints(last_point, pts);
+
+                        // -muaz once points are found they get rendered to the image.
+
+                        for(idx = 0; idx < ptList.length; idx++){
+                            pt = ptList[idx];
+                            if(idx==0){
+                                ctx.moveTo(pt[0] + offset_x, pt[1]+ offset_y);
+                            }
+                            else{
+                                ctx.lineTo(pt[0]+ offset_x, pt[1]+ offset_y);
+                            }
+
+                        }
+                        ctx.stroke();
+                        // break
+                    }
+
+
+                    ctx.drawImage(img, pts[0], pts[1], img.width * 0.05*scaleFactor, img.height * 0.05*scaleFactor);
+                    last_point = pts;
                 }
 
-
+                // -muaz once finished rendering, image get saved to proper location.
                 var base64Data = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
                 require("fs").writeFile(__dirname+"/uploads/"+userid+"/"+mapID+".png", base64Data, 'base64', function(err) {
-                    // console.log('hello '+err);
-                    // console.log("");
                     return res.end("/uploads/"+userid+"/"+mapID+".png");
                 });
             });

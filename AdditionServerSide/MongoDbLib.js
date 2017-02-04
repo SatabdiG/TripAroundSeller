@@ -1169,6 +1169,8 @@ retrievevalues: function ( connectionstring, databasename, mapdataversionid, mar
         }
       });
     },
+
+    // -muaz following function saves parsed doc file in to docscollection
     saveDocs: function(connectionstring, json_data, callback){
         if (callback) callback();
 

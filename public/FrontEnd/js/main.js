@@ -793,6 +793,8 @@ function imagecontroller(){
 
     });
 
+    // -muaz Following are utility functions for image compression
+
     function dataURItoBlob(dataURI) {
           // convert base64/URLEncoded data component to raw binary data held in a string
           var byteString;
@@ -856,7 +858,12 @@ function imagecontroller(){
 
     Dropzone.autoDiscover=false;
 
+
     //Dropzone Code
+      // -muaz Client side compression in Drop zone. In Drop zone files gets compressed once they are dropped
+      // -muaz Note that there is a bug, if you drag and drop multiple images at one time
+      // -muaz only one of them would get compressed among them. But if files get dropped one by one with some delay then
+      // -muaz all of them get compressed at client side.
     var myDropZone=new Dropzone("#dropzonePreview",{
       url:"/dragdrop",
       autoProcessQueue:false,
@@ -949,7 +956,7 @@ function imagecontroller(){
             });
 
             file.previewElement.appendChild(removebutton);
-
+            // -muaz Image compression code goes here. Tutorial followed: https://github.com/brunobar79/J-I-C
             myReader2 = new FileReader();
             myReader2.onload = function(event) {
                 console.log(file.status);
@@ -1127,6 +1134,9 @@ function imagecontroller(){
             var filetmp=fileemenet[i];
             filenameglobal=filetmp.name;
             //console.log("File name########"+filetmp.name);
+
+            // -muaz Image compression using input button, done same way as in dropzone.
+
             myReader = new FileReader();
             myReader.onload = function(event) {
                 var i = document.getElementById("source_image");
@@ -1447,6 +1457,7 @@ function imagecontroller(){
         });
       }
     });
+    // -muaz when user uploads doc file this function gets triggered.
       $('#submit_doc').click(function(evt){
           console.log ( '#submit_doc was clicked' );
           $("#myFile").prop('disabled', true);
@@ -1475,7 +1486,8 @@ function imagecontroller(){
           formData.append('sessioninfo', JSON.stringify(sessioninfo));
           // Set up the request.
           var xhr = new XMLHttpRequest();
-          // Open the connection.
+
+          // -muaz generates AJAX call to file_upload function in server.js
           xhr.open('POST', '/file_upload', true);
 
           // Set up a handler for when the request finishes.
